@@ -1,0 +1,1063 @@
+<title>アンサークエスト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap">
+<style>
+/* Layout: one centered column (max 560px). Screens swap in place; every panel is a framed RPG window over a night-dungeon ground. Single dark look by design. */
+:root{
+  color-scheme: dark;
+  --night:#0a0d24;
+  --ground:#18205a;
+  --win:#0d1238;
+  --frame:#f4f0e2;
+  --shadow:#000000;
+  --ink:#f4f0e2;
+  --muted:#a3abd6;
+  --gold:#f5c74a;
+  --hp:#62d982;
+  --danger:#ff6a57;
+  --sky:#72c7ff;
+  --f-ui:"DotGothic16","Hiragino Kaku Gothic ProN","Yu Gothic",monospace;
+  --f-logo:"Press Start 2P","DotGothic16",monospace;
+}
+html,body{height:100%}
+body{
+  background:
+    radial-gradient(1px 1px at 12% 18%, var(--muted) 50%, transparent 51%),
+    radial-gradient(1px 1px at 78% 9%, var(--muted) 50%, transparent 51%),
+    radial-gradient(1px 1px at 55% 30%, var(--muted) 50%, transparent 51%),
+    radial-gradient(1px 1px at 90% 42%, var(--muted) 50%, transparent 51%),
+    radial-gradient(1px 1px at 30% 60%, var(--muted) 50%, transparent 51%),
+    var(--night);
+  color:var(--ink);
+  font-family:var(--f-ui);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:none;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+button,input{font:inherit;color:inherit}
+.app{max-width:560px;margin:0 auto;padding-inline:16px;padding-block:16px 24px;min-height:100%;display:flex;flex-direction:column}
+.screen{display:flex;flex-direction:column;gap:12px;flex:1}
+
+/* RPG window */
+.win{background:var(--win);border:3px solid var(--frame);border-radius:8px;box-shadow:0 0 0 3px var(--shadow),inset 0 0 0 2px var(--shadow);padding:12px 14px}
+.label{font-size:12px;letter-spacing:.12em;color:var(--muted)}
+.row{display:flex;align-items:center;gap:10px}
+.spread{justify-content:space-between}
+.grow{flex:1;min-width:0}
+
+/* Buttons */
+.btn{position:relative;display:block;width:100%;text-align:left;background:var(--win);border:3px solid var(--frame);border-radius:8px;box-shadow:0 0 0 3px var(--shadow);padding:12px 14px 12px 30px;cursor:pointer;line-height:1.4}
+.btn::before{content:"▶";position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--gold);opacity:0}
+.btn:hover:not(:disabled),.btn:focus-visible{background:var(--ground);outline:none}
+.btn:hover:not(:disabled)::before,.btn:focus-visible::before{opacity:1}
+.btn:disabled{cursor:default;opacity:.55}
+.btn.primary{border-color:var(--gold);color:var(--gold);text-align:center;padding-left:14px;font-size:18px}
+.btn.primary::before{left:14px}
+.btn.small{font-size:14px;padding:6px 10px 6px 22px;width:auto;display:inline-block}
+.btn.small::before{left:7px;font-size:10px}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap}
+.btn-row .btn{flex:1;min-width:140px}
+
+/* Bars */
+.bar{height:10px;border:2px solid var(--frame);border-radius:3px;background:var(--shadow);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--hp);transition:width .35s steps(6)}
+.bar.gold>i{background:var(--gold)}
+.bar.low>i{background:var(--danger)}
+.num{font-variant-numeric:tabular-nums}
+
+/* Title */
+.logo{font-family:var(--f-logo);font-size:clamp(20px,6.5vw,32px);line-height:1.35;color:var(--gold);text-align:center;text-shadow:3px 3px 0 var(--shadow),0 0 18px rgba(245,199,74,.35);margin:18px 0 0;letter-spacing:.04em}
+.logo-sub{text-align:center;font-size:18px;letter-spacing:.4em;margin:4px 0 0}
+.parade{display:flex;justify-content:center;align-items:flex-end;gap:10px;flex-wrap:wrap;padding:18px 0 6px}
+.parade canvas{height:56px}
+.tagline{text-align:center;color:var(--muted);font-size:14px;margin:0}
+.field{display:flex;flex-direction:column;gap:6px}
+.field input{background:var(--shadow);border:2px solid var(--frame);border-radius:4px;padding:8px 10px;font-size:18px;width:100%}
+.field input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* Sprites */
+canvas.sprite{image-rendering:pixelated;image-rendering:crisp-edges;width:auto;display:block}
+
+/* Map */
+.hero-head{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.hero-name{font-size:20px}
+.lv{font-family:var(--f-logo);font-size:12px;color:var(--gold)}
+.stage{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:10px 12px 10px 30px}
+.stage canvas{height:48px;margin:0 auto}
+.stage .sname{font-size:18px}
+.stage .smeta{font-size:12px;color:var(--muted)}
+.stage .swins{font-size:12px;color:var(--gold);text-align:right}
+.stage.locked{border-style:dashed}
+.chip{display:inline-block;border:1px solid var(--muted);border-radius:3px;padding:0 6px;font-size:12px;color:var(--muted)}
+.soon{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.soon .win{padding:10px 12px;border-style:dashed;opacity:.7}
+.soon b{display:block;font-weight:normal}
+.soon span{font-size:12px;color:var(--muted)}
+h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);margin:8px 0 0}
+
+/* Battle */
+.enemy-bar .ename{font-size:18px}
+.combo{font-family:var(--f-logo);font-size:11px;color:var(--gold);white-space:nowrap}
+.scene{position:relative;height:clamp(160px,30vh,250px);border:3px solid var(--frame);border-radius:8px;box-shadow:0 0 0 3px var(--shadow);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px}
+.scene::after{content:"";position:absolute;left:50%;bottom:10px;width:46%;height:14px;transform:translateX(-50%);background:rgba(0,0,0,.45);border-radius:50%;z-index:0}
+.scene canvas{position:relative;z-index:1;height:78%;max-width:100%;animation:bob 1.2s steps(2) infinite}
+.bg-forest{background:linear-gradient(#123522 0 55%,#1f4d2a 55% 100%)}
+.bg-town{background:linear-gradient(#3a2457 0 55%,#5a3b3b 55% 100%)}
+.bg-ruins{background:linear-gradient(#141233 0 55%,#2c2a4a 55% 100%)}
+.bg-cave{background:linear-gradient(#1b1716 0 55%,#3a302a 55% 100%)}
+.bg-field{background:linear-gradient(#2b3f5c 0 55%,#5b3a1e 55% 100%)}
+.bg-volcano{background:linear-gradient(#2a0b14 0 55%,#5a1a12 55% 100%)}
+.dmg{position:absolute;left:50%;top:30%;z-index:2;font-family:var(--f-logo);font-size:22px;color:var(--frame);text-shadow:2px 2px 0 var(--shadow);transform:translateX(-50%);animation:floatUp .9s steps(8) forwards;pointer-events:none}
+.dmg.crit{color:var(--gold);font-size:28px}
+.question{text-align:center;padding:10px 14px 12px}
+.qword{font-size:clamp(28px,8vw,40px);line-height:1.25;margin:2px 0 8px;word-break:break-word}
+.timer{height:8px}
+.timer>i{transition:none;background:var(--gold)}
+.timer.norm>i{background:var(--sky)}
+.timer.slow>i{background:var(--danger)}
+.tlabel{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choices .btn{min-height:58px;font-size:16px;padding:8px 10px 8px 26px;display:flex;align-items:center;gap:6px}
+.choices .btn::before{left:8px}
+.choices .key{font-family:var(--f-logo);font-size:9px;color:var(--muted)}
+.btn.is-right{border-color:var(--hp);background:#14402a;opacity:1}
+.btn.is-wrong{border-color:var(--danger);background:#4a1612;opacity:1}
+.explain{display:flex;flex-direction:column;gap:8px}
+.explain .ans{font-size:22px;color:var(--gold)}
+.explain .ex{font-size:15px}
+.explain .exj{font-size:13px;color:var(--muted)}
+.msg{min-height:3.6em;font-size:15px}
+.msg .sub{color:var(--muted);font-size:13px}
+.status .pname{font-size:16px}
+.hp-num{font-size:13px}
+
+/* Result */
+.result-title{font-family:var(--f-logo);font-size:24px;text-align:center;margin:16px 0 4px}
+.result-title.win-t{color:var(--gold)}
+.result-title.lose-t{color:var(--danger)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.stats b{display:block;font-size:22px;font-weight:normal}
+.stats span{font-size:11px;color:var(--muted)}
+.wlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.wlist li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) auto;gap:10px;padding:8px 0;border-bottom:1px dashed rgba(244,240,226,.18);align-items:center}
+.wlist li:last-child{border-bottom:0}
+.wlist .en{font-size:16px;overflow-wrap:anywhere}
+.wlist .ja{font-size:14px;color:var(--muted);overflow-wrap:anywhere}
+.stars{color:var(--gold);letter-spacing:1px;white-space:nowrap;font-size:13px}
+.stars .off{color:#3a4170}
+.up{color:var(--hp);font-size:11px}
+.down{color:var(--danger);font-size:11px}
+
+/* Dex */
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{background:transparent;border:2px solid var(--muted);border-radius:4px;padding:4px 10px;font-size:14px;cursor:pointer;color:var(--muted)}
+.tab[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+.tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.dex li{cursor:pointer}
+.dex.hide .ja{filter:blur(6px)}
+.dex.hide li.peek .ja{filter:none}
+.dex .exrow{grid-column:1/-1;font-size:13px;color:var(--muted)}
+
+.confirm{border-color:var(--danger)}
+.note{font-size:12px;color:var(--muted);margin:0}
+
+/* Motion */
+@keyframes bob{50%{transform:translateY(-4px)}}
+@keyframes hit{0%,100%{transform:translateX(0);filter:none}20%{transform:translateX(-8px);filter:brightness(3)}40%{transform:translateX(8px)}60%{transform:translateX(-5px);filter:brightness(3)}80%{transform:translateX(4px)}}
+@keyframes shake{0%,100%{transform:translate(0)}25%{transform:translate(-6px,3px)}50%{transform:translate(6px,-3px)}75%{transform:translate(-3px,2px)}}
+@keyframes floatUp{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-46px)}}
+@keyframes vanish{0%{opacity:1}100%{opacity:0;transform:scaleY(.1) translateY(40px)}}
+@keyframes flashRed{0%,100%{box-shadow:0 0 0 3px var(--shadow)}50%{box-shadow:0 0 0 3px var(--danger)}}
+.anim-hit{animation:hit .4s steps(5)!important}
+.anim-vanish{animation:vanish .8s steps(6) forwards!important}
+.anim-shake{animation:shake .35s steps(4)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+@media (max-width:380px){
+  .choices{grid-template-columns:1fr}
+  .choices .btn{min-height:48px}
+}
+</style>
+
+<div class="app" id="app">
+
+  <!-- TITLE -->
+  <section class="screen" id="s-title">
+    <h1 class="logo">ANSWER<br>QUEST</h1>
+    <p class="logo-sub">アンサークエスト</p>
+    <div class="parade" id="parade"></div>
+    <p class="tagline">「どういう意味？」に、すぐ答えられる勇者になろう。</p>
+    <div class="win field">
+      <label class="label" for="nameInput">ゆうしゃの なまえ</label>
+      <input id="nameInput" maxlength="8" autocomplete="off">
+    </div>
+    <button class="btn primary" id="startBtn">ぼうけんを はじめる</button>
+  </section>
+
+  <!-- MAP -->
+  <section class="screen" id="s-map" hidden>
+    <div class="win hero-head">
+      <div class="hero-name" id="mapName"></div>
+      <div class="lv" id="mapLv"></div>
+      <div class="bar gold" style="grid-column:1/-1"><i id="mapExp"></i></div>
+      <div class="label" id="mapExpText" style="grid-column:1/-1"></div>
+    </div>
+    <div class="win row spread">
+      <div>
+        <div class="label">マスターした たんご</div>
+        <div class="num" style="font-size:22px"><span id="mapMastered">0</span><span style="font-size:14px;color:var(--muted)"> / <span id="mapTotal">0</span></span></div>
+      </div>
+      <div style="text-align:right">
+        <div class="label">ふくしゅう まち</div>
+        <div class="num" style="font-size:22px;color:var(--sky)" id="mapDue">0</div>
+      </div>
+    </div>
+    <h2>バトル ─ たおすほど 単語が 身につく</h2>
+    <div id="stageList" style="display:flex;flex-direction:column;gap:12px"></div>
+    <h2>じゅんびちゅうの モード</h2>
+    <div class="soon">
+      <div class="win"><b>スペル</b><span>意味から つづりを 完成させる</span></div>
+      <div class="win"><b>ならべかえ</b><span>単語を 並べて 文を つくる</span></div>
+      <div class="win"><b>ぼうけん</b><span>ステージを 進んで ボスへ</span></div>
+      <div class="win"><b>あなたの モンスター</b><span>写真を おくると もっと ふえる</span></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="dexBtn">たんご ずかん</button>
+      <button class="btn" id="settingBtn">せってい</button>
+    </div>
+  </section>
+
+  <!-- BATTLE -->
+  <section class="screen" id="s-battle" hidden>
+    <div class="win enemy-bar">
+      <div class="row spread"><span class="ename" id="eName"></span><span class="combo" id="combo"></span></div>
+      <div class="bar gold" style="margin-top:6px"><i id="eHp"></i></div>
+    </div>
+    <div class="scene" id="scene"><canvas class="sprite" id="eSprite"></canvas></div>
+    <div class="win question" id="questionWin">
+      <div class="label" id="qCat"></div>
+      <div class="qword" id="qWord">…</div>
+      <div class="bar timer" id="timer"><i id="timerFill" style="width:100%"></i></div>
+      <div class="tlabel"><span>かいしん</span><span>ふつう</span><span>いそげ！</span></div>
+    </div>
+    <div class="choices" id="choices"></div>
+    <div class="win explain" id="explain" hidden>
+      <div class="label">せいかいは…</div>
+      <div><span id="exWord"></span> ＝ <span class="ans" id="exAns"></span></div>
+      <div class="ex" id="exEn"></div>
+      <div class="exj" id="exJa"></div>
+      <button class="btn primary" id="nextBtn">つぎへ</button>
+    </div>
+    <div class="win msg" id="msg"></div>
+    <div class="win status" id="status">
+      <div class="row">
+        <span class="pname" id="pName"></span>
+        <span class="lv" id="pLv"></span>
+        <div class="grow"><div class="bar" id="pHpBar"><i id="pHp"></i></div></div>
+        <span class="hp-num num" id="pHpNum"></span>
+        <button class="btn small" id="runBtn">にげる</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen" id="s-result" hidden>
+    <div class="result-title" id="rTitle"></div>
+    <div class="scene" id="rScene" style="height:140px"><canvas class="sprite" id="rSprite"></canvas></div>
+    <div class="win msg" id="rMsg"></div>
+    <div class="win stats">
+      <div><b class="num" id="rAcc"></b><span>せいかい</span></div>
+      <div><b class="num" id="rCombo"></b><span>さいだい コンボ</span></div>
+      <div><b class="num" id="rAvg"></b><span>へいきん かいとう</span></div>
+    </div>
+    <div class="win">
+      <div class="label">このバトルの たんご</div>
+      <ul class="wlist" id="rList"></ul>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="againBtn">もういちど たたかう</button>
+      <button class="btn" id="toMapBtn">マップへ もどる</button>
+    </div>
+  </section>
+
+  <!-- DEX -->
+  <section class="screen" id="s-dex" hidden>
+    <div class="row spread">
+      <button class="btn small" id="dexBack">もどる</button>
+      <button class="btn small" id="dexHide" aria-pressed="false">いみを かくす</button>
+    </div>
+    <div class="tabs" id="dexTabs"></div>
+    <p class="note">いみを かくして、すぐ言えるか ためそう。タップで いみと 例文が でるよ。</p>
+    <div class="win"><ul class="wlist dex" id="dexList"></ul></div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section class="screen" id="s-setting" hidden>
+    <div class="win field">
+      <label class="label" for="nameInput2">ゆうしゃの なまえ</label>
+      <input id="nameInput2" maxlength="8" autocomplete="off">
+    </div>
+    <button class="btn" id="soundBtn"></button>
+    <button class="btn" id="resetBtn">きろくを けす</button>
+    <div class="win confirm" id="resetConfirm" hidden>
+      <p style="margin:0 0 10px">レベルと 単語の きろくが すべて きえます。本当に けしますか？</p>
+      <div class="btn-row">
+        <button class="btn" id="resetYes">けす</button>
+        <button class="btn" id="resetNo">やめる</button>
+      </div>
+    </div>
+    <p class="note">きろくは この端末の ブラウザに 保存されます。</p>
+    <button class="btn primary" id="settingBack">もどる</button>
+  </section>
+</div>
+
+<script>
+/* ===================== DATA ===================== */
+const CATS = {
+  kurashi:{name:'くらし', desc:'食べ物・場所・時間'},
+  kaiwa:{name:'かいわ', desc:'日常会話フレーズ'},
+  ugoki:{name:'うごき', desc:'動きのことば'},
+  yousu:{name:'ようす', desc:'気持ち・ようす'},
+  doubutsu:{name:'どうぶつ', desc:'動物の なまえ'}
+};
+
+const WORDS = [
+  // くらし
+  {w:'breakfast',m:'朝食',c:'kurashi',e:'I eat breakfast at seven.',j:'私は7時に朝食を食べます。'},
+  {w:'lunch',m:'昼食',c:'kurashi',e:"Let's have lunch together.",j:'いっしょに昼食を食べよう。'},
+  {w:'dinner',m:'夕食',c:'kurashi',e:'Dinner is ready!',j:'夕食ができたよ！'},
+  {w:'vegetable',m:'野菜',c:'kurashi',e:'I grow vegetables in my garden.',j:'庭で野菜を育てています。'},
+  {w:'fruit',m:'果物',c:'kurashi',e:'What fruit do you like?',j:'どんな果物が好き？'},
+  {w:'library',m:'図書館',c:'kurashi',e:'I study at the library.',j:'図書館で勉強します。'},
+  {w:'station',m:'駅',c:'kurashi',e:'Where is the station?',j:'駅はどこですか？'},
+  {w:'hospital',m:'病院',c:'kurashi',e:'My grandfather is in the hospital.',j:'祖父は入院しています。'},
+  {w:'weather',m:'天気',c:'kurashi',e:'How is the weather today?',j:'今日の天気はどう？'},
+  {w:'umbrella',m:'傘',c:'kurashi',e:'Take an umbrella with you.',j:'傘を持っていきなさい。'},
+  {w:'money',m:'お金',c:'kurashi',e:"I don't have much money.",j:'あまりお金を持っていません。'},
+  {w:'price',m:'値段',c:'kurashi',e:'The price is too high.',j:'値段が高すぎます。'},
+  {w:'holiday',m:'休日',c:'kurashi',e:'Have a nice holiday!',j:'よい休日を！'},
+  {w:'weekend',m:'週末',c:'kurashi',e:'What did you do last weekend?',j:'先週末は何をしたの？'},
+  {w:'tomorrow',m:'明日',c:'kurashi',e:'See you tomorrow.',j:'また明日ね。'},
+  {w:'yesterday',m:'昨日',c:'kurashi',e:'It rained yesterday.',j:'昨日は雨が降りました。'},
+  {w:'neighbor',m:'近所の人',c:'kurashi',e:'Our neighbor has a big dog.',j:'近所の人は大きな犬を飼っています。'},
+  {w:'kitchen',m:'台所',c:'kurashi',e:'Mom is in the kitchen.',j:'お母さんは台所にいます。'},
+  {w:'clothes',m:'服',c:'kurashi',e:'I bought new clothes.',j:'新しい服を買いました。'},
+  {w:'homework',m:'宿題',c:'kurashi',e:'Did you finish your homework?',j:'宿題は終わった？'},
+  {w:'present',m:'贈り物',c:'kurashi',e:'This is a present for you.',j:'これはあなたへの贈り物です。'},
+  {w:'season',m:'季節',c:'kurashi',e:'Which season do you like best?',j:'どの季節がいちばん好き？'},
+  {w:'island',m:'島',c:'kurashi',e:'Japan is an island country.',j:'日本は島国です。'},
+  {w:'village',m:'村',c:'kurashi',e:'He lives in a small village.',j:'彼は小さな村に住んでいます。'},
+  {w:'country',m:'国',c:'kurashi',e:'Which country do you want to visit?',j:'どの国を訪れたい？'},
+  {w:'future',m:'将来・未来',c:'kurashi',e:'What do you want to be in the future?',j:'将来何になりたい？'},
+  {w:'dream',m:'夢',c:'kurashi',e:'My dream is to be a doctor.',j:'私の夢は医者になることです。'},
+  {w:'problem',m:'問題',c:'kurashi',e:'We have a big problem.',j:'大きな問題があります。'},
+  {w:'idea',m:'考え・アイデア',c:'kurashi',e:"That's a good idea!",j:'それはいい考えだね！'},
+  {w:'memory',m:'思い出・記憶',c:'kurashi',e:"It's a happy memory.",j:'それは楽しい思い出です。'},
+  // かいわ
+  {w:'Never mind.',m:'気にしないで。',c:'kaiwa',e:'A: Sorry, I forgot. B: Never mind.',j:'A: ごめん、忘れてた。B: 気にしないで。'},
+  {w:'No way!',m:'まさか！',c:'kaiwa',e:'A: I won the game! B: No way!',j:'A: 試合に勝ったよ！B: まさか！'},
+  {w:'Take care.',m:'元気でね。',c:'kaiwa',e:'Bye! Take care.',j:'じゃあね！元気でね。'},
+  {w:'Of course.',m:'もちろん。',c:'kaiwa',e:'A: Can I come? B: Of course.',j:'A: 行ってもいい？B: もちろん。'},
+  {w:'Sounds good.',m:'いいね。',c:'kaiwa',e:"A: Let's eat pizza. B: Sounds good.",j:'A: ピザ食べよう。B: いいね。'},
+  {w:"I'm full.",m:'お腹いっぱい。',c:'kaiwa',e:"No more, thanks. I'm full.",j:'もういいです。お腹いっぱい。'},
+  {w:"What's up?",m:'元気？・どうしたの？',c:'kaiwa',e:"Hey, what's up?",j:'やあ、元気？'},
+  {w:'Hold on.',m:'ちょっと待って。',c:'kaiwa',e:'Hold on, I need my bag.',j:'ちょっと待って、かばんを取ってくる。'},
+  {w:'Good luck!',m:'がんばって！',c:'kaiwa',e:'Good luck on your test!',j:'テストがんばって！'},
+  {w:'Me too.',m:'私も。',c:'kaiwa',e:'A: I love cats. B: Me too.',j:'A: 猫が大好き。B: 私も。'},
+  {w:'Not yet.',m:'まだです。',c:'kaiwa',e:'A: Are you ready? B: Not yet.',j:'A: 準備できた？B: まだ。'},
+  {w:"That's right.",m:'その通り。',c:'kaiwa',e:"A: You're Ken, right? B: That's right.",j:'A: ケンだよね？B: その通り。'},
+  {w:"I'm not sure.",m:'よくわからない。',c:'kaiwa',e:"A: Where is Ken? B: I'm not sure.",j:'A: ケンはどこ？B: よくわからない。'},
+  {w:'Excuse me.',m:'すみません。',c:'kaiwa',e:'Excuse me, where is the station?',j:'すみません、駅はどこですか？'},
+  {w:'No problem.',m:'大丈夫だよ。',c:'kaiwa',e:'A: Can you help me? B: No problem.',j:'A: 手伝ってくれる？B: 大丈夫、いいよ。'},
+  {w:'Help yourself.',m:'ご自由にどうぞ。',c:'kaiwa',e:'Help yourself to the cookies.',j:'クッキーをご自由にどうぞ。'},
+  {w:'Here you are.',m:'はい、どうぞ。',c:'kaiwa',e:'Here you are. Your tea.',j:'はい、どうぞ。お茶です。'},
+  {w:'How about you?',m:'あなたはどう？',c:'kaiwa',e:"I'm fine. How about you?",j:'元気だよ。あなたは？'},
+  {w:"It's up to you.",m:'あなたに任せるよ。',c:'kaiwa',e:"A: Pizza or sushi? B: It's up to you.",j:'A: ピザと寿司どっち？B: 任せるよ。'},
+  {w:'I got it.',m:'わかった。',c:'kaiwa',e:'A: Call me later. B: I got it.',j:'A: あとで電話して。B: わかった。'},
+  {w:'Long time no see.',m:'久しぶり。',c:'kaiwa',e:'Hi! Long time no see!',j:'やあ！久しぶり！'},
+  {w:'Watch out!',m:'危ない！',c:'kaiwa',e:'Watch out! A car is coming!',j:'危ない！車が来てる！'},
+  {w:'Cheer up!',m:'元気出して！',c:'kaiwa',e:'Cheer up! You can do it.',j:'元気出して！君ならできるよ。'},
+  {w:'Just kidding.',m:'冗談だよ。',c:'kaiwa',e:"I'm 100 years old. Just kidding!",j:'私は100歳です。冗談だよ！'},
+  {w:'Calm down.',m:'落ち着いて。',c:'kaiwa',e:'Calm down and listen.',j:'落ち着いて聞いて。'},
+  {w:'Let me see.',m:'ええと…',c:'kaiwa',e:"Let me see... I think it's blue.",j:'ええと…青だと思う。'},
+  {w:'Nice to meet you.',m:'はじめまして。',c:'kaiwa',e:"I'm Ken. Nice to meet you.",j:'ケンです。はじめまして。'},
+  {w:'See you later.',m:'またあとでね。',c:'kaiwa',e:'I have to go. See you later!',j:'もう行かなきゃ。またあとでね！'},
+  {w:"You're welcome.",m:'どういたしまして。',c:'kaiwa',e:"A: Thanks! B: You're welcome.",j:'A: ありがとう！B: どういたしまして。'},
+  {w:"I'm on my way.",m:'今向かってるよ。',c:'kaiwa',e:"Don't worry, I'm on my way.",j:'心配しないで、今向かってるよ。'},
+  // うごき
+  {w:'remember',m:'覚えている・思い出す',c:'ugoki',e:'Do you remember me?',j:'私のこと覚えてる？'},
+  {w:'forget',m:'忘れる',c:'ugoki',e:"Don't forget your key.",j:'鍵を忘れないでね。'},
+  {w:'borrow',m:'借りる',c:'ugoki',e:'Can I borrow your pen?',j:'ペンを借りてもいい？'},
+  {w:'lend',m:'貸す',c:'ugoki',e:"I'll lend you my bike.",j:'自転車を貸してあげるよ。'},
+  {w:'choose',m:'選ぶ',c:'ugoki',e:'Choose one card.',j:'カードを1枚選んで。'},
+  {w:'decide',m:'決める',c:'ugoki',e:"I can't decide.",j:'決められないよ。'},
+  {w:'arrive',m:'到着する',c:'ugoki',e:'The train arrived on time.',j:'電車は時間どおりに到着した。'},
+  {w:'leave',m:'出発する・去る',c:'ugoki',e:'I leave home at eight.',j:'8時に家を出ます。'},
+  {w:'wait',m:'待つ',c:'ugoki',e:'Please wait here.',j:'ここで待っていてください。'},
+  {w:'believe',m:'信じる',c:'ugoki',e:'I believe you.',j:'君を信じるよ。'},
+  {w:'understand',m:'理解する',c:'ugoki',e:'I understand your feelings.',j:'あなたの気持ちを理解しています。'},
+  {w:'explain',m:'説明する',c:'ugoki',e:'Can you explain it again?',j:'もう一度説明してくれる？'},
+  {w:'practice',m:'練習する',c:'ugoki',e:'I practice the piano every day.',j:'毎日ピアノを練習します。'},
+  {w:'finish',m:'終える',c:'ugoki',e:'I finished my work.',j:'仕事を終えました。'},
+  {w:'begin',m:'始まる・始める',c:'ugoki',e:'The movie begins at six.',j:'映画は6時に始まります。'},
+  {w:'carry',m:'運ぶ',c:'ugoki',e:'Can you carry this box?',j:'この箱を運んでくれる？'},
+  {w:'catch',m:'捕まえる',c:'ugoki',e:'The cat caught a mouse.',j:'猫がネズミを捕まえた。'},
+  {w:'throw',m:'投げる',c:'ugoki',e:'Throw the ball to me.',j:'ボールを私に投げて。'},
+  {w:'build',m:'建てる',c:'ugoki',e:'They built a new house.',j:'彼らは新しい家を建てた。'},
+  {w:'grow',m:'育つ・育てる',c:'ugoki',e:'Tomatoes grow fast.',j:'トマトは早く育ちます。'},
+  {w:'climb',m:'登る',c:'ugoki',e:"Let's climb Mt. Fuji.",j:'富士山に登ろう。'},
+  {w:'worry',m:'心配する',c:'ugoki',e:"Don't worry.",j:'心配しないで。'},
+  {w:'hope',m:'望む・願う',c:'ugoki',e:'I hope you like it.',j:'気に入ってくれるといいな。'},
+  {w:'agree',m:'賛成する',c:'ugoki',e:'I agree with you.',j:'あなたに賛成です。'},
+  {w:'invite',m:'招待する',c:'ugoki',e:'She invited me to her party.',j:'彼女は私をパーティーに招待してくれた。'},
+  {w:'visit',m:'訪れる',c:'ugoki',e:'I visited Kyoto last year.',j:'去年、京都を訪れました。'},
+  {w:'answer',m:'答える',c:'ugoki',e:'Answer the question.',j:'その質問に答えて。'},
+  {w:'spend',m:'（時間を）過ごす・（お金を）使う',c:'ugoki',e:'I spent the day at home.',j:'一日を家で過ごしました。'},
+  {w:'save',m:'救う・節約する',c:'ugoki',e:"Let's save money.",j:'お金を節約しよう。'},
+  {w:'change',m:'変える・変わる',c:'ugoki',e:"You haven't changed at all.",j:'全然変わってないね。'},
+  // ようす
+  {w:'happy',m:'うれしい・幸せな',c:'yousu',e:"I'm happy to see you.",j:'会えてうれしいです。'},
+  {w:'angry',m:'怒った',c:'yousu',e:'Why are you angry?',j:'なんで怒ってるの？'},
+  {w:'tired',m:'疲れた',c:'yousu',e:"I'm so tired today.",j:'今日はとても疲れた。'},
+  {w:'hungry',m:'お腹がすいた',c:'yousu',e:"I'm hungry. Let's eat!",j:'お腹すいた。食べよう！'},
+  {w:'sleepy',m:'眠い',c:'yousu',e:"I'm sleepy.",j:'眠いなあ。'},
+  {w:'afraid',m:'怖がって',c:'yousu',e:"I'm afraid of dogs.",j:'私は犬が怖いです。'},
+  {w:'surprised',m:'驚いた',c:'yousu',e:'I was surprised at the news.',j:'その知らせに驚きました。'},
+  {w:'excited',m:'わくわくした',c:'yousu',e:"I'm excited about the trip.",j:'旅行にわくわくしています。'},
+  {w:'nervous',m:'緊張した',c:'yousu',e:"I'm nervous before the test.",j:'テストの前は緊張します。'},
+  {w:'bored',m:'退屈した',c:'yousu',e:"I'm bored. Let's go out.",j:'退屈だなあ。出かけよう。'},
+  {w:'kind',m:'親切な・やさしい',c:'yousu',e:'She is very kind.',j:'彼女はとても親切です。'},
+  {w:'busy',m:'忙しい',c:'yousu',e:"I'm busy this week.",j:'今週は忙しいです。'},
+  {w:'quiet',m:'静かな',c:'yousu',e:'Please be quiet.',j:'静かにしてください。'},
+  {w:'dangerous',m:'危険な',c:'yousu',e:'This river is dangerous.',j:'この川は危険です。'},
+  {w:'important',m:'大切な・重要な',c:'yousu',e:'Family is important.',j:'家族は大切です。'},
+  {w:'famous',m:'有名な',c:'yousu',e:'He is a famous singer.',j:'彼は有名な歌手です。'},
+  {w:'expensive',m:'値段が高い',c:'yousu',e:'This bag is expensive.',j:'このかばんは高いです。'},
+  {w:'cheap',m:'安い',c:'yousu',e:'This shirt was cheap.',j:'このシャツは安かった。'},
+  {w:'difficult',m:'難しい',c:'yousu',e:'This question is difficult.',j:'この問題は難しい。'},
+  {w:'easy',m:'簡単な',c:'yousu',e:'The test was easy.',j:'テストは簡単だった。'},
+  {w:'popular',m:'人気のある',c:'yousu',e:'This game is popular.',j:'このゲームは人気があります。'},
+  {w:'different',m:'違う・異なる',c:'yousu',e:'My idea is different from yours.',j:'私の考えはあなたのと違う。'},
+  {w:'strange',m:'変な・奇妙な',c:'yousu',e:'I heard a strange sound.',j:'変な音が聞こえた。'},
+  {w:'useful',m:'役に立つ',c:'yousu',e:'This app is useful.',j:'このアプリは役に立つ。'},
+  {w:'delicious',m:'とてもおいしい',c:'yousu',e:'This cake is delicious!',j:'このケーキ、とてもおいしい！'},
+  {w:'heavy',m:'重い',c:'yousu',e:'This bag is heavy.',j:'このかばんは重い。'},
+  {w:'empty',m:'空っぽの',c:'yousu',e:'The box is empty.',j:'箱は空っぽです。'},
+  {w:'careful',m:'注意深い',c:'yousu',e:'Be careful on the stairs.',j:'階段では気をつけて。'},
+  {w:'lucky',m:'運のいい',c:'yousu',e:"You're lucky!",j:'ついてるね！'},
+  {w:'favorite',m:'お気に入りの',c:'yousu',e:"What's your favorite food?",j:'好きな食べ物は何？'},
+  // どうぶつ
+  {w:'rabbit',m:'ウサギ',c:'doubutsu',e:'The rabbit is eating a carrot.',j:'ウサギがニンジンを食べている。'},
+  {w:'turtle',m:'カメ',c:'doubutsu',e:'The turtle walks slowly.',j:'カメはゆっくり歩く。'},
+  {w:'elephant',m:'ゾウ',c:'doubutsu',e:'Elephants have long noses.',j:'ゾウは長い鼻を持っている。'},
+  {w:'giraffe',m:'キリン',c:'doubutsu',e:'The giraffe is very tall.',j:'キリンはとても背が高い。'},
+  {w:'monkey',m:'サル',c:'doubutsu',e:'The monkey climbed the tree.',j:'サルが木に登った。'},
+  {w:'horse',m:'馬',c:'doubutsu',e:'I want to ride a horse.',j:'馬に乗りたい。'},
+  {w:'sheep',m:'羊',c:'doubutsu',e:'There are many sheep on the farm.',j:'農場にたくさんの羊がいる。'},
+  {w:'pig',m:'豚',c:'doubutsu',e:'The pig is sleeping in the mud.',j:'豚が泥の中で寝ている。'},
+  {w:'cow',m:'牛',c:'doubutsu',e:'Cows give us milk.',j:'牛は私たちに牛乳をくれる。'},
+  {w:'chicken',m:'ニワトリ',c:'doubutsu',e:'The chicken laid an egg.',j:'ニワトリが卵を産んだ。'},
+  {w:'duck',m:'アヒル',c:'doubutsu',e:'A duck is swimming in the pond.',j:'アヒルが池で泳いでいる。'},
+  {w:'frog',m:'カエル',c:'doubutsu',e:'I heard a frog at night.',j:'夜にカエルの声を聞いた。'},
+  {w:'snake',m:'ヘビ',c:'doubutsu',e:"I'm afraid of snakes.",j:'ヘビが怖い。'},
+  {w:'bear',m:'クマ',c:'doubutsu',e:'A bear lives in this forest.',j:'この森にはクマが住んでいる。'},
+  {w:'wolf',m:'オオカミ',c:'doubutsu',e:'Wolves live in groups.',j:'オオカミは群れで暮らす。'},
+  {w:'fox',m:'キツネ',c:'doubutsu',e:'The fox has a big tail.',j:'キツネは大きなしっぽを持っている。'},
+  {w:'deer',m:'シカ',c:'doubutsu',e:'We saw deer in Nara.',j:'奈良でシカを見た。'},
+  {w:'lion',m:'ライオン',c:'doubutsu',e:'The lion is the king of animals.',j:'ライオンは動物の王様だ。'},
+  {w:'whale',m:'クジラ',c:'doubutsu',e:'The whale is the biggest animal.',j:'クジラはいちばん大きな動物だ。'},
+  {w:'dolphin',m:'イルカ',c:'doubutsu',e:'Dolphins are smart.',j:'イルカは賢い。'},
+  {w:'shark',m:'サメ',c:'doubutsu',e:'Watch out for sharks!',j:'サメに気をつけて！'},
+  {w:'octopus',m:'タコ',c:'doubutsu',e:'An octopus has eight legs.',j:'タコには足が8本ある。'},
+  {w:'penguin',m:'ペンギン',c:'doubutsu',e:"Penguins can't fly.",j:'ペンギンは飛べない。'},
+  {w:'owl',m:'フクロウ',c:'doubutsu',e:'Owls are awake at night.',j:'フクロウは夜に起きている。'},
+  {w:'eagle',m:'ワシ',c:'doubutsu',e:'An eagle is flying high.',j:'ワシが高く飛んでいる。'},
+  {w:'butterfly',m:'チョウ',c:'doubutsu',e:'A butterfly is on the flower.',j:'花にチョウがとまっている。'},
+  {w:'bee',m:'ハチ',c:'doubutsu',e:'A bee is flying around.',j:'ハチが飛び回っている。'},
+  {w:'ant',m:'アリ',c:'doubutsu',e:'Ants are hard workers.',j:'アリは働き者だ。'},
+  {w:'mouse',m:'ネズミ',c:'doubutsu',e:'The cat is chasing a mouse.',j:'猫がネズミを追いかけている。'},
+  {w:'squirrel',m:'リス',c:'doubutsu',e:'The squirrel is eating nuts.',j:'リスが木の実を食べている。'}
+];
+
+/* Pixel sprites: one char = one pixel, '.' = empty */
+const SPRITES = {
+  pomlin:{pal:{k:'#1a2a12',g:'#6fcf4f',l:'#b6f08a',d:'#3f9a35',w:'#ffffff',b:'#152012',p:'#ff9fb2',L:'#2fae4f'},rows:[
+    '......LL........',
+    '.....LLLd.......',
+    '.......d........',
+    '.....kkkkkk.....',
+    '...kkllggggkk...',
+    '..kllgggggggdk..',
+    '.klggggggggggdk.',
+    '.klgbwggggbwgdk.',
+    '.kggbbggggbbgdk.',
+    'kgpggggkkggggpdk',
+    'kggggggggggggddk',
+    'kdgggggggggggddk',
+    '.kddggggggggddk.',
+    '..kkkkkkkkkkkk..']},
+  pecha:{pal:{k:'#1a0d0d',R:'#e8453c',y:'#f7d046',B:'#3d7bf0',w:'#ffffff',b:'#111111',g:'#cfc7b8'},rows:[
+    '.....kkkk.......',
+    '....kRRRRk......',
+    '...kRRwbRRk.....',
+    '..kgkRRRRRRk....',
+    '.kggkRRRRRRk....',
+    '.kgk.kRRRRRRk...',
+    '..k..kyyRRRRBk..',
+    '.....kyyyRRBBk..',
+    '.....kyyyRBBBk..',
+    '......kyyBBBBk..',
+    '.......kkBBBBBk.',
+    '......kgkgk.kBBk',
+    '.....kggkgg..kBk',
+    '..............kk']},
+  yomi:{pal:{k:'#0b0912',B:'#3b3358',b:'#6c5f96',w:'#ffffff',r:'#ff4d6d',y:'#f5c74a',c:'#f3e6c4',n:'#8b5a2b'},rows:[
+    '......kkkk......',
+    '.....kBBBBk.....',
+    '....kBBwrBBk....',
+    '..kkkBBwrBBBk...',
+    '.kyyyBBBBBBBk...',
+    '..kyykBBBBBBBk..',
+    '...kkBBbbBBBBBk.',
+    '....kBbbbbBBBBBk',
+    '..knnnnnnnBBBBk.',
+    '..kcccnccckBBk..',
+    '..kcccnccckBk...',
+    '..knnnnnnnkk....',
+    '....kyk.kyk.....',
+    '...kyyk.kyyk....']},
+  golem:{pal:{k:'#1b1714',s:'#9a8f86',S:'#6b625b',h:'#c9c0b6',e:'#6ff3ff',a:'#f5c74a'},rows:[
+    '.....kkkkkk.....',
+    '....kshhsssk....',
+    '....kseSSesk....',
+    '....kssssSSk....',
+    '..kkkkSkkSkkkk..',
+    '.kshhkssssskSSk.',
+    'kshssksaassksSSk',
+    'kssSkssaasskSSSk',
+    'kssSksssssSkkSSk',
+    '.kkkkssaSssk.kk.',
+    '....kssSSSsk....',
+    '....kssk.ksSk...',
+    '...kssSk.kSSSk..',
+    '...kkkkk.kkkkk..']},
+  lexidra:{pal:{k:'#120a1c',p:'#8b5cf6',P:'#5b33b5',y:'#ffe14d',w:'#ffffff',r:'#d6304a',g:'#2bb3a3',o:'#f59e5b'},rows:[
+    '......k......k......',
+    '......kk....kk......',
+    'kk....kpppppPk....kk',
+    'kgk..kppppppPPk..kgk',
+    'kggk.kpyyppyyPk.kggk',
+    'kgggkkppppppppkkgggk',
+    'kggggkpwrwrwrpkggggk',
+    'kgggkkppppppppkkgggk',
+    'kggk.kPooooooPk.kggk',
+    'kgk.kpPooooooPpk.kgk',
+    'kk..kppooooooppk..kk',
+    '....kppPooooPppk....',
+    '....kpppPPPPpppk....',
+    '...kpppk....kpppk...',
+    '...kwkwk....kwkwk...',
+    '...kkkkk....kkkkk...']}
+};
+
+
+/* チップリュウ (user's design): a Chinese-style dragon whose body is a chain of sweet-potato chips,
+   purple skin rim + golden flesh, cucumber-green mane. Built on a grid, then outlined. */
+SPRITES.chipryu = (() => {
+  const W = 32, H = 20;
+  const g = Array.from({length:H}, () => Array(W).fill('.'));
+  const put = (x,y,c) => { if(x>=0 && y>=0 && x<W && y<H) g[y][x] = c; };
+  // body chips, tail (right) to head (left) so nearer chips overlap
+  for(let cx = 29; cx >= 11; cx -= 3){
+    const cy = Math.round(11 + 3.2*Math.sin(cx*0.42));
+    const r = cx > 25 ? 2.2 : 2.8;
+    for(let y = -3; y <= 3; y++) for(let x = -3; x <= 3; x++){
+      const d = Math.hypot(x,y);
+      if(d > r) continue;
+      let c = d > r - 1.05 ? 'P' : 'Y';
+      if(c === 'Y' && x < 0 && y < 0) c = 'y';
+      if(c === 'Y' && (cx+x + 2*(cy+y)) % 5 === 0) c = 'c';
+      put(cx+x, cy+y, c);
+    }
+    put(cx, cy - Math.ceil(r) - 1, 'G');
+    put(cx+1, cy - Math.ceil(r) - 1, 'g');
+  }
+  put(31, Math.round(11 + 3.2*Math.sin(31*0.42)), 'G');
+  // head, facing left
+  const head = [
+    '...G..G....',
+    '...GG.GG...',
+    '..PPPPPPP..',
+    '.PPwrPPPPPP',
+    'PPPPPPPPPPP',
+    'YYYYPPPPPPP',
+    'wPwPYYPPPP.',
+    '.g...YYY...',
+    'g..........'
+  ];
+  head.forEach((row,y) => [...row].forEach((c,x) => { if(c !== '.') put(x, y+2, c); }));
+  // outline
+  const out = g.map(r => r.slice());
+  for(let y=0;y<H;y++) for(let x=0;x<W;x++){
+    if(g[y][x] !== '.') continue;
+    const n = [[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy]) => { const v = g[y+dy] && g[y+dy][x+dx]; return v && v !== '.'; });
+    if(n) out[y][x] = 'k';
+  }
+  return {pal:{k:'#2a1030',P:'#8e3a6e',Y:'#f4c94e',y:'#ffe39a',c:'#d39a2e',G:'#3f8f3a',g:'#8fd16a',w:'#ffffff',r:'#e0303a'},
+          rows: out.map(r => r.join(''))};
+})();
+
+const MONSTERS = [
+  {id:'pomlin',name:'ポムリン',cat:'kurashi',hp:70,atk:7,exp:25,bg:'bg-forest',
+   intro:'もりの おくから ポムリンが とびだした！',defeat:'ポムリンは 「また あそんでね…」と きえていった。',lose:'ポムリンは うれしそうに はねている。'},
+  {id:'pecha',name:'ペチャクチャ',cat:'kaiwa',hp:75,atk:8,exp:30,bg:'bg-town',
+   intro:'ペチャクチャが 「Hello! Hello!」と さわぎだした！',defeat:'ペチャクチャは 「See you later!」と とびさった。',lose:'ペチャクチャは 「No way!」と わらっている。'},
+  {id:'yomi',name:'ヨミガラス',cat:'ugoki',hp:85,atk:9,exp:40,bg:'bg-ruins',
+   intro:'まどうしょを かかえた ヨミガラスが まいおりた！',defeat:'ヨミガラスは 本を おとして 夜空に きえた。',lose:'ヨミガラスは 本を めくって わらっている。'},
+  {id:'golem',name:'グラムゴーレム',cat:'yousu',hp:100,atk:10,exp:50,bg:'bg-cave',
+   intro:'もじが きざまれた グラムゴーレムが めざめた！',defeat:'グラムゴーレムは くずれて ただの いしに なった。',lose:'グラムゴーレムは しずかに ねむりに ついた。'},
+  {id:'chipryu',name:'チップリュウ',cat:'doubutsu',hp:110,atk:11,exp:60,bg:'bg-field',custom:true,
+   intro:'さつまいも畑から チップリュウが のぼってきた！「俺は無敵だ！」',laugh:'ワハハハ！ 俺は無敵だ！',defeat:'チップリュウ「え？」',lose:'チップリュウ「ワハハハ！ 俺は無敵だ！」'},
+  {id:'lexidra',name:'レキシドラ',cat:'all',hp:160,atk:13,exp:120,bg:'bg-volcano',boss:true,
+   intro:'すべての ことばを くらう りゅう、レキシドラが あらわれた！',defeat:'レキシドラを たおした！ ことばの ちからが みなぎる！',lose:'レキシドラの ほのおが すべてを つつんだ…'}
+];
+
+/* ===================== RULES ===================== */
+const TIME_LIMIT = 10000;   // ms per question
+const CRIT_MS = 2500;       // かいしん zone
+const NORMAL_MS = 5000;     // ふつう zone
+const FAST_MS = 3000;       // counts toward mastery
+const INTERVALS = [0, 10*60e3, 60*60e3, 24*3600e3, 3*24*3600e3, 7*24*3600e3];
+const maxHP = lv => 30 + lv*5;
+const expNeed = lv => lv*30;
+
+/* ===================== SAVE ===================== */
+const SAVE_KEY = 'answerquest.v1';
+const defaultSave = () => ({name:'ゆうしゃ', lv:1, exp:0, words:{}, wins:{}, sound:true});
+function loadSave(){
+  try{
+    const s = JSON.parse(localStorage.getItem(SAVE_KEY));
+    if(s && typeof s === 'object') return Object.assign(defaultSave(), s);
+  }catch(e){}
+  return defaultSave();
+}
+function persist(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify(S)); }catch(e){} }
+let S = loadSave();
+
+/* ===================== HELPERS ===================== */
+const $ = s => document.querySelector(s);
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const getP = w => S.words[w] || {s:0, due:0, n:0, ok:0, best:null};
+const starsHTML = n => '<span class="stars">' + '★'.repeat(n) + '<span class="off">' + '★'.repeat(5-n) + '</span></span>';
+
+function drawSprite(cv, id){
+  const sp = SPRITES[id];
+  const w = Math.max(...sp.rows.map(r => r.length));
+  cv.width = w; cv.height = sp.rows.length;
+  const ctx = cv.getContext('2d');
+  ctx.clearRect(0,0,w,cv.height);
+  sp.rows.forEach((r,y) => [...r].forEach((ch,x) => {
+    const c = sp.pal[ch];
+    if(c){ ctx.fillStyle = c; ctx.fillRect(x,y,1,1); }
+  }));
+}
+function spriteEl(id, cls){
+  const cv = document.createElement('canvas');
+  cv.className = 'sprite' + (cls ? ' '+cls : '');
+  drawSprite(cv, id);
+  return cv;
+}
+
+const SCREENS = ['title','map','battle','result','dex','setting'];
+function show(name){
+  SCREENS.forEach(s => { $('#s-'+s).hidden = s !== name; });
+  window.scrollTo(0,0);
+}
+
+/* ===================== SOUND ===================== */
+let AC = null;
+const SFX = {
+  select:[[660,.05]],
+  hit:[[440,.05],[220,.08]],
+  crit:[[880,.05],[1320,.05],[1760,.12]],
+  miss:[[180,.12],[120,.18]],
+  win:[[523,.1],[659,.1],[784,.1],[1046,.3]],
+  lose:[[392,.2],[330,.2],[262,.4]],
+  lvup:[[784,.08],[988,.08],[1175,.08],[1568,.3]]
+};
+function play(name){
+  if(!S.sound) return;
+  try{
+    AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+    let t = AC.currentTime;
+    SFX[name].forEach(([f,d]) => {
+      const o = AC.createOscillator(), g = AC.createGain();
+      o.type = 'square'; o.frequency.value = f;
+      g.gain.setValueAtTime(.06, t); g.gain.exponentialRampToValueAtTime(.001, t+d);
+      o.connect(g).connect(AC.destination); o.start(t); o.stop(t+d);
+      t += d;
+    });
+  }catch(e){}
+}
+
+/* ===================== LEARNING ===================== */
+function updateMastery(word, ok, ms){
+  const p = Object.assign({}, getP(word.w));
+  const before = p.s;
+  p.n++;
+  if(ok){
+    p.ok++;
+    if(ms <= FAST_MS) p.s = Math.min(5, p.s+1);
+    else if(p.s === 0) p.s = 1;
+    p.best = p.best == null ? Math.round(ms) : Math.min(p.best, Math.round(ms));
+    p.due = Date.now() + INTERVALS[p.s];
+  }else{
+    p.s = Math.max(0, p.s-2);
+    p.due = Date.now();
+  }
+  S.words[word.w] = p;
+  return {before, after:p.s};
+}
+// Weighted pick: due & weak words come first, mastered words rarely.
+function pickWords(pool, n){
+  const now = Date.now();
+  return pool.map(w => {
+    const p = S.words[w.w];
+    let wt;
+    if(!p) wt = 3;
+    else if(p.due <= now) wt = 4 + (5 - p.s);
+    else wt = p.s >= 5 ? 0.3 : 1;
+    return {w, k: Math.pow(Math.random(), 1/wt)};
+  }).sort((a,b) => b.k - a.k).slice(0,n).map(x => x.w);
+}
+function makeChoices(word){
+  const others = shuffle(WORDS.filter(x => x.c === word.c && x.m !== word.m)).slice(0,3);
+  return shuffle([word, ...others]);
+}
+function giveExp(n){
+  let ups = 0;
+  S.exp += n;
+  while(S.exp >= expNeed(S.lv)){ S.exp -= expNeed(S.lv); S.lv++; ups++; }
+  return ups;
+}
+
+/* ===================== TITLE ===================== */
+function renderTitle(){
+  const par = $('#parade'); par.innerHTML = '';
+  MONSTERS.forEach(m => par.appendChild(spriteEl(m.id)));
+  $('#nameInput').value = S.name;
+}
+$('#startBtn').addEventListener('click', () => {
+  S.name = ($('#nameInput').value.trim() || 'ゆうしゃ').slice(0,8);
+  persist(); play('select'); renderMap(); show('map');
+});
+
+/* ===================== MAP ===================== */
+function renderMap(){
+  $('#mapName').textContent = S.name;
+  $('#mapLv').textContent = 'Lv ' + S.lv;
+  $('#mapExp').style.width = (S.exp / expNeed(S.lv) * 100) + '%';
+  $('#mapExpText').textContent = `つぎの レベルまで ${expNeed(S.lv) - S.exp} EXP ・ HP ${maxHP(S.lv)}`;
+  const now = Date.now();
+  let mastered = 0, due = 0;
+  WORDS.forEach(w => { const p = S.words[w.w]; if(p){ if(p.s >= 5) mastered++; if(p.due <= now && p.s < 5) due++; } });
+  $('#mapMastered').textContent = mastered;
+  $('#mapTotal').textContent = WORDS.length;
+  $('#mapDue').textContent = due;
+
+  const list = $('#stageList'); list.innerHTML = '';
+  const regularBeaten = MONSTERS.filter(m => !m.boss).every(m => S.wins[m.id]);
+  MONSTERS.forEach(m => {
+    const locked = m.boss && !regularBeaten;
+    const pool = m.cat === 'all' ? WORDS : WORDS.filter(w => w.c === m.cat);
+    const mm = pool.filter(w => getP(w.w).s >= 5).length;
+    const b = document.createElement('button');
+    b.className = 'btn stage' + (locked ? ' locked' : '');
+    b.disabled = locked;
+    const catName = m.cat === 'all' ? 'ぜんぶの たんご' : CATS[m.cat].name + '：' + CATS[m.cat].desc;
+    b.innerHTML = `<div class="sp"></div>
+      <div class="grow"><div class="sname">${locked ? '？？？' : esc(m.name)}${m.boss ? ' <span class="chip">ボス</span>' : ''}${m.custom ? ' <span class="chip">あなたの</span>' : ''}</div>
+      <div class="smeta">${locked ? MONSTERS.filter(x => !x.boss).length + 'たいを たおすと あらわれる' : esc(catName)}</div>
+      <div class="smeta">マスター ${mm} / ${pool.length}</div></div>
+      <div class="swins">${S.wins[m.id] ? '討伐 ' + S.wins[m.id] : ''}</div>`;
+    const cv = spriteEl(m.id);
+    if(locked) cv.style.filter = 'brightness(0)';
+    b.querySelector('.sp').appendChild(cv);
+    b.addEventListener('click', () => { play('select'); startBattle(m.id); });
+    list.appendChild(b);
+  });
+}
+$('#dexBtn').addEventListener('click', () => { play('select'); renderDex(); show('dex'); });
+$('#settingBtn').addEventListener('click', () => { play('select'); renderSetting(); show('setting'); });
+
+/* ===================== BATTLE ===================== */
+let B = null;
+function setMsg(main, sub){
+  $('#msg').innerHTML = esc(main) + (sub ? `<div class="sub">${esc(sub)}</div>` : '');
+}
+function updateBars(){
+  $('#eHp').style.width = (B.mhp / B.m.hp * 100) + '%';
+  const r = B.php / B.pmax;
+  $('#pHp').style.width = (r*100) + '%';
+  $('#pHpBar').classList.toggle('low', r <= .3);
+  $('#pHpNum').textContent = `${B.php}/${B.pmax}`;
+  $('#combo').textContent = B.combo >= 2 ? B.combo + ' COMBO' : '';
+}
+function later(fn, ms){
+  const battle = B;
+  setTimeout(() => { if(B === battle) fn(); }, ms);
+}
+function startBattle(id){
+  const m = MONSTERS.find(x => x.id === id);
+  const pool = m.cat === 'all' ? WORDS : WORDS.filter(w => w.c === m.cat);
+  B = {m, pool, mhp:m.hp, php:maxHP(S.lv), pmax:maxHP(S.lv), queue:pickWords(pool, 12),
+       combo:0, maxCombo:0, log:[], locked:true, raf:0, last:null, cur:null};
+  const scene = $('#scene');
+  scene.className = 'scene ' + m.bg;
+  const cv = $('#eSprite');
+  cv.className = 'sprite';
+  drawSprite(cv, m.id);
+  $('#eName').textContent = m.name;
+  $('#pName').textContent = S.name;
+  $('#pLv').textContent = 'Lv' + S.lv;
+  $('#qWord').textContent = '…';
+  $('#qCat').textContent = '';
+  $('#timerFill').style.width = '100%';
+  $('#choices').innerHTML = '';
+  $('#choices').hidden = false;
+  $('#explain').hidden = true;
+  updateBars();
+  setMsg(m.intro);
+  show('battle');
+  later(nextQ, 1400);
+}
+function nextQ(){
+  if(B.queue.length === 0) B.queue = pickWords(B.pool.filter(w => w !== B.last), 8);
+  let word = B.queue.shift();
+  if(word === B.last && B.queue.length){ B.queue.push(word); word = B.queue.shift(); }
+  B.cur = word; B.last = word;
+  B.choices = makeChoices(word);
+  $('#qWord').textContent = word.w;
+  const p = getP(word.w);
+  $('#qCat').innerHTML = esc(CATS[word.c].name) + ' ' + starsHTML(p.s);
+  const box = $('#choices'); box.innerHTML = ''; box.hidden = false;
+  $('#explain').hidden = true;
+  B.choices.forEach((c,i) => {
+    const b = document.createElement('button');
+    b.className = 'btn';
+    b.innerHTML = `<span class="key">${i+1}</span><span>${esc(c.m)}</span>`;
+    b.addEventListener('click', () => answer(i));
+    box.appendChild(b);
+  });
+  setMsg('いみを えらべ！', 'はやく こたえるほど つよい こうげきに なる');
+  B.t0 = performance.now();
+  B.locked = false;
+  tick();
+}
+function tick(){
+  if(!B || B.locked) return;
+  const el = performance.now() - B.t0;
+  const t = $('#timer');
+  $('#timerFill').style.width = Math.max(0, 1 - el/TIME_LIMIT)*100 + '%';
+  t.classList.toggle('norm', el >= CRIT_MS && el < NORMAL_MS);
+  t.classList.toggle('slow', el >= NORMAL_MS);
+  if(el >= TIME_LIMIT){ answer(-1); return; }
+  B.raf = requestAnimationFrame(tick);
+}
+function popDamage(n, crit){
+  const d = document.createElement('div');
+  d.className = 'dmg' + (crit ? ' crit' : '');
+  d.textContent = n;
+  $('#scene').appendChild(d);
+  setTimeout(() => d.remove(), 1000);
+}
+function retrigger(el, cls){
+  el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls);
+}
+function answer(i){
+  if(!B || B.locked) return;
+  B.locked = true;
+  cancelAnimationFrame(B.raf);
+  const ms = performance.now() - B.t0;
+  const word = B.cur, m = B.m;
+  const right = B.choices.indexOf(word);
+  const ok = i === right;
+  const ch = updateMastery(word, ok, ms);
+  B.log.push({word, ok, ms, ...ch});
+  const btns = [...$('#choices').children];
+  btns.forEach(b => b.disabled = true);
+  btns[right].classList.add('is-right');
+  if(!ok && i >= 0) btns[i].classList.add('is-wrong');
+  persist();
+
+  if(ok){
+    B.combo++; B.maxCombo = Math.max(B.maxCombo, B.combo);
+    const kind = ms < CRIT_MS ? 'crit' : ms < NORMAL_MS ? 'norm' : 'slow';
+    const mult = {crit:1.8, norm:1, slow:.6}[kind];
+    const dmg = Math.max(1, Math.round((6 + S.lv) * mult * (1 + Math.min(.4, (B.combo-1)*.08))));
+    B.mhp = Math.max(0, B.mhp - dmg);
+    retrigger($('#eSprite'), 'anim-hit');
+    popDamage(dmg, kind === 'crit');
+    play(kind === 'crit' ? 'crit' : 'hit');
+    const head = kind === 'crit' ? 'かいしんの いちげき！ ' : kind === 'slow' ? 'こうげきが かすった！ ' : '';
+    setMsg(`${head}${m.name}に ${dmg}の ダメージ！`, `${word.w} ＝ ${word.m}`);
+    updateBars();
+    later(() => { B.mhp <= 0 ? win() : nextQ(); }, kind === 'crit' ? 1300 : 1100);
+  }else{
+    B.combo = 0;
+    const dmg = m.atk + Math.floor(Math.random()*3);
+    B.php = Math.max(0, B.php - dmg);
+    retrigger($('#app'), 'anim-shake');
+    play('miss');
+    setMsg(`${i < 0 ? 'じかんぎれ！ ' : ''}${m.name}の こうげき！ ${S.name}は ${dmg}の ダメージ！`, m.laugh ? `${m.name}「${m.laugh}」` : '');
+    updateBars();
+    B.queue.splice(Math.min(3, B.queue.length), 0, word);
+    later(() => {
+      $('#choices').hidden = true;
+      $('#exWord').textContent = word.w;
+      $('#exAns').textContent = word.m;
+      $('#exEn').textContent = word.e;
+      $('#exJa').textContent = word.j;
+      $('#explain').hidden = false;
+      $('#nextBtn').focus({preventScroll:true});
+    }, 700);
+  }
+}
+$('#nextBtn').addEventListener('click', () => {
+  if(!B || !B.locked || $('#explain').hidden) return;
+  $('#explain').hidden = true;
+  B.php <= 0 ? lose() : nextQ();
+});
+$('#runBtn').addEventListener('click', () => {
+  if(!B) return;
+  cancelAnimationFrame(B.raf);
+  B = null;
+  persist(); renderMap(); show('map');
+});
+document.addEventListener('keydown', e => {
+  if($('#s-battle').hidden || !B) return;
+  if(!B.locked && ['1','2','3','4'].includes(e.key)){ answer(+e.key - 1); e.preventDefault(); }
+  else if((e.key === 'Enter' || e.key === ' ') && !$('#explain').hidden && document.activeElement !== $('#nextBtn')){ $('#nextBtn').click(); e.preventDefault(); }
+});
+function win(){
+  const m = B.m;
+  B.locked = true;
+  retrigger($('#eSprite'), 'anim-vanish');
+  play('win');
+  setMsg(`${m.name}を たおした！`);
+  S.wins[m.id] = (S.wins[m.id] || 0) + 1;
+  const ups = giveExp(m.exp);
+  persist();
+  later(() => showResult(true, m.exp, ups), 1300);
+}
+function lose(){
+  const m = B.m;
+  play('lose');
+  const gained = Math.floor(m.exp / 3);
+  const ups = giveExp(gained);
+  persist();
+  showResult(false, gained, ups);
+}
+function showResult(won, gained, ups){
+  const m = B.m;
+  $('#rTitle').textContent = won ? 'VICTORY!' : 'GAME OVER';
+  $('#rTitle').className = 'result-title ' + (won ? 'win-t' : 'lose-t');
+  $('#rScene').className = 'scene ' + m.bg;
+  const rs = $('#rSprite');
+  drawSprite(rs, m.id);
+  rs.style.opacity = won ? '.25' : '1';
+  let text = (won ? m.defeat : m.lose) + `\n${gained} EXP を てにいれた。`;
+  if(ups) text += `\nレベルが あがった！ Lv ${S.lv} に なった！`;
+  $('#rMsg').innerHTML = esc(text).replace(/\n/g, '<br>');
+  if(ups) setTimeout(() => play('lvup'), 900);
+
+  const n = B.log.length, okN = B.log.filter(l => l.ok).length;
+  const okTimes = B.log.filter(l => l.ok).map(l => l.ms);
+  $('#rAcc').textContent = `${okN}/${n}`;
+  $('#rCombo').textContent = B.maxCombo;
+  $('#rAvg').textContent = okTimes.length ? (okTimes.reduce((a,b) => a+b, 0) / okTimes.length / 1000).toFixed(1) + '秒' : '-';
+
+  // first and last state of each word in this battle
+  const seen = new Map();
+  B.log.forEach(l => {
+    const prev = seen.get(l.word.w);
+    seen.set(l.word.w, {word:l.word, before: prev ? prev.before : l.before, after:l.after});
+  });
+  $('#rList').innerHTML = [...seen.values()].map(x => {
+    const diff = x.after - x.before;
+    const tag = diff > 0 ? `<span class="up">▲${diff}</span>` : diff < 0 ? `<span class="down">▼${-diff}</span>` : '';
+    return `<li><span class="en">${esc(x.word.w)}</span><span class="ja">${esc(x.word.m)}</span><span>${starsHTML(x.after)} ${tag}</span></li>`;
+  }).join('');
+  const again = m.id;
+  $('#againBtn').onclick = () => { play('select'); startBattle(again); };
+  B.locked = true;
+  show('result');
+}
+$('#toMapBtn').addEventListener('click', () => { B = null; play('select'); renderMap(); show('map'); });
+
+/* ===================== DEX ===================== */
+let dexCat = 'all', dexHide = false;
+function renderDex(){
+  const tabs = $('#dexTabs');
+  const opts = [['all','ぜんぶ'], ...Object.entries(CATS).map(([k,v]) => [k, v.name])];
+  tabs.innerHTML = '';
+  opts.forEach(([k,label]) => {
+    const t = document.createElement('button');
+    t.className = 'tab'; t.textContent = label;
+    t.setAttribute('aria-pressed', String(k === dexCat));
+    t.addEventListener('click', () => { dexCat = k; renderDex(); });
+    tabs.appendChild(t);
+  });
+  const list = $('#dexList');
+  list.classList.toggle('hide', dexHide);
+  $('#dexHide').setAttribute('aria-pressed', String(dexHide));
+  $('#dexHide').textContent = dexHide ? 'いみを みせる' : 'いみを かくす';
+  const words = WORDS.filter(w => dexCat === 'all' || w.c === dexCat)
+    .slice().sort((a,b) => getP(a.w).s - getP(b.w).s);
+  list.innerHTML = '';
+  words.forEach(w => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="en">${esc(w.w)}</span><span class="ja">${esc(w.m)}</span>${starsHTML(getP(w.w).s)}`;
+    li.addEventListener('click', () => {
+      li.classList.toggle('peek');
+      const ex = li.querySelector('.exrow');
+      if(ex){ ex.remove(); return; }
+      const d = document.createElement('div');
+      d.className = 'exrow';
+      d.innerHTML = `${esc(w.e)}<br>${esc(w.j)}`;
+      li.appendChild(d);
+    });
+    list.appendChild(li);
+  });
+}
+$('#dexHide').addEventListener('click', () => { dexHide = !dexHide; renderDex(); });
+$('#dexBack').addEventListener('click', () => { renderMap(); show('map'); });
+
+/* ===================== SETTINGS ===================== */
+function renderSetting(){
+  $('#nameInput2').value = S.name;
+  $('#soundBtn').textContent = 'こうかおん：' + (S.sound ? 'オン' : 'オフ');
+  $('#resetConfirm').hidden = true;
+}
+$('#soundBtn').addEventListener('click', () => { S.sound = !S.sound; persist(); renderSetting(); play('select'); });
+$('#resetBtn').addEventListener('click', () => { $('#resetConfirm').hidden = false; });
+$('#resetNo').addEventListener('click', () => { $('#resetConfirm').hidden = true; });
+$('#resetYes').addEventListener('click', () => {
+  const name = S.name, sound = S.sound;
+  S = defaultSave(); S.name = name; S.sound = sound;
+  persist(); renderSetting();
+});
+$('#settingBack').addEventListener('click', () => {
+  S.name = ($('#nameInput2').value.trim() || 'ゆうしゃ').slice(0,8);
+  persist(); renderMap(); show('map');
+});
+
+/* ===================== BOOT ===================== */
+renderTitle();
+show('title');
+</script>
