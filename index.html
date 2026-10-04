@@ -80,6 +80,7 @@ button,input{font:inherit;color:inherit}
 
 /* Sprites */
 canvas.sprite{image-rendering:pixelated;image-rendering:crisp-edges;width:auto;display:block}
+canvas.sprite.illust{image-rendering:auto}
 
 /* Map */
 .hero-head{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
@@ -228,6 +229,7 @@ h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);marg
       <div class="win"><b>あなたの モンスター</b><span>写真を おくると もっと ふえる</span></div>
     </div>
     <div class="btn-row">
+      <button class="btn" id="artBtn"></button>
       <button class="btn" id="dexBtn">たんご ずかん</button>
       <button class="btn" id="settingBtn">せってい</button>
     </div>
@@ -755,6 +757,199 @@ Object.assign(SPRITES, {
     'KKKKKKKKKKKKKKKK']}
 });
 
+/* Illustration style: hand-drawn SVG versions of every monster (viewBox 200x200). */
+const ILLUST = {
+  pomlin:{body:`
+    <path d="M100 62C150 62 182 112 182 160C182 180 170 188 150 188H50C30 188 18 180 18 160C18 112 50 62 100 62Z" fill="#6fcf4f"/>
+    <path d="M58 102C66 86 80 76 96 72" fill="none" stroke="#c8f5a0" stroke-width="9"/>
+    <path d="M100 64C98 48 103 38 110 30" fill="none"/>
+    <path d="M108 32C122 14 150 16 158 28C142 42 122 44 108 32Z" fill="#2fae4f"/>
+    <ellipse cx="76" cy="126" rx="9" ry="13" fill="#1d2a17" stroke="none"/>
+    <ellipse cx="124" cy="126" rx="9" ry="13" fill="#1d2a17" stroke="none"/>
+    <circle cx="73" cy="120" r="3.5" fill="#fff" stroke="none"/>
+    <circle cx="121" cy="120" r="3.5" fill="#fff" stroke="none"/>
+    <ellipse cx="56" cy="148" rx="11" ry="7" fill="#ff9fb2" stroke="none"/>
+    <ellipse cx="144" cy="148" rx="11" ry="7" fill="#ff9fb2" stroke="none"/>
+    <path d="M90 146Q100 156 110 146" fill="none" stroke-width="4"/>`},
+  pecha:{body:`
+    <path d="M108 165L140 196L98 190Z" fill="#3d7bf0"/>
+    <path d="M96 38C136 38 152 74 147 112C142 152 122 178 96 180C70 178 58 150 60 114C60 78 64 38 96 38Z" fill="#e8453c"/>
+    <path d="M80 118C84 150 100 168 114 162C108 140 102 124 80 118Z" fill="#f7d046"/>
+    <path d="M124 92C154 104 158 152 128 172C116 150 112 120 124 92Z" fill="#3d7bf0"/>
+    <path d="M132 118C142 128 144 142 138 152" fill="none" stroke="#7fb0ff" stroke-width="4"/>
+    <path d="M70 66C44 64 34 88 46 108C54 98 62 92 74 92Z" fill="#e9e1d0"/>
+    <circle cx="94" cy="66" r="14" fill="#fff"/>
+    <circle cx="97" cy="67" r="6" fill="#111" stroke="none"/>
+    <path d="M84 180V194M106 180V194" fill="none"/>
+    <path d="M146 26h48v28h-32l-8 10v-10h-8z" fill="#fff"/>
+    <text x="170" y="46" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="17" fill="#2b2233" stroke="none">Hi!</text>`},
+  yomi:{body:`
+    <path d="M150 116L196 150L150 152Z" fill="#3b3358"/>
+    <ellipse cx="112" cy="118" rx="54" ry="58" fill="#3b3358"/>
+    <path d="M120 80C160 90 170 140 140 165C125 140 118 110 120 80Z" fill="#6c5f96"/>
+    <circle cx="84" cy="68" r="38" fill="#3b3358"/>
+    <path d="M52 66L14 80L54 90Z" fill="#f5c74a"/>
+    <circle cx="78" cy="62" r="11" fill="#fff"/>
+    <circle cx="76" cy="63" r="5.5" fill="#ff4d6d" stroke="none"/>
+    <path d="M64 46L92 52" fill="none"/>
+    <rect x="54" y="120" width="80" height="54" rx="5" fill="#8b5a2b"/>
+    <rect x="60" y="114" width="68" height="52" rx="3" fill="#f3e6c4"/>
+    <path d="M94 114V166M68 128H88M68 140H88M68 152H84M100 128H120M100 140H120" fill="none" stroke-width="3"/>
+    <path d="M95 178V194M120 178V194M88 194H102M113 194H127" fill="none" stroke="#f5c74a" stroke-width="6"/>`},
+  golem:{body:`
+    <rect x="62" y="150" width="30" height="42" rx="8" fill="#6b625b"/>
+    <rect x="108" y="150" width="30" height="42" rx="8" fill="#6b625b"/>
+    <rect x="14" y="86" width="34" height="74" rx="14" fill="#6b625b"/>
+    <rect x="152" y="86" width="34" height="74" rx="14" fill="#6b625b"/>
+    <rect x="42" y="78" width="116" height="86" rx="20" fill="#9a8f86"/>
+    <rect x="64" y="22" width="72" height="60" rx="16" fill="#9a8f86"/>
+    <path d="M74 32h36" fill="none" stroke="#c9c0b6" stroke-width="6"/>
+    <rect x="78" y="46" width="14" height="10" rx="3" fill="#6ff3ff"/>
+    <rect x="108" y="46" width="14" height="10" rx="3" fill="#6ff3ff"/>
+    <path d="M88 68h24" fill="none"/>
+    <text x="100" y="136" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="34" fill="#f5c74a" stroke="#7a5a10" stroke-width="2">ABC</text>
+    <path d="M54 98l10 8-4 10M146 148l-10-6-2 8" fill="none" stroke-width="3"/>`},
+  chipryu:{body:() => {
+    const chips = [[176,150,15],[152,130,18],[124,146,21],[96,158,22],[74,128,20]];
+    let s = `<path d="M186 152C198 142 200 128 194 118C184 128 182 140 186 152Z" fill="#8fd16a"/>`;
+    chips.forEach(([x,y,r]) => { s += `<path d="M${x-8} ${y-r+3}L${x} ${y-r-16}L${x+8} ${y-r+3}Z" fill="#3f8f3a"/>`; });
+    chips.forEach(([x,y,r]) => { s += `<circle cx="${x}" cy="${y}" r="${r+4}" fill="#2b2233" stroke="none"/>
+      <circle cx="${x}" cy="${y}" r="${r}" fill="#f4c94e" stroke="#8e3a6e" stroke-width="7"/>
+      <circle cx="${x-r/3}" cy="${y-r/3}" r="${r/4}" fill="#ffe39a" stroke="none"/>
+      <circle cx="${x+r/3}" cy="${y+r/4}" r="2.5" fill="#d39a2e" stroke="none"/>
+      <circle cx="${x+2}" cy="${y-r/3}" r="2" fill="#d39a2e" stroke="none"/>`; });
+    return s + `
+    <path d="M98 60L120 50L108 72L128 70L104 88Z" fill="#3f8f3a"/>
+    <path d="M70 46C78 26 88 16 102 10C98 26 94 38 88 50Z" fill="#3f8f3a"/>
+    <path d="M50 48C52 28 60 16 72 8C70 24 68 38 66 50Z" fill="#3f8f3a"/>
+    <circle cx="66" cy="24" r="3" fill="#8fd16a" stroke="none"/><circle cx="88" cy="28" r="3" fill="#8fd16a" stroke="none"/><circle cx="62" cy="36" r="2.5" fill="#8fd16a" stroke="none"/>
+    <path d="M44 50C66 36 100 44 104 72C108 98 88 112 62 110L22 108C8 106 6 88 18 82C22 68 30 58 44 50Z" fill="#8e3a6e"/>
+    <path d="M14 92C28 116 66 120 90 104L84 98C64 106 36 104 14 92Z" fill="#f4c94e"/>
+    <path d="M26 98l4 7 4-6 4 7 4-6 4 7 4-6" fill="none" stroke="#fff" stroke-width="3"/>
+    <circle cx="64" cy="70" r="12" fill="#fff"/><circle cx="66" cy="71" r="6" fill="#e0303a" stroke="none"/>
+    <path d="M50 54L80 60" fill="none"/>
+    <circle cx="22" cy="80" r="3" fill="#2b2233" stroke="none"/>
+    <path d="M18 88C4 90 0 104 8 116M28 78C20 64 6 64 2 72" fill="none" stroke="#8fd16a" stroke-width="4"/>`; }},
+  lexidra:{body:`
+    <path d="M62 100L4 44L20 98L0 128L58 130Z" fill="#2bb3a3"/>
+    <path d="M138 100L196 44L180 98L200 128L142 130Z" fill="#2bb3a3"/>
+    <path d="M20 98L52 110M180 98L148 110" fill="none" stroke-width="3"/>
+    <ellipse cx="100" cy="140" rx="50" ry="48" fill="#8b5cf6"/>
+    <ellipse cx="100" cy="150" rx="28" ry="34" fill="#f59e5b"/>
+    <path d="M80 136h40M76 152h48M80 168h40" fill="none" stroke="#c8743a" stroke-width="3"/>
+    <ellipse cx="70" cy="186" rx="20" ry="10" fill="#5b33b5"/><ellipse cx="130" cy="186" rx="20" ry="10" fill="#5b33b5"/>
+    <path d="M66 40L56 6L84 32Z" fill="#f2e2b0"/><path d="M134 40L144 6L116 32Z" fill="#f2e2b0"/>
+    <ellipse cx="100" cy="72" rx="50" ry="42" fill="#8b5cf6"/>
+    <path d="M64 58Q80 56 90 70Q78 78 64 68Z" fill="#ffe14d"/><path d="M136 58Q120 56 110 70Q122 78 136 68Z" fill="#ffe14d"/>
+    <path d="M80 62V73M120 62V73" fill="none" stroke-width="4"/>
+    <path d="M64 88Q100 118 136 88Z" fill="#d6304a"/>
+    <path d="M72 92l6 8 6-6 6 8 6-8 6 8 6-8 6 6 6-8 6 6" fill="none" stroke="#fff" stroke-width="4"/>
+    <circle cx="92" cy="80" r="2.5" fill="#2b2233" stroke="none"/><circle cx="108" cy="80" r="2.5" fill="#2b2233" stroke="none"/>`},
+  montblanc:{body:`
+    <path d="M140 40C162 30 182 46 180 72C178 96 168 110 156 112C140 108 128 90 130 68C130 54 134 46 140 40Z" fill="#fff"/>
+    <circle cx="150" cy="64" r="3" fill="#2b2233" stroke="none"/><circle cx="166" cy="62" r="3" fill="#2b2233" stroke="none"/>
+    <path d="M146 84q5-6 10 0t10 0" fill="none" stroke-width="3"/>
+    <path d="M28 150H172L162 190H38Z" fill="#c8894a"/>
+    <path d="M36 172H166" fill="none" stroke="#9a6230" stroke-width="4"/>
+    <path d="M28 150C40 136 60 140 70 146C80 136 120 136 130 146C140 138 160 138 172 150Z" fill="#d9a066"/>
+    <path d="M42 150C38 110 60 50 100 44C140 50 162 110 158 150Z" fill="#f2d27a"/>
+    <path d="M62 146C60 110 74 70 94 50M82 148C82 112 90 76 102 50M118 148C120 112 116 78 108 52M138 146C140 110 128 72 112 52" fill="none" stroke="#d9b45a" stroke-width="3"/>
+    <path d="M70 52Q100 64 130 52Q132 42 120 40L104 6Q100 2 96 8L82 40Q68 42 70 52Z" fill="#4a2a1a"/>
+    <circle cx="100" cy="96" r="24" fill="#fff"/><circle cx="102" cy="94" r="12" fill="#1a1a1a" stroke="none"/><circle cx="97" cy="89" r="3.5" fill="#fff" stroke="none"/>
+    <path d="M58 122Q100 140 142 122" fill="none" stroke-width="4"/>
+    <path d="M94 131Q90 158 104 160Q114 146 110 131Z" fill="#e8574a"/>`},
+  bruv:{body:`
+    <path d="M10 200C14 150 50 132 100 132C150 132 186 150 190 200Z" fill="#2e3133"/>
+    <path d="M48 200C48 150 60 126 100 126C140 126 152 150 152 200Z" fill="#6a22b0"/>
+    <path d="M100 140V200" fill="none" stroke-width="3"/>
+    <ellipse cx="100" cy="82" rx="54" ry="60" fill="#4a2a18"/>
+    <path d="M48 62C50 20 150 20 152 62Z" fill="#4f16a0"/>
+    <path d="M44 58Q100 46 156 58L154 78Q100 66 46 78Z" fill="#fff"/>
+    <text x="100" y="72" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-style="italic" font-size="16" fill="#2b2233" stroke="none">BRUV</text>
+    <path d="M44 96Q100 86 156 96L150 140Q100 156 50 140Z" fill="#6a22b0"/>
+    <rect x="62" y="102" width="76" height="30" rx="14" fill="#2e3133"/>
+    <rect x="70" y="108" width="60" height="18" rx="6" fill="#fff"/>
+    <path d="M82 108v18M94 108v18M106 108v18M118 108v18M70 117h60" fill="none" stroke="#9aa4b0" stroke-width="2"/>
+    <path d="M150 168C148 146 152 126 158 110C162 102 170 104 168 112L164 132L174 106C178 98 186 102 184 110L176 138C184 144 182 162 170 172Z" fill="#e8854a"/>`},
+  nasu:{body:`
+    <path d="M100 34C150 34 176 96 172 140C168 176 140 194 100 194C60 194 32 176 28 140C24 96 50 34 100 34Z" fill="#9b6ab8"/>
+    <path d="M50 92C52 72 62 58 74 50" fill="none" stroke="#c9a2e0" stroke-width="8"/>
+    <path d="M100 30V8" fill="none" stroke-width="12"/><path d="M100 30V9" fill="none" stroke="#4f8a2e" stroke-width="6"/>
+    <path d="M62 46C70 20 86 14 100 30C114 14 130 20 138 46C122 40 112 46 100 54C88 46 78 40 62 46Z" fill="#4f8a2e"/>
+    <path d="M70 60H130L124 74H76Z" fill="#8a5aa8" stroke="#6e4589" stroke-width="2"/>
+    <path d="M76 80q8-5 16 0M108 80q8-5 16 0" fill="none" stroke="#6e4589" stroke-width="3"/>
+    <circle cx="84" cy="90" r="5" fill="#1a1a1a" stroke="none"/><circle cx="116" cy="90" r="5" fill="#1a1a1a" stroke="none"/>
+    <path d="M100 94v12" fill="none" stroke="#6e4589" stroke-width="3"/>
+    <path d="M86 114Q100 124 114 114" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+    <path d="M88 122Q100 128 112 122L104 172Q100 178 96 172Z" fill="#6e4589" stroke="none"/>
+    <ellipse cx="70" cy="108" rx="8" ry="5" fill="#c98ab8" stroke="none"/><ellipse cx="130" cy="108" rx="8" ry="5" fill="#c98ab8" stroke="none"/>
+    <rect x="112" y="142" width="44" height="18" rx="3" fill="#8a5aa8" stroke="#6e4589" stroke-width="2" transform="rotate(-15 134 151)"/>
+    <path d="M50 152Q70 132 88 142" fill="none" stroke="#6e4589" stroke-width="3"/>`},
+  graffiti:{ol:'#8a8490',body:`
+    <path d="M100 18C150 18 168 62 166 104C164 140 156 160 150 170L178 196H40L52 168C40 150 34 126 34 104C32 60 50 18 100 18Z" fill="#17161a"/>
+    <path d="M54 84Q100 70 150 84Q148 106 100 108Q56 106 54 84Z" fill="#c98a5a"/>
+    <ellipse cx="80" cy="90" rx="8" ry="6" fill="#120a05" stroke="none"/><ellipse cx="122" cy="90" rx="8" ry="6" fill="#120a05" stroke="none"/>
+    <circle cx="82" cy="88" r="2" fill="#fff" stroke="none"/><circle cx="124" cy="88" r="2" fill="#fff" stroke="none"/>
+    <path d="M60 40q10-14 20 0t20 0M118 44c8-10 18-6 16 4s-14 8-6 16M48 126c10-6 18 4 26-2M104 130q8-8 16 0t16 0M70 150l8 10 8-12 8 12" fill="none" stroke="#e8762a" stroke-width="4"/>
+    <path d="M90 32h12M134 72l10-6M44 70l10 4M86 138c4 6 12 6 16 0M58 176h22" fill="none" stroke="#e8e4dc" stroke-width="4"/>
+    <text x="104" y="190" font-family="sans-serif" font-weight="bold" font-style="italic" font-size="16" fill="#e8e4dc" stroke="none">GOOD.</text>`},
+  mochi:{body:`
+    <path d="M100 26C150 26 172 70 174 112C176 150 186 170 190 186C170 180 162 192 150 184C140 194 126 186 120 192C110 184 96 196 86 188C74 194 64 184 52 190C42 180 26 188 12 184C20 166 26 146 26 112C28 70 50 26 100 26Z" fill="#f7f3ea"/>
+    <path d="M150 120C156 150 162 170 170 182" fill="none" stroke="#d9d3c6" stroke-width="8"/>
+    <circle cx="80" cy="98" r="5" fill="#1a1a1a" stroke="none"/><circle cx="122" cy="98" r="5" fill="#1a1a1a" stroke="none"/>
+    <ellipse cx="64" cy="114" rx="11" ry="6" fill="#ffab8f" stroke="none"/><ellipse cx="138" cy="114" rx="11" ry="6" fill="#ffab8f" stroke="none"/>
+    <path d="M89 124Q101 110 113 124" fill="none" stroke-width="4"/>`},
+  shiba:{body:`
+    <path d="M50 192C46 150 60 124 100 124C140 124 154 150 150 192Z" fill="#e88a3a"/>
+    <path d="M76 192C74 160 84 140 100 140C116 140 126 160 124 192Z" fill="#fbefdc" stroke="none"/>
+    <ellipse cx="72" cy="190" rx="16" ry="9" fill="#fbefdc"/><ellipse cx="128" cy="190" rx="16" ry="9" fill="#fbefdc"/>
+    <path d="M56 128Q100 146 144 128L142 142Q100 160 58 142Z" fill="#d6303a"/>
+    <circle cx="100" cy="156" r="7" fill="#f2c24a"/>
+    <path d="M38 72L46 16L88 46Z" fill="#e88a3a"/><path d="M162 72L154 16L112 46Z" fill="#e88a3a"/>
+    <path d="M50 56L53 30L74 46Z" fill="#fbefdc" stroke="none"/><path d="M150 56L147 30L126 46Z" fill="#fbefdc" stroke="none"/>
+    <ellipse cx="100" cy="84" rx="66" ry="52" fill="#e88a3a"/>
+    <path d="M50 100C56 126 80 136 100 136C120 136 144 126 150 100C136 92 118 96 100 106C82 96 64 92 50 100Z" fill="#fbefdc" stroke="none"/>
+    <ellipse cx="76" cy="62" rx="9" ry="6" fill="#fbefdc" stroke="none"/><ellipse cx="124" cy="62" rx="9" ry="6" fill="#fbefdc" stroke="none"/>
+    <circle cx="76" cy="80" r="7" fill="#1a1a1a" stroke="none"/><circle cx="124" cy="80" r="7" fill="#1a1a1a" stroke="none"/>
+    <circle cx="74" cy="77" r="2.5" fill="#fff" stroke="none"/><circle cx="122" cy="77" r="2.5" fill="#fff" stroke="none"/>
+    <ellipse cx="100" cy="102" rx="10" ry="7" fill="#3a3a40" stroke="none"/>
+    <path d="M100 108v6M90 116q5 6 10 0q5 6 10 0" fill="none" stroke-width="3"/>
+    <ellipse cx="62" cy="110" rx="9" ry="5" fill="#ff9aa8" stroke="none"/><ellipse cx="138" cy="110" rx="9" ry="5" fill="#ff9aa8" stroke="none"/>`},
+  rooster:{body:`
+    <path d="M120 120C140 60 190 50 196 70C180 70 160 90 156 120C176 90 196 100 190 116C170 110 160 130 150 150Z" fill="#1c1a22"/>
+    <path d="M140 90C150 74 170 66 186 68" fill="none" stroke="#5a5480" stroke-width="5"/>
+    <path d="M92 178v16M116 178v16M84 194h16M108 194h16" fill="none" stroke="#e6dcc8" stroke-width="6"/>
+    <path d="M60 110C60 90 90 84 120 94C150 104 162 136 148 162C134 184 92 186 72 166C58 152 56 128 60 110Z" fill="#1c1a22"/>
+    <path d="M90 130C110 120 136 126 140 146C124 156 100 154 90 130Z" fill="#2c2a40"/>
+    <path d="M58 116C46 90 48 60 66 46C84 36 100 46 102 66C104 86 96 104 84 118Z" fill="#e8762a"/>
+    <path d="M62 98l8 6M70 108l8 4M78 88l8 6" fill="none" stroke="#f2a33a" stroke-width="4"/>
+    <path d="M58 46C54 30 62 22 68 30C70 16 80 14 82 26C88 16 98 20 92 36C94 44 84 48 76 46Z" fill="#e8322f"/>
+    <path d="M54 58L32 66L54 72Z" fill="#f2c24a"/>
+    <path d="M54 74C50 88 60 92 64 80Z" fill="#e8322f"/>
+    <circle cx="68" cy="58" r="6" fill="#fff"/><circle cx="67" cy="58" r="3" fill="#111" stroke="none"/>`},
+  oni:{body:`
+    <path d="M30 100C14 70 30 30 60 26C80 6 120 6 140 26C170 30 186 70 170 100Z" fill="#5a3a3a"/>
+    <ellipse cx="36" cy="112" rx="14" ry="22" fill="#b8382a"/><ellipse cx="164" cy="112" rx="14" ry="22" fill="#b8382a"/>
+    <path d="M40 70C40 50 160 50 160 70L156 150C150 180 124 192 100 192C76 192 50 180 44 150Z" fill="#b8382a"/>
+    <path d="M38 72L46 38L64 52L80 28L100 46L120 28L136 52L154 38L162 72Q100 58 38 72Z" fill="#e8b030"/>
+    <circle cx="80" cy="42" r="5" fill="#f6d36a" stroke="none"/><circle cx="120" cy="42" r="5" fill="#f6d36a" stroke="none"/>
+    <path d="M100 66C110 76 110 92 100 98C90 92 90 76 100 66Z" fill="#f28a1a"/><circle cx="100" cy="83" r="4" fill="#1a0a05" stroke="none"/>
+    <path d="M54 102q12-14 30-4M146 102q-12-14-30-4" fill="none" stroke="#e8b030" stroke-width="8"/>
+    <path d="M58 114Q72 106 86 116Q72 122 58 114Z" fill="#f28a1a"/><circle cx="72" cy="115" r="3.5" fill="#1a0a05" stroke="none"/>
+    <path d="M142 114Q128 106 114 116Q128 122 142 114Z" fill="#f28a1a"/><circle cx="128" cy="115" r="3.5" fill="#1a0a05" stroke="none"/>
+    <path d="M88 132Q100 120 112 132Q114 144 100 144Q86 144 88 132Z" fill="#a02e22"/>
+    <path d="M66 154Q100 142 134 154Q120 174 100 174Q80 174 66 154Z" fill="#3a0a05"/>
+    <path d="M76 152h48v8h-48z" fill="#f2e2b0" stroke-width="2"/>
+    <path d="M68 152C60 142 58 126 62 118C66 132 74 142 78 152Z" fill="#f2e2b0"/>
+    <path d="M132 152C140 142 142 126 138 118C134 132 126 142 122 152Z" fill="#f2e2b0"/>
+    <path d="M80 182Q100 198 120 182Q110 200 100 198Q90 200 80 182Z" fill="#e8b030"/>`}
+};
+function illustSVG(id){
+  const it = ILLUST[id];
+  const body = typeof it.body === 'function' ? it.body() : it.body;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g stroke="${it.ol || '#2b2233'}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">${body}</g></svg>`;
+}
+
 const MONSTERS = [
   {id:'pomlin',name:'ポムリン',cat:'kurashi',hp:70,atk:7,exp:25,bg:'bg-forest',
    intro:'もりの おくから ポムリンが とびだした！',defeat:'ポムリンは 「また あそんでね…」と きえていった。',lose:'ポムリンは うれしそうに はねている。'},
@@ -797,7 +992,7 @@ const expNeed = lv => lv*30;
 
 /* ===================== SAVE ===================== */
 const SAVE_KEY = 'answerquest.v1';
-const defaultSave = () => ({name:'ゆうしゃ', lv:1, exp:0, words:{}, wins:{}, sound:true});
+const defaultSave = () => ({name:'ゆうしゃ', lv:1, exp:0, words:{}, wins:{}, sound:true, art:'illust'});
 function loadSave(){
   try{
     const s = JSON.parse(localStorage.getItem(SAVE_KEY));
@@ -828,6 +1023,20 @@ function spriteRows(sp){
   return sp._rows = out.map(r => r.join(''));
 }
 function drawSprite(cv, id){
+  const tok = cv._tok = (cv._tok || 0) + 1;
+  if(S.art !== 'pixel' && ILLUST[id]){
+    cv.classList.add('illust');
+    cv.width = cv.height = 300;
+    const img = new Image();
+    img.onload = () => {
+      if(cv._tok !== tok) return;
+      const c = cv.getContext('2d');
+      c.clearRect(0,0,300,300); c.drawImage(img,0,0,300,300);
+    };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(illustSVG(id));
+    return;
+  }
+  cv.classList.remove('illust');
   const sp = SPRITES[id];
   const rows = spriteRows(sp);
   const w = Math.max(...rows.map(r => r.length));
@@ -942,6 +1151,7 @@ function renderMap(){
   $('#mapMastered').textContent = mastered;
   $('#mapTotal').textContent = WORDS.length;
   $('#mapDue').textContent = due;
+  $('#artBtn').textContent = 'えのタッチ：' + (S.art === 'pixel' ? 'ドット絵' : 'イラスト');
 
   const list = $('#stageList'); list.innerHTML = '';
   const beaten = MONSTERS.filter(m => S.wins[m.id]).length;
@@ -973,6 +1183,10 @@ function renderMap(){
    });
   });
 }
+$('#artBtn').addEventListener('click', () => {
+  S.art = S.art === 'pixel' ? 'illust' : 'pixel';
+  persist(); play('select'); renderMap(); renderTitle();
+});
 $('#dexBtn').addEventListener('click', () => { play('select'); renderDex(); show('dex'); });
 $('#settingBtn').addEventListener('click', () => { play('select'); renderSetting(); show('setting'); });
 
