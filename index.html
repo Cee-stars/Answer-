@@ -95,6 +95,43 @@ canvas.sprite.illust{image-rendering:auto}
 .chip{display:inline-block;border:1px solid var(--muted);border-radius:3px;padding:0 6px;font-size:12px;color:var(--muted)}
 .area{font-size:13px;color:var(--gold);letter-spacing:.2em;margin-top:6px}
 .area::before{content:'◆ '}
+.mapwin{padding:8px}
+#usmap{display:block;width:100%;height:auto}
+.st{stroke:var(--night);stroke-width:1.2;transition:fill .3s}
+.st-other{fill:#222a5c}
+.st-lock{fill:#36407a;cursor:pointer}
+.st-open{fill:#4d7be0;cursor:pointer}
+.st-clear{fill:#c99a2e;cursor:pointer}
+.st-sel{stroke:var(--frame);stroke-width:3}
+.route{stroke:var(--muted);stroke-width:3;stroke-dasharray:8 8;opacity:.7}
+.route.done{stroke:var(--gold);stroke-dasharray:none;opacity:1}
+.pin{cursor:pointer;outline:none}
+.pin .dot{stroke:var(--night);stroke-width:4}
+.pin .dot.clear{fill:var(--gold)}
+.pin .dot.open{fill:var(--frame)}
+.pin .dot.lock{fill:#6a72a8}
+.pin.sel .dot{stroke:var(--gold);stroke-width:5}
+.pin:focus-visible .dot{stroke:var(--gold)}
+.plabel{font-family:var(--f-ui);font-size:24px;fill:var(--frame);text-anchor:middle;paint-order:stroke;stroke:var(--night);stroke-width:6px;pointer-events:none}
+.legend{display:flex;gap:14px;justify-content:center;font-size:12px;color:var(--muted);margin-top:4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.lg-clear{background:#c99a2e}.lg-open{background:#4d7be0}.lg-lock{background:#36407a}
+.state-panel{display:flex;flex-direction:column;gap:10px}
+.sp-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sp-name{font-size:22px;line-height:1.3}
+.sp-en{font-size:14px;color:var(--muted)}
+.sp-nick{font-size:13px;color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.stage-list{display:flex;flex-direction:column;gap:12px}
+.stamp-mini,.stamp,.clear-stamp{flex:none;width:52px;height:52px;border-radius:50%;border:3px dashed #4a5290;display:grid;place-items:center;font-family:var(--f-logo);font-size:13px;color:#4a5290;transform:rotate(-12deg)}
+.stamp-mini.got,.stamp-card.got .stamp,.clear-stamp{border:3px double var(--danger);color:var(--danger);background:rgba(255,106,87,.08)}
+.facts p,.fact{margin:6px 0 0;font-size:14px}
+.facts small,.fact small,.clear-box small{color:var(--muted)}
+.stamps{display:flex;flex-direction:column;gap:12px}
+.stamp-card{display:flex;gap:14px;align-items:flex-start}
+.clear-box{display:flex;gap:14px;align-items:flex-start;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(244,240,226,.25)}
+.clear-box b{color:var(--gold);font-weight:normal}
+.clear-box p{margin:6px 0 0}
 .soon{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .soon .win{padding:10px 12px;border-style:dashed;opacity:.7}
 .soon b{display:block;font-weight:normal}
@@ -112,6 +149,12 @@ h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);marg
 .bg-ruins{background:linear-gradient(#141233 0 55%,#2c2a4a 55% 100%)}
 .bg-cave{background:linear-gradient(#1b1716 0 55%,#3a302a 55% 100%)}
 .bg-field{background:linear-gradient(#2b3f5c 0 55%,#5b3a1e 55% 100%)}
+.bg-beach{background:linear-gradient(#2f6fb8 0 55%,#d9b878 55% 100%)}
+.bg-neon{background:linear-gradient(#2a0f45 0 55%,#3a1a2a 55% 100%)}
+.bg-desert{background:linear-gradient(#b8582a 0 55%,#8a4a22 55% 100%)}
+.bg-snow{background:linear-gradient(#3a5a88 0 55%,#cfdbe8 55% 100%)}
+.bg-swamp{background:linear-gradient(#1f3a2e 0 55%,#2f4a2a 55% 100%)}
+.bg-city{background:linear-gradient(#141a3a 0 55%,#3a3f55 55% 100%)}
 .bg-volcano{background:linear-gradient(#2a0b14 0 55%,#5a1a12 55% 100%)}
 .dmg{position:absolute;left:50%;top:30%;z-index:2;font-family:var(--f-logo);font-size:22px;color:var(--frame);text-shadow:2px 2px 0 var(--shadow);transform:translateX(-50%);animation:floatUp .9s steps(8) forwards;pointer-events:none}
 .dmg.crit{color:var(--gold);font-size:28px}
@@ -215,20 +258,27 @@ h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);marg
         <div class="num" style="font-size:22px"><span id="mapMastered">0</span><span style="font-size:14px;color:var(--muted)"> / <span id="mapTotal">0</span></span></div>
       </div>
       <div style="text-align:right">
+        <div class="label">スタンプ</div>
+        <div class="num" style="font-size:22px;color:var(--gold)"><span id="mapStamps">0</span><span style="font-size:14px;color:var(--muted)"> / 12</span></div>
+      </div>
+      <div style="text-align:right">
         <div class="label">ふくしゅう まち</div>
         <div class="num" style="font-size:22px;color:var(--sky)" id="mapDue">0</div>
       </div>
     </div>
-    <h2>バトル ─ たおすほど 単語が 身につく</h2>
-    <div id="stageList" style="display:flex;flex-direction:column;gap:12px"></div>
+    <h2>アメリカ横断の たび ─ ハワイから ニューヨークへ</h2>
+    <div class="win mapwin">
+      <svg id="usmap" viewBox="0 0 975 610" role="img" aria-label="アメリカの地図"></svg>
+      <div class="legend"><span><i class="lg-clear"></i>クリア</span><span><i class="lg-open"></i>いける</span><span><i class="lg-lock"></i>まだ</span></div>
+    </div>
+    <div class="win state-panel" id="statePanel"></div>
     <h2>じゅんびちゅうの モード</h2>
     <div class="soon">
       <div class="win"><b>スペル</b><span>意味から つづりを 完成させる</span></div>
       <div class="win"><b>ならべかえ</b><span>単語を 並べて 文を つくる</span></div>
-      <div class="win"><b>ぼうけん</b><span>ステージを 進んで ボスへ</span></div>
-      <div class="win"><b>あなたの モンスター</b><span>写真を おくると もっと ふえる</span></div>
     </div>
     <div class="btn-row">
+      <button class="btn" id="passBtn">パスポート</button>
       <button class="btn" id="artBtn"></button>
       <button class="btn" id="dexBtn">たんご ずかん</button>
       <button class="btn" id="settingBtn">せってい</button>
@@ -297,6 +347,16 @@ h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);marg
     <div class="tabs" id="dexTabs"></div>
     <p class="note">いみを かくして、すぐ言えるか ためそう。タップで いみと 例文が でるよ。</p>
     <div class="win"><ul class="wlist dex" id="dexList"></ul></div>
+  </section>
+
+  <!-- PASSPORT -->
+  <section class="screen" id="s-pass" hidden>
+    <div class="row spread">
+      <button class="btn small" id="passBack">もどる</button>
+      <span class="label" id="passCount"></span>
+    </div>
+    <p class="note">州を クリアすると スタンプと 英語の 豆知識が もらえるよ。</p>
+    <div class="stamps" id="stampList"></div>
   </section>
 
   <!-- SETTINGS -->
@@ -486,6 +546,234 @@ const WORDS = [
   {w:'mouse',m:'ネズミ',c:'doubutsu',e:'The cat is chasing a mouse.',j:'猫がネズミを追いかけている。'},
   {w:'squirrel',m:'リス',c:'doubutsu',e:'The squirrel is eating nuts.',j:'リスが木の実を食べている。'}
 ];
+
+// ===== アメリカ編の単語 =====
+const W2 = {
+umi:[
+ ['beach','浜辺・ビーチ',"Let's go to the beach.",'ビーチに行こう。'],
+ ['wave','波','The waves are big today.','今日は波が高い。'],
+ ['sand','砂','The sand is hot.','砂が熱い。'],
+ ['ocean','海','I swam in the ocean.','海で泳いだ。'],
+ ['shell','貝がら','I found a pretty shell.','きれいな貝がらを見つけた。'],
+ ['sunset','夕日','The sunset is beautiful.','夕日がきれい。'],
+ ['swim','泳ぐ','Can you swim?','泳げる？'],
+ ['fish','魚','I saw many fish.','たくさんの魚を見た。'],
+ ['boat','ボート・船','We took a boat.','ボートに乗った。'],
+ ['surf','サーフィンをする','He surfs every morning.','彼は毎朝サーフィンをする。'],
+ ['coast','海岸','We drove along the coast.','海岸沿いをドライブした。'],
+ ['deep','深い','The sea is deep here.','ここは海が深い。'],
+ ['volcano','火山','Hawaii has volcanoes.','ハワイには火山がある。'],
+ ['flower','花','She wears a flower in her hair.','彼女は髪に花をつけている。'],
+ ['sunscreen','日焼け止め',"Don't forget sunscreen.",'日焼け止めを忘れないで。']],
+kuukou:[
+ ['airport','空港','We arrived at the airport.','空港に着いた。'],
+ ['passport','パスポート','May I see your passport?','パスポートを見せていただけますか？'],
+ ['flight','便・フライト','My flight is at ten.','私の便は10時です。'],
+ ['luggage','荷物','Where can I get my luggage?','荷物はどこで受け取れますか？'],
+ ['gate','搭乗口','Go to Gate 5.','5番搭乗口へ行ってください。'],
+ ['seat','座席','This is my seat.','ここは私の席です。'],
+ ['Window seat, please.','窓側の席をお願いします。','A: Window or aisle? B: Window seat, please.','A: 窓側と通路側どちら？B: 窓側でお願いします。'],
+ ["What's the purpose of your visit?",'訪問の目的は何ですか？',"A: What's the purpose of your visit? B: Sightseeing.",'A: 訪問の目的は？B: 観光です。'],
+ ['sightseeing','観光',"I'm here for sightseeing.",'観光で来ました。'],
+ ['How long will you stay?','どのくらい滞在しますか？','A: How long will you stay? B: For a week.','A: どのくらい滞在しますか？B: 1週間です。'],
+ ['Where is the restroom?','トイレはどこですか？','Excuse me, where is the restroom?','すみません、トイレはどこですか？'],
+ ['delay','遅れ','There is a delay.','遅れが出ています。'],
+ ['depart','出発する','The plane departs at noon.','飛行機は正午に出発する。'],
+ ["I'm lost.",'道に迷いました。',"Excuse me, I'm lost.",'すみません、道に迷いました。'],
+ ['Could you take a picture?','写真を撮ってもらえますか？','Could you take a picture of us?','私たちの写真を撮ってもらえますか？']],
+geinou:[
+ ['movie','映画',"Let's watch a movie.",'映画を見よう。'],
+ ['actor','俳優','He is a famous actor.','彼は有名な俳優だ。'],
+ ['story','物語',"It's a sad story.",'悲しい物語だ。'],
+ ['camera','カメラ','Smile at the camera!','カメラに向かって笑って！'],
+ ['screen','画面','The screen is too dark.','画面が暗すぎる。'],
+ ['computer','コンピューター','I use a computer at work.','仕事でコンピューターを使う。'],
+ ['internet','インターネット','The internet is slow.','ネットが遅い。'],
+ ['phone','電話・スマホ','My phone is dead.','スマホの電池が切れた。'],
+ ['Can I use Wi-Fi here?','ここでWi-Fiを使えますか？','Excuse me, can I use Wi-Fi here?','すみません、ここでWi-Fiは使えますか？'],
+ ['download','ダウンロードする','Download the app.','アプリをダウンロードして。'],
+ ['show','番組・ショー',"What's your favorite TV show?",'好きなテレビ番組は何？'],
+ ['audience','観客','The audience laughed.','観客が笑った。'],
+ ['scene','場面','I like this scene.','この場面が好き。'],
+ ['invent','発明する','Who invented the phone?','電話を発明したのは誰？'],
+ ['information','情報','I need more information.','もっと情報が必要です。']],
+kaimono:[
+ ['How much is this?','これはいくらですか？','Excuse me, how much is this?','すみません、これはいくらですか？'],
+ ["I'm just looking.",'見ているだけです。',"A: Can I help you? B: I'm just looking.",'A: 何かお探しですか？B: 見ているだけです。'],
+ ['Can I try this on?','試着してもいいですか？','This shirt is nice. Can I try this on?','このシャツいいな。試着してもいいですか？'],
+ ["I'll take it.",'これにします。',"It's perfect. I'll take it.",'ぴったり。これにします。'],
+ ['cash','現金','Do you take cash?','現金は使えますか？'],
+ ['card','カード','Can I pay by card?','カードで払えますか？'],
+ ['receipt','レシート',"Here's your receipt.",'レシートです。'],
+ ['size','サイズ','Do you have a smaller size?','もっと小さいサイズはありますか？'],
+ ['sale','セール・特売','These shoes are on sale.','この靴はセール中です。'],
+ ['store','店','The store opens at nine.','店は9時に開く。'],
+ ['buy','買う','I want to buy a hat.','帽子を買いたい。'],
+ ['sell','売る','They sell fruit here.','ここでは果物を売っている。'],
+ ['souvenir','お土産','I bought souvenirs for my family.','家族にお土産を買った。'],
+ ['bag','袋・かばん','Do you need a bag?','袋はいりますか？'],
+ ['discount','割引','Is there a discount?','割引はありますか？']],
+shizen:[
+ ['desert','砂漠',"It's hot in the desert.",'砂漠は暑い。'],
+ ['rock','岩','Sit on that rock.','あの岩に座って。'],
+ ['canyon','峡谷','The canyon is very deep.','その峡谷はとても深い。'],
+ ['sky','空','The sky is blue.','空が青い。'],
+ ['star','星','I can see many stars tonight.','今夜はたくさんの星が見える。'],
+ ['moon','月','The moon is bright.','月が明るい。'],
+ ['forest','森','We walked in the forest.','森の中を歩いた。'],
+ ['tree','木','There is a big tree.','大きな木がある。'],
+ ['lake','湖',"Let's swim in the lake.",'湖で泳ごう。'],
+ ['river','川','The river is wide.','その川は広い。'],
+ ['mountain','山','The mountain is covered with snow.','山は雪でおおわれている。'],
+ ['earth','地球','We live on the earth.','私たちは地球に住んでいる。'],
+ ['nature','自然','I love nature.','自然が大好き。'],
+ ['air','空気','The air is clean here.','ここは空気がきれい。'],
+ ['view','景色','What a beautiful view!','なんてきれいな景色！']],
+supotsu:[
+ ['team','チーム','Which team do you like?','どのチームが好き？'],
+ ['player','選手','He is a good player.','彼はいい選手だ。'],
+ ['win','勝つ','We won the game!','試合に勝った！'],
+ ['lose','負ける',"Don't be sad if you lose.",'負けても落ちこまないで。'],
+ ['game','試合','The game starts at seven.','試合は7時に始まる。'],
+ ['ski','スキーをする',"Let's ski this winter.",'この冬スキーをしよう。'],
+ ['snow','雪','The snow is soft.','雪がふわふわだ。'],
+ ['cold','寒い・冷たい',"It's cold outside.",'外は寒い。'],
+ ['score','得点',"What's the score?",'今何点？'],
+ ['run','走る','I run every morning.','毎朝走る。'],
+ ['jump','跳ぶ','How high can you jump?','どのくらい高く跳べる？'],
+ ['fast','速い','He runs fast.','彼は走るのが速い。'],
+ ['strong','強い','She is very strong.','彼女はとても強い。'],
+ ['coach','コーチ','Our coach is strict.','私たちのコーチは厳しい。'],
+ ['goal','ゴール・目標','My goal is to win.','私の目標は勝つことだ。']],
+taberu:[
+ ['menu','メニュー','Can I see the menu?','メニューを見せてもらえますか？'],
+ ['order','注文する','Are you ready to order?','ご注文はお決まりですか？'],
+ ['For here or to go?','店内ですか、お持ち帰りですか？','A: For here or to go? B: To go, please.','A: 店内ですか、お持ち帰りですか？B: 持ち帰りで。'],
+ ['Check, please.','お会計をお願いします。','Excuse me. Check, please.','すみません、お会計をお願いします。'],
+ ["I'd like this one.",'これをください。',"I'd like this one, please.",'これをお願いします。'],
+ ['meat','肉',"I don't eat meat.",'私は肉を食べない。'],
+ ['sweet','甘い','This cake is sweet.','このケーキは甘い。'],
+ ['spicy','辛い','Is it spicy?','それは辛いですか？'],
+ ['salty','しょっぱい','The soup is too salty.','スープがしょっぱすぎる。'],
+ ['bitter','苦い','This coffee is bitter.','このコーヒーは苦い。'],
+ ['taste','味がする','It tastes good!','おいしい！'],
+ ['drink','飲み物・飲む','What would you like to drink?','お飲み物は何にしますか？'],
+ ['water','水','Can I have some water?','お水をもらえますか？'],
+ ['restaurant','レストラン','I know a good restaurant.','いいレストランを知っている。'],
+ ['tip','チップ','In America, people leave a tip.','アメリカではチップを置く。']],
+ongaku:[
+ ['music','音楽','I listen to music every day.','毎日音楽を聴く。'],
+ ['song','歌','This is my favorite song.','これは私のお気に入りの歌だ。'],
+ ['sing','歌う',"Let's sing together.",'いっしょに歌おう。'],
+ ['dance','踊る','Can you dance?','踊れる？'],
+ ['guitar','ギター','He plays the guitar.','彼はギターを弾く。'],
+ ['drum','ドラム・太鼓','I play the drums in a band.','バンドでドラムをたたいている。'],
+ ['band','バンド','New Orleans has many jazz bands.','ニューオーリンズにはジャズバンドがたくさんある。'],
+ ['concert','コンサート','The concert was amazing.','コンサートは最高だった。'],
+ ['listen','聴く・聞く','Listen to me.','私の話を聞いて。'],
+ ['loud','うるさい・大きな音の','The music is too loud.','音楽がうるさすぎる。'],
+ ['voice','声','She has a beautiful voice.','彼女はきれいな声をしている。'],
+ ['stage','ステージ・舞台','The singer came on stage.','歌手がステージに登場した。'],
+ ['festival','祭り・フェス','The festival is in May.','祭りは5月にある。'],
+ ['clap','拍手する','Everyone clapped.','みんなが拍手した。'],
+ ['rhythm','リズム','Feel the rhythm!','リズムを感じて！']],
+asobi:[
+ ['ride','乗る・乗り物',"Let's ride the roller coaster.",'ジェットコースターに乗ろう。'],
+ ['line','列','The line is very long.','列がとても長い。'],
+ ['ticket','チケット・切符','Two tickets, please.','チケットを2枚ください。'],
+ ['fun','楽しいこと','We had a lot of fun!','とても楽しかった！'],
+ ['scary','怖い','That ride was scary!','あの乗り物は怖かった！'],
+ ['fireworks','花火','We watched the fireworks.','花火を見た。'],
+ ['parade','パレード','The parade starts at three.','パレードは3時に始まる。'],
+ ['map','地図','Can I have a map?','地図をもらえますか？'],
+ ['open','開いている','Is it open today?','今日は開いていますか？'],
+ ['closed','閉まっている','The shop is closed.','店は閉まっている。'],
+ ['enjoy','楽しむ','Enjoy your stay!','滞在を楽しんでね！'],
+ ['play','遊ぶ','The children are playing outside.','子どもたちが外で遊んでいる。'],
+ ['How long is the wait?','待ち時間はどのくらいですか？','Excuse me, how long is the wait?','すみません、待ち時間はどのくらいですか？'],
+ ['entrance','入口','Where is the entrance?','入口はどこですか？'],
+ ['exit','出口','The exit is over there.','出口はあちらです。']],
+tenki:[
+ ['sunny','晴れた',"It's sunny today.",'今日は晴れ。'],
+ ['cloudy','くもった',"It's cloudy this morning.",'今朝はくもり。'],
+ ['rainy','雨の',"I don't like rainy days.",'雨の日は好きじゃない。'],
+ ['windy','風の強い','Chicago is a windy city.','シカゴは風の強い街だ。'],
+ ['snowy','雪の','It was snowy yesterday.','昨日は雪だった。'],
+ ['storm','嵐','A big storm is coming.','大きな嵐が来る。'],
+ ['hot','暑い・熱い',"It's so hot!",'すごく暑い！'],
+ ['warm','暖かい',"It's warm today.",'今日は暖かい。'],
+ ['cool','涼しい',"It's cool in the evening.",'夕方は涼しい。'],
+ ['wet','ぬれた','My shoes are wet.','靴がぬれた。'],
+ ['dry','乾いた','The air is dry.','空気が乾燥している。'],
+ ['temperature','気温・温度',"What's the temperature today?",'今日の気温は？'],
+ ['forecast','天気予報','Check the weather forecast.','天気予報を確認して。'],
+ ['thunder','雷','I heard thunder.','雷が聞こえた。'],
+ ["It's freezing!",'凍えそうに寒い！',"It's freezing! Close the window.",'凍えそう！窓を閉めて。']],
+karada:[
+ ['head','頭','Raise your head.','頭を上げて。'],
+ ['stomach','お腹','My stomach hurts.','お腹が痛い。'],
+ ['tooth','歯','I have a bad tooth.','虫歯がある。'],
+ ['back','背中','My back hurts.','背中が痛い。'],
+ ['leg','脚','I broke my leg.','脚を骨折した。'],
+ ['arm','腕','He has strong arms.','彼は腕の力が強い。'],
+ ['I have a headache.','頭が痛いです。','I have a headache. Can I go home?','頭が痛いです。帰ってもいいですか？'],
+ ['I have a fever.','熱があります。','I think I have a fever.','熱があると思います。'],
+ ['I have a cold.','風邪をひいています。',"I have a cold, so I'll stay home.",'風邪をひいたので家にいます。'],
+ ['sick','具合が悪い','I feel sick.','気分が悪い。'],
+ ['medicine','薬','Take this medicine.','この薬を飲んで。'],
+ ['pharmacy','薬局','Is there a pharmacy near here?','近くに薬局はありますか？'],
+ ['doctor','医者','You should see a doctor.','医者に診てもらったほうがいい。'],
+ ['pain','痛み','I have a pain here.','ここが痛みます。'],
+ ['healthy','健康な','Eat vegetables to stay healthy.','健康でいるために野菜を食べよう。']],
+gakkou:[
+ ['history','歴史','I like history class.','歴史の授業が好き。'],
+ ['subject','教科','What subject do you like?','どの教科が好き？'],
+ ['math','数学','Math is difficult for me.','数学は私には難しい。'],
+ ['science','理科・科学','We did an experiment in science.','理科で実験をした。'],
+ ['test','テスト','I have a test tomorrow.','明日テストがある。'],
+ ['freedom','自由','Freedom is important.','自由は大切だ。'],
+ ['president','大統領','Washington was the first president.','ワシントンは初代大統領だった。'],
+ ['war','戦争','Nobody wants war.','誰も戦争を望まない。'],
+ ['peace','平和','We hope for peace.','私たちは平和を願う。'],
+ ['flag','旗','The American flag has 50 stars.','アメリカの国旗には星が50個ある。'],
+ ['bell','鐘・ベル','The Liberty Bell is in Philadelphia.','自由の鐘はフィラデルフィアにある。'],
+ ['question','質問','Can I ask a question?','質問してもいいですか？'],
+ ['classroom','教室','Our classroom is on the second floor.','私たちの教室は2階にある。'],
+ ['student','生徒・学生',"I'm a student.",'私は学生です。'],
+ ['learn','学ぶ','I want to learn English.','英語を学びたい。']],
+machi:[
+ ['subway','地下鉄',"Let's take the subway.",'地下鉄に乗ろう。'],
+ ['taxi','タクシー','Can you call a taxi?','タクシーを呼んでもらえますか？'],
+ ['building','建物・ビル','That building is very tall.','あの建物はとても高い。'],
+ ['street','通り','Walk down this street.','この通りを進んで。'],
+ ['corner','角','The shop is on the corner.','店は角にある。'],
+ ['Turn right.','右に曲がって。','Turn right at the corner.','角を右に曲がって。'],
+ ['Go straight.','まっすぐ行って。','Go straight for two blocks.','2ブロックまっすぐ行って。'],
+ ['hotel','ホテル',"I'm staying at this hotel.",'このホテルに泊まっています。'],
+ ["I'd like to check in.",'チェックインをお願いします。',"Hi, I'd like to check in.",'こんにちは、チェックインをお願いします。'],
+ ['room','部屋','My room is 305.','私の部屋は305号室です。'],
+ ['floor','階・床','The restaurant is on the 10th floor.','レストランは10階です。'],
+ ['elevator','エレベーター','Where is the elevator?','エレベーターはどこですか？'],
+ ['crowded','混んでいる','The train is crowded.','電車が混んでいる。'],
+ ['near','近い','Is there a station near here?','近くに駅はありますか？'],
+ ['far','遠い','Is it far from here?','ここから遠いですか？']]
+};
+Object.entries(W2).forEach(([c, list]) => list.forEach(([w,m,e,j]) => WORDS.push({w,m,c,e,j})));
+Object.assign(CATS, {
+  umi:{name:'うみ', desc:'海とビーチ'},
+  kuukou:{name:'くうこう', desc:'空港・旅の英語'},
+  geinou:{name:'えいが', desc:'映画とテクノロジー'},
+  kaimono:{name:'かいもの', desc:'買い物の英語'},
+  shizen:{name:'しぜん', desc:'自然と景色'},
+  supotsu:{name:'スポーツ', desc:'スポーツと冬'},
+  taberu:{name:'たべもの', desc:'食事・レストランの英語'},
+  ongaku:{name:'おんがく', desc:'音楽'},
+  asobi:{name:'あそび', desc:'遊園地・おでかけ'},
+  tenki:{name:'てんき', desc:'天気'},
+  karada:{name:'からだ', desc:'体と病気の英語'},
+  gakkou:{name:'がっこう', desc:'学校と歴史'},
+  machi:{name:'まち', desc:'街・ホテルの英語'}
+});
 
 /* Pixel sprites: one char = one pixel, '.' = empty */
 const SPRITES = {
@@ -950,36 +1238,317 @@ function illustSVG(id){
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g stroke="${it.ol || '#2b2233'}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">${body}</g></svg>`;
 }
 
-const MONSTERS = [
-  {id:'pomlin',name:'ポムリン',cat:'kurashi',hp:70,atk:7,exp:25,bg:'bg-forest',
-   intro:'もりの おくから ポムリンが とびだした！',defeat:'ポムリンは 「また あそんでね…」と きえていった。',lose:'ポムリンは うれしそうに はねている。'},
-  {id:'pecha',name:'ペチャクチャ',cat:'kaiwa',hp:75,atk:8,exp:30,bg:'bg-town',
-   intro:'ペチャクチャが 「Hello! Hello!」と さわぎだした！',defeat:'ペチャクチャは 「See you later!」と とびさった。',lose:'ペチャクチャは 「No way!」と わらっている。'},
-  {id:'yomi',name:'ヨミガラス',cat:'ugoki',hp:85,atk:9,exp:40,bg:'bg-ruins',
-   intro:'まどうしょを かかえた ヨミガラスが まいおりた！',defeat:'ヨミガラスは 本を おとして 夜空に きえた。',lose:'ヨミガラスは 本を めくって わらっている。'},
-  {id:'golem',name:'グラムゴーレム',cat:'yousu',hp:100,atk:10,exp:50,bg:'bg-cave',
-   intro:'もじが きざまれた グラムゴーレムが めざめた！',defeat:'グラムゴーレムは くずれて ただの いしに なった。',lose:'グラムゴーレムは しずかに ねむりに ついた。'},
-  {id:'chipryu',name:'チップリュウ',cat:'doubutsu',hp:110,atk:11,exp:60,bg:'bg-field',custom:true,
-   intro:'さつまいも畑から チップリュウが のぼってきた！「俺は無敵だ！」',laugh:'ワハハハ！ 俺は無敵だ！',defeat:'チップリュウ「え？」',lose:'チップリュウ「ワハハハ！ 俺は無敵だ！」'},
-  {id:'montblanc',name:'モンブラン・アイ',cat:'kurashi',hp:80,atk:8,exp:35,bg:'bg-forest',custom:true,
-   intro:'ひとつ目の モンブラン・アイが ベロを だした！',laugh:'ベロベロ〜！',defeat:'モンブラン・アイは とけて、あまい においだけが のこった。',lose:'モンブラン・アイは ベロを だして わらっている。'},
-  {id:'bruv',name:'ブルーヴ',cat:'kaiwa',hp:85,atk:9,exp:40,bg:'bg-town',custom:true,
-   intro:'ブルーヴが ニカッと わらった。「What\'s up, bruv?」',laugh:'No way, bruv!',defeat:'ブルーヴ「Good game, bruv.」',lose:'ブルーヴ「Take care, bruv.」'},
-  {id:'nasu',name:'ナスノカミ',cat:'ugoki',hp:90,atk:9,exp:40,bg:'bg-ruins',custom:true,
-   intro:'ナスノカミが にっこり ほほえんだ。「ふくを さずけよう…」',laugh:'ほっほっほ',defeat:'ナスノカミ「よく がんばった。ふくを さずけよう」',lose:'ナスノカミは ほっほっほと わらっている。'},
-  {id:'graffiti',name:'ラクガキマスク',cat:'ugoki',hp:95,atk:10,exp:45,bg:'bg-town',custom:true,
-   intro:'ラクガキマスクが かべの かげから あらわれた！',laugh:'ヘヘッ',defeat:'ラクガキマスクは スプレーを おとして にげていった。',lose:'ラクガキマスクは かべに「WIN」と かいた。'},
-  {id:'mochi',name:'モチオバケ',cat:'yousu',hp:80,atk:8,exp:35,bg:'bg-cave',custom:true,
-   intro:'モチオバケが ふわっと あらわれた…「こわくないよ…」',laugh:'ふふ…',defeat:'モチオバケは「ふぇ…」と きえていった。',lose:'モチオバケは ほっとした かおを している。'},
-  {id:'shiba',name:'シバまる',cat:'doubutsu',hp:85,atk:9,exp:40,bg:'bg-field',custom:true,
-   intro:'シバまるが しっぽを ふりながら とびかかってきた！',laugh:'ワン！ワン！',defeat:'シバまるは まんぞくそうに ねころんだ。',lose:'シバまるは うれしそうに しっぽを ふっている。'},
-  {id:'rooster',name:'コケキング',cat:'doubutsu',hp:95,atk:10,exp:45,bg:'bg-field',custom:true,
-   intro:'コケキングが「コケコッコー！」と ないた！',laugh:'コケーッ！',defeat:'コケキングは にわとりごやに にげかえった。',lose:'コケキングは むねを はって いばっている。'},
-  {id:'oni',name:'サンガンオウ',cat:'all',hp:130,atk:12,exp:90,bg:'bg-volcano',boss:true,unlock:4,custom:true,
-   intro:'みっつの 目が ひかる… サンガンオウが あらわれた！',laugh:'グハハハ！',defeat:'サンガンオウの 目の ひかりが きえた…',lose:'サンガンオウは グハハハと わらっている。'},
-  {id:'lexidra',name:'レキシドラ',cat:'all',hp:160,atk:13,exp:120,bg:'bg-volcano',boss:true,unlock:8,
-   intro:'すべての ことばを くらう りゅう、レキシドラが あらわれた！',defeat:'レキシドラを たおした！ ことばの ちからが みなぎる！',lose:'レキシドラの ほのおが すべてを つつんだ…'}
+// ===== アメリカ編の新モンスター（イラスト） =====
+Object.assign(ILLUST, {
+  pineapple:{body:`
+    <path d="M100 74C88 50 70 40 56 36C76 32 90 44 96 56C92 36 96 20 100 6C104 20 108 36 104 56C110 44 124 32 144 36C130 40 112 50 100 74Z" fill="#3f9a35"/>
+    <ellipse cx="100" cy="132" rx="56" ry="62" fill="#f5b938"/>
+    <path d="M62 100L136 178M52 132L112 194M84 76L156 148M138 100L64 178M148 132L88 194M116 76L44 148" fill="none" stroke="#c9862a" stroke-width="3"/>
+    <path d="M56 110h88v6c0 14-12 20-22 20s-16-8-18-14h-8c-2 6-8 14-18 14s-22-6-22-20z" fill="#2b2233"/>
+    <path d="M70 116l10-4M116 116l10-4" fill="none" stroke="#7fb0ff" stroke-width="3"/>
+    <path d="M84 156Q100 170 116 156" fill="none" stroke-width="4"/>`},
+  honu:{body:`
+    <ellipse cx="44" cy="150" rx="32" ry="14" fill="#6bbf8a" transform="rotate(-25 44 150)"/>
+    <ellipse cx="156" cy="150" rx="32" ry="14" fill="#6bbf8a" transform="rotate(25 156 150)"/>
+    <ellipse cx="100" cy="72" rx="36" ry="32" fill="#6bbf8a"/>
+    <path d="M80 60q8-7 16 0M104 60q8-7 16 0" fill="none" stroke="#fff" stroke-width="6"/>
+    <path d="M82 72q7 5 14 0M104 72q7 5 14 0" fill="none" stroke-width="3"/>
+    <path d="M86 88Q100 120 114 88Z" fill="#fff"/>
+    <path d="M28 158C28 98 172 98 172 158Z" fill="#3c8a5a"/>
+    <path d="M70 118l15-9 15 9v18l-15 9-15-9zM100 118l15-9 15 9v18l-15 9-15-9z" fill="#5aa874" stroke-width="3"/>
+    <path d="M32 158H168Q160 178 100 180Q40 178 32 158Z" fill="#e8d9a8"/>
+    <circle cx="70" cy="104" r="7" fill="#ff7aa8"/><circle cx="86" cy="100" r="7" fill="#ffd34a"/><circle cx="100" cy="98" r="7" fill="#ff7aa8"/><circle cx="114" cy="100" r="7" fill="#ffd34a"/><circle cx="130" cy="104" r="7" fill="#ff7aa8"/>`},
+  star:{body:`
+    <path d="M100 14L124 72L186 76L138 116L154 180L100 144L46 180L62 116L14 76L76 72Z" fill="#ffd34a"/>
+    <path d="M64 92h72v6c0 12-10 18-20 18s-14-6-16-12c-2 6-6 12-16 12s-20-6-20-18z" fill="#2b2233"/>
+    <path d="M84 130Q100 144 116 130" fill="none" stroke-width="4"/>
+    <ellipse cx="70" cy="128" rx="8" ry="5" fill="#ff9aa8" stroke="none"/><ellipse cx="130" cy="128" rx="8" ry="5" fill="#ff9aa8" stroke="none"/>
+    <path d="M170 18l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#fff" stroke-width="2"/>
+    <path d="M26 132l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#fff" stroke-width="2"/>`},
+  goldbear:{body:`
+    <circle cx="54" cy="48" r="20" fill="#d9a032"/><circle cx="146" cy="48" r="20" fill="#d9a032"/>
+    <circle cx="54" cy="48" r="9" fill="#f2cf7a" stroke="none"/><circle cx="146" cy="48" r="9" fill="#f2cf7a" stroke="none"/>
+    <ellipse cx="100" cy="162" rx="64" ry="36" fill="#d9a032"/>
+    <circle cx="100" cy="92" r="58" fill="#e8b440"/>
+    <ellipse cx="100" cy="114" rx="26" ry="20" fill="#f6dc9a"/>
+    <ellipse cx="100" cy="104" rx="9" ry="6" fill="#2b2233" stroke="none"/>
+    <path d="M100 110v8M90 122q10 6 20 0" fill="none" stroke-width="3"/>
+    <circle cx="76" cy="82" r="6" fill="#2b2233" stroke="none"/><circle cx="124" cy="82" r="6" fill="#2b2233" stroke="none"/>
+    <path d="M66 70l16 4M134 70l-16 4" fill="none" stroke-width="4"/>
+    <path d="M100 150l5 10 11 1-8 7 3 11-11-6-10 6 3-11-8-7 11-1z" fill="#fff6c8" stroke-width="2"/>`},
+  slot:{body:`
+    <path d="M160 124h16V72" fill="none" stroke-width="6"/><circle cx="176" cy="64" r="11" fill="#ffd34a"/>
+    <rect x="40" y="42" width="120" height="142" rx="16" fill="#d6304a"/>
+    <rect x="52" y="26" width="96" height="24" rx="10" fill="#ffd34a"/>
+    <rect x="54" y="66" width="92" height="46" rx="6" fill="#fff"/>
+    <path d="M85 66v46M115 66v46" fill="none" stroke-width="3"/>
+    <text x="70" y="100" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="26" fill="#d6304a" stroke="none">7</text>
+    <text x="100" y="100" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="26" fill="#d6304a" stroke="none">7</text>
+    <text x="130" y="100" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="26" fill="#3d7bf0" stroke="none">?</text>
+    <path d="M66 136Q100 168 134 136Z" fill="#2b2233"/>
+    <circle cx="100" cy="148" r="8" fill="#ffd34a" stroke-width="3"/>`},
+  alien:{body:`
+    <path d="M70 196C70 152 84 134 100 134C116 134 130 152 130 196Z" fill="#a9b8c6"/>
+    <path d="M100 20C150 20 172 56 168 92C164 126 126 150 100 150C74 150 36 126 32 92C28 56 50 20 100 20Z" fill="#b8c8d6"/>
+    <path d="M46 84C54 68 82 72 90 98C80 108 52 106 46 84Z" fill="#111"/>
+    <path d="M154 84C146 68 118 72 110 98C120 108 148 106 154 84Z" fill="#111"/>
+    <ellipse cx="64" cy="84" rx="6" ry="4" fill="#fff" stroke="none"/><ellipse cx="136" cy="84" rx="6" ry="4" fill="#fff" stroke="none"/>
+    <path d="M92 126q8 4 16 0" fill="none" stroke-width="3"/>
+    <text x="100" y="186" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="18" fill="#2b2233" stroke="none">51</text>`},
+  cactus:{body:`
+    <path d="M70 132H48q-12 0-12-12V92q0-10 10-10t10 10v26h14" fill="#4fa04a"/>
+    <path d="M130 112h22q12 0 12-12V74q0-10-10-10t-10 10v24h-14" fill="#4fa04a"/>
+    <rect x="68" y="56" width="64" height="136" rx="30" fill="#4fa04a"/>
+    <path d="M86 70v116M114 70v116" fill="none" stroke="#3a7a36" stroke-width="3"/>
+    <path d="M46 60Q100 72 154 60Q154 50 132 48L126 20Q100 12 74 20L68 48Q46 50 46 60Z" fill="#8b5a2b"/>
+    <path d="M70 44Q100 52 130 44" fill="none" stroke="#d6304a" stroke-width="5"/>
+    <circle cx="88" cy="88" r="5" fill="#2b2233" stroke="none"/><circle cx="112" cy="88" r="5" fill="#2b2233" stroke="none"/>
+    <path d="M82 104q9-7 18 2q9-9 18-2q-6 10-18 4q-12 6-18-4z" fill="#3a2418"/>
+    <path d="M76 140l-6-3M124 150l6-3M88 172l-6 3M114 170l6 3" fill="none" stroke-width="3"/>`},
+  snowman:{body:`
+    <path d="M58 136L22 108M142 136L178 108" fill="none" stroke="#8b5a2b" stroke-width="6"/>
+    <circle cx="100" cy="148" r="46" fill="#fff"/>
+    <circle cx="100" cy="74" r="34" fill="#fff"/>
+    <rect x="74" y="20" width="52" height="26" rx="4" fill="#2b2233"/>
+    <rect x="62" y="42" width="76" height="9" rx="4" fill="#2b2233"/>
+    <path d="M68 102Q100 114 132 102L132 114Q100 126 68 114Z" fill="#d6304a"/>
+    <path d="M114 112l6 32h14l-6-34Z" fill="#d6304a"/>
+    <circle cx="88" cy="68" r="4" fill="#2b2233" stroke="none"/><circle cx="112" cy="68" r="4" fill="#2b2233" stroke="none"/>
+    <path d="M100 76l28 6-28 5z" fill="#f28a1a"/>
+    <path d="M86 92q14 8 28 0" fill="none" stroke-width="3"/>
+    <circle cx="100" cy="140" r="5" fill="#2b2233" stroke="none"/><circle cx="100" cy="160" r="5" fill="#2b2233" stroke="none"/>`},
+  bigfoot:{body:`
+    <ellipse cx="38" cy="148" rx="17" ry="42" fill="#6a4026"/><ellipse cx="162" cy="148" rx="17" ry="42" fill="#6a4026"/>
+    <path d="M42 194C36 140 52 100 100 100C148 100 164 140 158 194Z" fill="#7a4e2e"/>
+    <ellipse cx="70" cy="192" rx="26" ry="10" fill="#6a4026"/><ellipse cx="130" cy="192" rx="26" ry="10" fill="#6a4026"/>
+    <path d="M56 40l8-14 8 12 10-16 8 14 10-16 8 14 10-14 8 14 10-10 6 18" fill="#7a4e2e"/>
+    <ellipse cx="100" cy="76" rx="46" ry="46" fill="#7a4e2e"/>
+    <ellipse cx="100" cy="88" rx="30" ry="28" fill="#c9a07a"/>
+    <path d="M74 70h22M104 70h22" fill="none" stroke-width="6"/>
+    <circle cx="86" cy="80" r="4" fill="#2b2233" stroke="none"/><circle cx="114" cy="80" r="4" fill="#2b2233" stroke="none"/>
+    <path d="M94 92h12" fill="none" stroke-width="4"/>
+    <path d="M86 104q14 8 28 0" fill="none" stroke-width="3"/>`},
+  moboy:{body:`
+    <path d="M50 80C30 70 22 50 28 38C38 54 52 62 64 66Z" fill="#f2e2b0"/>
+    <path d="M150 80C170 70 178 50 172 38C162 54 148 62 136 66Z" fill="#f2e2b0"/>
+    <ellipse cx="40" cy="100" rx="18" ry="10" fill="#fff"/><ellipse cx="160" cy="100" rx="18" ry="10" fill="#fff"/>
+    <path d="M62 160Q100 186 138 160L100 198Z" fill="#d6304a"/>
+    <ellipse cx="100" cy="112" rx="58" ry="54" fill="#fff"/>
+    <path d="M52 96c8-16 30-12 30 4s-20 22-30 10z" fill="#2b2233" stroke="none"/>
+    <path d="M136 128c10-10 24-2 20 10s-18 12-22 2z" fill="#2b2233" stroke="none"/>
+    <ellipse cx="100" cy="142" rx="36" ry="24" fill="#f7b6c2"/>
+    <ellipse cx="88" cy="142" rx="5" ry="7" fill="#2b2233" stroke="none"/><ellipse cx="112" cy="142" rx="5" ry="7" fill="#2b2233" stroke="none"/>
+    <circle cx="80" cy="104" r="6" fill="#2b2233" stroke="none"/><circle cx="120" cy="104" r="6" fill="#2b2233" stroke="none"/>
+    <path d="M28 72Q100 94 172 72Q172 60 142 58L134 22Q100 12 66 22L58 58Q28 60 28 72Z" fill="#8b5a2b"/>
+    <path d="M62 50Q100 58 138 50" fill="none" stroke="#d6304a" stroke-width="5"/>`},
+  trumpet:{body:`
+    <text x="20" y="54" font-family="sans-serif" font-size="36" fill="#fff" stroke="none">♪</text>
+    <text x="150" y="40" font-family="sans-serif" font-size="28" fill="#fff" stroke="none">♫</text>
+    <rect x="54" y="62" width="12" height="30" rx="4" fill="#e6b03a"/><rect x="74" y="62" width="12" height="30" rx="4" fill="#e6b03a"/><rect x="94" y="62" width="12" height="30" rx="4" fill="#e6b03a"/>
+    <rect x="22" y="88" width="112" height="30" rx="15" fill="#f2c24a"/>
+    <path d="M120 64C152 40 188 54 192 104C188 154 152 166 120 142Z" fill="#f2c24a"/>
+    <ellipse cx="170" cy="104" rx="14" ry="40" fill="#c9922a"/>
+    <path d="M34 128q40 30 86 0" fill="none" stroke="#f2c24a" stroke-width="10"/>
+    <circle cx="50" cy="102" r="5" fill="#2b2233" stroke="none"/><circle cx="72" cy="102" r="5" fill="#2b2233" stroke="none"/>
+    <path d="M54 110q7 6 14 0" fill="none" stroke-width="3"/>`},
+  gator:{body:`
+    <path d="M100 118C140 112 170 130 192 154C170 166 140 176 100 176C70 176 46 168 40 156Z" fill="#4c8a3a"/>
+    <path d="M110 120l8-12 8 12 8-12 8 12 8-12 8 12" fill="#3a6e2c"/>
+    <ellipse cx="80" cy="178" rx="14" ry="8" fill="#3a6e2c"/><ellipse cx="140" cy="178" rx="14" ry="8" fill="#3a6e2c"/>
+    <path d="M8 118C30 96 80 92 104 108L104 128C72 122 40 128 8 132Z" fill="#5aa046"/>
+    <path d="M12 142C40 144 74 142 104 134L104 150C74 160 40 158 12 142Z" fill="#5aa046"/>
+    <path d="M18 132l4 7 4-7 4 7 4-7 4 7 4-7 4 7 4-7 4 7 4-7" fill="none" stroke="#fff" stroke-width="3"/>
+    <circle cx="84" cy="100" r="13" fill="#5aa046"/><circle cx="86" cy="98" r="6" fill="#ffd34a"/><path d="M86 93v10" fill="none" stroke-width="3"/>
+    <circle cx="18" cy="116" r="3" fill="#2b2233" stroke="none"/>`},
+  coaster:{body:`
+    <path d="M0 176Q50 110 100 156T200 128" fill="none" stroke="#d6304a" stroke-width="8"/>
+    <path d="M10 176v20M60 140v56M140 150v46M190 132v64" fill="none" stroke="#8a2030" stroke-width="5"/>
+    <rect x="46" y="76" width="108" height="62" rx="16" fill="#3d7bf0"/>
+    <path d="M60 76V58M140 76V58" fill="none" stroke-width="6"/>
+    <circle cx="72" cy="142" r="12" fill="#2b2233"/><circle cx="128" cy="142" r="12" fill="#2b2233"/>
+    <circle cx="80" cy="100" r="9" fill="#fff"/><circle cx="120" cy="100" r="9" fill="#fff"/>
+    <circle cx="82" cy="100" r="4" fill="#111" stroke="none"/><circle cx="122" cy="100" r="4" fill="#111" stroke="none"/>
+    <ellipse cx="100" cy="122" rx="12" ry="9" fill="#2b2233"/>
+    <path d="M30 40l4 9 9 3-9 3-4 9-4-9-9-3 9-3zM170 30l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#ffd34a" stroke-width="2"/>`},
+  hurricane:{body:`
+    <path d="M50 136l-6 16M140 136l-6 16M164 132l-6 16M70 140l-6 16" fill="none" stroke="#7fb0ff" stroke-width="4"/>
+    <path d="M96 124L78 162H98L88 196L124 148H104L116 124Z" fill="#ffe14d"/>
+    <path d="M40 126C18 126 12 96 34 88C30 62 58 50 74 62C82 36 122 34 132 60C152 48 178 64 170 88C192 94 188 126 164 126Z" fill="#6f7d92"/>
+    <path d="M88 94c10-14 34-8 30 10s-30 16-30 0" fill="none" stroke="#c9d6e6" stroke-width="5"/>
+    <path d="M60 82l20 8M140 82l-20 8" fill="none" stroke-width="5"/>
+    <circle cx="72" cy="96" r="5" fill="#2b2233" stroke="none"/><circle cx="128" cy="96" r="5" fill="#2b2233" stroke="none"/>
+    <path d="M84 114q16-8 32 0" fill="none" stroke-width="4"/>`},
+  windy:{body:`
+    <path d="M40 112H4M44 128H12M46 96H16" fill="none" stroke="#bfe6f5" stroke-width="6"/>
+    <path d="M60 60C60 28 142 28 150 66C160 100 140 128 112 136C140 150 168 140 182 120C178 162 120 178 80 162C40 148 30 112 40 92C28 94 18 86 20 74C34 80 48 74 60 60Z" fill="#bfe6f5"/>
+    <path d="M70 70C80 54 110 50 126 60" fill="none" stroke="#fff" stroke-width="6"/>
+    <ellipse cx="96" cy="86" rx="6" ry="8" fill="#2b2233" stroke="none"/><ellipse cx="124" cy="86" rx="6" ry="8" fill="#2b2233" stroke="none"/>
+    <path d="M86 76l14 2M134 76l-14 2" fill="none" stroke-width="3"/>
+    <circle cx="70" cy="106" r="8" fill="#2b2233"/>
+    <ellipse cx="136" cy="102" rx="8" ry="5" fill="#ff9aa8" stroke="none"/>`},
+  deeppizza:{body:`
+    <path d="M70 40q-8-12 0-24M100 36q-8-12 0-24M130 40q-8-12 0-24" fill="none" stroke="#fff" stroke-width="4"/>
+    <path d="M30 88L170 88L160 184L40 184Z" fill="#d99a4a"/>
+    <ellipse cx="100" cy="88" rx="70" ry="24" fill="#d6304a"/>
+    <path d="M40 94q8 26 16 0q8 30 18 0q6 22 14 2" fill="#ffd34a" stroke-width="3"/>
+    <circle cx="80" cy="82" r="8" fill="#a8202a" stroke="none"/><circle cx="116" cy="78" r="8" fill="#a8202a" stroke="none"/><circle cx="140" cy="90" r="7" fill="#a8202a" stroke="none"/>
+    <circle cx="82" cy="134" r="6" fill="#2b2233" stroke="none"/><circle cx="118" cy="134" r="6" fill="#2b2233" stroke="none"/>
+    <path d="M86 152Q100 164 114 152" fill="none" stroke-width="4"/>
+    <ellipse cx="66" cy="148" rx="8" ry="5" fill="#ff9aa8" stroke="none"/><ellipse cx="134" cy="148" rx="8" ry="5" fill="#ff9aa8" stroke="none"/>`},
+  bean:{body:`
+    <path d="M28 146C16 100 50 66 100 68C150 66 184 100 172 146C166 172 140 180 120 164C110 156 90 156 80 164C60 180 34 172 28 146Z" fill="#c9d3dc"/>
+    <path d="M48 106C70 86 112 82 146 96" fill="none" stroke="#fff" stroke-width="8"/>
+    <path d="M52 140h10v-14h8v20h10v-26h8v26h10v-12h10v18h10v-22h8v20h10" fill="none" stroke="#8a98a8" stroke-width="3"/>
+    <circle cx="80" cy="112" r="5" fill="#2b2233" stroke="none"/><circle cx="120" cy="112" r="5" fill="#2b2233" stroke="none"/>
+    <path d="M90 124q10 8 20 0" fill="none" stroke-width="3"/>`},
+  banjo:{body:`
+    <rect x="90" y="8" width="20" height="100" rx="4" fill="#8b5a2b"/>
+    <circle cx="84" cy="22" r="5" fill="#e8d9b0"/><circle cx="116" cy="22" r="5" fill="#e8d9b0"/><circle cx="84" cy="40" r="5" fill="#e8d9b0"/><circle cx="116" cy="40" r="5" fill="#e8d9b0"/>
+    <circle cx="100" cy="140" r="56" fill="#8b5a2b"/>
+    <circle cx="100" cy="140" r="46" fill="#f2e6c4"/>
+    <circle cx="82" cy="132" r="6" fill="#2b2233" stroke="none"/><circle cx="118" cy="132" r="6" fill="#2b2233" stroke="none"/>
+    <path d="M84 152Q100 166 116 152" fill="none" stroke-width="4"/>
+    <ellipse cx="68" cy="148" rx="8" ry="5" fill="#ff9aa8" stroke="none"/><ellipse cx="132" cy="148" rx="8" ry="5" fill="#ff9aa8" stroke="none"/>
+    <path d="M94 14V184M100 14V184M106 14V184" fill="none" stroke="#9aa4b0" stroke-width="1.5"/>`},
+  kushamin:{body:`
+    <path d="M100 26l12 22 24-10 2 26 26 4-14 22 18 18-24 10 6 26-26-4-10 24-14-22-14 22-10-24-26 4 6-26-24-10 18-18-14-22 26-4 2-26 24 10z" fill="#9ad16a"/>
+    <path d="M74 92l14 4M126 92l-14 4" fill="none" stroke-width="4"/>
+    <path d="M76 100q6 4 12 0M112 100q6 4 12 0" fill="none" stroke-width="3"/>
+    <ellipse cx="100" cy="128" rx="18" ry="14" fill="#2b2233"/>
+    <path d="M60 116h14M126 116h14" fill="none" stroke="#ff7a8a" stroke-width="4"/>
+    <rect x="150" y="32" width="12" height="54" rx="6" fill="#fff" transform="rotate(30 156 59)"/>
+    <circle cx="142" cy="84" r="8" fill="#e8322f"/>
+    <path d="M40 150q-10 14 0 18q10-4 0-18z" fill="#7fb0ff" stroke-width="3"/>`},
+  bell:{body:`
+    <rect x="36" y="18" width="128" height="20" rx="6" fill="#6b4a2a"/>
+    <path d="M100 36C60 36 52 80 52 120C52 150 40 160 36 170H164C160 160 148 150 148 120C148 80 140 36 100 36Z" fill="#b8863b"/>
+    <path d="M70 60C64 80 62 110 64 140" fill="none" stroke="#d9a85a" stroke-width="6"/>
+    <rect x="32" y="166" width="136" height="12" rx="6" fill="#9a6e2a"/>
+    <circle cx="100" cy="188" r="9" fill="#6b4a2a"/>
+    <circle cx="82" cy="94" r="5" fill="#2b2233" stroke="none"/><circle cx="122" cy="94" r="5" fill="#2b2233" stroke="none"/>
+    <path d="M86 118Q102 128 118 118" fill="none" stroke-width="4"/>
+    <path d="M104 132l-6 10 6 8-4 14" fill="none" stroke-width="4"/>`},
+  pretzel:{body:`
+    <path d="M58 150C18 120 28 58 80 58C122 58 120 120 100 142C80 120 78 58 120 58C172 58 182 120 142 150" fill="none" stroke="#2b2233" stroke-width="32"/>
+    <path d="M58 150C18 120 28 58 80 58C122 58 120 120 100 142C80 120 78 58 120 58C172 58 182 120 142 150" fill="none" stroke="#c9782e" stroke-width="22"/>
+    <path d="M60 64h5M140 70h5M40 104h5M160 108h5M100 150h5M74 140h5" fill="none" stroke="#fff" stroke-width="4"/>
+    <circle cx="70" cy="106" r="5" fill="#2b2233" stroke="none"/><circle cx="130" cy="106" r="5" fill="#2b2233" stroke="none"/>
+    <path d="M90 180Q100 188 110 180" fill="none" stroke-width="4"/>`},
+  pizzarat:{body:`
+    <path d="M150 172C182 172 192 140 176 126" fill="none" stroke="#d98aa0" stroke-width="5"/>
+    <ellipse cx="112" cy="150" rx="52" ry="36" fill="#8a8494"/>
+    <circle cx="64" cy="72" r="18" fill="#8a8494"/><circle cx="114" cy="68" r="18" fill="#8a8494"/>
+    <circle cx="64" cy="72" r="9" fill="#f2a6b8" stroke="none"/><circle cx="114" cy="68" r="9" fill="#f2a6b8" stroke="none"/>
+    <ellipse cx="88" cy="104" rx="40" ry="32" fill="#9a94a4"/>
+    <path d="M54 98L26 112L56 122Z" fill="#9a94a4"/>
+    <circle cx="26" cy="112" r="6" fill="#f2a6b8"/>
+    <circle cx="78" cy="96" r="5" fill="#2b2233" stroke="none"/><circle cx="102" cy="94" r="5" fill="#2b2233" stroke="none"/>
+    <path d="M44 120l-20 6M46 126l-18 12" fill="none" stroke-width="2"/>
+    <path d="M118 120L192 98L178 152Z" fill="#ffd34a"/>
+    <path d="M192 98L178 152" fill="none" stroke="#c9782e" stroke-width="10"/>
+    <circle cx="150" cy="118" r="6" fill="#d6304a" stroke="none"/><circle cx="164" cy="134" r="5" fill="#d6304a" stroke="none"/>`},
+  taxi:{body:`
+    <path d="M20 152V122Q20 112 30 110L56 78Q62 70 74 70H128Q138 70 144 78L172 110Q182 112 182 122V152Z" fill="#ffd21f"/>
+    <rect x="80" y="50" width="42" height="20" rx="4" fill="#fff"/>
+    <text x="101" y="65" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="13" fill="#2b2233" stroke="none">TAXI</text>
+    <path d="M64 82h32v26H48ZM106 82h26l16 26h-42Z" fill="#bfe6f5"/>
+    <circle cx="78" cy="96" r="7" fill="#2b2233" stroke="none"/><circle cx="122" cy="96" r="7" fill="#2b2233" stroke="none"/>
+    <path d="M20 126H182" fill="none" stroke-width="5"/>
+    <path d="M78 138q22 10 44 0" fill="none" stroke-width="4"/>
+    <circle cx="56" cy="154" r="18" fill="#2b2233"/><circle cx="146" cy="154" r="18" fill="#2b2233"/>
+    <circle cx="56" cy="154" r="7" fill="#9aa4b0" stroke="none"/><circle cx="146" cy="154" r="7" fill="#9aa4b0" stroke="none"/>`}
+});
+
+// ===== モンスターの名前とセリフ =====
+const MON = {
+  pomlin:{name:'ポムリン',cat:'kurashi',intro:'ヤシの木の 下から ポムリンが とびだした！',defeat:'ポムリンは 「また あそんでね…」と きえていった。',lose:'ポムリンは うれしそうに はねている。'},
+  pineapple:{name:'パイナップルン',cat:'umi',intro:'パイナップルンが サングラスを くいっと あげた！',laugh:'アロハ〜♪',defeat:'パイナップルン「マハロ…（ありがとう）」',lose:'パイナップルンは フラダンスを おどっている。'},
+  pecha:{name:'ペチャクチャ',cat:'kaiwa',intro:'ペチャクチャが 「Hello! Hello!」と さわぎだした！',defeat:'ペチャクチャは 「See you later!」と とびさった。',lose:'ペチャクチャは 「No way!」と わらっている。'},
+  honu:{name:'ホヌじい',cat:'kuukou',intro:'ホヌじいが ゆっくり 海から あがってきた。「旅の 英語を ためしてやろう」',laugh:'ほっほっ、まだまだじゃ',defeat:'ホヌじい「よい 旅を。Have a nice trip!」',lose:'ホヌじい「あわてず ゆっくり 覚えるんじゃ」'},
+  star:{name:'スターロン',cat:'geinou',intro:'スターロンが スポットライトの 中に あらわれた！',laugh:'キラーン☆',defeat:'スターロンは「That\'s a wrap!」と さっていった。',lose:'スターロンは サインを くばっている。'},
+  bruv:{name:'ブルーヴ',cat:'kaiwa',intro:'ブルーヴが ニカッと わらった。「What\'s up, bruv?」',laugh:'No way, bruv!',defeat:'ブルーヴ「Good game, bruv.」',lose:'ブルーヴ「Take care, bruv.」'},
+  goldbear:{name:'ゴールドベア',cat:'kurashi',intro:'ゴールドベアが 金色の 毛を かがやかせた！',laugh:'ガオー！',defeat:'ゴールドベアは 山へ かえっていった。',lose:'ゴールドベアは ハチミツを なめている。'},
+  slot:{name:'スロットン',cat:'kaimono',intro:'スロットンの リールが まわりだした！',laugh:'ハズレ〜！',defeat:'スロットン「ジャックポット… おめでとう…」',lose:'スロットンは コインを ジャラジャラ ならしている。'},
+  graffiti:{name:'ラクガキマスク',cat:'ugoki',intro:'ラクガキマスクが かべの かげから あらわれた！',laugh:'ヘヘッ',defeat:'ラクガキマスクは スプレーを おとして にげていった。',lose:'ラクガキマスクは かべに「WIN」と かいた。'},
+  alien:{name:'グレイくん',cat:'yousu',intro:'まぶしい 光と ともに グレイくんが おりてきた！',laugh:'ピピピ…',defeat:'グレイくんは UFOで かえっていった。',lose:'グレイくん「チキュウジン、マダマダ」'},
+  cactus:{name:'サボガンマン',cat:'shizen',intro:'サボガンマンが 砂漠の かぜと ともに あらわれた！',laugh:'チクッとな！',defeat:'サボガンマン「…いい うでだ」',lose:'サボガンマンは 夕日を ながめている。'},
+  yomi:{name:'ヨミガラス',cat:'ugoki',intro:'まどうしょを かかえた ヨミガラスが まいおりた！',defeat:'ヨミガラスは 本を おとして 夜空に きえた。',lose:'ヨミガラスは 本を めくって わらっている。'},
+  golem:{name:'グラムゴーレム',cat:'yousu',intro:'峡谷の 岩が うごきだした… グラムゴーレムだ！',defeat:'グラムゴーレムは くずれて ただの いしに なった。',lose:'グラムゴーレムは しずかに ねむりに ついた。'},
+  snowman:{name:'ユキダルマン',cat:'supotsu',intro:'ユキダルマンが スキーで すべってきた！',laugh:'ヒャッホー！',defeat:'ユキダルマンは とけて マフラーだけ のこった。',lose:'ユキダルマンは 雪の 上を すべっている。'},
+  shiba:{name:'シバまる',cat:'doubutsu',intro:'シバまるが しっぽを ふりながら とびかかってきた！',laugh:'ワン！ワン！',defeat:'シバまるは まんぞくそうに ねころんだ。',lose:'シバまるは うれしそうに しっぽを ふっている。'},
+  bigfoot:{name:'ビッグフット',cat:'supotsu',intro:'ドスン ドスン… ビッグフットが あらわれた！',laugh:'ウホホ！',defeat:'ビッグフットは 森の おくへ きえた。もう 見つからない…',lose:'ビッグフットは 大きな 足あとを のこした。'},
+  moboy:{name:'モーボーイ',cat:'taberu',intro:'モーボーイが「Howdy!」と 帽子を あげた！',laugh:'モ〜ッハッハ！',defeat:'モーボーイ「Good job, partner!」',lose:'モーボーイは BBQの じゅんびを している。'},
+  rooster:{name:'コケキング',cat:'doubutsu',intro:'コケキングが「コケコッコー！」と ないた！',laugh:'コケーッ！',defeat:'コケキングは にわとりごやに にげかえった。',lose:'コケキングは むねを はって いばっている。'},
+  chipryu:{name:'チップリュウ',cat:'doubutsu',intro:'さつまいも畑から チップリュウが のぼってきた！「俺は無敵だ！」',laugh:'ワハハハ！ 俺は無敵だ！',defeat:'チップリュウ「え？」',lose:'チップリュウ「ワハハハ！ 俺は無敵だ！」'},
+  trumpet:{name:'ペットン',cat:'ongaku',intro:'ペットンが ジャズを ふきながら あらわれた！',laugh:'パッパラ〜♪',defeat:'ペットンは さいごの 一音を ならして しずかに なった。',lose:'ペットンは 勝利の メロディを ふいている。'},
+  gator:{name:'アリゲーツ',cat:'doubutsu',intro:'アリゲーツが 沼から 大きな 口を あけた！',laugh:'ガブガブ！',defeat:'アリゲーツは 沼に しずんでいった。',lose:'アリゲーツは ひなたぼっこを している。'},
+  mochi:{name:'モチオバケ',cat:'yousu',intro:'古い 屋敷から モチオバケが ふわっと あらわれた…「こわくないよ…」',laugh:'ふふ…',defeat:'モチオバケは「ふぇ…」と きえていった。',lose:'モチオバケは ほっとした かおを している。'},
+  coaster:{name:'コースターン',cat:'asobi',intro:'コースターンが レールを ゴーッと おりてきた！',laugh:'キャー！ たのしい〜！',defeat:'コースターンは 駅に とまった。「おつかれさま！」',lose:'コースターンは もう一周 まわりはじめた。'},
+  montblanc:{name:'モンブラン・アイ',cat:'kurashi',intro:'ひとつ目の モンブラン・アイが ベロを だした！',laugh:'ベロベロ〜！',defeat:'モンブラン・アイは とけて、あまい においだけが のこった。',lose:'モンブラン・アイは ベロを だして わらっている。'},
+  hurricane:{name:'ハリケンジャー',cat:'tenki',intro:'あたりが くらく なった… ハリケンジャーが あらわれた！',laugh:'ゴロゴロゴロ！',defeat:'ハリケンジャーは 消えて、空に 虹が かかった。',lose:'ハリケンジャーは まだ あばれている。'},
+  windy:{name:'ウィンディ',cat:'tenki',intro:'ビュウウ… ウィンディが ふきつけてきた！',laugh:'ヒュ〜ッ！',defeat:'ウィンディは そよかぜに なった。',lose:'ウィンディは 帽子を とばして あそんでいる。'},
+  deeppizza:{name:'ディープピザ',cat:'taberu',intro:'ぶあつい ディープピザが あらわれた！',laugh:'チーズ〜ン！',defeat:'ディープピザは おいしく たべられた。',lose:'ディープピザは チーズを のばしている。'},
+  bean:{name:'ミラービーン',cat:'kurashi',intro:'ミラービーンに キミの すがたが うつった！',laugh:'ピカピカ〜',defeat:'ミラービーンに 勝った キミの すがたが うつっている。',lose:'ミラービーンは 空を うつしている。'},
+  banjo:{name:'バンジョーン',cat:'ongaku',intro:'バンジョーンが カントリーを ひきながら あらわれた！',laugh:'ベンベン♪',defeat:'バンジョーンの 弦が ぷつんと きれた。',lose:'バンジョーンは 陽気に うたっている。'},
+  kushamin:{name:'クシャミン',cat:'karada',intro:'クシャミンが「ハックション！」と あらわれた！',laugh:'ハックション！',defeat:'クシャミン「おだいじに…」と きえた。',lose:'クシャミンは せきを しながら わらっている。'},
+  nasu:{name:'ナスノカミ',cat:'karada',intro:'ナスノカミが にっこり ほほえんだ。「けんこうが いちばんじゃ」',laugh:'ほっほっほ',defeat:'ナスノカミ「よく がんばった。ふくを さずけよう」',lose:'ナスノカミは ほっほっほと わらっている。'},
+  bell:{name:'リバティベル',cat:'gakkou',intro:'カーン… リバティベルが なりひびいた！',laugh:'カーン！ カーン！',defeat:'リバティベル「Freedom!」と ひびいて しずかに なった。',lose:'リバティベルは ほこらしげに ゆれている。'},
+  pretzel:{name:'プレッツェルン',cat:'taberu',intro:'プレッツェルンが くるっと からだを ひねった！',laugh:'ねじねじ〜',defeat:'プレッツェルンは ほどけて しまった。',lose:'プレッツェルンは 塩を ふっている。'},
+  oni:{name:'サンガンオウ',cat:'gakkou',intro:'みっつの 目が ひかる… サンガンオウが あらわれた！',laugh:'グハハハ！',defeat:'サンガンオウの 目の ひかりが きえた…',lose:'サンガンオウは グハハハと わらっている。'},
+  pizzarat:{name:'ピザネズミ',cat:'machi',intro:'ピザネズミが 地下鉄の 階段で ピザを かかえていた！',laugh:'チュチュチュ！',defeat:'ピザネズミは ピザを おいて にげていった。',lose:'ピザネズミは ピザを ほおばっている。'},
+  taxi:{name:'タクシーン',cat:'machi',intro:'タクシーンが クラクションを ならした！ プップー！',laugh:'プップー！',defeat:'タクシーン「Thank you, have a nice day!」',lose:'タクシーンは メーターを まわしている。'},
+  lexidra:{name:'レキシドラ',cat:'all',intro:'摩天楼の 上に すべての ことばを くらう りゅう、レキシドラが あらわれた！',laugh:'グオオオ！',defeat:'レキシドラを たおした！ アメリカ横断 達成！ ことばの ちからが みなぎる！',lose:'レキシドラの ほのおが 街を つつんだ…'}
+};
+
+// ===== 旅する州 =====
+const STATES = [
+  {code:'HI',ja:'ハワイ州',en:'Hawaii',nick:'The Aloha State',nickJa:'アロハ州',tier:0,bg:'bg-beach',next:['CA'],mons:['pomlin','pineapple','pecha','honu'],
+   facts:[['Hawaii is called the Aloha State.','ハワイは「アロハ州」と呼ばれている。'],['"Aloha" means both hello and goodbye.','「アロハ」は「こんにちは」と「さようなら」の両方の意味。'],['Hawaii became the 50th state in 1959.','ハワイは1959年に50番目の州になった。']]},
+  {code:'CA',ja:'カリフォルニア州',en:'California',nick:'The Golden State',nickJa:'ゴールデン州',tier:1,bg:'bg-town',next:['NV','AZ'],mons:['star','bruv','goldbear'],
+   facts:[['California is called the Golden State.','カリフォルニアは「ゴールデン州」と呼ばれている。'],['Hollywood is in Los Angeles.','ハリウッドはロサンゼルスにある。'],['More people live in California than in any other state.','アメリカでいちばん人口が多い州。']]},
+  {code:'NV',ja:'ネバダ州',en:'Nevada',nick:'The Silver State',nickJa:'シルバー州',tier:2,bg:'bg-neon',next:['CO'],mons:['slot','graffiti','alien'],
+   facts:[['Las Vegas is in Nevada.','ラスベガスはネバダ州にある。'],['Nevada is called the Silver State.','ネバダは「シルバー州」と呼ばれている。'],['Most of Nevada is desert.','ネバダ州の大部分は砂漠。']]},
+  {code:'AZ',ja:'アリゾナ州',en:'Arizona',nick:'The Grand Canyon State',nickJa:'グランドキャニオン州',tier:2,bg:'bg-desert',next:['TX'],mons:['cactus','yomi','golem'],
+   facts:[['The Grand Canyon is in Arizona.','グランドキャニオンはアリゾナ州にある。'],['Arizona is very hot in summer.','アリゾナの夏はとても暑い。'],['Giant cactuses grow in the Arizona desert.','アリゾナの砂漠には巨大なサボテンが生えている。']]},
+  {code:'CO',ja:'コロラド州',en:'Colorado',nick:'The Centennial State',nickJa:'センテニアル州',tier:3,bg:'bg-snow',next:['IL'],mons:['snowman','shiba','bigfoot'],
+   facts:[['Colorado has many high mountains.','コロラドには高い山がたくさんある。'],['Denver is called the Mile High City.','デンバーは「マイル・ハイ・シティ」と呼ばれる。'],['Many people ski in Colorado in winter.','冬はたくさんの人がスキーを楽しむ。']]},
+  {code:'TX',ja:'テキサス州',en:'Texas',nick:'The Lone Star State',nickJa:'ローンスター州',tier:3,bg:'bg-field',next:['LA'],mons:['moboy','rooster','chipryu'],
+   facts:[['Texas is called the Lone Star State.','テキサスは「ローンスター州」と呼ばれている。'],['Texas is the second biggest state.','2番目に大きい州。'],['Texas is famous for BBQ and cowboys.','BBQとカウボーイで有名。']]},
+  {code:'IL',ja:'イリノイ州',en:'Illinois',nick:'The Prairie State',nickJa:'プレーリー州',tier:4,bg:'bg-city',next:['PA'],mons:['windy','deeppizza','bean'],
+   facts:[['Chicago is called the Windy City.','シカゴは「風の街」と呼ばれる。'],['Chicago is famous for deep-dish pizza.','シカゴは分厚いピザで有名。'],['A big silver sculpture in Chicago looks like a bean.','シカゴには豆のような形の大きな銀色の彫刻がある。']]},
+  {code:'LA',ja:'ルイジアナ州',en:'Louisiana',nick:'The Pelican State',nickJa:'ペリカン州',tier:4,bg:'bg-swamp',next:['FL','TN'],mons:['trumpet','gator','mochi'],
+   facts:[['New Orleans is the home of jazz.','ニューオーリンズはジャズのふるさと。'],['Louisiana is called the Pelican State.','ルイジアナは「ペリカン州」と呼ばれている。'],['Many alligators live in Louisiana.','ルイジアナにはワニがたくさんいる。']]},
+  {code:'FL',ja:'フロリダ州',en:'Florida',nick:'The Sunshine State',nickJa:'サンシャイン州',tier:5,bg:'bg-beach',next:[],mons:['coaster','montblanc','hurricane'],
+   facts:[['Florida is called the Sunshine State.','フロリダは「サンシャイン州」と呼ばれている。'],['Florida has many theme parks.','フロリダにはテーマパークがたくさんある。'],['Rockets launch from Florida.','フロリダからロケットが打ち上げられる。']]},
+  {code:'TN',ja:'テネシー州',en:'Tennessee',nick:'The Volunteer State',nickJa:'ボランティア州',tier:5,bg:'bg-town',next:['PA'],mons:['banjo','kushamin','nasu'],
+   facts:[['Nashville is called Music City.','ナッシュビルは「ミュージック・シティ」と呼ばれる。'],['Elvis Presley lived in Memphis.','エルビス・プレスリーはメンフィスに住んでいた。'],['Tennessee is famous for country music.','テネシーはカントリー音楽で有名。']]},
+  {code:'PA',ja:'ペンシルベニア州',en:'Pennsylvania',nick:'The Keystone State',nickJa:'キーストーン州',tier:6,bg:'bg-ruins',next:['NY'],mons:['bell','pretzel','oni'],
+   facts:[['The Liberty Bell is in Philadelphia.','自由の鐘はフィラデルフィアにある。'],['The Declaration of Independence was signed in Philadelphia in 1776.','独立宣言は1776年にフィラデルフィアで署名された。'],['Pennsylvania is famous for soft pretzels.','ペンシルベニアはソフトプレッツェルで有名。']]},
+  {code:'NY',ja:'ニューヨーク州',en:'New York',nick:'The Empire State',nickJa:'エンパイア州',tier:7,bg:'bg-city',next:[],mons:['pizzarat','taxi','lexidra'],
+   facts:[['New York City is called the Big Apple.','ニューヨーク市は「ビッグ・アップル」と呼ばれる。'],['The Statue of Liberty was a gift from France.','自由の女神はフランスからの贈り物。'],['Over 8 million people live in New York City.','ニューヨーク市には800万人以上が住んでいる。']]}
 ];
+const MONSTERS = [];
+STATES.forEach(st => st.mons.forEach((id, i) => {
+  const boss = i === st.mons.length - 1;
+  const last = id === 'lexidra';
+  const m = Object.assign({id, state:st.code, bg: last ? 'bg-volcano' : st.bg, boss}, MON[id]);
+  m.hp = last ? 220 : Math.round((55 + st.tier*10) * (boss ? 1.5 : 1));
+  m.atk = last ? 15 : 6 + st.tier + (boss ? 2 : 0);
+  m.exp = last ? 200 : Math.round((20 + st.tier*8) * (boss ? 2 : 1));
+  MONSTERS.push(m);
+}));
+const stateOf = code => STATES.find(s => s.code === code);
+const stateCleared = st => st.mons.every(id => S.wins[id]);
+const stateOpen = st => st.code === 'HI' || STATES.some(o => o.next.includes(st.code) && stateCleared(o));
+const monOpen = (st, i) => stateOpen(st) && (i === 0 || !!S.wins[st.mons[i-1]]);
+function poolFor(m){
+  if(m.cat === 'all') return WORDS;
+  const cats = m.boss ? [...new Set(stateOf(m.state).mons.map(id => MON[id].cat))] : [m.cat];
+  return WORDS.filter(w => cats.includes(w.c));
+}
+
+const US_PATHS = {"AL":"M648,492L648,492L648,492ZM642,384L642,384L666,382L689,380L702,427L704,429L705,432L708,436L707,439L710,440L707,443L707,446L706,450L707,453L708,455L709,457L708,463L708,465L711,469L694,471L682,472L661,474L660,477L662,480L665,481L665,485L666,486L664,490L658,492L659,490L656,488L655,482L653,482L652,486L652,490L649,489L646,489L642,455L642,444L643,413L644,386Z","AK":"M104,552L104,552L104,552ZM99,570L103,565L105,569L103,569L101,570ZM95,582L95,582L95,582ZM93,575L96,573L97,573L99,571L103,571L103,574L105,573L99,578L98,579L97,577L95,580ZM93,583L93,583L93,583ZM89,588L89,588L89,588ZM72,594L72,594L72,594ZM71,592L71,592L71,592ZM68,593L69,591L70,592ZM66,590L67,590L67,592ZM68,564L68,564L68,564ZM61,591L61,591L61,591ZM58,592L58,592L58,592ZM66,524L66,524L66,524ZM56,596L56,596L56,596ZM45,597L45,597L45,597ZM43,595L43,595L43,595ZM41,596L41,596L41,596ZM44,547L46,548L50,547L51,549L51,551L48,552L44,549ZM31,601L34,600L36,598L36,597L38,596L40,598L37,601L32,602ZM51,505L59,501L64,500L66,500L65,504L71,505L73,503L74,504L72,501L70,498L71,498L71,500L73,498L70,497L67,496L66,492L63,488L59,484L61,483L62,481L67,481L70,479L72,475L75,471L78,471L82,468L87,468L89,465L93,466L91,468L92,469L94,466L95,469L99,468L101,469L101,470L104,472L109,471L114,473L119,473L123,474L126,472L132,474L133,474L147,547L151,547L152,546L155,545L155,547L162,552L164,555L167,552L167,548L169,546L172,547L176,552L181,554L182,556L190,562L190,564L192,566L193,565L200,567L201,569L203,573L201,578L200,578L198,575L199,574L198,572L198,575L193,574L192,571L191,572L189,570L190,568L188,565L186,564L183,563L182,560L178,557L176,557L171,551L175,558L173,557L170,557L168,559L162,556L160,554L153,552L154,551L153,549L151,551L149,551L146,550L141,550L135,552L135,550L132,550L132,548L131,550L129,549L125,551L126,549L128,548L127,547L126,547L124,545L122,546L119,547L120,550L120,552L121,553L119,554L114,554L113,557L111,559L110,557L109,560L106,561L105,560L109,556L107,557L105,556L107,552L107,549L111,546L112,547L113,546L112,544L109,544L106,546L102,553L102,554L100,557L96,560L96,562L98,562L100,564L96,567L96,569L92,571L91,573L90,572L89,574L88,574L86,576L86,578L83,580L82,579L80,582L77,583L79,584L77,586L71,586L67,589L66,588L63,589L63,588L61,591L60,591L56,592L53,594L50,594L47,595L46,593L49,592L52,591L57,590L60,587L62,585L66,585L67,585L69,583L71,581L75,579L78,576L81,573L82,566L84,564L84,563L80,565L78,563L77,564L77,566L76,566L73,562L72,563L71,561L65,564L64,563L65,561L64,558L66,557L64,551L63,552L58,553L57,553L57,551L53,547L54,545L54,541L53,542L51,538L53,536L54,534L57,530L59,527L61,526L64,528L67,525L71,525L73,523L73,519L72,517L74,516L73,514L68,517L61,515L59,516L55,514L54,509L56,509L52,507ZM25,603L29,599L31,599L31,600L28,602ZM28,573L28,573L28,573ZM20,602L20,602L20,602ZM27,568L27,568L27,568ZM16,603L16,603L16,603ZM34,518L36,517L38,518L39,518L42,521L45,522L42,523L41,524L39,521L37,519L35,520ZM7,603L7,603L7,603ZM23,540L23,540L23,540ZM-0,602L5,604L3,604ZM-6,601L-1,601L-2,603ZM-10,599L-10,599L-10,599ZM-11,601L-11,601L-11,601ZM-15,601L-13,599L-11,601ZM-18,600L-18,600L-18,600ZM-20,597L-20,597L-20,597ZM-30,593L-30,593L-30,593ZM-35,593L-35,593L-35,593ZM-41,589L-41,589L-41,589ZM-56,577L-56,577L-56,577ZM-58,571L-55,572L-54,574L-56,573ZM197,577L197,577L197,577ZM196,577L196,577L196,577ZM195,575L195,575L195,575ZM188,570L188,570L188,570ZM187,569L187,569L187,569ZM186,577L188,576L187,578ZM185,573L185,570L187,570L190,572L194,576L196,580L192,579L190,578L192,581L190,580L189,576L186,574ZM183,574L183,574L183,574ZM180,567L182,565L185,564L189,567L186,569L184,569L184,572L183,572ZM175,556L176,557L178,557L180,559L179,560L181,563L180,566L179,563ZM174,565L175,563L177,563L180,568L181,573L176,568L175,565ZM173,566L175,566L174,568ZM169,561L169,560L172,558L175,559L177,563L174,562L174,565L171,564ZM121,555L124,550L124,551ZM120,551L122,549L121,552Z","AZ":"M145,407L149,407L151,404L150,401L147,400L147,399L148,395L147,394L148,392L150,391L152,389L154,386L154,380L156,379L157,377L160,376L163,374L160,370L158,363L156,359L157,356L157,354L159,353L159,349L158,345L159,342L159,338L160,336L159,335L160,331L163,331L167,331L168,335L170,335L173,331L176,313L203,318L239,324L265,328L251,424L247,456L229,454L208,450L172,429L142,412L143,409Z","CO":"M277,237L301,240L333,244L348,245L361,247L382,248L395,249L394,272L391,327L390,341L372,339L349,338L315,334L279,330L265,328L268,302L268,299L271,280Z","FL":"M815,594L815,594L815,594ZM813,596L813,596L813,596ZM807,599L811,597L812,597L808,599ZM794,604L795,602L800,598L804,599L805,600L802,601L796,604ZM790,605L790,605L790,605ZM786,605L786,605L786,605ZM777,558L777,558L777,558ZM770,606L770,606L770,606ZM720,495L720,495L720,495ZM711,469L714,475L766,471L766,475L767,476L770,476L770,471L769,469L769,466L770,465L775,466L780,466L783,476L787,486L790,491L795,500L801,508L805,511L806,514L805,517L807,522L812,529L815,537L820,544L822,549L823,554L823,565L824,571L824,575L822,574L821,580L822,581L821,583L822,583L824,578L824,580L822,587L818,592L816,593L819,589L820,586L818,586L814,588L812,587L811,589L807,590L805,588L805,585L801,578L798,576L793,574L792,575L789,571L788,566L785,563L782,561L781,563L780,559L781,555L780,552L779,553L780,556L778,557L773,551L769,546L766,543L767,541L771,533L769,532L770,534L768,533L768,531L765,530L764,532L766,532L767,534L767,537L765,537L762,533L762,530L761,526L762,527L764,521L764,517L761,512L762,510L760,508L759,505L755,505L754,506L753,503L751,503L750,500L746,498L745,495L743,494L740,491L732,487L730,488L727,487L726,490L726,492L723,492L716,497L716,496L714,498L712,498L714,500L719,498L714,501L710,499L707,500L706,496L706,495L707,499L708,497L706,494L696,488L689,486L681,486L668,489L664,490L666,486L665,485L665,481L662,480L660,477L661,474L682,472L694,471Z","GA":"M689,380L713,377L726,375L735,374L735,375L732,379L732,382L735,383L738,385L741,385L744,389L744,391L747,394L748,396L755,400L756,402L759,403L762,406L762,408L764,409L764,410L766,412L771,414L771,416L773,418L774,423L777,424L781,430L780,431L781,433L786,435L787,436L783,442L782,447L781,451L781,454L780,456L780,459L778,460L780,461L780,466L775,466L770,465L769,466L769,469L770,471L770,476L767,476L766,475L766,471L714,475L711,469L708,465L708,463L709,457L708,455L707,453L706,450L707,446L707,443L710,440L707,439L708,436L705,432L704,429L702,427Z","IN":"M640,230L642,231L645,231L647,231L652,228L669,226L686,224L686,225L688,247L693,284L691,286L693,287L692,289L694,289L694,292L691,292L688,295L685,294L683,295L684,298L682,300L681,301L680,304L677,305L676,308L676,312L674,313L670,311L669,309L666,312L666,314L662,315L661,313L657,316L655,319L651,316L648,317L647,315L647,318L645,317L643,318L641,317L642,319L639,320L638,317L639,316L639,314L640,312L639,310L640,308L642,309L645,303L645,300L647,298L647,297L646,295L646,293L643,288L645,284Z","KS":"M394,272L422,273L443,274L465,275L495,275L510,275L512,277L515,278L516,278L517,281L516,281L514,286L517,289L519,293L523,294L522,295L523,326L523,344L507,344L489,344L459,344L433,343L402,341L390,341L391,327Z","ME":"M940,115L940,115L940,115ZM938,116L938,114L940,116ZM936,112L936,112L936,112ZM932,116L932,116L932,116ZM934,125L934,125L934,125ZM931,119L933,117L934,119L932,121ZM930,116L930,113L931,116ZM910,150L908,149L907,147L905,145L895,114L891,102L892,101L895,103L894,99L897,99L895,96L897,92L899,90L898,89L900,86L898,83L899,80L898,80L898,76L900,74L899,67L906,48L909,48L910,51L912,52L917,49L920,48L920,46L923,46L930,50L937,74L939,80L942,81L945,80L946,82L945,83L946,84L946,87L949,90L950,88L952,88L957,95L955,99L954,100L953,99L950,106L949,104L947,104L946,107L944,108L944,110L941,110L941,113L939,114L937,112L939,110L937,110L935,111L937,115L936,117L937,118L937,120L936,118L934,116L935,115L932,114L931,110L930,112L929,113L930,114L929,120L930,123L928,125L926,126L924,128L921,129L920,132L918,131L917,133L915,134L915,137L913,138L913,142L911,143L911,146Z","MA":"M928,187L931,186L932,184L933,186L931,188ZM918,188L919,188L921,184L925,187ZM871,168L884,165L903,161L904,158L906,156L909,155L911,159L914,158L913,160L911,162L911,163L909,166L910,169L912,167L914,168L917,171L917,174L919,174L920,177L922,178L925,177L929,175L928,172L927,173L926,170L928,171L931,177L926,180L925,180L923,182L920,183L919,180L918,179L918,182L915,183L915,185L913,186L912,183L911,183L910,182L908,181L906,179L905,176L899,178L899,178L882,182L871,184L871,183Z","MN":"M479,71L492,71L511,71L511,62L514,62L516,64L518,73L518,76L520,77L524,77L525,78L531,79L532,81L536,80L536,79L540,78L544,79L548,80L549,80L548,82L551,82L553,87L555,87L555,84L558,84L559,86L561,87L563,87L566,91L571,90L575,86L577,86L578,89L588,88L592,91L594,90L596,91L590,94L582,98L579,99L573,106L570,109L565,114L559,119L560,121L559,120L556,122L556,136L556,137L551,139L548,144L548,147L549,147L551,150L550,154L550,158L549,158L550,162L549,166L554,170L557,170L559,173L564,175L565,178L570,182L572,182L576,187L575,191L576,193L549,194L534,195L516,195L491,195L491,154L490,153L487,152L484,147L489,142L489,140L489,137L489,131L487,128L486,123L486,118L485,117L485,102L483,98L481,89L481,87L481,81L481,78L479,71Z","NJ":"M849,246L850,244L851,241L855,239L855,237L859,232L861,231L854,226L853,224L851,223L850,221L852,216L850,214L851,212L853,209L853,206L855,204L862,207L870,209L869,216L869,217L867,218L867,221L867,222L871,222L872,225L872,229L873,237L871,245L870,247L867,251L865,257L863,259L863,254L860,253L859,254L852,250L850,250L849,246Z","NC":"M864,329L866,329L867,331ZM863,350L864,348L871,343L871,336L871,344L867,346ZM756,334L780,331L794,329L812,326L840,320L842,319L859,316L861,320L864,325L868,332L866,328L864,328L860,319L859,318L856,317L859,320L862,325L861,325L859,323L858,325L854,323L857,326L855,327L850,326L853,328L851,330L849,331L847,330L845,328L847,333L852,331L853,331L856,330L859,330L859,332L860,337L860,336L860,330L863,329L866,335L865,337L863,338L861,342L860,344L853,345L851,342L850,342L852,345L848,345L843,343L846,345L850,346L853,346L854,347L853,352L850,355L846,353L846,355L850,356L852,354L855,353L855,351L857,353L859,352L859,354L857,356L856,360L862,350L863,350L858,357L856,362L856,361L851,361L847,363L844,365L838,370L836,374L834,377L833,384L829,383L825,384L823,386L798,368L778,371L777,369L774,365L772,367L772,365L749,367L746,368L742,371L735,374L726,375L713,377L713,371L716,370L717,369L717,366L721,363L726,362L729,359L730,358L733,356L735,356L737,352L738,350L740,348L741,351L743,349L744,347L747,345L749,346L751,346L752,341L755,338Z","ND":"M377,66L404,68L421,69L445,70L469,71L479,71L479,71L481,78L481,81L481,87L481,89L483,98L485,102L485,117L486,118L486,123L487,128L489,131L489,137L489,140L477,140L460,139L443,139L412,137L392,136L371,134L375,88Z","OK":"M372,339L390,341L402,341L433,343L459,344L489,344L507,344L523,344L523,355L527,381L526,421L522,420L521,418L520,418L517,416L516,416L512,413L511,415L507,415L506,414L501,416L499,415L498,416L493,418L492,420L490,418L486,416L485,415L484,417L482,416L481,414L478,417L477,419L476,419L475,414L472,417L471,416L471,415L468,414L467,413L463,416L461,415L462,413L459,412L458,409L458,410L454,409L452,411L450,409L447,409L443,407L439,407L438,404L435,401L435,403L432,402L429,403L426,399L424,398L426,354L396,352L372,351Z","PA":"M756,209L759,207L768,200L769,206L783,204L800,201L825,196L841,192L843,195L845,194L847,197L848,200L850,202L854,203L855,204L853,206L853,209L851,212L850,214L852,216L850,221L851,223L853,224L854,226L861,231L859,232L855,237L855,239L851,241L848,241L847,242L845,245L816,251L782,257L765,260L761,239Z","SD":"M369,156L369,156L371,134L392,136L412,137L443,139L460,139L477,140L489,140L489,142L484,147L487,152L490,153L491,154L491,195L488,195L489,198L488,200L491,204L490,206L489,210L488,212L491,218L488,218L486,216L487,215L482,212L479,212L476,210L470,210L467,210L466,212L457,207L457,206L434,205L404,204L391,203L365,201Z","TX":"M372,351L396,352L426,354L424,398L426,399L429,403L432,402L435,403L435,401L438,404L439,407L443,407L447,409L450,409L452,411L454,409L458,410L458,409L459,412L462,413L461,415L463,416L467,413L468,414L471,415L471,416L472,417L475,414L476,419L477,419L478,417L481,414L482,416L484,417L485,415L486,416L490,418L492,420L493,418L498,416L499,415L501,416L506,414L507,415L511,415L512,413L516,416L517,416L520,418L521,418L522,420L526,421L529,423L532,422L535,423L535,435L535,458L538,460L540,463L540,467L542,469L544,474L545,476L546,480L546,484L544,487L542,490L543,493L542,496L543,497L543,502L541,504L540,506L539,507L541,510L535,511L522,517L527,513L522,514L523,512L524,509L521,509L520,511L518,511L517,514L520,515L520,519L516,523L515,522L515,524L518,522L522,518L523,519L517,523L510,530L509,530L502,534L496,537L492,539L489,542L485,544L480,548L478,551L475,555L472,562L470,566L470,570L470,574L473,587L474,592L472,582L470,576L470,569L470,564L472,560L475,554L476,551L478,550L480,546L483,545L486,542L489,541L489,540L486,542L484,542L484,540L482,540L482,544L479,546L477,545L474,547L475,548L477,547L477,549L474,553L473,552L469,552L470,553L470,555L473,556L471,559L469,564L467,565L467,563L465,566L469,566L469,572L468,576L469,583L470,583L472,588L471,592L474,593L474,595L472,595L470,596L470,598L467,597L464,593L461,593L454,593L452,592L447,589L443,588L440,585L439,585L434,584L435,582L433,581L433,577L431,574L428,570L428,567L427,564L428,559L425,556L423,555L420,552L419,548L418,548L416,544L414,543L412,541L410,534L408,532L408,530L406,526L405,522L403,520L403,519L399,516L398,513L394,511L393,509L390,506L386,506L383,505L378,505L377,503L373,503L372,505L370,504L366,505L364,510L363,514L362,514L361,517L359,518L357,520L357,522L353,521L351,520L348,517L345,516L343,514L340,513L337,511L335,508L334,508L330,504L330,501L328,498L327,495L328,492L325,487L325,483L323,480L316,475L313,472L312,470L309,468L306,463L302,460L299,454L296,452L294,449L295,447L318,449L339,451L363,453L365,430L367,408L371,351Z","WY":"M369,156L365,201L361,247L348,245L333,244L301,240L277,237L253,234L244,232L247,210L250,193L256,154L258,142L263,143L289,147L298,148L339,153L339,153Z","CT":"M871,184L882,182L899,178L899,178L901,186L902,191L902,193L900,193L893,197L887,198L885,199L885,198L882,203L878,205L874,208L872,206L876,203L874,201Z","MO":"M502,262L521,262L545,261L565,260L571,260L576,265L575,268L576,273L577,275L577,276L578,280L583,284L584,286L590,290L591,297L593,298L595,296L598,297L601,298L599,301L600,303L598,309L598,313L602,316L606,321L607,320L612,324L614,326L613,328L615,330L615,332L614,333L617,338L619,340L619,338L621,340L622,340L621,344L622,345L620,346L621,347L620,349L617,349L617,351L616,351L615,352L615,354L614,356L615,357L612,358L614,360L612,363L600,364L603,359L605,357L605,354L604,352L586,353L565,354L550,355L523,355L523,344L523,326L522,295L523,294L519,293L517,289L514,286L516,281L517,281L516,278L515,278L512,277L510,275L508,274L508,272L507,270L505,268Z","WV":"M733,295L734,295L738,293L738,290L740,290L739,285L740,284L740,281L741,280L743,280L744,283L746,281L745,278L746,273L748,273L748,271L750,269L752,271L754,269L758,263L759,263L758,260L760,256L759,252L761,247L760,243L759,241L761,239L765,260L782,257L784,269L787,266L790,261L792,262L794,257L797,259L800,258L802,255L803,255L805,253L808,255L811,254L811,256L813,258L814,260L813,265L803,259L803,262L802,264L803,266L799,273L797,274L797,277L794,275L792,283L790,286L787,285L786,283L784,283L784,287L780,294L780,297L777,302L776,305L778,306L776,308L777,309L774,312L773,310L769,314L767,313L767,315L761,318L758,316L755,320L753,320L750,319L747,315L747,313L744,313L741,311L740,309L736,306L734,302L734,298Z","IL":"M576,265L577,259L581,258L581,255L584,252L584,248L581,245L582,241L585,240L588,239L593,236L594,233L596,231L596,226L596,224L592,222L590,218L587,216L587,215L618,214L634,212L634,217L635,219L637,222L639,227L640,230L645,284L643,288L646,293L646,295L647,297L647,298L645,300L645,303L642,309L640,308L639,310L640,312L639,314L639,316L638,317L639,320L637,323L639,327L636,328L632,330L632,332L634,335L633,337L632,337L624,334L623,334L621,338L621,340L619,338L619,340L617,338L614,333L615,332L615,330L613,328L614,326L612,324L607,320L606,321L602,316L598,313L598,309L600,303L599,301L601,298L598,297L595,296L593,298L591,297L590,290L584,286L583,284L578,280L577,276L577,275L576,273L575,268Z","NM":"M265,328L279,330L315,334L349,338L372,339L372,351L371,351L367,408L365,430L363,453L339,451L318,449L295,447L294,449L296,452L264,448L263,458L247,456L251,424Z","AR":"M523,355L550,355L565,354L586,353L604,352L605,354L605,357L603,359L600,364L612,363L614,365L611,366L613,367L608,369L610,372L608,373L609,374L607,374L608,376L606,376L605,378L607,378L605,381L607,383L605,384L605,386L603,387L604,389L601,391L600,389L601,392L598,393L600,394L598,396L599,397L599,400L595,402L596,403L594,404L594,407L592,408L593,409L590,411L591,412L590,413L592,415L589,415L590,418L587,418L589,420L588,420L588,422L588,423L589,425L591,430L589,431L590,432L589,433L569,434L535,435L535,423L532,422L529,423L526,421L527,381Z","CA":"M77,374L81,377L81,380L79,378L79,376ZM75,384L78,390L76,389ZM65,358L65,358L65,358ZM58,374L58,374L58,374ZM57,355L59,356L63,359L60,359L57,357ZM50,355L54,355L55,358L52,358ZM47,353L49,353L49,354ZM33,160L46,164L62,168L84,175L100,179L89,224L83,246L132,319L157,356L156,359L158,363L160,370L163,374L160,376L157,377L156,379L154,380L154,386L152,389L150,391L148,392L147,394L148,395L147,399L147,400L150,401L151,404L149,407L145,407L99,402L100,400L98,398L99,394L99,388L97,382L92,376L90,374L88,371L86,370L85,371L82,369L83,367L82,362L78,361L76,362L70,357L69,354L65,349L59,348L55,345L49,344L49,342L46,340L48,338L49,335L48,333L50,328L48,327L46,325L47,321L45,319L43,315L42,313L41,311L40,308L40,305L39,304L37,300L35,296L35,292L36,289L38,289L40,286L38,281L35,281L34,279L31,274L33,271L32,267L33,261L35,261L35,266L36,267L38,270L39,265L36,262L37,259L36,257L39,256L38,253L36,254L36,257L33,260L31,257L29,255L26,253L28,250L28,248L27,247L27,243L24,240L23,236L21,232L20,229L22,227L21,219L24,216L24,209L22,202L18,197L19,193L21,190L27,184L28,182L28,179L29,177L31,173L32,166L30,164Z","DE":"M849,246L849,246L849,246ZM845,245L847,242L848,241L851,241L850,244L848,247L849,249L853,252L854,255L855,258L857,261L860,263L861,263L864,270L853,273L846,248Z","DC":"M826,267L827,265L830,267L828,270Z","HI":"M305,584L308,582L310,578L309,575L310,573L315,576L318,576L322,578L326,582L326,584L328,584L328,587L332,589L332,590L329,593L325,595L322,595L317,598L315,602L314,603L309,600L308,599L309,594L308,590ZM292,558L292,556L294,555L296,559L300,557L306,561L307,562L305,564L299,566L297,565L297,561L293,560ZM292,567L294,565L295,567ZM284,558L287,558L289,560L286,562ZM279,554L280,551L288,552L291,553L289,555L288,555L283,554ZM258,543L261,543L265,540L267,544L267,546L270,547L271,549L268,550L266,549L262,549ZM226,533L227,530L231,528L235,529L237,530L236,534L233,536L230,536ZM216,537L220,533L220,536L218,536L217,538Z","IA":"M491,195L516,195L534,195L549,194L576,193L577,196L579,199L577,202L578,207L580,211L582,212L586,212L587,215L587,216L590,218L592,222L596,224L596,226L596,231L594,233L593,236L588,239L585,240L582,241L581,245L584,248L584,252L581,255L581,258L577,259L576,265L571,260L565,260L545,261L521,262L502,262L500,259L501,255L499,245L499,242L496,240L496,236L497,234L495,232L496,230L494,230L493,224L491,221L492,219L491,218L488,212L489,210L490,206L491,204L488,200L489,198L488,195Z","KY":"M621,340L621,338L623,334L624,334L632,337L633,337L634,335L632,332L632,330L636,328L639,327L637,323L639,320L642,319L641,317L643,318L645,317L647,318L647,315L648,317L651,316L655,319L657,316L661,313L662,315L666,314L666,312L669,309L670,311L674,313L676,312L676,308L677,305L680,304L681,301L682,300L684,298L683,295L685,294L688,295L691,292L694,292L694,289L692,289L693,287L691,286L693,284L694,283L696,285L699,283L701,285L703,288L704,290L710,290L712,292L714,293L716,291L721,292L723,292L725,289L727,288L728,292L731,292L733,295L734,298L734,302L736,306L740,309L741,311L744,313L747,313L741,320L738,322L735,325L735,326L733,328L733,330L730,332L729,334L724,337L722,337L720,339L720,339L704,341L692,341L687,342L681,343L672,343L645,346L645,345L641,345L641,350L619,351L617,351L617,349L620,349L621,347L620,346L622,345L621,344L622,340ZM616,351L615,352L616,351Z","MD":"M850,285L849,285L850,285ZM847,281L848,280L849,282ZM782,257L816,251L845,245L846,248L853,273L864,270L863,279L863,280L856,283L855,284L853,284L852,285L851,282L850,280L851,279L849,278L848,276L848,279L846,279L841,274L843,274L842,271L846,271L840,268L841,266L842,266L841,264L839,266L839,262L841,263L842,260L839,259L840,255L842,253L843,249L841,250L842,252L839,254L837,254L838,257L836,259L833,258L837,260L838,263L836,269L837,270L838,274L841,277L840,279L843,282L844,284L841,283L838,281L835,282L831,280L830,278L827,280L825,278L827,274L828,272L828,270L830,267L827,265L826,267L822,265L818,264L819,262L817,260L814,260L813,258L811,256L811,254L808,255L805,253L803,255L802,255L800,258L797,259L794,257L792,262L790,261L787,266L784,269Z","MI":"M677,131L682,132L680,133ZM663,133L663,133L663,133ZM662,139L663,135L664,135L665,138ZM661,136L661,136L661,136ZM659,142L659,142L659,142ZM657,150L658,150L658,151ZM655,153L655,153L655,153ZM646,140L646,140L646,140ZM652,228L655,224L657,219L659,216L660,210L660,205L659,198L656,191L652,184L654,180L652,175L653,173L655,168L655,163L655,160L657,159L657,155L659,153L661,154L664,148L665,151L664,156L665,157L666,152L666,158L668,153L667,146L670,143L674,142L672,141L670,138L673,134L675,133L681,135L685,135L687,138L690,138L692,139L695,140L697,140L701,147L699,146L699,149L701,150L702,154L702,157L702,162L699,166L699,169L698,171L695,171L694,173L694,177L695,179L699,180L701,177L702,173L703,174L705,171L710,168L713,169L715,172L716,177L718,181L719,186L722,191L721,200L719,202L718,200L719,199L716,199L717,201L715,203L715,207L713,208L712,210L713,213L712,215L710,217L708,222L686,225L686,224L669,226ZM601,92L602,91L610,86L614,84L610,89L605,91L607,92L603,93ZM585,123L591,120L594,117L597,116L601,116L603,114L605,112L607,112L608,109L613,106L615,103L619,101L624,100L626,101L622,102L618,108L615,112L615,115L616,117L619,112L620,113L624,112L628,114L633,121L637,121L638,120L640,121L644,121L643,119L645,121L647,118L652,115L656,114L662,114L665,112L670,111L669,113L670,118L673,118L676,117L676,118L678,117L679,116L683,115L684,121L682,123L686,124L687,126L690,126L690,124L693,124L695,126L694,128L689,127L685,127L681,129L676,127L675,129L676,131L674,131L671,128L666,127L663,127L661,130L657,131L657,132L653,131L651,133L650,135L648,137L645,139L646,136L648,134L644,135L643,138L641,138L640,136L639,136L640,138L638,140L634,149L632,152L632,153L630,151L631,148L627,147L628,144L628,143L628,140L625,138L622,137L623,135L618,134L616,133L614,134L612,134L607,131L590,128L588,124Z","MS":"M644,493L644,493L644,493ZM639,493L639,493L639,493ZM635,494L635,494L635,494ZM632,494L632,494L632,494ZM589,433L590,432L589,431L591,430L589,425L588,423L588,422L588,420L589,420L587,418L590,418L589,415L592,415L590,413L591,412L590,411L593,409L592,408L594,407L594,404L596,403L595,402L599,400L599,397L598,396L600,394L598,393L601,392L600,389L601,391L604,389L603,387L619,386L642,384L644,386L643,413L642,444L642,455L646,489L644,491L642,490L640,491L636,490L633,491L627,494L625,495L622,493L621,489L619,487L618,485L619,477L606,478L583,479L584,478L583,476L583,475L582,473L585,473L583,470L585,470L584,467L586,466L586,463L589,461L587,461L587,460L589,459L590,457L592,455L593,453L590,453L590,451L593,450L595,448L594,448L593,446L591,445L593,442L591,443L590,441L592,439L590,439L590,437L591,436L591,434L590,435L589,435Z","MT":"M198,39L210,42L233,46L265,52L285,55L303,57L326,60L340,62L364,65L377,66L375,88L371,134L369,156L369,156L339,153L339,153L298,148L289,147L263,143L258,142L256,154L254,151L253,148L250,148L249,150L250,151L246,150L244,151L243,150L239,150L237,148L235,151L233,150L228,149L227,152L225,149L225,147L224,142L222,140L221,141L219,139L220,134L219,132L217,127L216,123L217,121L215,118L212,121L210,121L208,123L207,120L205,120L206,117L206,115L207,113L209,114L209,111L208,109L208,106L209,106L211,102L213,96L209,96L208,93L205,90L205,88L204,87L203,85L202,82L201,80L198,78L198,77L195,74L197,74L196,72L197,71L197,69L196,67L193,62Z","NH":"M886,111L887,105L888,103L891,104L891,102L895,114L905,145L907,147L908,149L910,150L909,155L906,156L904,158L903,161L884,165L882,163L882,160L882,158L881,146L881,143L882,141L882,139L883,133L882,129L882,128L885,126L888,122L888,119L886,117L887,113Z","NY":"M899,196L899,196L899,196ZM897,198L897,198L897,198ZM869,217L868,220L867,221L867,218ZM816,154L816,154L816,154ZM814,154L814,154L814,154ZM768,200L772,196L773,194L776,192L778,189L780,186L778,182L777,182L775,176L784,172L792,170L796,170L800,172L802,171L806,169L809,169L813,167L814,165L817,162L819,161L819,158L818,155L817,154L819,152L818,151L815,150L815,146L817,144L820,141L822,138L825,132L829,128L832,124L834,123L837,123L845,121L858,118L858,122L859,122L859,127L861,129L862,134L861,136L861,140L864,145L864,149L866,148L867,150L870,166L871,168L871,183L871,184L874,201L876,203L872,206L874,208L873,210L874,211L877,208L882,208L883,207L889,205L891,204L895,200L896,199L896,201L898,201L900,202L903,199L896,206L886,213L878,217L874,218L872,219L870,219L869,216L870,209L862,207L855,204L854,203L850,202L848,200L847,197L845,194L843,195L841,192L825,196L800,201L783,204L769,206Z","OH":"M721,223L721,223L721,223ZM719,222L719,222L719,222ZM686,225L708,222L715,224L718,225L719,224L723,227L726,227L733,223L738,223L742,218L748,213L750,212L756,209L761,239L759,241L760,243L761,247L759,252L760,256L758,260L759,263L758,263L754,269L752,271L750,269L748,271L748,273L746,273L745,278L746,281L744,283L743,280L741,280L740,281L740,284L739,285L740,290L738,290L738,293L734,295L733,295L731,292L728,292L727,288L725,289L723,292L721,292L716,291L714,293L712,292L710,290L704,290L703,288L701,285L699,283L696,285L694,283L693,284L688,247Z","OR":"M71,70L72,72L74,74L77,74L80,77L80,80L79,87L80,88L86,91L89,91L94,90L98,91L103,93L103,95L105,94L108,95L112,94L114,95L118,96L123,95L127,95L129,94L131,95L136,96L139,95L171,102L172,107L175,109L176,112L171,118L169,122L167,124L167,126L164,129L162,130L157,137L158,140L161,141L162,143L160,144L160,146L158,150L149,191L122,185L100,179L84,175L62,168L46,164L33,160L31,157L31,153L32,149L34,146L34,145L33,142L33,140L35,137L38,131L43,126L45,121L53,103L54,99L57,92L61,81L61,79L62,75L64,74L64,69L65,71L68,71Z","TN":"M612,363L614,360L612,358L615,357L614,356L615,354L615,352L616,351L617,351L619,351L641,350L641,345L645,345L645,346L672,343L681,343L687,342L692,341L704,341L720,339L720,339L727,338L751,335L751,334L756,333L756,334L755,338L752,341L751,346L749,346L747,345L744,347L743,349L741,351L740,348L738,350L737,352L735,356L733,356L730,358L729,359L726,362L721,363L717,366L717,369L716,370L713,371L713,377L689,380L666,382L642,384L642,384L619,386L603,387L605,386L605,384L607,383L605,381L607,378L605,378L606,376L608,376L607,374L609,374L608,373L610,372L608,369L613,367L611,366L614,365Z","UT":"M198,201L200,202L228,206L247,210L244,232L253,234L277,237L271,280L268,299L268,302L265,328L239,324L203,318L176,313L176,311Z","VA":"M855,284L856,283L863,280L861,284L860,285L858,288L859,292L857,301L855,304L853,301L853,292L856,286L854,285ZM850,285L849,285L850,285ZM747,313L747,315L750,319L753,320L755,320L758,316L761,318L767,315L767,313L769,314L773,310L774,312L777,309L776,308L778,306L776,305L777,302L780,297L780,294L784,287L784,283L786,283L787,285L790,286L792,283L794,275L797,277L797,274L799,273L803,266L802,264L803,262L803,259L813,265L814,260L817,260L819,262L818,264L822,265L826,267L828,270L828,272L827,274L825,275L825,279L826,281L830,279L832,283L834,283L838,283L840,285L846,287L845,289L846,293L845,294L842,294L840,291L838,290L835,288L838,291L840,292L842,295L846,295L848,299L848,300L845,299L845,300L847,302L844,303L846,303L849,305L849,307L847,309L843,306L842,304L840,305L838,304L837,305L841,306L841,304L843,308L846,309L846,310L849,310L849,308L855,308L859,316L842,319L840,320L812,326L794,329L780,331L756,334L756,333L751,334L751,335L727,338L720,339L722,337L724,337L729,334L730,332L733,330L733,328L735,326L735,325L738,322L741,320Z","WA":"M93,51L95,48L94,52ZM99,25L99,25L99,25ZM99,20L99,20L99,20ZM98,23L98,23L98,23ZM95,31L99,28L99,31L98,30L96,32L97,33L97,37L98,35L100,37L99,39L98,39L98,37L96,36L97,33ZM96,18L96,18L96,18ZM94,20L94,20L94,20ZM95,13L95,13L95,13ZM91,21L93,21L96,20L98,22L96,27L92,24ZM91,19L91,19L91,19ZM184,36L178,59L171,92L170,94L171,98L170,100L171,102L139,95L136,96L131,95L129,94L127,95L123,95L118,96L114,95L112,94L108,95L105,94L103,95L103,93L98,91L94,90L89,91L86,91L80,88L79,87L80,80L80,77L77,74L74,74L72,72L71,70L69,69L66,69L64,67L64,65L66,60L66,61L65,66L66,66L66,63L68,63L67,60L70,59L67,59L66,57L67,55L71,54L67,51L67,45L67,43L68,34L66,30L65,28L66,23L68,21L67,19L70,20L72,23L74,24L77,27L81,28L82,29L87,31L89,31L90,33L95,33L94,35L95,38L92,41L90,42L85,46L84,48L88,44L92,43L92,42L97,39L95,46L94,47L92,52L89,55L88,51L88,55L89,56L93,52L94,53L96,52L96,47L98,42L102,38L100,35L101,33L98,34L99,32L101,31L100,27L98,28L98,25L101,27L101,25L102,24L102,23L102,21L99,19L99,15L100,14L115,19L140,25L166,32Z","WI":"M642,146L642,145L644,145L643,147ZM636,150L636,150L636,150ZM584,113L584,113L584,113ZM583,116L583,116L583,116ZM581,115L581,115L581,115ZM580,117L580,117L580,117ZM580,114L580,114L580,114ZM579,113L581,112L583,113L581,115ZM579,118L582,116L581,118ZM576,114L576,114L576,114ZM560,121L563,121L568,120L573,117L573,117L576,115L578,115L580,116L578,119L578,120L577,123L580,122L580,120L583,122L585,123L588,124L590,128L607,131L612,134L614,134L616,133L618,134L623,135L622,137L625,138L628,140L628,143L628,144L627,147L631,148L630,151L632,153L632,156L629,157L629,158L627,162L626,166L628,166L631,163L633,159L636,157L638,153L638,151L640,150L640,149L642,148L641,152L639,155L639,157L638,159L635,165L635,170L635,174L633,176L632,181L633,185L632,188L631,195L632,199L632,201L634,206L634,210L634,212L618,214L587,215L586,212L582,212L580,211L578,207L577,202L579,199L577,196L576,193L575,191L576,187L572,182L570,182L565,178L564,175L559,173L557,170L554,170L549,166L550,162L549,158L550,158L550,154L551,150L549,147L548,147L548,144L551,139L556,137L556,136L556,122L559,120Z","NE":"M365,201L391,203L404,204L434,205L457,206L457,207L466,212L467,210L470,210L476,210L479,212L482,212L487,215L486,216L488,218L491,218L492,219L491,221L493,224L494,230L496,230L495,232L497,234L496,236L496,240L499,242L499,245L501,255L500,259L502,262L505,268L507,270L508,272L508,274L510,275L495,275L465,275L443,274L422,273L394,272L395,249L382,248L361,247Z","SC":"M735,374L742,371L746,368L749,367L772,365L772,367L774,365L777,369L778,371L798,368L823,386L820,388L816,392L813,399L814,404L811,406L811,408L808,408L806,410L807,411L803,415L801,419L797,421L795,423L792,424L793,425L793,427L790,429L788,427L787,428L790,430L786,433L786,435L781,433L780,431L781,430L777,424L774,423L773,418L771,416L771,414L766,412L764,410L764,409L762,408L762,406L759,403L756,402L755,400L748,396L747,394L744,391L744,389L741,385L738,385L735,383L732,382L732,379L735,375Z","ID":"M171,102L170,100L171,98L170,94L171,92L178,59L184,36L198,39L193,62L196,67L197,69L197,71L196,72L197,74L195,74L198,77L198,78L201,80L202,82L203,85L204,87L205,88L205,90L208,93L209,96L213,96L211,102L209,106L208,106L208,109L209,111L209,114L207,113L206,115L206,117L205,120L207,120L208,123L210,121L212,121L215,118L217,121L216,123L217,127L219,132L220,134L219,139L221,141L222,140L224,142L225,147L225,149L227,152L228,149L233,150L235,151L237,148L239,150L243,150L244,151L246,150L250,151L249,150L250,148L253,148L254,151L256,154L250,193L247,210L228,206L200,202L198,201L181,198L160,193L149,191L158,150L160,146L160,144L162,143L161,141L158,140L157,137L162,130L164,129L167,126L167,124L169,122L171,118L176,112L175,109L172,107Z","NV":"M100,179L122,185L149,191L160,193L181,198L198,201L176,311L176,313L173,331L170,335L168,335L167,331L163,331L160,331L159,335L160,336L159,338L159,342L158,345L159,349L159,353L157,354L157,356L132,319L83,246L89,224Z","VT":"M858,118L865,116L874,114L886,111L887,113L886,117L888,119L888,122L885,126L882,128L882,129L883,133L882,139L882,141L881,143L881,146L882,158L882,160L882,163L884,165L871,168L870,166L867,150L866,148L864,149L864,145L861,140L861,136L862,134L861,129L859,127L859,122L858,122Z","LA":"M638,497L638,497L638,497ZM629,498L631,495L631,497L632,498ZM624,510L624,510L624,510ZM610,521L610,521L610,521ZM606,521L606,521L606,521ZM602,522L602,522L602,522ZM577,511L580,511L583,512L580,514ZM535,435L569,434L589,433L589,435L590,435L591,434L591,436L590,437L590,439L592,439L590,441L591,443L593,442L591,445L593,446L594,448L595,448L593,450L590,451L590,453L593,453L592,455L590,457L589,459L587,460L587,461L589,461L586,463L586,466L584,467L585,470L583,470L585,473L582,473L583,475L583,476L584,478L583,479L606,478L619,477L618,485L619,487L621,489L622,493L625,495L623,496L621,498L619,499L619,501L621,501L622,503L624,502L624,500L626,498L628,498L627,499L628,501L630,499L631,502L628,503L627,507L625,506L625,507L623,508L624,509L623,510L625,511L626,513L630,513L632,515L632,514L635,518L634,522L632,520L629,524L631,519L629,519L627,517L624,516L620,515L613,521L610,516L608,515L607,517L605,517L605,518L601,523L598,520L595,520L592,519L590,517L592,516L595,518L594,516L592,514L590,515L590,513L588,514L586,512L586,510L584,510L584,508L582,508L579,509L580,506L579,506L574,508L573,508L575,511L571,513L565,512L558,509L554,508L548,508L542,509L541,510L539,507L540,506L541,504L543,502L543,497L542,496L543,493L542,490L544,487L546,484L546,480L545,476L544,474L542,469L540,467L540,463L538,460L535,458Z","RI":"M911,183L912,183L913,186L912,188L910,184L911,187L909,188L910,184ZM908,188L908,188L908,188ZM907,196L907,196L907,196ZM902,193L902,191L901,186L899,178L905,176L906,179L908,181L910,182L907,181L908,188L908,191Z"};
+const US_CENTERS = {"AL":[672,432],"AK":[103,523],"AZ":[208,382],"CO":[332,290],"FL":[768,516],"GA":[736,428],"IN":[665,269],"KS":[456,309],"ME":[919,94],"MA":[897,172],"MN":[525,132],"NJ":[862,230],"NC":[801,351],"ND":[429,104],"OK":[471,376],"PA":[806,226],"SD":[430,172],"TX":[434,469],"WY":[308,195],"CT":[886,190],"MO":[560,312],"WV":[767,285],"IL":[615,270],"NM":[311,393],"AR":[564,391],"CA":[82,288],"DE":[853,260],"DC":[828,267],"HI":[300,573],"IA":[540,227],"KY":[688,321],"MD":[832,263],"MI":[670,167],"MS":[618,437],"MT":[287,100],"NH":[893,140],"NY":[834,172],"OH":[724,253],"OR":[103,134],"TN":[674,361],"UT":[227,269],"VA":[803,304],"WA":[124,59],"WI":[595,167],"NE":[434,239],"SC":[779,392],"ID":[199,147],"NV":[142,252],"VT":[873,136],"LA":[576,478],"RI":[905,184]};
 
 /* ===================== RULES ===================== */
 const TIME_LIMIT = 10000;   // ms per question
@@ -1024,7 +1593,7 @@ function spriteRows(sp){
 }
 function drawSprite(cv, id){
   const tok = cv._tok = (cv._tok || 0) + 1;
-  if(S.art !== 'pixel' && ILLUST[id]){
+  if((S.art !== 'pixel' || !SPRITES[id]) && ILLUST[id]){
     cv.classList.add('illust');
     cv.width = cv.height = 300;
     const img = new Image();
@@ -1055,7 +1624,7 @@ function spriteEl(id, cls){
   return cv;
 }
 
-const SCREENS = ['title','map','battle','result','dex','setting'];
+const SCREENS = ['title','map','battle','result','dex','setting','pass'];
 function show(name){
   SCREENS.forEach(s => { $('#s-'+s).hidden = s !== name; });
   window.scrollTo(0,0);
@@ -1131,7 +1700,7 @@ function giveExp(n){
 /* ===================== TITLE ===================== */
 function renderTitle(){
   const par = $('#parade'); par.innerHTML = '';
-  MONSTERS.forEach(m => par.appendChild(spriteEl(m.id)));
+  MONSTERS.filter(m => m.boss).forEach(m => par.appendChild(spriteEl(m.id)));
   $('#nameInput').value = S.name;
 }
 $('#startBtn').addEventListener('click', () => {
@@ -1140,6 +1709,7 @@ $('#startBtn').addEventListener('click', () => {
 });
 
 /* ===================== MAP ===================== */
+let selState = null;
 function renderMap(){
   $('#mapName').textContent = S.name;
   $('#mapLv').textContent = 'Lv ' + S.lv;
@@ -1151,38 +1721,115 @@ function renderMap(){
   $('#mapMastered').textContent = mastered;
   $('#mapTotal').textContent = WORDS.length;
   $('#mapDue').textContent = due;
+  $('#mapStamps').textContent = STATES.filter(stateCleared).length;
   $('#artBtn').textContent = 'えのタッチ：' + (S.art === 'pixel' ? 'ドット絵' : 'イラスト');
-
-  const list = $('#stageList'); list.innerHTML = '';
-  const beaten = MONSTERS.filter(m => S.wins[m.id]).length;
-  const AREAS = [['kurashi','くらしの森'],['kaiwa','おしゃべり横丁'],['ugoki','うごきの遺跡'],['yousu','ようすの洞窟'],['doubutsu','どうぶつ牧場'],['all','ボスの間']];
-  AREAS.forEach(([cat, areaName]) => {
-   const h = document.createElement('div');
-   h.className = 'area';
-   h.textContent = areaName;
-   list.appendChild(h);
-   MONSTERS.filter(m => m.cat === cat).forEach(m => {
-    const need = (m.unlock || 0) - beaten;
-    const locked = need > 0;
-    const pool = m.cat === 'all' ? WORDS : WORDS.filter(w => w.c === m.cat);
-    const mm = pool.filter(w => getP(w.w).s >= 5).length;
-    const b = document.createElement('button');
-    b.className = 'btn stage' + (locked ? ' locked' : '');
-    b.disabled = locked;
-    const catName = m.cat === 'all' ? 'ぜんぶの たんご' : CATS[m.cat].name + '：' + CATS[m.cat].desc;
-    b.innerHTML = `<div class="sp"></div>
-      <div class="grow"><div class="sname">${locked ? '？？？' : esc(m.name)}${m.boss ? ' <span class="chip">ボス</span>' : ''}${m.custom ? ' <span class="chip">あなたの</span>' : ''}</div>
-      <div class="smeta">${locked ? 'あと ' + need + 'たい たおすと あらわれる' : esc(catName)}</div>
-      <div class="smeta">マスター ${mm} / ${pool.length}</div></div>
-      <div class="swins">${S.wins[m.id] ? '討伐 ' + S.wins[m.id] : ''}</div>`;
-    const cv = spriteEl(m.id);
-    if(locked) cv.style.filter = 'brightness(0)';
-    b.querySelector('.sp').appendChild(cv);
-    b.addEventListener('click', () => { play('select'); startBattle(m.id); });
-    list.appendChild(b);
-   });
+  if(!selState){
+    const cur = STATES.find(st => stateOpen(st) && !stateCleared(st)) || STATES[STATES.length-1];
+    selState = cur.code;
+  }
+  drawUSMap();
+  renderStatePanel();
+}
+function selectState(code){
+  selState = code; play('select'); drawUSMap(); renderStatePanel();
+}
+function drawUSMap(){
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = $('#usmap'); svg.innerHTML = '';
+  const el = (tag, attrs) => { const e = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([k,v]) => e.setAttribute(k, v)); return e; };
+  const game = Object.fromEntries(STATES.map(st => [st.code, st]));
+  Object.entries(US_PATHS).forEach(([code, d]) => {
+    const st = game[code];
+    let cls = 'st-other';
+    if(st) cls = stateCleared(st) ? 'st-clear' : stateOpen(st) ? 'st-open' : 'st-lock';
+    if(code === selState) cls += ' st-sel';
+    const path = el('path', {d, class:'st ' + cls});
+    if(st) path.addEventListener('click', () => selectState(code));
+    svg.appendChild(path);
+  });
+  STATES.forEach(st => st.next.forEach(n => {
+    const [x1,y1] = US_CENTERS[st.code], [x2,y2] = US_CENTERS[n];
+    svg.appendChild(el('line', {x1, y1, x2, y2, class:'route' + (stateCleared(st) ? ' done' : '')}));
+  }));
+  STATES.forEach(st => {
+    const [x,y] = US_CENTERS[st.code];
+    const g = el('g', {class:'pin' + (st.code === selState ? ' sel' : ''), tabindex:'0', role:'button', 'aria-label':st.ja});
+    const status = stateCleared(st) ? 'clear' : stateOpen(st) ? 'open' : 'lock';
+    g.appendChild(el('circle', {cx:x, cy:y, r:st.code === selState ? 15 : 11, class:'dot ' + status}));
+    const t = el('text', {x, y:y - 20, class:'plabel'});
+    t.textContent = st.ja.replace('州','');
+    g.appendChild(t);
+    g.addEventListener('click', () => selectState(st.code));
+    g.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); selectState(st.code); } });
+    svg.appendChild(g);
   });
 }
+function renderStatePanel(){
+  const st = stateOf(selState);
+  const box = $('#statePanel'); box.innerHTML = '';
+  const open = stateOpen(st), clear = stateCleared(st);
+  const cats = [...new Set(st.mons.map(id => MON[id].cat))].filter(c => c !== 'all');
+  const head = document.createElement('div');
+  head.className = 'sp-head';
+  head.innerHTML = `<div><div class="sp-name">${esc(st.ja)} <span class="sp-en">${esc(st.en)}</span></div>
+    <div class="sp-nick">${esc(st.nick)} ・ ${esc(st.nickJa)}</div></div>
+    <div class="stamp-mini ${clear ? 'got' : ''}">${clear ? st.code : '？'}</div>`;
+  box.appendChild(head);
+  const chips = document.createElement('div');
+  chips.className = 'chips';
+  chips.innerHTML = cats.map(c => `<span class="chip">${esc(CATS[c].name)}：${esc(CATS[c].desc)}</span>`).join('') + (st.code === 'NY' ? '<span class="chip">ラスボス：ぜんぶの たんご</span>' : '');
+  box.appendChild(chips);
+  if(!open){
+    const from = STATES.filter(o => o.next.includes(st.code)).map(o => o.ja).join(' か ');
+    const p = document.createElement('p');
+    p.className = 'note';
+    p.textContent = `${from}を クリアすると いけるように なるよ。`;
+    box.appendChild(p);
+  }
+  const list = document.createElement('div');
+  list.className = 'stage-list';
+  st.mons.forEach((id, i) => {
+    const m = MONSTERS.find(x => x.id === id);
+    const ok = monOpen(st, i);
+    const pool = poolFor(m);
+    const mm = pool.filter(w => getP(w.w).s >= 5).length;
+    const b = document.createElement('button');
+    b.className = 'btn stage' + (ok ? '' : ' locked');
+    b.disabled = !ok;
+    const tag = id === 'lexidra' ? 'ラスボス' : m.boss ? '州ボス' : '';
+    const catName = m.cat === 'all' ? 'ぜんぶの たんご' : m.boss ? cats.map(c => CATS[c].name).join('・') + ' の総まとめ' : CATS[m.cat].name + '：' + CATS[m.cat].desc;
+    b.innerHTML = `<div class="sp"></div>
+      <div class="grow"><div class="sname">${ok ? esc(m.name) : '？？？'}${tag ? ` <span class="chip">${tag}</span>` : ''}</div>
+      <div class="smeta">${ok ? esc(catName) : open ? 'まえの モンスターを たおすと あらわれる' : 'まだ いけない'}</div>
+      <div class="smeta">マスター ${mm} / ${pool.length}</div></div>
+      <div class="swins">${S.wins[id] ? '討伐 ' + S.wins[id] : ''}</div>`;
+    const cv = spriteEl(id);
+    if(!ok) cv.style.filter = 'brightness(0)';
+    b.querySelector('.sp').appendChild(cv);
+    b.addEventListener('click', () => { play('select'); startBattle(id); });
+    list.appendChild(b);
+  });
+  box.appendChild(list);
+  if(clear){
+    const f = document.createElement('div');
+    f.className = 'facts';
+    f.innerHTML = '<div class="label">この州の 豆知識</div>' + st.facts.map(([e,j]) => `<p><span>${esc(e)}</span><br><small>${esc(j)}</small></p>`).join('');
+    box.appendChild(f);
+  }
+}
+function renderPass(){
+  const got = STATES.filter(stateCleared).length;
+  $('#passCount').textContent = `スタンプ ${got} / ${STATES.length}`;
+  $('#stampList').innerHTML = STATES.map(st => {
+    const c = stateCleared(st);
+    return `<div class="win stamp-card ${c ? 'got' : ''}">
+      <div class="stamp">${c ? st.code : '？'}</div>
+      <div class="grow"><div class="sname">${esc(st.ja)}</div><div class="smeta">${c ? esc(st.nick) : 'まだ クリアしていない'}</div>
+      ${c ? st.facts.map(([e,j]) => `<p class="fact"><span>${esc(e)}</span><br><small>${esc(j)}</small></p>`).join('') : ''}</div></div>`;
+  }).join('');
+}
+$('#passBtn').addEventListener('click', () => { play('select'); renderPass(); show('pass'); });
+$('#passBack').addEventListener('click', () => { renderMap(); show('map'); });
 $('#artBtn').addEventListener('click', () => {
   S.art = S.art === 'pixel' ? 'illust' : 'pixel';
   persist(); play('select'); renderMap(); renderTitle();
@@ -1209,7 +1856,7 @@ function later(fn, ms){
 }
 function startBattle(id){
   const m = MONSTERS.find(x => x.id === id);
-  const pool = m.cat === 'all' ? WORDS : WORDS.filter(w => w.c === m.cat);
+  const pool = poolFor(m);
   B = {m, pool, mhp:m.hp, php:maxHP(S.lv), pmax:maxHP(S.lv), queue:pickWords(pool, 12),
        combo:0, maxCombo:0, log:[], locked:true, raf:0, last:null, cur:null};
   const scene = $('#scene');
@@ -1345,7 +1992,10 @@ function win(){
   retrigger($('#eSprite'), 'anim-vanish');
   play('win');
   setMsg(`${m.name}を たおした！`);
+  const st = stateOf(m.state);
+  const wasClear = stateCleared(st);
   S.wins[m.id] = (S.wins[m.id] || 0) + 1;
+  B.clearState = !wasClear && stateCleared(st) ? st : null;
   const ups = giveExp(m.exp);
   persist();
   later(() => showResult(true, m.exp, ups), 1300);
@@ -1368,7 +2018,18 @@ function showResult(won, gained, ups){
   rs.style.opacity = won ? '.25' : '1';
   let text = (won ? m.defeat : m.lose) + `\n${gained} EXP を てにいれた。`;
   if(ups) text += `\nレベルが あがった！ Lv ${S.lv} に なった！`;
-  $('#rMsg').innerHTML = esc(text).replace(/\n/g, '<br>');
+  let html = esc(text).replace(/\n/g, '<br>');
+  const cs = won && B.clearState;
+  if(cs){
+    const nexts = cs.next.map(stateOf).filter(stateOpen).map(x => x.ja);
+    const fact = cs.facts[0];
+    html += `<div class="clear-box"><div class="clear-stamp">${cs.code}</div><div>
+      <b>${esc(cs.ja)} クリア！ スタンプ ゲット！</b>
+      <p><span>${esc(fact[0])}</span><br><small>${esc(fact[1])}</small></p>
+      ${nexts.length ? `<p>つぎは ${esc(nexts.join('・'))}へ いけるように なった！</p>` : cs.code === 'NY' ? '<p>アメリカ横断 達成！ おめでとう！</p>' : ''}</div></div>`;
+    setTimeout(() => play('lvup'), 1500);
+  }
+  $('#rMsg').innerHTML = html;
   if(ups) setTimeout(() => play('lvup'), 900);
 
   const n = B.log.length, okN = B.log.filter(l => l.ok).length;
