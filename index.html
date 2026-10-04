@@ -92,6 +92,8 @@ canvas.sprite{image-rendering:pixelated;image-rendering:crisp-edges;width:auto;d
 .stage .swins{font-size:12px;color:var(--gold);text-align:right}
 .stage.locked{border-style:dashed}
 .chip{display:inline-block;border:1px solid var(--muted);border-radius:3px;padding:0 6px;font-size:12px;color:var(--muted)}
+.area{font-size:13px;color:var(--gold);letter-spacing:.2em;margin-top:6px}
+.area::before{content:'◆ '}
 .soon{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .soon .win{padding:10px 12px;border-style:dashed;opacity:.7}
 .soon b{display:block;font-weight:normal}
@@ -611,6 +613,148 @@ SPRITES.chipryu = (() => {
           rows: out.map(r => r.join(''))};
 })();
 
+/* Monsters from the player's photos. These use auto-outline (ol), so rows hold fill colors only. */
+Object.assign(SPRITES, {
+  mochi:{ol:'#2a2630',pal:{W:'#f7f3ea',w:'#d9d3c6',b:'#1a1a1a',p:'#ffab8f'},rows:[
+    '.....WWWWWW.....',
+    '...WWWWWWWWWW...',
+    '..WWWWWWWWWWWW..',
+    '.WWWWWWWWWWWWWW.',
+    '.WWWWbWWWWbWWWW.',
+    '.WWpWWWWWWWWpWW.',
+    '.WWpWWWbbbWWpWW.',
+    '.WWWWWbWWWbWWWW.',
+    'WWWWWWWWWWWWWWWW',
+    'WWWWWWWWWWWWWWWw',
+    'WWWWWWWWWWWWWWww',
+    'WWwWWWWWWWWWWwww',
+    '.WwwWWWWWWWWwww.',
+    '.ww.wWWWWWWw.ww.',
+    '....ww.ww.ww....']},
+  montblanc:{ol:'#2a1608',pal:{Y:'#f2d27a',y:'#c9a24a',h:'#4a2a1a',W:'#ffffff',b:'#1a1a1a',r:'#e8574a',t:'#c8894a',T:'#9a6230'},rows:[
+    '......hh..........',
+    '.....hhh..........',
+    '....hhhhh.....WWW.',
+    '..hhhhhhhhh..WWWWW',
+    '....YYYYY....WbWbW',
+    '...YyYYyYY...WWWWW',
+    '..YYyWWWyYY..WbbbW',
+    '..YyWWWWWyYY..WWW.',
+    '.YYyWWbbWWYYy.....',
+    '.YyYWWbbWWyYY.....',
+    '.YYyYWWWWYyYY.....',
+    '.YbYYYYYYYYbY.....',
+    '.YYbbbbbbbbYY.....',
+    '.YyYYYrrYyYYY.....',
+    'tTtTTtrrTtTTtT....',
+    'TTTTTTTrTTTTTT....',
+    '.TTTTTTTTTTTT.....']},
+  rooster:{ol:'#1a0c06',pal:{R:'#e8322f',O:'#e8762a',o:'#f2a33a',B:'#1c1a22',b:'#4a4466',Y:'#f2c24a',w:'#ffffff',e:'#111111',L:'#e6dcc8'},rows:[
+    '....RR.R........',
+    '...RRRRR........',
+    '...RRRRRR.......',
+    '..OOOOOOO.......',
+    '.YOewOOOOO......',
+    'YYOOOOOOOO....BB',
+    '..ROOOOOOO...BBb',
+    '..ROOoOOOOO.BBb.',
+    '....OOOoOOOBBBb.',
+    '....BOOOOOBBBBB.',
+    '...BBBBBBBBBBBb.',
+    '...BBbBBBBBBBB..',
+    '....BBBbBBBBB...',
+    '.....BBBBBB.....',
+    '......L..L......',
+    '......L..L......',
+    '.....LL.LL......']},
+  nasu:{ol:'#2a1238',pal:{G:'#4f8a2e',g:'#7cb84a',P:'#9b6ab8',p:'#b98bd1',D:'#6e4589',b:'#1a1a1a'},rows:[
+    '.....GgGGgG.....',
+    '....GGGgGGGG....',
+    '...G.PPPPPP.G...',
+    '....PPDDDDPP....',
+    '...PPpPPPPPPP...',
+    '..PPpbPPPPbPPP..',
+    '..PPpPPPDPPPPP..',
+    '..PPPPbPPbPPPP..',
+    '..PpPPDbbDDPPPP.',
+    '.PPpPPPDDDPPPPP.',
+    '.PPpPPPDDDPPPPP.',
+    '.PPPDDPPDPPDDPP.',
+    '.PPPDDDDDDDDDPP.',
+    '.PPPPDDDDDDDPPP.',
+    '..PPPPPPPPPPPP..',
+    '...PPPPPPPPPP...',
+    '.....PPPPPP.....']},
+  oni:{ol:'#120604',pal:{R:'#b8382a',r:'#8a2418',Y:'#e8b030',y:'#a87818',e:'#f28a1a',b:'#1a0a05',T:'#f2e2b0',H:'#5a3a3a'},rows:[
+    '..H.YY.YY.YY.H..',
+    '.HHYYYYYYYYYYHH.',
+    'HHYyYYYYYYYYyYHH',
+    'HHRRRRRebRRRRRHH',
+    'H.RRRRRRRRRRRR.H',
+    '.RRYYYRRRRYYYRR.',
+    'RRRebRRRRRRebRRR',
+    'RRRRRRrRRrRRRRRR',
+    'RRRRRrrrrrrRRRRR',
+    '.RTRRbbbbbbRRTR.',
+    '.RTbTTTTTTTTbTR.',
+    '..RRbbbbbbbbRR..',
+    '..yRRRRRRRRRRy..',
+    '...yYyRRRRyYy...',
+    '....yYYyyYYy....',
+    '......yYYy......']},
+  graffiti:{ol:'#6a6470',pal:{K:'#17161a',k:'#2c2a30',O:'#e8762a',W:'#e8e4dc',S:'#c98a5a',s:'#6a3a1a',e:'#120a05'},rows:[
+    '.....KKKKKK.....',
+    '...KKKOOKKKKK...',
+    '..KKOKKOKKWKKK..',
+    '.KKKOOOKKKWWKKK.',
+    '.KKKKKKKKKKKKKK.',
+    '.KKSsSSSSSsSKKK.',
+    '.KKsesSSSsesKKK.',
+    '.KKKKKKKKKKKKKK.',
+    '.KKWKKKOOKKKKKK.',
+    '.KKWWKKOKKKWWKK.',
+    '..KKKKKKKKKKWKK.',
+    '..KKOOKKKKKKKK..',
+    '...KKKKKKWKKK...',
+    '...KKKKKKKKKKK..',
+    '..KKKkkkkkkKKKK.',
+    '.KKKkKKKKKKKKKKK']},
+  shiba:{ol:'#2a1206',pal:{O:'#e88a3a',C:'#fbefdc',b:'#1a1a1a',n:'#3a3a40',p:'#ff9aa8',R:'#d6303a',Y:'#f2c24a'},rows:[
+    '..OO........OO..',
+    '.OCOO......OOCO.',
+    '.OCCOOOOOOOOCCO.',
+    'OOOOCCOOOOCCOOOO',
+    'OOOOObOOOObOOOOO',
+    'OOOCCCCCCCCCCOOO',
+    'OOCpCCCnnCCCpCOO',
+    '.OCCCCbCCbCCCCO.',
+    '..CCCCCbbCCCCC..',
+    '..RRRRRRRRRRRR..',
+    '..OOCCCYCCCCOO..',
+    '.OOOCCCCCCCCOOO.',
+    '.OOOCCCCCCCCOOO.',
+    '.OOCCOOCCOOCCOO.',
+    '.OCCCOOOOOOCCCO.',
+    '..CCC......CCC..']},
+  bruv:{ol:'#14081f',pal:{V:'#6a22b0',v:'#3e1070',W:'#ffffff',g:'#9aa4b0',D:'#4a2a18',K:'#2e3133',H:'#e8854a'},rows:[
+    '....VVVVVVVV....',
+    '...VVVVVVVVVV...',
+    '..WWWWWWWWWWWW..',
+    '..WWDWWWDWWWWW..',
+    '..DDDDDDDDDDDD..',
+    '..VVVVVVVVVVVV..',
+    '..VKKKKKKKKKKV..',
+    '..VKgWWWWWWgKV..',
+    '..VKgWWWWWWgKVH.',
+    '..VKKKKKKKKKKVHH',
+    '..VVVVVVVVVVVVHH',
+    '.VVVVVVKVVVVVVH.',
+    'VVVVVVVKVVVVVVVV',
+    'KKVVVVVKVVVVVVKK',
+    'KKKKVVVKVVVVKKKK',
+    'KKKKKKKKKKKKKKKK']}
+});
+
 const MONSTERS = [
   {id:'pomlin',name:'ポムリン',cat:'kurashi',hp:70,atk:7,exp:25,bg:'bg-forest',
    intro:'もりの おくから ポムリンが とびだした！',defeat:'ポムリンは 「また あそんでね…」と きえていった。',lose:'ポムリンは うれしそうに はねている。'},
@@ -622,7 +766,23 @@ const MONSTERS = [
    intro:'もじが きざまれた グラムゴーレムが めざめた！',defeat:'グラムゴーレムは くずれて ただの いしに なった。',lose:'グラムゴーレムは しずかに ねむりに ついた。'},
   {id:'chipryu',name:'チップリュウ',cat:'doubutsu',hp:110,atk:11,exp:60,bg:'bg-field',custom:true,
    intro:'さつまいも畑から チップリュウが のぼってきた！「俺は無敵だ！」',laugh:'ワハハハ！ 俺は無敵だ！',defeat:'チップリュウ「え？」',lose:'チップリュウ「ワハハハ！ 俺は無敵だ！」'},
-  {id:'lexidra',name:'レキシドラ',cat:'all',hp:160,atk:13,exp:120,bg:'bg-volcano',boss:true,
+  {id:'montblanc',name:'モンブラン・アイ',cat:'kurashi',hp:80,atk:8,exp:35,bg:'bg-forest',custom:true,
+   intro:'ひとつ目の モンブラン・アイが ベロを だした！',laugh:'ベロベロ〜！',defeat:'モンブラン・アイは とけて、あまい においだけが のこった。',lose:'モンブラン・アイは ベロを だして わらっている。'},
+  {id:'bruv',name:'ブルーヴ',cat:'kaiwa',hp:85,atk:9,exp:40,bg:'bg-town',custom:true,
+   intro:'ブルーヴが ニカッと わらった。「What\'s up, bruv?」',laugh:'No way, bruv!',defeat:'ブルーヴ「Good game, bruv.」',lose:'ブルーヴ「Take care, bruv.」'},
+  {id:'nasu',name:'ナスノカミ',cat:'ugoki',hp:90,atk:9,exp:40,bg:'bg-ruins',custom:true,
+   intro:'ナスノカミが にっこり ほほえんだ。「ふくを さずけよう…」',laugh:'ほっほっほ',defeat:'ナスノカミ「よく がんばった。ふくを さずけよう」',lose:'ナスノカミは ほっほっほと わらっている。'},
+  {id:'graffiti',name:'ラクガキマスク',cat:'ugoki',hp:95,atk:10,exp:45,bg:'bg-town',custom:true,
+   intro:'ラクガキマスクが かべの かげから あらわれた！',laugh:'ヘヘッ',defeat:'ラクガキマスクは スプレーを おとして にげていった。',lose:'ラクガキマスクは かべに「WIN」と かいた。'},
+  {id:'mochi',name:'モチオバケ',cat:'yousu',hp:80,atk:8,exp:35,bg:'bg-cave',custom:true,
+   intro:'モチオバケが ふわっと あらわれた…「こわくないよ…」',laugh:'ふふ…',defeat:'モチオバケは「ふぇ…」と きえていった。',lose:'モチオバケは ほっとした かおを している。'},
+  {id:'shiba',name:'シバまる',cat:'doubutsu',hp:85,atk:9,exp:40,bg:'bg-field',custom:true,
+   intro:'シバまるが しっぽを ふりながら とびかかってきた！',laugh:'ワン！ワン！',defeat:'シバまるは まんぞくそうに ねころんだ。',lose:'シバまるは うれしそうに しっぽを ふっている。'},
+  {id:'rooster',name:'コケキング',cat:'doubutsu',hp:95,atk:10,exp:45,bg:'bg-field',custom:true,
+   intro:'コケキングが「コケコッコー！」と ないた！',laugh:'コケーッ！',defeat:'コケキングは にわとりごやに にげかえった。',lose:'コケキングは むねを はって いばっている。'},
+  {id:'oni',name:'サンガンオウ',cat:'all',hp:130,atk:12,exp:90,bg:'bg-volcano',boss:true,unlock:4,custom:true,
+   intro:'みっつの 目が ひかる… サンガンオウが あらわれた！',laugh:'グハハハ！',defeat:'サンガンオウの 目の ひかりが きえた…',lose:'サンガンオウは グハハハと わらっている。'},
+  {id:'lexidra',name:'レキシドラ',cat:'all',hp:160,atk:13,exp:120,bg:'bg-volcano',boss:true,unlock:8,
    intro:'すべての ことばを くらう りゅう、レキシドラが あらわれた！',defeat:'レキシドラを たおした！ ことばの ちからが みなぎる！',lose:'レキシドラの ほのおが すべてを つつんだ…'}
 ];
 
@@ -655,14 +815,27 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>'
 const getP = w => S.words[w] || {s:0, due:0, n:0, ok:0, best:null};
 const starsHTML = n => '<span class="stars">' + '★'.repeat(n) + '<span class="off">' + '★'.repeat(5-n) + '</span></span>';
 
+function spriteRows(sp){
+  if(!sp.ol) return sp.rows;
+  if(sp._rows) return sp._rows;
+  const w = Math.max(...sp.rows.map(r => r.length)) + 2;
+  const g = [Array(w).fill('.'), ...sp.rows.map(r => ['.', ...r.padEnd(w-2, '.'), '.']), Array(w).fill('.')];
+  const out = g.map(r => r.slice());
+  g.forEach((row,y) => row.forEach((ch,x) => {
+    if(ch !== '.') return;
+    if([[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy]) => { const v = g[y+dy] && g[y+dy][x+dx]; return v && v !== '.'; })) out[y][x] = '#';
+  }));
+  return sp._rows = out.map(r => r.join(''));
+}
 function drawSprite(cv, id){
   const sp = SPRITES[id];
-  const w = Math.max(...sp.rows.map(r => r.length));
-  cv.width = w; cv.height = sp.rows.length;
+  const rows = spriteRows(sp);
+  const w = Math.max(...rows.map(r => r.length));
+  cv.width = w; cv.height = rows.length;
   const ctx = cv.getContext('2d');
   ctx.clearRect(0,0,w,cv.height);
-  sp.rows.forEach((r,y) => [...r].forEach((ch,x) => {
-    const c = sp.pal[ch];
+  rows.forEach((r,y) => [...r].forEach((ch,x) => {
+    const c = ch === '#' ? sp.ol : sp.pal[ch];
     if(c){ ctx.fillStyle = c; ctx.fillRect(x,y,1,1); }
   }));
 }
@@ -771,9 +944,16 @@ function renderMap(){
   $('#mapDue').textContent = due;
 
   const list = $('#stageList'); list.innerHTML = '';
-  const regularBeaten = MONSTERS.filter(m => !m.boss).every(m => S.wins[m.id]);
-  MONSTERS.forEach(m => {
-    const locked = m.boss && !regularBeaten;
+  const beaten = MONSTERS.filter(m => S.wins[m.id]).length;
+  const AREAS = [['kurashi','くらしの森'],['kaiwa','おしゃべり横丁'],['ugoki','うごきの遺跡'],['yousu','ようすの洞窟'],['doubutsu','どうぶつ牧場'],['all','ボスの間']];
+  AREAS.forEach(([cat, areaName]) => {
+   const h = document.createElement('div');
+   h.className = 'area';
+   h.textContent = areaName;
+   list.appendChild(h);
+   MONSTERS.filter(m => m.cat === cat).forEach(m => {
+    const need = (m.unlock || 0) - beaten;
+    const locked = need > 0;
     const pool = m.cat === 'all' ? WORDS : WORDS.filter(w => w.c === m.cat);
     const mm = pool.filter(w => getP(w.w).s >= 5).length;
     const b = document.createElement('button');
@@ -782,7 +962,7 @@ function renderMap(){
     const catName = m.cat === 'all' ? 'ぜんぶの たんご' : CATS[m.cat].name + '：' + CATS[m.cat].desc;
     b.innerHTML = `<div class="sp"></div>
       <div class="grow"><div class="sname">${locked ? '？？？' : esc(m.name)}${m.boss ? ' <span class="chip">ボス</span>' : ''}${m.custom ? ' <span class="chip">あなたの</span>' : ''}</div>
-      <div class="smeta">${locked ? MONSTERS.filter(x => !x.boss).length + 'たいを たおすと あらわれる' : esc(catName)}</div>
+      <div class="smeta">${locked ? 'あと ' + need + 'たい たおすと あらわれる' : esc(catName)}</div>
       <div class="smeta">マスター ${mm} / ${pool.length}</div></div>
       <div class="swins">${S.wins[m.id] ? '討伐 ' + S.wins[m.id] : ''}</div>`;
     const cv = spriteEl(m.id);
@@ -790,6 +970,7 @@ function renderMap(){
     b.querySelector('.sp').appendChild(cv);
     b.addEventListener('click', () => { play('select'); startBattle(m.id); });
     list.appendChild(b);
+   });
   });
 }
 $('#dexBtn').addEventListener('click', () => { play('select'); renderDex(); show('dex'); });
