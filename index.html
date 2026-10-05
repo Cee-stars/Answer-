@@ -1019,6 +1019,73 @@ Object.entries({
   'elevator':'イギリスでは lift と言う。'
 }).forEach(([w, t]) => { const x = WORDS.find(o => o.w === w); if(x && t) x.t = t; });
 
+// ===== 日常口語フレーズ（ユーザー提供のリスト） =====
+CATS.kougo = {name:'口語', desc:'日常の口語フレーズ'};
+const KOUGO = [
+ ['You bet.','もちろん','A: Can you help me move? B: You bet.','A: 引っ越し手伝ってくれる？B: もちろん。',''],
+ ['You got it.','任せて／了解','A: Two coffees, please. B: You got it.','A: コーヒー2つください。B: かしこまりました。',''],
+ ['Catch you later.','またね','I gotta go. Catch you later!','もう行かなきゃ。またね！',''],
+ ['Same here.','私も同じ',"A: I'm so tired. B: Same here.",'A: すごく疲れた。B: 私も。',''],
+ ['Not really.','そうでもない','A: Are you hungry? B: Not really.','A: お腹すいた？B: そうでもない。',''],
+ ["I'm in.",'参加する／乗った',"A: We're going bowling. Want to come? B: I'm in!",'A: ボウリング行くけど来る？B: 行く！',''],
+ ["I'm down.",'乗った／やろう',"A: Pizza tonight? B: I'm down.",'A: 今夜ピザどう？B: いいね、やろう。',''],
+ ["It's a deal.",'決まりね',"A: I'll cook, you do the dishes. B: It's a deal.",'A: 私が料理、あなたが皿洗い。B: 決まりね。',''],
+ ['Good to go.','準備OK',"Your car is fixed. You're good to go.",'車は直りました。もう大丈夫です。',''],
+ ["I'm cool with that.",'それで問題ない',"A: Can we meet at seven instead? B: I'm cool with that.",'A: 7時にしてもいい？B: それでいいよ。',''],
+ ["You're the boss.",'あなたに従うよ',"A: Let's eat sushi. B: You're the boss.",'A: 寿司にしよう。B: 仰せのとおりに。',''],
+ ['Whatever.','どうでもいい（投げやり）','A: Do you want to go or not? B: Whatever.','A: 行くの、行かないの？B: どうでもいい。','不機嫌で突き放す響き。使う相手を選ぶ。'],
+ ['Suit yourself.','好きにすれば（やや冷たい）',"A: I'm not coming. B: Suit yourself.",'A: 私は行かない。B: 好きにすれば。','突き放す響きがある。使う相手を選ぶ。'],
+ ['Let me know.','教えて','Let me know if you need anything.','何か必要なら教えてね。',''],
+ ['Take it easy.','気楽にね','You worked hard today. Take it easy.','今日はがんばったね。気楽にね。','別れぎわの「じゃあね」としても使う。'],
+ ['Chill out.','落ち着け',"Chill out! It's just a game.",'落ち着いて！ただのゲームだよ。',''],
+ ["Don't sweat it.",'気にするな',"A: Sorry I'm late. B: Don't sweat it.",'A: 遅れてごめん。B: 気にしないで。',''],
+ ['No big deal.','大したことない',"I forgot my umbrella, but it's no big deal.",'傘を忘れたけど、大したことない。',''],
+ ['Go for it.','やってみな','A: Should I try out for the team? B: Go for it!','A: チームの入団テスト受けようかな？B: やってみな！',''],
+ ['Take your time.','ゆっくりどうぞ',"There's no rush. Take your time.",'急がなくていいよ。ゆっくりどうぞ。',''],
+ ['Keep it up.','その調子で','Your English is getting better. Keep it up!','英語、上達してるね。その調子！',''],
+ ['Give it a shot.','試してみて',"You've never tried surfing? Give it a shot!",'サーフィンしたことないの？試してみなよ！',''],
+ ['Way to go!','よくやった','You passed the test? Way to go!','テスト合格したの？よくやった！',''],
+ ['You nailed it!','完璧だったね','Your speech was great. You nailed it!','スピーチ最高だったよ。完璧だったね！',''],
+ ["You're killing it.",'すごく上手くいってる',"Three goals today? You're killing it!",'今日3ゴール？すごく調子いいね！',''],
+ ["You're on fire.",'絶好調だね',"Another win? You're on fire!",'また勝ったの？絶好調だね！',''],
+ ["It's lit.",'最高（若者語）',"This party is lit!",'このパーティー最高！','スラングで流行り廃りが早い。場面によっては浮くので無理に使わなくていい。'],
+ ["That's dope.",'イケてる（若者語）',"You made this video? That's dope!",'この動画作ったの？イケてる！','スラングで流行り廃りが早い。場面によっては浮くので無理に使わなくていい。'],
+ ["That's insane!",'やばい／すごい',"He ran 100 kilometers? That's insane!",'100キロ走ったの？やばい！',''],
+ ['For real?','マジで？','A: I won a free trip! B: For real?','A: 無料旅行が当たった！B: マジで？',''],
+ ['No kidding!','冗談でしょ／本当に？',"A: I'm moving to Hawaii. B: No kidding!",'A: ハワイに引っ越すんだ。B: 本当に？',''],
+ ["I don't buy it.",'信じない',"He says he was sick, but I don't buy it.",'彼は病気だったと言うけど、信じない。',''],
+ ["What's the catch?",'裏があるんじゃない？',"A free phone? What's the catch?",'無料のスマホ？何か裏があるんじゃない？',''],
+ ['I screwed up.','やらかした','I screwed up. I sent the email to the wrong person.','やらかした。違う人にメールを送っちゃった。',''],
+ ['My bad.','ごめん、私のミス','Oops, I took your seat. My bad.','あ、あなたの席に座っちゃった。ごめん。','カジュアルな言い方。上司には Sorry, that was my mistake. と言う。'],
+ ['You wish!','夢見すぎ',"A: I'll beat you at chess. B: You wish!",'A: チェスで勝つよ。B: 夢見すぎ！',''],
+ ['Over my dead body.','絶対に許さない','Sell my guitar? Over my dead body!','私のギターを売る？絶対にダメ！',''],
+ ["I'll pass.",'遠慮しておく',"A: Want some more cake? B: I'll pass, thanks.",'A: ケーキもっといる？B: 遠慮しておくよ、ありがとう。',''],
+ ["Don't even ask.",'聞かないで',"A: How was your trip? B: Don't even ask.",'A: 旅行どうだった？B: 聞かないで。',''],
+ ["It's not my thing.",'好みじゃない',"Camping? It's not my thing.",'キャンプ？好みじゃないな。',''],
+ ['Give me a break.','勘弁してよ','Another test tomorrow? Give me a break!','明日またテスト？勘弁してよ！',''],
+ ['Watch your step.','足元に気をつけて','Watch your step. The floor is wet.','足元に気をつけて。床がぬれてるよ。',''],
+ ["Don't push it.",'調子に乗るな',"I said yes once. Don't push it.",'一回はいいって言ったけど、調子に乗らないで。',''],
+ ['Heads up!','気をつけて／先に知らせるね','Heads up! A ball is coming!','気をつけて！ボールが来るよ！','仕事では Just a heads up — the meeting moved to 3.（先に伝えておくと、会議は3時に変わりました）という事前連絡の使い方のほうが多い。'],
+ ['Knock it off.','やめろ',"Knock it off! I'm trying to sleep.",'やめて！寝ようとしてるんだから。',''],
+ ["I'm on it.",'今やってます',"A: Can you fix this today? B: I'm on it.",'A: 今日これ直せる？B: 今やってます。',''],
+ ['Hang on.','ちょっと待って',"Hang on, I'll be right back.",'ちょっと待って、すぐ戻るよ。',''],
+ ['Keep it real.','自分らしく',"Don't try to be cool. Just keep it real.",'かっこつけないで。自分らしくいこう。',''],
+ ["I'm starving.",'お腹ペコペコ',"I'm starving. Let's eat!",'お腹ペコペコ。食べよう！',''],
+ ['Easy peasy.','楽勝（子どもっぽい）','This puzzle is easy peasy.','このパズル楽勝。','子どもっぽい言い方。lemon squeezy と続けることもある。'],
+ ['Piece of cake.','朝飯前','The test was a piece of cake.','テストは朝飯前だった。',''],
+ ["I'm all ears.",'ぜひ聞かせて',"Tell me what happened. I'm all ears.",'何があったか話して。ぜひ聞かせて。',''],
+ ['So far, so good.','今のところ順調',"A: How's your new job? B: So far, so good.",'A: 新しい仕事どう？B: 今のところ順調。',''],
+ ["It's on me.",'私のおごり',"Put your wallet away. It's on me.",'財布はしまって。私のおごり。',''],
+ ["I'm beat.",'くたくた',"I worked twelve hours today. I'm beat.",'今日は12時間働いた。くたくた。',''],
+ ["That's the point.",'それが肝心なところ',"A: This is hard. B: That's the point. It's practice.",'A: これ難しい。B: そこが肝心なところ。練習なんだから。',''],
+ ['Make it quick.','手短に','I have a meeting soon, so make it quick.','もうすぐ会議だから手短にね。',''],
+ ["I can't help it.",'どうしようもない',"I can't help it. I love chocolate.",'どうしようもないの。チョコが大好きなんだから。','「我慢できない／どうしようもない」の意味で、「助けられない」ではない（それは I can\'t help you）。'],
+ ["It's worth it.",'その価値はある',"The line is long, but it's worth it.",'列は長いけど、その価値はある。',''],
+ ["It's a rip-off.",'ぼったくりだ',"Twenty dollars for a coffee? It's a rip-off!",'コーヒー1杯20ドル？ぼったくりだ！',''],
+ ['Hit me up.','連絡して',"Hit me up when you're in town.",'こっちに来たら連絡して。','']
+];
+KOUGO.forEach(([w,m,e,j,t]) => WORDS.push(Object.assign({w,m,c:'kougo',e,j}, t ? {t} : {})));
+
 /* Pixel sprites: one char = one pixel, '.' = empty */
 const SPRITES = {
   pomlin:{pal:{k:'#1a2a12',g:'#6fcf4f',l:'#b6f08a',d:'#3f9a35',w:'#ffffff',b:'#152012',p:'#ff9fb2',L:'#2fae4f'},rows:[
@@ -1710,7 +1777,7 @@ const MON = {
   pecha:{name:'ペチャクチャ',cat:'kaiwa',intro:'ペチャクチャが「Hello! Hello!」とさわぎだした！',defeat:'ペチャクチャは「See you later!」ととびさった。',lose:'ペチャクチャは「No way!」とわらっている。'},
   honu:{name:'ホヌじい',cat:'kuukou',intro:'ホヌじいがゆっくり海からあがってきた。「旅の英語をためしてやろう」',laugh:'ほっほっ、まだまだじゃ',defeat:'ホヌじい「よい旅を。Have a nice trip!」',lose:'ホヌじい「あわてずゆっくり覚えるんじゃ」'},
   star:{name:'スターロン',cat:'geinou',intro:'スターロンがスポットライトの中にあらわれた！',laugh:'キラーン☆',defeat:'スターロンは「That\'s a wrap!」とさっていった。',lose:'スターロンはサインをくばっている。'},
-  bruv:{name:'ブルーヴ',cat:'kaiwa',intro:'ブルーヴがニカッとわらった。「What\'s up, bruv?」',laugh:'No way, bruv!',defeat:'ブルーヴ「Good game, bruv.」',lose:'ブルーヴ「Take care, bruv.」'},
+  bruv:{name:'ブルーヴ',cat:'kougo',intro:'ブルーヴがニカッとわらった。「What\'s up, bruv?」',laugh:'No way, bruv!',defeat:'ブルーヴ「Good game, bruv.」',lose:'ブルーヴ「Take care, bruv.」'},
   goldbear:{name:'ゴールドベア',cat:'kurashi',intro:'ゴールドベアが金色の毛をかがやかせた！',laugh:'ガオー！',defeat:'ゴールドベアは山へかえっていった。',lose:'ゴールドベアはハチミツをなめている。'},
   slot:{name:'スロットン',cat:'kaimono',intro:'スロットンのリールがまわりだした！',laugh:'ハズレ〜！',defeat:'スロットン「ジャックポット…おめでとう…」',lose:'スロットンはコインをジャラジャラならしている。'},
   graffiti:{name:'ラクガキマスク',cat:'ugoki',intro:'ラクガキマスクがかべのかげからあらわれた！',laugh:'ヘヘッ',defeat:'ラクガキマスクはスプレーをおとしてにげていった。',lose:'ラクガキマスクはかべに「WIN」とかいた。'},
@@ -2414,7 +2481,7 @@ function renderSpecials(){
     const b = document.createElement('button');
     b.className = 'btn stage';
     b.innerHTML = `<div class="sp"></div>
-      <div class="grow"><div class="sname">${esc(m.name)} <span class="chip">あなたのモンスター</span></div>
+      <div class="grow"><div class="sname">${esc(m.name)} ${IMAGES[id] ? '<span class="chip">あなたのモンスター</span>' : '<span class="chip">口語フレーズ特訓</span>'}</div>
       <div class="smeta">${m.cat === 'all' ? 'すべての単語から出題' : esc(CATS[m.cat].name + '：' + CATS[m.cat].desc)}・HP ${m.hp}</div></div>
       <div class="swins">${S.wins[id] ? '討伐 ' + S.wins[id] : ''}</div>`;
     b.querySelector('.sp').appendChild(spriteEl(id));
@@ -3163,7 +3230,18 @@ const IMAGES = {
   tetsuryu:{src:'img/tetsuryu.jpg', crop:[0,0,673,1200]},
   shinobi:{src:'img/shinobi.jpg', crop:[0,0,736,920]}
 };
+ILLUST.perapera = {body:`
+  <path d="M30 40h140q16 0 16 16v84q0 16-16 16H98l-36 34 6-34H30q-16 0-16-16V56q0-16 16-16Z" fill="#7a5ad6"/>
+  <path d="M40 46q60-26 120 0l-6 14q-54-20-108 0Z" fill="#2b2233"/>
+  <path d="M56 84h36v6c0 10-8 14-16 14s-14-6-14-12zM108 84h36v6c0 10-8 14-16 14s-14-6-14-12z" fill="#2b2233"/>
+  <path d="M92 88h16" fill="none" stroke-width="4"/>
+  <path d="M66 120Q100 146 134 120Z" fill="#fff"/>
+  <path d="M84 121v8M100 124v10M116 121v8" fill="none" stroke-width="2"/>
+  <text x="170" y="34" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="30" fill="#ffd34a" stroke="#2b2233" stroke-width="2">!?</text>`};
 const SPECIAL_DEFS = [
+  {id:'perapera', name:'ペラペラン', cat:'kougo', hp:100, atk:9, exp:60, bg:'bg-town',
+   intro:'ペラペラン「Yo! What\'s up? 口語フレーズでしゃべろうぜ！」', laugh:'You wish!',
+   defeat:'ペラペラン「You nailed it! …やるじゃん」', lose:'ペラペラン「Easy peasy!」'},
   {id:'nitton', name:'ニットン', cat:'tenki', hp:120, atk:10, exp:70,
    intro:'虹色のセーターを着たニットンが、ゆっくり目を開けた…', laugh:'フン…', defeat:'ニットンはセーターにくるまって眠ってしまった。', lose:'ニットンは目を閉じたまま動かない。'},
   {id:'doguwolf', name:'ドグウルフ', cat:'gakkou', hp:120, atk:10, exp:70,
