@@ -1,247 +1,278 @@
 <title>アンサークエスト</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Nunito:wght@700;800;900&display=swap">
 <style>
-/* Layout: one centered column (max 560px). Screens swap in place; every panel is a framed RPG window over a night-dungeon ground. Single dark look by design. */
+/* Layout: one centered phone-width column; tab screens share a bottom tab bar, battle/result run full-screen. Road-trip palette: coral sunset brand, teal "open road", gold for cleared states. */
 :root{
-  color-scheme: dark;
-  --night:#0a0d24;
-  --ground:#18205a;
-  --win:#0d1238;
-  --frame:#f4f0e2;
-  --shadow:#000000;
-  --ink:#f4f0e2;
-  --muted:#a3abd6;
-  --gold:#f5c74a;
-  --hp:#62d982;
-  --danger:#ff6a57;
-  --sky:#72c7ff;
-  --f-ui:"DotGothic16","Hiragino Kaku Gothic ProN","Yu Gothic",monospace;
-  --f-logo:"Press Start 2P","DotGothic16",monospace;
+  --bg:#f2f4f9;
+  --surface:#ffffff;
+  --surface-2:#eceff6;
+  --ink:#16203b;
+  --muted:#6a7393;
+  --line:#e1e5ef;
+  --brand:#ff5a3c;
+  --brand-2:#ff8a3d;
+  --teal:#11b3a3;
+  --gold:#f5ad14;
+  --good:#1fbf73;
+  --bad:#f0434f;
+  --sky:#2f8cff;
+  --shadow:0 1px 2px rgba(22,32,59,.06),0 10px 28px rgba(22,32,59,.07);
+  --map-other:#dce1ec;
+  --map-lock:#b9c2d8;
+  --f-ui:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+  --f-en:"Nunito","M PLUS Rounded 1c",system-ui,sans-serif;
+  --radius:20px;
 }
-html,body{height:100%}
-body{
-  background:
-    radial-gradient(1px 1px at 12% 18%, var(--muted) 50%, transparent 51%),
-    radial-gradient(1px 1px at 78% 9%, var(--muted) 50%, transparent 51%),
-    radial-gradient(1px 1px at 55% 30%, var(--muted) 50%, transparent 51%),
-    radial-gradient(1px 1px at 90% 42%, var(--muted) 50%, transparent 51%),
-    radial-gradient(1px 1px at 30% 60%, var(--muted) 50%, transparent 51%),
-    var(--night);
-  color:var(--ink);
-  font-family:var(--f-ui);
-  font-size:16px;
-  line-height:1.6;
-  -webkit-font-smoothing:none;
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1222;--surface:#161d33;--surface-2:#212a47;--ink:#eef1fa;--muted:#99a2c2;--line:#28314f;
+    --shadow:0 0 0 1px #232c4a;--map-other:#222b48;--map-lock:#3a4570;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1222;--surface:#161d33;--surface-2:#212a47;--ink:#eef1fa;--muted:#99a2c2;--line:#28314f;
+  --shadow:0 0 0 1px #232c4a;--map-other:#222b48;--map-lock:#3a4570;color-scheme:dark;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-button,input{font:inherit;color:inherit}
-.app{max-width:560px;margin:0 auto;padding-inline:16px;padding-block:16px 24px;min-height:100%;display:flex;flex-direction:column}
-.screen{display:flex;flex-direction:column;gap:12px;flex:1}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.6;font-weight:500;-webkit-tap-highlight-color:transparent}
+button,input,textarea{font:inherit;color:inherit}
+.app{max-width:520px;margin:0 auto;padding-inline:16px;padding-block:16px 24px;min-height:100%;display:flex;flex-direction:column}
+.app.with-nav{padding-bottom:calc(96px + env(safe-area-inset-bottom, 0px))}
+.screen{display:flex;flex-direction:column;gap:14px;flex:1}
+.num,.en,.qword,.lv,.combo,.dmg,.stats b,.result-title{font-family:var(--f-en)}
+.num{font-variant-numeric:tabular-nums}
 
-/* RPG window */
-.win{background:var(--win);border:3px solid var(--frame);border-radius:8px;box-shadow:0 0 0 3px var(--shadow),inset 0 0 0 2px var(--shadow);padding:12px 14px}
-.label{font-size:12px;letter-spacing:.12em;color:var(--muted)}
+/* Cards */
+.win{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+.label{font-size:12px;font-weight:700;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);margin:0}
 .row{display:flex;align-items:center;gap:10px}
 .spread{justify-content:space-between}
 .grow{flex:1;min-width:0}
+h2{font-size:17px;font-weight:800;margin:10px 2px 0;text-wrap:balance}
+.screen-title{font-size:24px;font-weight:800;margin:4px 2px 0}
 
 /* Buttons */
-.btn{position:relative;display:block;width:100%;text-align:left;background:var(--win);border:3px solid var(--frame);border-radius:8px;box-shadow:0 0 0 3px var(--shadow);padding:12px 14px 12px 30px;cursor:pointer;line-height:1.4}
-.btn::before{content:"▶";position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--gold);opacity:0}
-.btn:hover:not(:disabled),.btn:focus-visible{background:var(--ground);outline:none}
-.btn:hover:not(:disabled)::before,.btn:focus-visible::before{opacity:1}
-.btn:disabled{cursor:default;opacity:.55}
-.btn.primary{border-color:var(--gold);color:var(--gold);text-align:center;padding-left:14px;font-size:18px}
-.btn.primary::before{left:14px}
-.btn.small{font-size:14px;padding:6px 10px 6px 22px;width:auto;display:inline-block}
-.btn.small::before{left:7px;font-size:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:50px;padding:12px 18px;border:0;border-radius:16px;background:var(--surface-2);color:var(--ink);font-weight:700;cursor:pointer;transition:transform .12s,filter .12s,background .15s}
+.btn:hover:not(:disabled){filter:brightness(.97)}
+.btn:active:not(:disabled){transform:scale(.98)}
+.btn:focus-visible,.tab:focus-visible,.nav-btn:focus-visible,.del:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-size:17px;box-shadow:0 8px 20px rgba(255,90,60,.32)}
+.btn.small{width:auto;min-height:36px;padding:6px 14px;border-radius:999px;font-size:13px}
+.btn.ghost{background:transparent;box-shadow:inset 0 0 0 2px var(--line)}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap}
 .btn-row .btn{flex:1;min-width:140px}
 
 /* Bars */
-.bar{height:10px;border:2px solid var(--frame);border-radius:3px;background:var(--shadow);overflow:hidden}
-.bar>i{display:block;height:100%;background:var(--hp);transition:width .35s steps(6)}
-.bar.gold>i{background:var(--gold)}
-.bar.low>i{background:var(--danger)}
-.num{font-variant-numeric:tabular-nums}
+.bar{height:10px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#3ad48a,var(--good));transition:width .4s ease}
+.bar.gold>i{background:linear-gradient(90deg,#ffd166,var(--gold))}
+.bar.low>i{background:linear-gradient(90deg,#ff7a84,var(--bad))}
+.chip{display:inline-flex;align-items:center;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700;background:var(--surface-2);color:var(--muted)}
 
 /* Title */
-.logo{font-family:var(--f-logo);font-size:clamp(20px,6.5vw,32px);line-height:1.35;color:var(--gold);text-align:center;text-shadow:3px 3px 0 var(--shadow),0 0 18px rgba(245,199,74,.35);margin:18px 0 0;letter-spacing:.04em}
-.logo-sub{text-align:center;font-size:18px;letter-spacing:.4em;margin:4px 0 0}
-.parade{display:flex;justify-content:center;align-items:flex-end;gap:10px;flex-wrap:wrap;padding:18px 0 6px}
-.parade canvas{height:56px}
-.tagline{text-align:center;color:var(--muted);font-size:14px;margin:0}
+#s-title{justify-content:center;gap:18px}
+.hero{border-radius:28px;padding:28px 20px 22px;color:#fff;text-align:center;background:linear-gradient(160deg,#1d2b5c 0%,#3b2a6b 45%,#ff5a3c 120%);box-shadow:0 16px 40px rgba(29,43,92,.35);overflow:hidden}
+.logo{font-family:var(--f-en);font-weight:900;font-size:clamp(34px,10vw,46px);line-height:1;margin:0;letter-spacing:-.01em}
+.logo-sub{margin:8px 0 0;font-weight:700;opacity:.85}
+.parade{display:flex;justify-content:center;align-items:flex-end;flex-wrap:wrap;gap:8px;padding:20px 0 4px}
+.parade canvas{height:44px}
+.tagline{margin:6px 0 0;font-size:14px;opacity:.9}
 .field{display:flex;flex-direction:column;gap:6px}
-.field input{background:var(--shadow);border:2px solid var(--frame);border-radius:4px;padding:8px 10px;font-size:18px;width:100%}
-.field input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.field input,.my-bulk textarea{width:100%;background:var(--surface-2);border:2px solid transparent;border-radius:14px;padding:12px 14px;font-size:16px;color:var(--ink);font-family:var(--f-ui)}
+.field input:focus,.my-bulk textarea:focus{outline:none;border-color:var(--sky);background:var(--surface)}
+.field input::placeholder,.my-bulk textarea::placeholder{color:var(--muted);opacity:.7}
 
 /* Sprites */
-canvas.sprite{image-rendering:pixelated;image-rendering:crisp-edges;width:auto;display:block}
+canvas.sprite{image-rendering:pixelated;width:auto;display:block}
 canvas.sprite.illust{image-rendering:auto}
 
-/* Map */
-.hero-head{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
-.hero-name{font-size:20px}
-.lv{font-family:var(--f-logo);font-size:12px;color:var(--gold)}
-.stage{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:10px 12px 10px 30px}
-.stage canvas{height:48px;margin:0 auto}
-.stage .sname{font-size:18px}
-.stage .smeta{font-size:12px;color:var(--muted)}
-.stage .swins{font-size:12px;color:var(--gold);text-align:right}
-.stage.locked{border-style:dashed}
-.chip{display:inline-block;border:1px solid var(--muted);border-radius:3px;padding:0 6px;font-size:12px;color:var(--muted)}
-.area{font-size:13px;color:var(--gold);letter-spacing:.2em;margin-top:6px}
-.area::before{content:'◆ '}
-.mapwin{padding:8px}
-#usmap{display:block;width:100%;height:auto}
-.st{stroke:var(--night);stroke-width:1.2;transition:fill .3s}
-.st-other{fill:#222a5c}
-.st-lock{fill:#36407a;cursor:pointer}
-.st-open{fill:#4d7be0;cursor:pointer}
-.st-clear{fill:#c99a2e;cursor:pointer}
-.st-sel{stroke:var(--frame);stroke-width:3}
-.route{stroke:var(--muted);stroke-width:3;stroke-dasharray:8 8;opacity:.7}
-.route.done{stroke:var(--gold);stroke-dasharray:none;opacity:1}
-.pin{cursor:pointer;outline:none}
-.pin .dot{stroke:var(--night);stroke-width:4}
-.pin .dot.clear{fill:var(--gold)}
-.pin .dot.open{fill:var(--frame)}
-.pin .dot.lock{fill:#6a72a8}
-.pin.sel .dot{stroke:var(--gold);stroke-width:5}
-.pin:focus-visible .dot{stroke:var(--gold)}
-.plabel{font-family:var(--f-ui);font-size:24px;fill:var(--frame);text-anchor:middle;paint-order:stroke;stroke:var(--night);stroke-width:6px;pointer-events:none}
-.legend{display:flex;gap:14px;justify-content:center;font-size:12px;color:var(--muted);margin-top:4px}
-.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
-.lg-clear{background:#c99a2e}.lg-open{background:#4d7be0}.lg-lock{background:#36407a}
-.state-panel{display:flex;flex-direction:column;gap:10px}
-.sp-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.sp-name{font-size:22px;line-height:1.3}
-.sp-en{font-size:14px;color:var(--muted)}
-.sp-nick{font-size:13px;color:var(--gold)}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.stage-list{display:flex;flex-direction:column;gap:12px}
-.stamp-mini,.stamp,.clear-stamp{flex:none;width:52px;height:52px;border-radius:50%;border:3px dashed #4a5290;display:grid;place-items:center;font-family:var(--f-logo);font-size:13px;color:#4a5290;transform:rotate(-12deg)}
-.stamp-mini.got,.stamp-card.got .stamp,.clear-stamp{border:3px double var(--danger);color:var(--danger);background:rgba(255,106,87,.08)}
-.facts p,.fact{margin:6px 0 0;font-size:14px}
-.facts small,.fact small,.clear-box small{color:var(--muted)}
-.stamps{display:flex;flex-direction:column;gap:12px}
-.stamp-card{display:flex;gap:14px;align-items:flex-start}
-.clear-box{display:flex;gap:14px;align-items:flex-start;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(244,240,226,.25)}
-.clear-box b{color:var(--gold);font-weight:normal}
-.clear-box p{margin:6px 0 0}
-.my-panel{display:grid;grid-template-columns:56px 1fr;gap:8px 12px;align-items:center}
-.my-panel canvas{height:52px;margin:0 auto}
+/* Home */
+.profile{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center}
+.avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:20px;color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand-2));grid-row:span 2}
+.hero-name{font-size:18px;font-weight:800;line-height:1.2}
+.lv{font-weight:900;font-size:13px;color:var(--brand);background:rgba(255,90,60,.12);border-radius:999px;padding:2px 10px}
+.profile .bar{grid-column:2/-1}
+.profile .label{grid-column:1/-1}
+.stat-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);padding:12px}
+.tile .num{font-size:24px;font-weight:900;line-height:1.2}
+.tile .of{font-size:13px;color:var(--muted);font-weight:700}
+.tile.t-gold .num{color:var(--gold)}
+.tile.t-sky .num{color:var(--sky)}
+.my-panel{display:grid;grid-template-columns:56px 1fr;gap:10px 12px;align-items:center}
+.my-panel canvas{height:50px;margin:0 auto}
 .my-actions{grid-column:1/-1;display:flex;gap:10px}
-.my-actions .btn{flex:1;text-align:center}
-.my-form{display:flex;flex-direction:column;gap:10px}
-.my-form input,.my-bulk textarea{background:var(--shadow);border:2px solid var(--frame);border-radius:4px;padding:8px 10px;font-size:16px;width:100%;color:var(--ink);font-family:var(--f-ui)}
-.my-form input::placeholder,.my-bulk textarea::placeholder{color:#5a6290}
-.my-form input:focus-visible,.my-bulk textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.my-bulk{display:flex;flex-direction:column;gap:10px}
-.my-bulk summary{cursor:pointer;color:var(--gold)}
-.my-bulk[open]{gap:10px}
-.wlist.my-list li{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) auto auto}
-.wlist.my-list li.empty{display:block;color:var(--muted);font-size:14px}
-.del{background:transparent;border:2px solid var(--muted);border-radius:4px;color:var(--muted);font:inherit;font-size:13px;padding:2px 8px;cursor:pointer;white-space:nowrap}
-.del[data-armed="1"]{border-color:var(--danger);color:var(--danger)}
-.del:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.my-actions .btn{flex:1}
+
+/* Map */
+.mapwin{padding:10px}
+#usmap{display:block;width:100%;height:auto}
+.st{stroke:var(--surface);stroke-width:1.5;transition:fill .3s}
+.st-other{fill:var(--map-other)}
+.st-lock{fill:var(--map-lock);cursor:pointer}
+.st-open{fill:var(--teal);cursor:pointer}
+.st-clear{fill:var(--gold);cursor:pointer}
+.st-sel{stroke:var(--ink);stroke-width:3}
+.route{stroke:var(--muted);stroke-width:3;stroke-dasharray:7 9;stroke-linecap:round;opacity:.6}
+.route.done{stroke:var(--brand);stroke-dasharray:none;opacity:1}
+.pin{cursor:pointer;outline:none}
+.pin .dot{stroke:var(--surface);stroke-width:4}
+.pin .dot.clear{fill:var(--gold)}
+.pin .dot.open{fill:var(--teal)}
+.pin .dot.lock{fill:#8b94b2}
+.pin.sel .dot{fill:var(--brand);stroke-width:5}
+.pin:focus-visible .dot{stroke:var(--sky)}
+.plabel{font-family:var(--f-ui);font-weight:800;font-size:23px;fill:var(--ink);text-anchor:middle;paint-order:stroke;stroke:var(--surface);stroke-width:7px;stroke-linejoin:round;pointer-events:none}
+.legend{display:flex;gap:16px;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.lg-clear{background:var(--gold)}.lg-open{background:var(--teal)}.lg-lock{background:var(--map-lock)}
+.state-panel{display:flex;flex-direction:column;gap:12px}
+.sp-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sp-name{font-size:22px;font-weight:800;line-height:1.3}
+.sp-en{font-family:var(--f-en);font-size:14px;color:var(--muted)}
+.sp-nick{font-size:13px;font-weight:700;color:var(--brand)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.stage-list{display:flex;flex-direction:column;gap:8px}
+.stage{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;justify-content:stretch;text-align:left;padding:10px 12px;border-radius:16px;background:var(--surface-2);min-height:72px}
+.stage .sp{width:56px;height:56px;border-radius:16px;background:var(--surface);display:grid;place-items:center}
+.stage canvas{height:46px;max-width:52px}
+.sname{font-size:16px;font-weight:800;line-height:1.3}
+.smeta{font-size:12px;color:var(--muted);font-weight:500}
+.swins{font-size:12px;font-weight:800;color:var(--gold);text-align:right;white-space:nowrap}
+.stage::after{content:"›";font-size:22px;color:var(--muted);grid-column:3;grid-row:1;justify-self:end;align-self:center;margin-left:4px}
+.stage .swins:not(:empty){margin-right:16px}
+.stage.locked::after{content:""}
+.stage.locked{opacity:.55}
 .soon{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.soon .win{padding:10px 12px;border-style:dashed;opacity:.7}
-.soon b{display:block;font-weight:normal}
+.soon .win{padding:12px 14px;box-shadow:none;background:transparent;border:2px dashed var(--line)}
+.soon b{display:block}
 .soon span{font-size:12px;color:var(--muted)}
-h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);margin:8px 0 0}
+.facts{background:var(--surface-2);border-radius:16px;padding:12px 14px}
+.facts p,.fact{margin:6px 0 0;font-size:14px}
+.facts span,.fact span,.clear-box span{font-family:var(--f-en);font-weight:700}
+.facts small,.fact small,.clear-box small{color:var(--muted)}
+.stamp-mini,.stamp,.clear-stamp{flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-en);font-weight:900;font-size:15px;color:var(--muted);border:2px dashed var(--line)}
+.stamp-mini.got,.stamp-card.got .stamp,.clear-stamp{border:0;color:#fff;background:linear-gradient(135deg,var(--brand),var(--gold));transform:rotate(-10deg);box-shadow:0 6px 14px rgba(255,90,60,.3)}
+.stamps{display:flex;flex-direction:column;gap:10px}
+.stamp-card{display:flex;gap:14px;align-items:flex-start}
+.clear-box{display:flex;gap:14px;align-items:flex-start;margin-top:14px;padding:14px;border-radius:16px;background:var(--surface-2)}
+.clear-box b{color:var(--brand)}
+.clear-box p{margin:6px 0 0}
 
 /* Battle */
-.enemy-bar .ename{font-size:18px}
-.combo{font-family:var(--f-logo);font-size:11px;color:var(--gold);white-space:nowrap}
-.scene{position:relative;height:clamp(160px,30vh,250px);border:3px solid var(--frame);border-radius:8px;box-shadow:0 0 0 3px var(--shadow);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px}
-.scene::after{content:"";position:absolute;left:50%;bottom:10px;width:46%;height:14px;transform:translateX(-50%);background:rgba(0,0,0,.45);border-radius:50%;z-index:0}
-.scene canvas{position:relative;z-index:1;height:78%;max-width:100%;animation:bob 1.2s steps(2) infinite}
-.bg-forest{background:linear-gradient(#123522 0 55%,#1f4d2a 55% 100%)}
-.bg-town{background:linear-gradient(#3a2457 0 55%,#5a3b3b 55% 100%)}
-.bg-ruins{background:linear-gradient(#141233 0 55%,#2c2a4a 55% 100%)}
-.bg-cave{background:linear-gradient(#1b1716 0 55%,#3a302a 55% 100%)}
-.bg-field{background:linear-gradient(#2b3f5c 0 55%,#5b3a1e 55% 100%)}
-.bg-beach{background:linear-gradient(#2f6fb8 0 55%,#d9b878 55% 100%)}
-.bg-neon{background:linear-gradient(#2a0f45 0 55%,#3a1a2a 55% 100%)}
-.bg-desert{background:linear-gradient(#b8582a 0 55%,#8a4a22 55% 100%)}
-.bg-snow{background:linear-gradient(#3a5a88 0 55%,#cfdbe8 55% 100%)}
-.bg-swamp{background:linear-gradient(#1f3a2e 0 55%,#2f4a2a 55% 100%)}
-.bg-city{background:linear-gradient(#141a3a 0 55%,#3a3f55 55% 100%)}
-.bg-volcano{background:linear-gradient(#2a0b14 0 55%,#5a1a12 55% 100%)}
-.dmg{position:absolute;left:50%;top:30%;z-index:2;font-family:var(--f-logo);font-size:22px;color:var(--frame);text-shadow:2px 2px 0 var(--shadow);transform:translateX(-50%);animation:floatUp .9s steps(8) forwards;pointer-events:none}
-.dmg.crit{color:var(--gold);font-size:28px}
-.question{text-align:center;padding:10px 14px 12px}
-.qword{font-size:clamp(28px,8vw,40px);line-height:1.25;margin:2px 0 8px;word-break:break-word}
+#s-battle{gap:12px}
+.enemy-bar{padding:12px 16px}
+.enemy-bar .ename{font-size:17px;font-weight:800}
+.combo{font-weight:900;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand-2));border-radius:999px;padding:2px 10px}
+.combo:empty{display:none}
+.scene{position:relative;height:clamp(170px,30vh,250px);border-radius:24px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding-bottom:18px;box-shadow:var(--shadow)}
+.scene::after{content:"";position:absolute;left:50%;bottom:12px;width:44%;height:14px;transform:translateX(-50%);background:rgba(0,0,0,.18);border-radius:50%;filter:blur(2px)}
+.scene canvas{position:relative;z-index:1;height:78%;max-width:100%;animation:bob 2.4s ease-in-out infinite}
+.bg-forest{background:linear-gradient(#bfe8c4,#7fcf8f 62%,#5bb06d 62%)}
+.bg-town{background:linear-gradient(#ffd6c2,#ffb59a 62%,#c98f7a 62%)}
+.bg-ruins{background:linear-gradient(#c9c2ee,#9c92d8 62%,#7a6fb8 62%)}
+.bg-cave{background:linear-gradient(#cdbfb3,#a8968a 62%,#7f6d62 62%)}
+.bg-field{background:linear-gradient(#bfe3ff,#9fd0f5 62%,#d9b06a 62%)}
+.bg-beach{background:linear-gradient(#9fe0ff,#5cc2f2 62%,#f6dc9e 62%)}
+.bg-neon{background:linear-gradient(#5a2a8a,#2b1650 62%,#3a2440 62%)}
+.bg-desert{background:linear-gradient(#ffc58a,#ff9a5a 62%,#d9783e 62%)}
+.bg-snow{background:linear-gradient(#cfe4ff,#a8cdf5 62%,#f4f8ff 62%)}
+.bg-swamp{background:linear-gradient(#bfe0c8,#86b896 62%,#5d8a63 62%)}
+.bg-city{background:linear-gradient(#a8b8ff,#7a8ae0 62%,#5a6488 62%)}
+.bg-volcano{background:linear-gradient(#ffb08a,#ff6a4a 62%,#7a2a22 62%)}
+.dmg{position:absolute;left:50%;top:28%;z-index:2;font-weight:900;font-size:30px;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.25),0 0 12px rgba(0,0,0,.25);transform:translateX(-50%);animation:floatUp .9s ease-out forwards;pointer-events:none}
+.dmg.crit{color:#ffd166;font-size:38px}
+.question{text-align:center;padding:14px 16px 16px}
+.qword{font-size:clamp(30px,8.5vw,40px);font-weight:900;line-height:1.2;margin:4px 0 12px;word-break:break-word;letter-spacing:-.01em}
 .timer{height:8px}
-.timer>i{transition:none;background:var(--gold)}
-.timer.norm>i{background:var(--sky)}
-.timer.slow>i{background:var(--danger)}
-.tlabel{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px}
+.timer>i{transition:none;background:linear-gradient(90deg,#ffd166,var(--gold))}
+.timer.norm>i{background:linear-gradient(90deg,#6ab8ff,var(--sky))}
+.timer.slow>i{background:linear-gradient(90deg,#ff7a84,var(--bad))}
+.tlabel{display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--muted);margin-top:6px}
 .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.choices .btn{min-height:58px;font-size:16px;padding:8px 10px 8px 26px;display:flex;align-items:center;gap:6px}
-.choices .btn::before{left:8px}
-.choices .key{font-family:var(--f-logo);font-size:9px;color:var(--muted)}
-.btn.is-right{border-color:var(--hp);background:#14402a;opacity:1}
-.btn.is-wrong{border-color:var(--danger);background:#4a1612;opacity:1}
-.explain{display:flex;flex-direction:column;gap:8px}
-.explain .ans{font-size:22px;color:var(--gold)}
-.explain .ex{font-size:15px}
+.choices .btn{justify-content:flex-start;text-align:left;min-height:62px;padding:10px 12px;background:var(--surface);box-shadow:var(--shadow);font-size:15px;line-height:1.35;border:2px solid transparent}
+.choices .key{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);color:var(--muted);font-family:var(--f-en);font-weight:900;font-size:12px}
+.btn.is-right{border-color:var(--good);background:rgba(31,191,115,.12);opacity:1}
+.btn.is-right .key{background:var(--good);color:#fff}
+.btn.is-wrong{border-color:var(--bad);background:rgba(240,67,79,.1);opacity:1}
+.btn.is-wrong .key{background:var(--bad);color:#fff}
+.explain{display:flex;flex-direction:column;gap:6px}
+.explain .ans{font-size:22px;font-weight:800;color:var(--brand)}
+.explain #exWord{font-family:var(--f-en);font-weight:800;font-size:18px}
+.explain .ex{font-family:var(--f-en);font-weight:700;font-size:15px}
 .explain .exj{font-size:13px;color:var(--muted)}
-.msg{min-height:3.6em;font-size:15px}
-.msg .sub{color:var(--muted);font-size:13px}
-.status .pname{font-size:16px}
-.hp-num{font-size:13px}
+.explain .btn{margin-top:6px}
+.msg{min-height:3.4em;font-size:14px;font-weight:700;background:var(--surface-2);box-shadow:none;padding:12px 16px}
+.msg .sub{color:var(--muted);font-size:13px;font-weight:500}
+.status{padding:10px 12px}
+.status .pname{font-weight:800}
+.status .avatar{width:34px;height:34px;font-size:14px;grid-row:auto}
+.hp-num{font-family:var(--f-en);font-weight:800;font-size:13px;color:var(--muted)}
 
 /* Result */
-.result-title{font-family:var(--f-logo);font-size:24px;text-align:center;margin:16px 0 4px}
-.result-title.win-t{color:var(--gold)}
-.result-title.lose-t{color:var(--danger)}
+.result-title{font-size:44px;font-weight:900;text-align:center;margin:8px 0 0;letter-spacing:-.02em}
+.result-title.win-t{background:linear-gradient(135deg,var(--gold),var(--brand));-webkit-background-clip:text;background-clip:text;color:transparent}
+.result-title.lose-t{color:var(--muted)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
-.stats b{display:block;font-size:22px;font-weight:normal}
-.stats span{font-size:11px;color:var(--muted)}
+.stats b{display:block;font-size:24px}
+.stats span{font-size:11px;font-weight:700;color:var(--muted)}
 .wlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-.wlist li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) auto;gap:10px;padding:8px 0;border-bottom:1px dashed rgba(244,240,226,.18);align-items:center}
+.wlist li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) auto;gap:10px;padding:10px 2px;border-bottom:1px solid var(--line);align-items:center}
 .wlist li:last-child{border-bottom:0}
-.wlist .en{font-size:16px;overflow-wrap:anywhere}
+.wlist .en{font-size:15px;font-weight:800;overflow-wrap:anywhere}
 .wlist .ja{font-size:14px;color:var(--muted);overflow-wrap:anywhere}
-.stars{color:var(--gold);letter-spacing:1px;white-space:nowrap;font-size:13px}
-.stars .off{color:#3a4170}
-.up{color:var(--hp);font-size:11px}
-.down{color:var(--danger);font-size:11px}
+.stars{color:var(--gold);letter-spacing:1px;white-space:nowrap;font-size:12px}
+.stars .off{color:var(--line)}
+.up{color:var(--good);font-size:11px;font-weight:800}
+.down{color:var(--bad);font-size:11px;font-weight:800}
 
-/* Dex */
-.tabs{display:flex;gap:6px;flex-wrap:wrap}
-.tab{background:transparent;border:2px solid var(--muted);border-radius:4px;padding:4px 10px;font-size:14px;cursor:pointer;color:var(--muted)}
-.tab[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
-.tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* Dex & lists */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:0;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;background:var(--surface);color:var(--muted);box-shadow:var(--shadow)}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
 .dex li{cursor:pointer}
 .dex.hide .ja{filter:blur(6px)}
 .dex.hide li.peek .ja{filter:none}
-.dex .exrow{grid-column:1/-1;font-size:13px;color:var(--muted)}
+.dex .exrow{grid-column:1/-1;font-size:13px;color:var(--muted);background:var(--surface-2);border-radius:12px;padding:8px 10px}
+.my-form{display:flex;flex-direction:column;gap:12px}
+.my-bulk{display:flex;flex-direction:column;gap:10px}
+.my-bulk summary{cursor:pointer;font-weight:800;color:var(--brand)}
+.wlist.my-list li{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) auto auto}
+.wlist.my-list li.empty{display:block;color:var(--muted);font-size:14px}
+.del{border:0;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:12px;font-weight:700;padding:4px 10px;cursor:pointer;white-space:nowrap}
+.del[data-armed="1"]{background:var(--bad);color:#fff}
+.settings{display:flex;flex-direction:column;gap:10px}
+.confirm{border:2px solid var(--bad)}
 
-.confirm{border-color:var(--danger)}
-.note{font-size:12px;color:var(--muted);margin:0}
+/* Bottom tab bar */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom, 0px))}
+.nav-in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.nav-btn{border:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-size:11px;font-weight:700;cursor:pointer;border-radius:12px}
+.nav-btn svg{width:24px;height:24px}
+.nav-btn[aria-current="page"]{color:var(--brand)}
 
 /* Motion */
-@keyframes bob{50%{transform:translateY(-4px)}}
-@keyframes hit{0%,100%{transform:translateX(0);filter:none}20%{transform:translateX(-8px);filter:brightness(3)}40%{transform:translateX(8px)}60%{transform:translateX(-5px);filter:brightness(3)}80%{transform:translateX(4px)}}
+@keyframes bob{50%{transform:translateY(-6px)}}
+@keyframes hit{0%,100%{transform:translateX(0);filter:none}20%{transform:translateX(-10px);filter:brightness(2)}40%{transform:translateX(9px)}60%{transform:translateX(-6px);filter:brightness(1.6)}80%{transform:translateX(3px)}}
 @keyframes shake{0%,100%{transform:translate(0)}25%{transform:translate(-6px,3px)}50%{transform:translate(6px,-3px)}75%{transform:translate(-3px,2px)}}
-@keyframes floatUp{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-46px)}}
-@keyframes vanish{0%{opacity:1}100%{opacity:0;transform:scaleY(.1) translateY(40px)}}
-@keyframes flashRed{0%,100%{box-shadow:0 0 0 3px var(--shadow)}50%{box-shadow:0 0 0 3px var(--danger)}}
-.anim-hit{animation:hit .4s steps(5)!important}
-.anim-vanish{animation:vanish .8s steps(6) forwards!important}
-.anim-shake{animation:shake .35s steps(4)}
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-}
+@keyframes floatUp{from{opacity:1;transform:translate(-50%,0) scale(.8)}20%{transform:translate(-50%,-8px) scale(1.15)}to{opacity:0;transform:translate(-50%,-56px) scale(1)}}
+@keyframes vanish{0%{opacity:1}100%{opacity:0;transform:scale(.6) translateY(30px)}}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.screen:not([hidden]){animation:pop .25s ease-out}
+.anim-hit{animation:hit .4s ease-out!important}
+.anim-vanish{animation:vanish .7s ease-in forwards!important}
+.anim-shake{animation:shake .35s ease-out}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media (max-width:380px){
   .choices{grid-template-columns:1fr}
-  .choices .btn{min-height:48px}
+  .choices .btn{min-height:50px}
 }
 </style>
 
@@ -249,66 +280,54 @@ h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);marg
 
   <!-- TITLE -->
   <section class="screen" id="s-title">
-    <h1 class="logo">ANSWER<br>QUEST</h1>
-    <p class="logo-sub">アンサークエスト</p>
-    <div class="parade" id="parade"></div>
-    <p class="tagline">「どういう意味？」に、すぐ答えられる勇者になろう。</p>
+    <div class="hero">
+      <h1 class="logo">Answer Quest</h1>
+      <p class="logo-sub">アンサークエスト</p>
+      <div class="parade" id="parade"></div>
+      <p class="tagline">「どういう意味？」にすぐ答えられるようになろう</p>
+    </div>
     <div class="win field">
-      <label class="label" for="nameInput">ゆうしゃの なまえ</label>
+      <label class="label" for="nameInput">プレイヤー名</label>
       <input id="nameInput" maxlength="8" autocomplete="off">
     </div>
-    <button class="btn primary" id="startBtn">ぼうけんを はじめる</button>
+    <button class="btn primary" id="startBtn">冒険をはじめる</button>
   </section>
 
-  <!-- MAP -->
+  <!-- HOME / MAP -->
   <section class="screen" id="s-map" hidden>
-    <div class="win hero-head">
+    <div class="win profile">
+      <div class="avatar" id="mapAvatar"></div>
       <div class="hero-name" id="mapName"></div>
       <div class="lv" id="mapLv"></div>
-      <div class="bar gold" style="grid-column:1/-1"><i id="mapExp"></i></div>
-      <div class="label" id="mapExpText" style="grid-column:1/-1"></div>
+      <div class="bar gold"><i id="mapExp"></i></div>
+      <div class="label" id="mapExpText"></div>
     </div>
-    <div class="win row spread">
-      <div>
-        <div class="label">マスターした たんご</div>
-        <div class="num" style="font-size:22px"><span id="mapMastered">0</span><span style="font-size:14px;color:var(--muted)"> / <span id="mapTotal">0</span></span></div>
-      </div>
-      <div style="text-align:right">
-        <div class="label">スタンプ</div>
-        <div class="num" style="font-size:22px;color:var(--gold)"><span id="mapStamps">0</span><span style="font-size:14px;color:var(--muted)"> / 12</span></div>
-      </div>
-      <div style="text-align:right">
-        <div class="label">ふくしゅう まち</div>
-        <div class="num" style="font-size:22px;color:var(--sky)" id="mapDue">0</div>
-      </div>
+    <div class="stat-tiles">
+      <div class="tile"><div class="label">マスター</div><div class="num"><span id="mapMastered">0</span><span class="of"> / <span id="mapTotal">0</span></span></div></div>
+      <div class="tile t-gold"><div class="label">スタンプ</div><div class="num"><span id="mapStamps">0</span><span class="of"> / 12</span></div></div>
+      <div class="tile t-sky"><div class="label">復習まち</div><div class="num" id="mapDue">0</div></div>
     </div>
     <div class="win my-panel">
       <div class="sp"><canvas class="sprite" id="memoSprite"></canvas></div>
       <div class="grow">
-        <div class="sname">マイたんご <span class="num" id="mapMy"></span></div>
-        <div class="smeta">最近 覚えた 単語を 追加して、メモリンと 練習しよう</div>
+        <div class="sname">マイたんご <span class="chip num" id="mapMy"></span></div>
+        <div class="smeta">最近覚えた単語を追加して、メモリンと練習しよう</div>
       </div>
       <div class="my-actions">
-        <button class="btn small" id="myBtn">単語を 追加</button>
-        <button class="btn small" id="memoBtn">たたかう</button>
+        <button class="btn small ghost" id="myBtn">単語を追加</button>
+        <button class="btn small primary" id="memoBtn">バトル</button>
       </div>
     </div>
-    <h2>アメリカ横断の たび ─ ハワイから ニューヨークへ</h2>
+    <h2>アメリカ横断の旅</h2>
     <div class="win mapwin">
       <svg id="usmap" viewBox="0 0 975 610" role="img" aria-label="アメリカの地図"></svg>
-      <div class="legend"><span><i class="lg-clear"></i>クリア</span><span><i class="lg-open"></i>いける</span><span><i class="lg-lock"></i>まだ</span></div>
+      <div class="legend"><span><i class="lg-clear"></i>クリア</span><span><i class="lg-open"></i>挑戦できる</span><span><i class="lg-lock"></i>まだ</span></div>
     </div>
     <div class="win state-panel" id="statePanel"></div>
-    <h2>じゅんびちゅうの モード</h2>
+    <h2>準備中のモード</h2>
     <div class="soon">
-      <div class="win"><b>スペル</b><span>意味から つづりを 完成させる</span></div>
-      <div class="win"><b>ならべかえ</b><span>単語を 並べて 文を つくる</span></div>
-    </div>
-    <div class="btn-row">
-      <button class="btn" id="passBtn">パスポート</button>
-      <button class="btn" id="artBtn"></button>
-      <button class="btn" id="dexBtn">たんご ずかん</button>
-      <button class="btn" id="settingBtn">せってい</button>
+      <div class="win"><b>スペル</b><span>意味からつづりを完成させる</span></div>
+      <div class="win"><b>ならべかえ</b><span>単語を並べて文をつくる</span></div>
     </div>
   </section>
 
@@ -316,31 +335,32 @@ h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);marg
   <section class="screen" id="s-battle" hidden>
     <div class="win enemy-bar">
       <div class="row spread"><span class="ename" id="eName"></span><span class="combo" id="combo"></span></div>
-      <div class="bar gold" style="margin-top:6px"><i id="eHp"></i></div>
+      <div class="bar gold" style="margin-top:8px"><i id="eHp"></i></div>
     </div>
     <div class="scene" id="scene"><canvas class="sprite" id="eSprite"></canvas></div>
     <div class="win question" id="questionWin">
       <div class="label" id="qCat"></div>
       <div class="qword" id="qWord">…</div>
       <div class="bar timer" id="timer"><i id="timerFill" style="width:100%"></i></div>
-      <div class="tlabel"><span>かいしん</span><span>ふつう</span><span>いそげ！</span></div>
+      <div class="tlabel"><span>会心</span><span>ふつう</span><span>急いで！</span></div>
     </div>
     <div class="choices" id="choices"></div>
     <div class="win explain" id="explain" hidden>
-      <div class="label">せいかいは…</div>
+      <div class="label">正解は…</div>
       <div><span id="exWord"></span> ＝ <span class="ans" id="exAns"></span></div>
       <div class="ex" id="exEn"></div>
       <div class="exj" id="exJa"></div>
-      <button class="btn primary" id="nextBtn">つぎへ</button>
+      <button class="btn primary" id="nextBtn">次へ</button>
     </div>
     <div class="win msg" id="msg"></div>
     <div class="win status" id="status">
       <div class="row">
+        <div class="avatar" id="pAvatar"></div>
         <span class="pname" id="pName"></span>
         <span class="lv" id="pLv"></span>
         <div class="grow"><div class="bar" id="pHpBar"><i id="pHp"></i></div></div>
         <span class="hp-num num" id="pHpNum"></span>
-        <button class="btn small" id="runBtn">にげる</button>
+        <button class="btn small ghost" id="runBtn">にげる</button>
       </div>
     </div>
   </section>
@@ -349,53 +369,55 @@ h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);marg
   <section class="screen" id="s-result" hidden>
     <div class="result-title" id="rTitle"></div>
     <div class="scene" id="rScene" style="height:140px"><canvas class="sprite" id="rSprite"></canvas></div>
-    <div class="win msg" id="rMsg"></div>
+    <div class="win" id="rMsg"></div>
     <div class="win stats">
-      <div><b class="num" id="rAcc"></b><span>せいかい</span></div>
-      <div><b class="num" id="rCombo"></b><span>さいだい コンボ</span></div>
-      <div><b class="num" id="rAvg"></b><span>へいきん かいとう</span></div>
+      <div><b class="num" id="rAcc"></b><span>正解</span></div>
+      <div><b class="num" id="rCombo"></b><span>最大コンボ</span></div>
+      <div><b class="num" id="rAvg"></b><span>平均回答時間</span></div>
     </div>
     <div class="win">
-      <div class="label">このバトルの たんご</div>
+      <div class="label">このバトルの単語</div>
       <ul class="wlist" id="rList"></ul>
     </div>
     <div class="btn-row">
-      <button class="btn primary" id="againBtn">もういちど たたかう</button>
-      <button class="btn" id="toMapBtn">マップへ もどる</button>
+      <button class="btn primary" id="againBtn">もう一度たたかう</button>
+      <button class="btn" id="toMapBtn">ホームへ</button>
     </div>
   </section>
 
   <!-- DEX -->
   <section class="screen" id="s-dex" hidden>
     <div class="row spread">
-      <button class="btn small" id="dexBack">もどる</button>
-      <button class="btn small" id="dexHide" aria-pressed="false">いみを かくす</button>
+      <div class="screen-title">単語図鑑</div>
+      <button class="btn small" id="dexHide" aria-pressed="false">意味をかくす</button>
+      <button class="btn small" id="dexBack" hidden>もどる</button>
     </div>
     <div class="tabs" id="dexTabs"></div>
-    <p class="note">いみを かくして、すぐ言えるか ためそう。タップで いみと 例文が でるよ。</p>
+    <p class="note">意味をかくして、すぐ言えるか試そう。タップすると意味と例文が出ます。</p>
     <div class="win"><ul class="wlist dex" id="dexList"></ul></div>
   </section>
 
   <!-- MY WORDS -->
   <section class="screen" id="s-my" hidden>
     <div class="row spread">
-      <button class="btn small" id="myBack">もどる</button>
-      <span class="label" id="myCount"></span>
+      <div class="screen-title">マイたんご</div>
+      <span class="chip num" id="myCount"></span>
+      <button class="btn small" id="myBack" hidden>もどる</button>
     </div>
     <form class="win my-form" id="myForm" autocomplete="off">
-      <div class="label">最近 覚えた 単語を 追加</div>
+      <div class="label">最近覚えた単語を追加</div>
       <div class="field"><label class="label" for="myW">英語</label><input id="myW" maxlength="60" placeholder="例：awesome / Never give up."></div>
       <div class="field"><label class="label" for="myM">意味</label><input id="myM" maxlength="40" placeholder="例：すごい・最高の"></div>
-      <div class="field"><label class="label" for="myE">例文（なくても OK）</label><input id="myE" maxlength="120" placeholder="例：That movie was awesome!"></div>
-      <div class="field"><label class="label" for="myJ">例文の 意味（なくても OK）</label><input id="myJ" maxlength="80" placeholder="例：あの映画は最高だった！"></div>
+      <div class="field"><label class="label" for="myE">例文（なくてもOK）</label><input id="myE" maxlength="120" placeholder="例：That movie was awesome!"></div>
+      <div class="field"><label class="label" for="myJ">例文の意味（なくてもOK）</label><input id="myJ" maxlength="80" placeholder="例：あの映画は最高だった！"></div>
       <button class="btn primary" id="myAdd" type="submit">追加する</button>
       <p class="note" id="myStatus" role="status"></p>
     </form>
     <details class="win my-bulk">
-      <summary>まとめて 追加する</summary>
-      <p class="note">1行に 1つずつ「英語 = 意味」の 形で 書いてね。</p>
+      <summary>まとめて追加する</summary>
+      <p class="note">1行に1つずつ「英語 = 意味」の形で書いてください。</p>
       <textarea id="myBulk" rows="5" placeholder="awesome = すごい&#10;exhausted = くたくたの&#10;Take it easy. = 気楽にね。"></textarea>
-      <button class="btn" id="myBulkAdd" type="button">まとめて 追加</button>
+      <button class="btn" id="myBulkAdd" type="button">まとめて追加</button>
     </details>
     <button class="btn" id="myMix" type="button"></button>
     <p class="note" id="mySync"></p>
@@ -405,32 +427,47 @@ h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);marg
   <!-- PASSPORT -->
   <section class="screen" id="s-pass" hidden>
     <div class="row spread">
-      <button class="btn small" id="passBack">もどる</button>
-      <span class="label" id="passCount"></span>
+      <div class="screen-title">パスポート</div>
+      <span class="chip num" id="passCount"></span>
+      <button class="btn small" id="passBack" hidden>もどる</button>
     </div>
-    <p class="note">州を クリアすると スタンプと 英語の 豆知識が もらえるよ。</p>
+    <p class="note">州をクリアすると、スタンプと英語の豆知識がもらえます。</p>
     <div class="stamps" id="stampList"></div>
   </section>
 
   <!-- SETTINGS -->
   <section class="screen" id="s-setting" hidden>
-    <div class="win field">
-      <label class="label" for="nameInput2">ゆうしゃの なまえ</label>
-      <input id="nameInput2" maxlength="8" autocomplete="off">
-    </div>
-    <button class="btn" id="soundBtn"></button>
-    <button class="btn" id="resetBtn">きろくを けす</button>
-    <div class="win confirm" id="resetConfirm" hidden>
-      <p style="margin:0 0 10px">レベルと 単語の きろくが すべて きえます。本当に けしますか？</p>
-      <div class="btn-row">
-        <button class="btn" id="resetYes">けす</button>
-        <button class="btn" id="resetNo">やめる</button>
+    <div class="screen-title">設定</div>
+    <div class="win settings">
+      <div class="field">
+        <label class="label" for="nameInput2">プレイヤー名</label>
+        <input id="nameInput2" maxlength="8" autocomplete="off">
+      </div>
+      <button class="btn" id="soundBtn"></button>
+      <button class="btn" id="artBtn"></button>
+      <button class="btn" id="resetBtn">記録を消す</button>
+      <div class="win confirm" id="resetConfirm" hidden>
+        <p style="margin:0 0 10px">レベルと単語の記録がすべて消えます。本当に消しますか？</p>
+        <div class="btn-row">
+          <button class="btn" id="resetYes">消す</button>
+          <button class="btn" id="resetNo">やめる</button>
+        </div>
       </div>
     </div>
-    <p class="note">きろくは この端末の ブラウザに 保存されます。</p>
-    <button class="btn primary" id="settingBack">もどる</button>
+    <p class="note">レベルと★の記録はこの端末のブラウザに保存されます。</p>
+    <button class="btn" id="settingBack" hidden>もどる</button>
   </section>
 </div>
+
+<nav class="nav" id="nav" hidden aria-label="メニュー">
+  <div class="nav-in">
+    <button class="nav-btn" id="navHome" data-screen="map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>マップ</button>
+    <button class="nav-btn" id="dexBtn" data-screen="dex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 7h6"/></svg>図鑑</button>
+    <button class="nav-btn" id="navMy" data-screen="my"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg>マイたんご</button>
+    <button class="nav-btn" id="passBtn" data-screen="pass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M9 17h6"/></svg>パスポート</button>
+    <button class="nav-btn" id="settingBtn" data-screen="setting"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>設定</button>
+  </div>
+</nav>
 
 <script>
 /* ===================== DATA ===================== */
@@ -439,7 +476,7 @@ const CATS = {
   kaiwa:{name:'かいわ', desc:'日常会話フレーズ'},
   ugoki:{name:'うごき', desc:'動きのことば'},
   yousu:{name:'ようす', desc:'気持ち・ようす'},
-  doubutsu:{name:'どうぶつ', desc:'動物の なまえ'}
+  doubutsu:{name:'どうぶつ', desc:'動物のなまえ'}
 };
 
 const WORDS = [
@@ -1514,43 +1551,43 @@ Object.assign(ILLUST, {
 
 // ===== モンスターの名前とセリフ =====
 const MON = {
-  pomlin:{name:'ポムリン',cat:'kurashi',intro:'ヤシの木の 下から ポムリンが とびだした！',defeat:'ポムリンは 「また あそんでね…」と きえていった。',lose:'ポムリンは うれしそうに はねている。'},
-  pineapple:{name:'パイナップルン',cat:'umi',intro:'パイナップルンが サングラスを くいっと あげた！',laugh:'アロハ〜♪',defeat:'パイナップルン「マハロ…（ありがとう）」',lose:'パイナップルンは フラダンスを おどっている。'},
-  pecha:{name:'ペチャクチャ',cat:'kaiwa',intro:'ペチャクチャが 「Hello! Hello!」と さわぎだした！',defeat:'ペチャクチャは 「See you later!」と とびさった。',lose:'ペチャクチャは 「No way!」と わらっている。'},
-  honu:{name:'ホヌじい',cat:'kuukou',intro:'ホヌじいが ゆっくり 海から あがってきた。「旅の 英語を ためしてやろう」',laugh:'ほっほっ、まだまだじゃ',defeat:'ホヌじい「よい 旅を。Have a nice trip!」',lose:'ホヌじい「あわてず ゆっくり 覚えるんじゃ」'},
-  star:{name:'スターロン',cat:'geinou',intro:'スターロンが スポットライトの 中に あらわれた！',laugh:'キラーン☆',defeat:'スターロンは「That\'s a wrap!」と さっていった。',lose:'スターロンは サインを くばっている。'},
-  bruv:{name:'ブルーヴ',cat:'kaiwa',intro:'ブルーヴが ニカッと わらった。「What\'s up, bruv?」',laugh:'No way, bruv!',defeat:'ブルーヴ「Good game, bruv.」',lose:'ブルーヴ「Take care, bruv.」'},
-  goldbear:{name:'ゴールドベア',cat:'kurashi',intro:'ゴールドベアが 金色の 毛を かがやかせた！',laugh:'ガオー！',defeat:'ゴールドベアは 山へ かえっていった。',lose:'ゴールドベアは ハチミツを なめている。'},
-  slot:{name:'スロットン',cat:'kaimono',intro:'スロットンの リールが まわりだした！',laugh:'ハズレ〜！',defeat:'スロットン「ジャックポット… おめでとう…」',lose:'スロットンは コインを ジャラジャラ ならしている。'},
-  graffiti:{name:'ラクガキマスク',cat:'ugoki',intro:'ラクガキマスクが かべの かげから あらわれた！',laugh:'ヘヘッ',defeat:'ラクガキマスクは スプレーを おとして にげていった。',lose:'ラクガキマスクは かべに「WIN」と かいた。'},
-  alien:{name:'グレイくん',cat:'yousu',intro:'まぶしい 光と ともに グレイくんが おりてきた！',laugh:'ピピピ…',defeat:'グレイくんは UFOで かえっていった。',lose:'グレイくん「チキュウジン、マダマダ」'},
-  cactus:{name:'サボガンマン',cat:'shizen',intro:'サボガンマンが 砂漠の かぜと ともに あらわれた！',laugh:'チクッとな！',defeat:'サボガンマン「…いい うでだ」',lose:'サボガンマンは 夕日を ながめている。'},
-  yomi:{name:'ヨミガラス',cat:'ugoki',intro:'まどうしょを かかえた ヨミガラスが まいおりた！',defeat:'ヨミガラスは 本を おとして 夜空に きえた。',lose:'ヨミガラスは 本を めくって わらっている。'},
-  golem:{name:'グラムゴーレム',cat:'yousu',intro:'峡谷の 岩が うごきだした… グラムゴーレムだ！',defeat:'グラムゴーレムは くずれて ただの いしに なった。',lose:'グラムゴーレムは しずかに ねむりに ついた。'},
-  snowman:{name:'ユキダルマン',cat:'supotsu',intro:'ユキダルマンが スキーで すべってきた！',laugh:'ヒャッホー！',defeat:'ユキダルマンは とけて マフラーだけ のこった。',lose:'ユキダルマンは 雪の 上を すべっている。'},
-  shiba:{name:'シバまる',cat:'doubutsu',intro:'シバまるが しっぽを ふりながら とびかかってきた！',laugh:'ワン！ワン！',defeat:'シバまるは まんぞくそうに ねころんだ。',lose:'シバまるは うれしそうに しっぽを ふっている。'},
-  bigfoot:{name:'ビッグフット',cat:'supotsu',intro:'ドスン ドスン… ビッグフットが あらわれた！',laugh:'ウホホ！',defeat:'ビッグフットは 森の おくへ きえた。もう 見つからない…',lose:'ビッグフットは 大きな 足あとを のこした。'},
-  moboy:{name:'モーボーイ',cat:'taberu',intro:'モーボーイが「Howdy!」と 帽子を あげた！',laugh:'モ〜ッハッハ！',defeat:'モーボーイ「Good job, partner!」',lose:'モーボーイは BBQの じゅんびを している。'},
-  rooster:{name:'コケキング',cat:'doubutsu',intro:'コケキングが「コケコッコー！」と ないた！',laugh:'コケーッ！',defeat:'コケキングは にわとりごやに にげかえった。',lose:'コケキングは むねを はって いばっている。'},
-  chipryu:{name:'チップリュウ',cat:'doubutsu',intro:'さつまいも畑から チップリュウが のぼってきた！「俺は無敵だ！」',laugh:'ワハハハ！ 俺は無敵だ！',defeat:'チップリュウ「え？」',lose:'チップリュウ「ワハハハ！ 俺は無敵だ！」'},
-  trumpet:{name:'ペットン',cat:'ongaku',intro:'ペットンが ジャズを ふきながら あらわれた！',laugh:'パッパラ〜♪',defeat:'ペットンは さいごの 一音を ならして しずかに なった。',lose:'ペットンは 勝利の メロディを ふいている。'},
-  gator:{name:'アリゲーツ',cat:'doubutsu',intro:'アリゲーツが 沼から 大きな 口を あけた！',laugh:'ガブガブ！',defeat:'アリゲーツは 沼に しずんでいった。',lose:'アリゲーツは ひなたぼっこを している。'},
-  mochi:{name:'モチオバケ',cat:'yousu',intro:'古い 屋敷から モチオバケが ふわっと あらわれた…「こわくないよ…」',laugh:'ふふ…',defeat:'モチオバケは「ふぇ…」と きえていった。',lose:'モチオバケは ほっとした かおを している。'},
-  coaster:{name:'コースターン',cat:'asobi',intro:'コースターンが レールを ゴーッと おりてきた！',laugh:'キャー！ たのしい〜！',defeat:'コースターンは 駅に とまった。「おつかれさま！」',lose:'コースターンは もう一周 まわりはじめた。'},
-  montblanc:{name:'モンブラン・アイ',cat:'kurashi',intro:'ひとつ目の モンブラン・アイが ベロを だした！',laugh:'ベロベロ〜！',defeat:'モンブラン・アイは とけて、あまい においだけが のこった。',lose:'モンブラン・アイは ベロを だして わらっている。'},
-  hurricane:{name:'ハリケンジャー',cat:'tenki',intro:'あたりが くらく なった… ハリケンジャーが あらわれた！',laugh:'ゴロゴロゴロ！',defeat:'ハリケンジャーは 消えて、空に 虹が かかった。',lose:'ハリケンジャーは まだ あばれている。'},
-  windy:{name:'ウィンディ',cat:'tenki',intro:'ビュウウ… ウィンディが ふきつけてきた！',laugh:'ヒュ〜ッ！',defeat:'ウィンディは そよかぜに なった。',lose:'ウィンディは 帽子を とばして あそんでいる。'},
-  deeppizza:{name:'ディープピザ',cat:'taberu',intro:'ぶあつい ディープピザが あらわれた！',laugh:'チーズ〜ン！',defeat:'ディープピザは おいしく たべられた。',lose:'ディープピザは チーズを のばしている。'},
-  bean:{name:'ミラービーン',cat:'kurashi',intro:'ミラービーンに キミの すがたが うつった！',laugh:'ピカピカ〜',defeat:'ミラービーンに 勝った キミの すがたが うつっている。',lose:'ミラービーンは 空を うつしている。'},
-  banjo:{name:'バンジョーン',cat:'ongaku',intro:'バンジョーンが カントリーを ひきながら あらわれた！',laugh:'ベンベン♪',defeat:'バンジョーンの 弦が ぷつんと きれた。',lose:'バンジョーンは 陽気に うたっている。'},
-  kushamin:{name:'クシャミン',cat:'karada',intro:'クシャミンが「ハックション！」と あらわれた！',laugh:'ハックション！',defeat:'クシャミン「おだいじに…」と きえた。',lose:'クシャミンは せきを しながら わらっている。'},
-  nasu:{name:'ナスノカミ',cat:'karada',intro:'ナスノカミが にっこり ほほえんだ。「けんこうが いちばんじゃ」',laugh:'ほっほっほ',defeat:'ナスノカミ「よく がんばった。ふくを さずけよう」',lose:'ナスノカミは ほっほっほと わらっている。'},
-  bell:{name:'リバティベル',cat:'gakkou',intro:'カーン… リバティベルが なりひびいた！',laugh:'カーン！ カーン！',defeat:'リバティベル「Freedom!」と ひびいて しずかに なった。',lose:'リバティベルは ほこらしげに ゆれている。'},
-  pretzel:{name:'プレッツェルン',cat:'taberu',intro:'プレッツェルンが くるっと からだを ひねった！',laugh:'ねじねじ〜',defeat:'プレッツェルンは ほどけて しまった。',lose:'プレッツェルンは 塩を ふっている。'},
-  oni:{name:'サンガンオウ',cat:'gakkou',intro:'みっつの 目が ひかる… サンガンオウが あらわれた！',laugh:'グハハハ！',defeat:'サンガンオウの 目の ひかりが きえた…',lose:'サンガンオウは グハハハと わらっている。'},
-  pizzarat:{name:'ピザネズミ',cat:'machi',intro:'ピザネズミが 地下鉄の 階段で ピザを かかえていた！',laugh:'チュチュチュ！',defeat:'ピザネズミは ピザを おいて にげていった。',lose:'ピザネズミは ピザを ほおばっている。'},
-  taxi:{name:'タクシーン',cat:'machi',intro:'タクシーンが クラクションを ならした！ プップー！',laugh:'プップー！',defeat:'タクシーン「Thank you, have a nice day!」',lose:'タクシーンは メーターを まわしている。'},
-  lexidra:{name:'レキシドラ',cat:'all',intro:'摩天楼の 上に すべての ことばを くらう りゅう、レキシドラが あらわれた！',laugh:'グオオオ！',defeat:'レキシドラを たおした！ アメリカ横断 達成！ ことばの ちからが みなぎる！',lose:'レキシドラの ほのおが 街を つつんだ…'}
+  pomlin:{name:'ポムリン',cat:'kurashi',intro:'ヤシの木の下からポムリンがとびだした！',defeat:'ポムリンは「またあそんでね…」ときえていった。',lose:'ポムリンはうれしそうにはねている。'},
+  pineapple:{name:'パイナップルン',cat:'umi',intro:'パイナップルンがサングラスをくいっとあげた！',laugh:'アロハ〜♪',defeat:'パイナップルン「マハロ…（ありがとう）」',lose:'パイナップルンはフラダンスをおどっている。'},
+  pecha:{name:'ペチャクチャ',cat:'kaiwa',intro:'ペチャクチャが「Hello! Hello!」とさわぎだした！',defeat:'ペチャクチャは「See you later!」ととびさった。',lose:'ペチャクチャは「No way!」とわらっている。'},
+  honu:{name:'ホヌじい',cat:'kuukou',intro:'ホヌじいがゆっくり海からあがってきた。「旅の英語をためしてやろう」',laugh:'ほっほっ、まだまだじゃ',defeat:'ホヌじい「よい旅を。Have a nice trip!」',lose:'ホヌじい「あわてずゆっくり覚えるんじゃ」'},
+  star:{name:'スターロン',cat:'geinou',intro:'スターロンがスポットライトの中にあらわれた！',laugh:'キラーン☆',defeat:'スターロンは「That\'s a wrap!」とさっていった。',lose:'スターロンはサインをくばっている。'},
+  bruv:{name:'ブルーヴ',cat:'kaiwa',intro:'ブルーヴがニカッとわらった。「What\'s up, bruv?」',laugh:'No way, bruv!',defeat:'ブルーヴ「Good game, bruv.」',lose:'ブルーヴ「Take care, bruv.」'},
+  goldbear:{name:'ゴールドベア',cat:'kurashi',intro:'ゴールドベアが金色の毛をかがやかせた！',laugh:'ガオー！',defeat:'ゴールドベアは山へかえっていった。',lose:'ゴールドベアはハチミツをなめている。'},
+  slot:{name:'スロットン',cat:'kaimono',intro:'スロットンのリールがまわりだした！',laugh:'ハズレ〜！',defeat:'スロットン「ジャックポット…おめでとう…」',lose:'スロットンはコインをジャラジャラならしている。'},
+  graffiti:{name:'ラクガキマスク',cat:'ugoki',intro:'ラクガキマスクがかべのかげからあらわれた！',laugh:'ヘヘッ',defeat:'ラクガキマスクはスプレーをおとしてにげていった。',lose:'ラクガキマスクはかべに「WIN」とかいた。'},
+  alien:{name:'グレイくん',cat:'yousu',intro:'まぶしい光とともにグレイくんがおりてきた！',laugh:'ピピピ…',defeat:'グレイくんは UFOでかえっていった。',lose:'グレイくん「チキュウジン、マダマダ」'},
+  cactus:{name:'サボガンマン',cat:'shizen',intro:'サボガンマンが砂漠のかぜとともにあらわれた！',laugh:'チクッとな！',defeat:'サボガンマン「…いいうでだ」',lose:'サボガンマンは夕日をながめている。'},
+  yomi:{name:'ヨミガラス',cat:'ugoki',intro:'まどうしょをかかえたヨミガラスがまいおりた！',defeat:'ヨミガラスは本をおとして夜空にきえた。',lose:'ヨミガラスは本をめくってわらっている。'},
+  golem:{name:'グラムゴーレム',cat:'yousu',intro:'峡谷の岩がうごきだした…グラムゴーレムだ！',defeat:'グラムゴーレムはくずれてただのいしになった。',lose:'グラムゴーレムはしずかにねむりについた。'},
+  snowman:{name:'ユキダルマン',cat:'supotsu',intro:'ユキダルマンがスキーですべってきた！',laugh:'ヒャッホー！',defeat:'ユキダルマンはとけてマフラーだけのこった。',lose:'ユキダルマンは雪の上をすべっている。'},
+  shiba:{name:'シバまる',cat:'doubutsu',intro:'シバまるがしっぽをふりながらとびかかってきた！',laugh:'ワン！ワン！',defeat:'シバまるはまんぞくそうにねころんだ。',lose:'シバまるはうれしそうにしっぽをふっている。'},
+  bigfoot:{name:'ビッグフット',cat:'supotsu',intro:'ドスンドスン…ビッグフットがあらわれた！',laugh:'ウホホ！',defeat:'ビッグフットは森のおくへきえた。もう見つからない…',lose:'ビッグフットは大きな足あとをのこした。'},
+  moboy:{name:'モーボーイ',cat:'taberu',intro:'モーボーイが「Howdy!」と帽子をあげた！',laugh:'モ〜ッハッハ！',defeat:'モーボーイ「Good job, partner!」',lose:'モーボーイは BBQのじゅんびをしている。'},
+  rooster:{name:'コケキング',cat:'doubutsu',intro:'コケキングが「コケコッコー！」とないた！',laugh:'コケーッ！',defeat:'コケキングはにわとりごやににげかえった。',lose:'コケキングはむねをはっていばっている。'},
+  chipryu:{name:'チップリュウ',cat:'doubutsu',intro:'さつまいも畑からチップリュウがのぼってきた！「俺は無敵だ！」',laugh:'ワハハハ！俺は無敵だ！',defeat:'チップリュウ「え？」',lose:'チップリュウ「ワハハハ！俺は無敵だ！」'},
+  trumpet:{name:'ペットン',cat:'ongaku',intro:'ペットンがジャズをふきながらあらわれた！',laugh:'パッパラ〜♪',defeat:'ペットンはさいごの一音をならしてしずかになった。',lose:'ペットンは勝利のメロディをふいている。'},
+  gator:{name:'アリゲーツ',cat:'doubutsu',intro:'アリゲーツが沼から大きな口をあけた！',laugh:'ガブガブ！',defeat:'アリゲーツは沼にしずんでいった。',lose:'アリゲーツはひなたぼっこをしている。'},
+  mochi:{name:'モチオバケ',cat:'yousu',intro:'古い屋敷からモチオバケがふわっとあらわれた…「こわくないよ…」',laugh:'ふふ…',defeat:'モチオバケは「ふぇ…」ときえていった。',lose:'モチオバケはほっとしたかおをしている。'},
+  coaster:{name:'コースターン',cat:'asobi',intro:'コースターンがレールをゴーッとおりてきた！',laugh:'キャー！たのしい〜！',defeat:'コースターンは駅にとまった。「おつかれさま！」',lose:'コースターンはもう一周まわりはじめた。'},
+  montblanc:{name:'モンブラン・アイ',cat:'kurashi',intro:'ひとつ目のモンブラン・アイがベロをだした！',laugh:'ベロベロ〜！',defeat:'モンブラン・アイはとけて、あまいにおいだけがのこった。',lose:'モンブラン・アイはベロをだしてわらっている。'},
+  hurricane:{name:'ハリケンジャー',cat:'tenki',intro:'あたりがくらくなった…ハリケンジャーがあらわれた！',laugh:'ゴロゴロゴロ！',defeat:'ハリケンジャーは消えて、空に虹がかかった。',lose:'ハリケンジャーはまだあばれている。'},
+  windy:{name:'ウィンディ',cat:'tenki',intro:'ビュウウ…ウィンディがふきつけてきた！',laugh:'ヒュ〜ッ！',defeat:'ウィンディはそよかぜになった。',lose:'ウィンディは帽子をとばしてあそんでいる。'},
+  deeppizza:{name:'ディープピザ',cat:'taberu',intro:'ぶあついディープピザがあらわれた！',laugh:'チーズ〜ン！',defeat:'ディープピザはおいしくたべられた。',lose:'ディープピザはチーズをのばしている。'},
+  bean:{name:'ミラービーン',cat:'kurashi',intro:'ミラービーンにキミのすがたがうつった！',laugh:'ピカピカ〜',defeat:'ミラービーンに勝ったキミのすがたがうつっている。',lose:'ミラービーンは空をうつしている。'},
+  banjo:{name:'バンジョーン',cat:'ongaku',intro:'バンジョーンがカントリーをひきながらあらわれた！',laugh:'ベンベン♪',defeat:'バンジョーンの弦がぷつんときれた。',lose:'バンジョーンは陽気にうたっている。'},
+  kushamin:{name:'クシャミン',cat:'karada',intro:'クシャミンが「ハックション！」とあらわれた！',laugh:'ハックション！',defeat:'クシャミン「おだいじに…」ときえた。',lose:'クシャミンはせきをしながらわらっている。'},
+  nasu:{name:'ナスノカミ',cat:'karada',intro:'ナスノカミがにっこりほほえんだ。「けんこうがいちばんじゃ」',laugh:'ほっほっほ',defeat:'ナスノカミ「よくがんばった。ふくをさずけよう」',lose:'ナスノカミはほっほっほとわらっている。'},
+  bell:{name:'リバティベル',cat:'gakkou',intro:'カーン…リバティベルがなりひびいた！',laugh:'カーン！カーン！',defeat:'リバティベル「Freedom!」とひびいてしずかになった。',lose:'リバティベルはほこらしげにゆれている。'},
+  pretzel:{name:'プレッツェルン',cat:'taberu',intro:'プレッツェルンがくるっとからだをひねった！',laugh:'ねじねじ〜',defeat:'プレッツェルンはほどけてしまった。',lose:'プレッツェルンは塩をふっている。'},
+  oni:{name:'サンガンオウ',cat:'gakkou',intro:'みっつの目がひかる…サンガンオウがあらわれた！',laugh:'グハハハ！',defeat:'サンガンオウの目のひかりがきえた…',lose:'サンガンオウはグハハハとわらっている。'},
+  pizzarat:{name:'ピザネズミ',cat:'machi',intro:'ピザネズミが地下鉄の階段でピザをかかえていた！',laugh:'チュチュチュ！',defeat:'ピザネズミはピザをおいてにげていった。',lose:'ピザネズミはピザをほおばっている。'},
+  taxi:{name:'タクシーン',cat:'machi',intro:'タクシーンがクラクションをならした！プップー！',laugh:'プップー！',defeat:'タクシーン「Thank you, have a nice day!」',lose:'タクシーンはメーターをまわしている。'},
+  lexidra:{name:'レキシドラ',cat:'all',intro:'摩天楼の上にすべてのことばをくらうりゅう、レキシドラがあらわれた！',laugh:'グオオオ！',defeat:'レキシドラをたおした！アメリカ横断達成！ことばのちからがみなぎる！',lose:'レキシドラのほのおが街をつつんだ…'}
 };
 
 // ===== 追加モンスター（各州6体に） =====
@@ -1882,41 +1919,41 @@ Object.assign(ILLUST, {
     <circle cx="66" cy="66" r="8" fill="#f28a1a"/><circle cx="66" cy="66" r="3.5" fill="#111" stroke="none"/>`}
 });
 Object.assign(MON, {
-  ukulele:{name:'ウクレレン',cat:'kaiwa',intro:'ウクレレンが ポロロン♪と あらわれた！',laugh:'ポロロン♪',defeat:'ウクレレン「アロハ〜」と しずかに なった。',lose:'ウクレレンは のんびり うたっている。'},
-  surfseal:{name:'サーフアザラシ',cat:'umi',intro:'サーフアザラシが 波に のって やってきた！',laugh:'ヒャッホー！',defeat:'サーフアザラシは 波に のって とおくへ いった。',lose:'サーフアザラシは 波のりを たのしんでいる。'},
-  popcorn:{name:'ポップコーン',cat:'geinou',intro:'ポップコーンが ポンポン はじけながら あらわれた！',laugh:'ポンッ！',defeat:'ポップコーンは ぜんぶ たべられた。',lose:'ポップコーンは 映画を 見ながら わらっている。'},
-  robot:{name:'ロボッチ',cat:'geinou',intro:'ロボッチ「ピコーン！ キドウ シマシタ」',laugh:'セイコウ！ セイコウ！',defeat:'ロボッチ「シャットダウン… シマス…」',lose:'ロボッチは データを アップデートしている。'},
-  avocado:{name:'アボカドン',cat:'kurashi',intro:'アボカドンが たねを ぴかぴかに みがいて あらわれた！',laugh:'アボッ！',defeat:'アボカドンは ワカモレに なった。',lose:'アボカドンは ヨガを している。'},
-  dice:{name:'サイコロン',cat:'kaimono',intro:'サイコロンが ころころ ころがってきた！',laugh:'6が でた〜！',defeat:'サイコロンは 1を だして とまった。',lose:'サイコロンは まだ ころがっている。'},
-  rattle:{name:'ガラガラン',cat:'ugoki',intro:'ガラガラ… ガラガランが しっぽを ならした！',laugh:'シャーッ！',defeat:'ガラガランは 岩の すきまに にげこんだ。',lose:'ガラガランは とぐろを まいて ねている。'},
-  bagmon:{name:'カイモノブクロ',cat:'kaimono',intro:'カイモノブクロが セールの においを かぎつけた！',laugh:'おかいどく〜！',defeat:'カイモノブクロは からっぽに なった。',lose:'カイモノブクロは まだ 買い物を している。'},
-  scorpion:{name:'サソリン',cat:'shizen',intro:'サソリンが 砂の 中から とびだした！',laugh:'チクリ！',defeat:'サソリンは 砂に もぐって いった。',lose:'サソリンは はさみを カチカチ している。'},
-  roadbird:{name:'ハシリドリ',cat:'ugoki',intro:'ハシリドリが ものすごい はやさで 走ってきた！',laugh:'ミッミッ！',defeat:'ハシリドリは 地平線の かなたへ 走りさった。',lose:'ハシリドリは まだ 走りまわっている。'},
-  tumble:{name:'コロコロソウ',cat:'shizen',intro:'コロコロソウが 風に ふかれて ころがってきた！',laugh:'コロコロ〜',defeat:'コロコロソウは 風に のって どこかへ いった。',lose:'コロコロソウは 目を まわしている。'},
-  snowrabbit:{name:'スノボうさぎ',cat:'supotsu',intro:'スノボうさぎが ジャンプして あらわれた！',laugh:'エアー！',defeat:'スノボうさぎは ゴールに すべりこんだ。',lose:'スノボうさぎは もう1本 すべりに いった。'},
-  moose:{name:'ムースケ',cat:'doubutsu',intro:'ムースケが 大きな ツノを ゆらして あらわれた！',laugh:'ブモォ〜！',defeat:'ムースケは 森へ かえっていった。',lose:'ムースケは 草を もぐもぐ たべている。'},
-  trophy:{name:'トロフィン',cat:'supotsu',intro:'トロフィンが ぴかぴかに かがやいた！「勝つのは わたしだ！」',laugh:'ナンバーワン！',defeat:'トロフィン「キミが チャンピオンだ！」',lose:'トロフィンは じぶんを みがいている。'},
-  taco:{name:'タコスくん',cat:'taberu',intro:'タコスくんが「オラ！」と あらわれた！',laugh:'サルサ〜！',defeat:'タコスくんは おいしく たべられた。',lose:'タコスくんは レタスを ふりまいている。'},
-  armadillo:{name:'マジロール',cat:'doubutsu',intro:'マジロールが まるまって ころがってきた！',laugh:'カチカチ〜',defeat:'マジロールは まるまって ねてしまった。',lose:'マジロールは 帽子を かぶりなおした。'},
-  pepper:{name:'ペッパーン',cat:'taberu',intro:'ペッパーンが まっかに なって あらわれた！',laugh:'カラ〜イ！',defeat:'ペッパーンは ミルクを のんで おちついた。',lose:'ペッパーンは 火を ふいている。'},
-  hotdog:{name:'ドッグン',cat:'taberu',intro:'ドッグンが マスタードを たっぷり つけて あらわれた！',laugh:'ワンダフル！',defeat:'ドッグンは おいしく たべられた。',lose:'ドッグンは しっぽを ふっている。'},
-  kasa:{name:'カサオバケ',cat:'tenki',intro:'カサオバケが 雨の 中を ぴょんぴょん はねてきた！',laugh:'ベロベロ〜',defeat:'カサオバケは パタンと とじて しまった。',lose:'カサオバケは 雨の 中で おどっている。'},
-  skyscraper:{name:'ビルディ',cat:'kurashi',intro:'ビルディが 空まで のびて あらわれた！',laugh:'たかい たか〜い！',defeat:'ビルディの あかりが ぜんぶ きえた。',lose:'ビルディは 街を 見おろしている。'},
-  crawfish:{name:'ザリガニッパ',cat:'doubutsu',intro:'ザリガニッパが はさみを ふりあげた！',laugh:'チョキチョキ！',defeat:'ザリガニッパは 後ろむきに にげていった。',lose:'ザリガニッパは はさみを カチカチ ならしている。'},
-  drum:{name:'ドラムン',cat:'ongaku',intro:'ドラムンが ドンドコ リズムを きざんで あらわれた！',laugh:'ドンドコドン！',defeat:'ドラムンは さいごに ジャーン！と ならした。',lose:'ドラムンは リズムに のっている。'},
-  carnival:{name:'カーニバルマスク',cat:'yousu',intro:'パレードの 中から カーニバルマスクが あらわれた！',laugh:'フフフ…',defeat:'カーニバルマスクは 紙ふぶきに なって きえた。',lose:'カーニバルマスクは パレードに もどっていった。'},
-  orange:{name:'オレンジくん',cat:'kurashi',intro:'オレンジくんが 太陽の 下で ころがってきた！',laugh:'ジューシー！',defeat:'オレンジくんは ジュースに なった。',lose:'オレンジくんは ひなたぼっこを している。'},
-  flamingo:{name:'フラミンゴン',cat:'asobi',intro:'フラミンゴンが かた足で ポーズを きめた！',laugh:'ピンク〜！',defeat:'フラミンゴンは 空へ とびたった。',lose:'フラミンゴンは かた足で ねむっている。'},
-  rocket:{name:'ロケットン',cat:'asobi',intro:'3、2、1… ロケットンが うちあがった！',laugh:'ゴーッ！',defeat:'ロケットンは 宇宙へ とんでいった。',lose:'ロケットンは 月を めざしている。'},
-  mike:{name:'マイクン',cat:'ongaku',intro:'マイクンが「テス、テス」と あらわれた！',laugh:'イェーイ！',defeat:'マイクンの スイッチが きれた。',lose:'マイクンは アンコールを まっている。'},
-  guitar:{name:'ギターン',cat:'ongaku',intro:'ギターンが ジャカジャーンと あらわれた！',laugh:'ジャーン！',defeat:'ギターンの 弦が ゆるんで しまった。',lose:'ギターンは ソロを ひいている。'},
-  hotchicken:{name:'ヒリヒリチキン',cat:'karada',intro:'ヒリヒリチキンが 湯気を あげて あらわれた！',laugh:'ヒリヒリ〜！',defeat:'ヒリヒリチキンは なみだを ふいて さっていった。',lose:'ヒリヒリチキンは あせを かいている。'},
-  pencil:{name:'エンピツナイト',cat:'gakkou',intro:'エンピツナイトが 盾を かまえて あらわれた！',laugh:'100てん！',defeat:'エンピツナイトの しんが おれた。',lose:'エンピツナイトは ノートに メモを している。'},
-  sandwich:{name:'サンドン',cat:'taberu',intro:'サンドンが チーズを とろ〜り させて あらわれた！',laugh:'トロ〜リ！',defeat:'サンドンは ペロリと たべられた。',lose:'サンドンは チーズを のばしている。'},
-  book:{name:'ブックン',cat:'gakkou',intro:'ブックンが メガネを くいっと あげた。「勉強の 時間だ！」',laugh:'ふむふむ',defeat:'ブックンは パタンと とじた。',lose:'ブックンは ページを めくっている。'},
-  apple:{name:'アップルン',cat:'machi',intro:'ビッグ・アップルの アップルンが あらわれた！',laugh:'アップップ〜！',defeat:'アップルンは アップルパイに なった。',lose:'アップルンは ピカピカに かがやいている。'},
-  bagel:{name:'ベーグルン',cat:'machi',intro:'ベーグルンが クリームチーズを ぬって あらわれた！',laugh:'モチモチ〜',defeat:'ベーグルンは 朝ごはんに なった。',lose:'ベーグルンは 穴から のぞいている。'},
-  pigeon:{name:'ハトロン',cat:'machi',intro:'ハトロンが 公園から とんできた！',laugh:'クルック〜',defeat:'ハトロンは 空へ とびたった。',lose:'ハトロンは パンくずを つついている。'}
+  ukulele:{name:'ウクレレン',cat:'kaiwa',intro:'ウクレレンがポロロン♪とあらわれた！',laugh:'ポロロン♪',defeat:'ウクレレン「アロハ〜」としずかになった。',lose:'ウクレレンはのんびりうたっている。'},
+  surfseal:{name:'サーフアザラシ',cat:'umi',intro:'サーフアザラシが波にのってやってきた！',laugh:'ヒャッホー！',defeat:'サーフアザラシは波にのってとおくへいった。',lose:'サーフアザラシは波のりをたのしんでいる。'},
+  popcorn:{name:'ポップコーン',cat:'geinou',intro:'ポップコーンがポンポンはじけながらあらわれた！',laugh:'ポンッ！',defeat:'ポップコーンはぜんぶたべられた。',lose:'ポップコーンは映画を見ながらわらっている。'},
+  robot:{name:'ロボッチ',cat:'geinou',intro:'ロボッチ「ピコーン！キドウシマシタ」',laugh:'セイコウ！セイコウ！',defeat:'ロボッチ「シャットダウン…シマス…」',lose:'ロボッチはデータをアップデートしている。'},
+  avocado:{name:'アボカドン',cat:'kurashi',intro:'アボカドンがたねをぴかぴかにみがいてあらわれた！',laugh:'アボッ！',defeat:'アボカドンはワカモレになった。',lose:'アボカドンはヨガをしている。'},
+  dice:{name:'サイコロン',cat:'kaimono',intro:'サイコロンがころころころがってきた！',laugh:'6がでた〜！',defeat:'サイコロンは 1をだしてとまった。',lose:'サイコロンはまだころがっている。'},
+  rattle:{name:'ガラガラン',cat:'ugoki',intro:'ガラガラ…ガラガランがしっぽをならした！',laugh:'シャーッ！',defeat:'ガラガランは岩のすきまににげこんだ。',lose:'ガラガランはとぐろをまいてねている。'},
+  bagmon:{name:'カイモノブクロ',cat:'kaimono',intro:'カイモノブクロがセールのにおいをかぎつけた！',laugh:'おかいどく〜！',defeat:'カイモノブクロはからっぽになった。',lose:'カイモノブクロはまだ買い物をしている。'},
+  scorpion:{name:'サソリン',cat:'shizen',intro:'サソリンが砂の中からとびだした！',laugh:'チクリ！',defeat:'サソリンは砂にもぐっていった。',lose:'サソリンははさみをカチカチしている。'},
+  roadbird:{name:'ハシリドリ',cat:'ugoki',intro:'ハシリドリがものすごいはやさで走ってきた！',laugh:'ミッミッ！',defeat:'ハシリドリは地平線のかなたへ走りさった。',lose:'ハシリドリはまだ走りまわっている。'},
+  tumble:{name:'コロコロソウ',cat:'shizen',intro:'コロコロソウが風にふかれてころがってきた！',laugh:'コロコロ〜',defeat:'コロコロソウは風にのってどこかへいった。',lose:'コロコロソウは目をまわしている。'},
+  snowrabbit:{name:'スノボうさぎ',cat:'supotsu',intro:'スノボうさぎがジャンプしてあらわれた！',laugh:'エアー！',defeat:'スノボうさぎはゴールにすべりこんだ。',lose:'スノボうさぎはもう1本すべりにいった。'},
+  moose:{name:'ムースケ',cat:'doubutsu',intro:'ムースケが大きなツノをゆらしてあらわれた！',laugh:'ブモォ〜！',defeat:'ムースケは森へかえっていった。',lose:'ムースケは草をもぐもぐたべている。'},
+  trophy:{name:'トロフィン',cat:'supotsu',intro:'トロフィンがぴかぴかにかがやいた！「勝つのはわたしだ！」',laugh:'ナンバーワン！',defeat:'トロフィン「キミがチャンピオンだ！」',lose:'トロフィンはじぶんをみがいている。'},
+  taco:{name:'タコスくん',cat:'taberu',intro:'タコスくんが「オラ！」とあらわれた！',laugh:'サルサ〜！',defeat:'タコスくんはおいしくたべられた。',lose:'タコスくんはレタスをふりまいている。'},
+  armadillo:{name:'マジロール',cat:'doubutsu',intro:'マジロールがまるまってころがってきた！',laugh:'カチカチ〜',defeat:'マジロールはまるまってねてしまった。',lose:'マジロールは帽子をかぶりなおした。'},
+  pepper:{name:'ペッパーン',cat:'taberu',intro:'ペッパーンがまっかになってあらわれた！',laugh:'カラ〜イ！',defeat:'ペッパーンはミルクをのんでおちついた。',lose:'ペッパーンは火をふいている。'},
+  hotdog:{name:'ドッグン',cat:'taberu',intro:'ドッグンがマスタードをたっぷりつけてあらわれた！',laugh:'ワンダフル！',defeat:'ドッグンはおいしくたべられた。',lose:'ドッグンはしっぽをふっている。'},
+  kasa:{name:'カサオバケ',cat:'tenki',intro:'カサオバケが雨の中をぴょんぴょんはねてきた！',laugh:'ベロベロ〜',defeat:'カサオバケはパタンととじてしまった。',lose:'カサオバケは雨の中でおどっている。'},
+  skyscraper:{name:'ビルディ',cat:'kurashi',intro:'ビルディが空までのびてあらわれた！',laugh:'たかいたか〜い！',defeat:'ビルディのあかりがぜんぶきえた。',lose:'ビルディは街を見おろしている。'},
+  crawfish:{name:'ザリガニッパ',cat:'doubutsu',intro:'ザリガニッパがはさみをふりあげた！',laugh:'チョキチョキ！',defeat:'ザリガニッパは後ろむきににげていった。',lose:'ザリガニッパははさみをカチカチならしている。'},
+  drum:{name:'ドラムン',cat:'ongaku',intro:'ドラムンがドンドコリズムをきざんであらわれた！',laugh:'ドンドコドン！',defeat:'ドラムンはさいごにジャーン！とならした。',lose:'ドラムンはリズムにのっている。'},
+  carnival:{name:'カーニバルマスク',cat:'yousu',intro:'パレードの中からカーニバルマスクがあらわれた！',laugh:'フフフ…',defeat:'カーニバルマスクは紙ふぶきになってきえた。',lose:'カーニバルマスクはパレードにもどっていった。'},
+  orange:{name:'オレンジくん',cat:'kurashi',intro:'オレンジくんが太陽の下でころがってきた！',laugh:'ジューシー！',defeat:'オレンジくんはジュースになった。',lose:'オレンジくんはひなたぼっこをしている。'},
+  flamingo:{name:'フラミンゴン',cat:'asobi',intro:'フラミンゴンがかた足でポーズをきめた！',laugh:'ピンク〜！',defeat:'フラミンゴンは空へとびたった。',lose:'フラミンゴンはかた足でねむっている。'},
+  rocket:{name:'ロケットン',cat:'asobi',intro:'3、2、1…ロケットンがうちあがった！',laugh:'ゴーッ！',defeat:'ロケットンは宇宙へとんでいった。',lose:'ロケットンは月をめざしている。'},
+  mike:{name:'マイクン',cat:'ongaku',intro:'マイクンが「テス、テス」とあらわれた！',laugh:'イェーイ！',defeat:'マイクンのスイッチがきれた。',lose:'マイクンはアンコールをまっている。'},
+  guitar:{name:'ギターン',cat:'ongaku',intro:'ギターンがジャカジャーンとあらわれた！',laugh:'ジャーン！',defeat:'ギターンの弦がゆるんでしまった。',lose:'ギターンはソロをひいている。'},
+  hotchicken:{name:'ヒリヒリチキン',cat:'karada',intro:'ヒリヒリチキンが湯気をあげてあらわれた！',laugh:'ヒリヒリ〜！',defeat:'ヒリヒリチキンはなみだをふいてさっていった。',lose:'ヒリヒリチキンはあせをかいている。'},
+  pencil:{name:'エンピツナイト',cat:'gakkou',intro:'エンピツナイトが盾をかまえてあらわれた！',laugh:'100てん！',defeat:'エンピツナイトのしんがおれた。',lose:'エンピツナイトはノートにメモをしている。'},
+  sandwich:{name:'サンドン',cat:'taberu',intro:'サンドンがチーズをとろ〜りさせてあらわれた！',laugh:'トロ〜リ！',defeat:'サンドンはペロリとたべられた。',lose:'サンドンはチーズをのばしている。'},
+  book:{name:'ブックン',cat:'gakkou',intro:'ブックンがメガネをくいっとあげた。「勉強の時間だ！」',laugh:'ふむふむ',defeat:'ブックンはパタンととじた。',lose:'ブックンはページをめくっている。'},
+  apple:{name:'アップルン',cat:'machi',intro:'ビッグ・アップルのアップルンがあらわれた！',laugh:'アップップ〜！',defeat:'アップルンはアップルパイになった。',lose:'アップルンはピカピカにかがやいている。'},
+  bagel:{name:'ベーグルン',cat:'machi',intro:'ベーグルンがクリームチーズをぬってあらわれた！',laugh:'モチモチ〜',defeat:'ベーグルンは朝ごはんになった。',lose:'ベーグルンは穴からのぞいている。'},
+  pigeon:{name:'ハトロン',cat:'machi',intro:'ハトロンが公園からとんできた！',laugh:'クルック〜',defeat:'ハトロンは空へとびたった。',lose:'ハトロンはパンくずをつついている。'}
 });
 
 // ===== 旅する州 =====
@@ -2051,6 +2088,12 @@ function spriteEl(id, cls){
 const SCREENS = ['title','map','battle','result','dex','setting','pass','my'];
 function show(name){
   SCREENS.forEach(s => { $('#s-'+s).hidden = s !== name; });
+  const tabbed = ['map','dex','my','pass','setting'].includes(name);
+  $('#nav').hidden = !tabbed;
+  $('#app').classList.toggle('with-nav', tabbed);
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    if(b.dataset.screen === name) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current');
+  });
   window.scrollTo(0,0);
 }
 
@@ -2140,9 +2183,10 @@ $('#startBtn').addEventListener('click', () => {
 let selState = null;
 function renderMap(){
   $('#mapName').textContent = S.name;
+  $('#mapAvatar').textContent = [...S.name][0] || '?';
   $('#mapLv').textContent = 'Lv ' + S.lv;
   $('#mapExp').style.width = (S.exp / expNeed(S.lv) * 100) + '%';
-  $('#mapExpText').textContent = `つぎの レベルまで ${expNeed(S.lv) - S.exp} EXP ・ HP ${maxHP(S.lv)}`;
+  $('#mapExpText').textContent = `次のレベルまで ${expNeed(S.lv) - S.exp} EXP ・ HP ${maxHP(S.lv)}`;
   const now = Date.now();
   let mastered = 0, due = 0;
   WORDS.forEach(w => { const p = S.words[w.w]; if(p){ if(p.s >= 5) mastered++; if(p.due <= now && p.s < 5) due++; } });
@@ -2150,7 +2194,7 @@ function renderMap(){
   $('#mapTotal').textContent = WORDS.length;
   $('#mapDue').textContent = due;
   $('#mapStamps').textContent = STATES.filter(stateCleared).length;
-  $('#artBtn').textContent = 'えのタッチ：' + (S.art === 'pixel' ? 'ドット絵' : 'イラスト');
+  $('#artBtn').textContent = '絵のタイプ：' + (S.art === 'pixel' ? 'ドット絵' : 'イラスト');
   $('#mapMy').textContent = MY.length + '語';
   drawSprite($('#memoSprite'), 'memo');
   $('#memoBtn').disabled = MYWORDS.length === 0;
@@ -2208,13 +2252,13 @@ function renderStatePanel(){
   box.appendChild(head);
   const chips = document.createElement('div');
   chips.className = 'chips';
-  chips.innerHTML = cats.map(c => `<span class="chip">${esc(CATS[c].name)}：${esc(CATS[c].desc)}</span>`).join('') + (st.code === 'NY' ? '<span class="chip">ラスボス：ぜんぶの たんご</span>' : '');
+  chips.innerHTML = cats.map(c => `<span class="chip">${esc(CATS[c].name)}：${esc(CATS[c].desc)}</span>`).join('') + (st.code === 'NY' ? '<span class="chip">ラスボス：ぜんぶのたんご</span>' : '');
   box.appendChild(chips);
   if(!open){
     const from = STATES.filter(o => o.next.includes(st.code)).map(o => o.ja).join(' か ');
     const p = document.createElement('p');
     p.className = 'note';
-    p.textContent = `${from}を クリアすると いけるように なるよ。`;
+    p.textContent = `${from}をクリアするといけるようになるよ。`;
     box.appendChild(p);
   }
   const list = document.createElement('div');
@@ -2228,10 +2272,10 @@ function renderStatePanel(){
     b.className = 'btn stage' + (ok ? '' : ' locked');
     b.disabled = !ok;
     const tag = id === 'lexidra' ? 'ラスボス' : m.boss ? '州ボス' : '';
-    const catName = m.cat === 'all' ? 'ぜんぶの たんご' : m.boss ? cats.map(c => CATS[c].name).join('・') + ' の総まとめ' : CATS[m.cat].name + '：' + CATS[m.cat].desc;
+    const catName = m.cat === 'all' ? 'ぜんぶのたんご' : m.boss ? cats.map(c => CATS[c].name).join('・') + ' の総まとめ' : CATS[m.cat].name + '：' + CATS[m.cat].desc;
     b.innerHTML = `<div class="sp"></div>
       <div class="grow"><div class="sname">${ok ? esc(m.name) : '？？？'}${tag ? ` <span class="chip">${tag}</span>` : ''}</div>
-      <div class="smeta">${ok ? esc(catName) : open ? 'まえの モンスターを たおすと あらわれる' : 'まだ いけない'}</div>
+      <div class="smeta">${ok ? esc(catName) : open ? 'まえのモンスターをたおすとあらわれる' : 'まだいけない'}</div>
       <div class="smeta">マスター ${mm} / ${pool.length}</div></div>
       <div class="swins">${S.wins[id] ? '討伐 ' + S.wins[id] : ''}</div>`;
     const cv = spriteEl(id);
@@ -2244,7 +2288,7 @@ function renderStatePanel(){
   if(clear){
     const f = document.createElement('div');
     f.className = 'facts';
-    f.innerHTML = '<div class="label">この州の 豆知識</div>' + st.facts.map(([e,j]) => `<p><span>${esc(e)}</span><br><small>${esc(j)}</small></p>`).join('');
+    f.innerHTML = '<div class="label">この州の豆知識</div>' + st.facts.map(([e,j]) => `<p><span>${esc(e)}</span><br><small>${esc(j)}</small></p>`).join('');
     box.appendChild(f);
   }
 }
@@ -2255,10 +2299,15 @@ function renderPass(){
     const c = stateCleared(st);
     return `<div class="win stamp-card ${c ? 'got' : ''}">
       <div class="stamp">${c ? st.code : '？'}</div>
-      <div class="grow"><div class="sname">${esc(st.ja)}</div><div class="smeta">${c ? esc(st.nick) : 'まだ クリアしていない'}</div>
+      <div class="grow"><div class="sname">${esc(st.ja)}</div><div class="smeta">${c ? esc(st.nick) : 'まだクリアしていない'}</div>
       ${c ? st.facts.map(([e,j]) => `<p class="fact"><span>${esc(e)}</span><br><small>${esc(j)}</small></p>`).join('') : ''}</div></div>`;
   }).join('');
 }
+$('#navHome').addEventListener('click', () => { renderMap(); show('map'); });
+$('#navMy').addEventListener('click', () => { renderMy(); show('my'); });
+$('#nameInput2').addEventListener('change', () => {
+  S.name = ($('#nameInput2').value.trim() || 'ゆうしゃ').slice(0,8); persist();
+});
 $('#passBtn').addEventListener('click', () => { play('select'); renderPass(); show('pass'); });
 $('#passBack').addEventListener('click', () => { renderMap(); show('map'); });
 $('#artBtn').addEventListener('click', () => {
@@ -2297,6 +2346,7 @@ function startBattle(id){
   drawSprite(cv, m.id);
   $('#eName').textContent = m.name;
   $('#pName').textContent = S.name;
+  $('#pAvatar').textContent = [...S.name][0] || '?';
   $('#pLv').textContent = 'Lv' + S.lv;
   $('#qWord').textContent = '…';
   $('#qCat').textContent = '';
@@ -2327,7 +2377,7 @@ function nextQ(){
     b.addEventListener('click', () => answer(i));
     box.appendChild(b);
   });
-  setMsg('いみを えらべ！', 'はやく こたえるほど つよい こうげきに なる');
+  setMsg('意味をえらぼう', '速く答えるほど強い攻撃になる');
   B.t0 = performance.now();
   B.locked = false;
   tick();
@@ -2377,8 +2427,8 @@ function answer(i){
     retrigger($('#eSprite'), 'anim-hit');
     popDamage(dmg, kind === 'crit');
     play(kind === 'crit' ? 'crit' : 'hit');
-    const head = kind === 'crit' ? 'かいしんの いちげき！ ' : kind === 'slow' ? 'こうげきが かすった！ ' : '';
-    setMsg(`${head}${m.name}に ${dmg}の ダメージ！`, `${word.w} ＝ ${word.m}`);
+    const head = kind === 'crit' ? '会心の一撃！ ' : kind === 'slow' ? '攻撃がかすった… ' : '';
+    setMsg(`${head}${m.name}に${dmg}のダメージ！`, `${word.w} ＝ ${word.m}`);
     updateBars();
     later(() => { B.mhp <= 0 ? win() : nextQ(); }, kind === 'crit' ? 1300 : 1100);
   }else{
@@ -2387,7 +2437,7 @@ function answer(i){
     B.php = Math.max(0, B.php - dmg);
     retrigger($('#app'), 'anim-shake');
     play('miss');
-    setMsg(`${i < 0 ? 'じかんぎれ！ ' : ''}${m.name}の こうげき！ ${S.name}は ${dmg}の ダメージ！`, m.laugh ? `${m.name}「${m.laugh}」` : '');
+    setMsg(`${i < 0 ? '時間切れ！ ' : ''}${m.name}の攻撃！ ${S.name}は${dmg}のダメージ`, m.laugh ? `${m.name}「${m.laugh}」` : '');
     updateBars();
     B.queue.splice(Math.min(3, B.queue.length), 0, word);
     later(() => {
@@ -2422,7 +2472,7 @@ function win(){
   B.locked = true;
   retrigger($('#eSprite'), 'anim-vanish');
   play('win');
-  setMsg(`${m.name}を たおした！`);
+  setMsg(`${m.name}をたおした！`);
   const st = m.state ? stateOf(m.state) : null;
   const wasClear = st ? stateCleared(st) : true;
   S.wins[m.id] = (S.wins[m.id] || 0) + 1;
@@ -2447,17 +2497,17 @@ function showResult(won, gained, ups){
   const rs = $('#rSprite');
   drawSprite(rs, m.id);
   rs.style.opacity = won ? '.25' : '1';
-  let text = (won ? m.defeat : m.lose) + `\n${gained} EXP を てにいれた。`;
-  if(ups) text += `\nレベルが あがった！ Lv ${S.lv} に なった！`;
+  let text = (won ? m.defeat : m.lose) + `\n${gained} EXPを手に入れた。`;
+  if(ups) text += `\nレベルアップ！ Lv ${S.lv}になった！`;
   let html = esc(text).replace(/\n/g, '<br>');
   const cs = won && B.clearState;
   if(cs){
     const nexts = cs.next.map(stateOf).filter(stateOpen).map(x => x.ja);
     const fact = cs.facts[0];
     html += `<div class="clear-box"><div class="clear-stamp">${cs.code}</div><div>
-      <b>${esc(cs.ja)} クリア！ スタンプ ゲット！</b>
+      <b>${esc(cs.ja)} クリア！スタンプゲット！</b>
       <p><span>${esc(fact[0])}</span><br><small>${esc(fact[1])}</small></p>
-      ${nexts.length ? `<p>つぎは ${esc(nexts.join('・'))}へ いけるように なった！</p>` : cs.code === 'NY' ? '<p>アメリカ横断 達成！ おめでとう！</p>' : ''}</div></div>`;
+      ${nexts.length ? `<p>つぎは ${esc(nexts.join('・'))}へいけるようになった！</p>` : cs.code === 'NY' ? '<p>アメリカ横断達成！おめでとう！</p>' : ''}</div></div>`;
     setTimeout(() => play('lvup'), 1500);
   }
   $('#rMsg').innerHTML = html;
@@ -2491,7 +2541,7 @@ $('#toMapBtn').addEventListener('click', () => { B = null; play('select'); rende
 let dexCat = 'all', dexHide = false;
 function renderDex(){
   const tabs = $('#dexTabs');
-  const opts = [['all','ぜんぶ'], ...Object.entries(CATS).map(([k,v]) => [k, v.name])];
+  const opts = [['all','すべて'], ...Object.entries(CATS).map(([k,v]) => [k, v.name])];
   tabs.innerHTML = '';
   opts.forEach(([k,label]) => {
     const t = document.createElement('button');
@@ -2503,7 +2553,7 @@ function renderDex(){
   const list = $('#dexList');
   list.classList.toggle('hide', dexHide);
   $('#dexHide').setAttribute('aria-pressed', String(dexHide));
-  $('#dexHide').textContent = dexHide ? 'いみを みせる' : 'いみを かくす';
+  $('#dexHide').textContent = dexHide ? '意味を表示' : '意味をかくす';
   const words = WORDS.filter(w => dexCat === 'all' || w.c === dexCat)
     .slice().sort((a,b) => getP(a.w).s - getP(b.w).s);
   list.innerHTML = '';
@@ -2528,7 +2578,7 @@ $('#dexBack').addEventListener('click', () => { renderMap(); show('map'); });
 /* ===================== SETTINGS ===================== */
 function renderSetting(){
   $('#nameInput2').value = S.name;
-  $('#soundBtn').textContent = 'こうかおん：' + (S.sound ? 'オン' : 'オフ');
+  $('#soundBtn').textContent = '効果音：' + (S.sound ? 'オン' : 'オフ');
   $('#resetConfirm').hidden = true;
 }
 $('#soundBtn').addEventListener('click', () => { S.sound = !S.sound; persist(); renderSetting(); play('select'); });
@@ -2547,7 +2597,7 @@ $('#settingBack').addEventListener('click', () => {
 /* ===================== MY WORDS ===================== */
 // Words the player adds. Saved in the artifact's db (same list on phone and PC);
 // falls back to this browser's storage when db is not available.
-CATS.my = {name:'マイたんご', desc:'自分で 追加した 単語'};
+CATS.my = {name:'マイたんご', desc:'自分で追加した単語'};
 ILLUST.memo = {body:`
   <path d="M30 30H170V150L130 190H30Z" fill="#ffe14d"/>
   <path d="M170 150H130V190Z" fill="#e8c43a"/>
@@ -2558,8 +2608,8 @@ ILLUST.memo = {body:`
   <ellipse cx="64" cy="142" rx="8" ry="5" fill="#ff9aa8" stroke="none"/><ellipse cx="132" cy="142" rx="8" ry="5" fill="#ff9aa8" stroke="none"/>
   <path d="M150 40L186 76L176 86L140 50Z" fill="#ff7a5a"/><path d="M140 50L134 34L150 40Z" fill="#f2d9b0"/>`};
 MONSTERS.push({id:'memo', state:null, bg:'bg-town', boss:false, name:'メモリン', cat:'my', hp:80, atk:7, exp:30,
-  intro:'メモリンが キミの 新しい 単語を もって あらわれた！', laugh:'メモメモ〜',
-  defeat:'メモリン「ちゃんと 覚えてるね！」', lose:'メモリン「もう一回 見なおそう！」'});
+  intro:'メモリンがキミの新しい単語をもってあらわれた！', laugh:'メモメモ〜',
+  defeat:'メモリン「ちゃんと覚えてるね！」', lose:'メモリン「もう一回見なおそう！」'});
 
 let MY = [];          // [{id, w, m, e, j, at}]
 let MYWORDS = [];     // word objects used in battles
@@ -2626,13 +2676,13 @@ function myStatus(text, bad){
 }
 function renderMy(){
   $('#mySync').textContent = myDb
-    ? 'スマホと PCで 同じ マイたんごが 使えます。'
-    : 'マイたんごは この端末の ブラウザに 保存されます。';
-  $('#myMix').textContent = '旅の バトルにも まぜる：' + (S.mixMy === false ? 'オフ' : 'オン');
+    ? 'スマホと PCで同じマイたんごが使えます。'
+    : 'マイたんごはこの端末のブラウザに保存されます。';
+  $('#myMix').textContent = '旅のバトルにもまぜる：' + (S.mixMy === false ? 'オフ' : 'オン');
   $('#myCount').textContent = `${MY.length} 語`;
   const list = $('#myList'); list.innerHTML = '';
   if(!MY.length){
-    list.innerHTML = '<li class="empty">まだ ありません。上の フォームから 最近 覚えた 単語を 追加しよう。</li>';
+    list.innerHTML = '<li class="empty">まだありません。上のフォームから最近覚えた単語を追加しよう。</li>';
     return;
   }
   MY.forEach(x => {
@@ -2640,12 +2690,12 @@ function renderMy(){
     li.innerHTML = `<span class="en">${esc(x.w)}</span><span class="ja">${esc(x.m)}</span>${starsHTML(getP(x.w).s)}`;
     const del = document.createElement('button');
     del.className = 'del'; del.type = 'button';
-    del.setAttribute('aria-label', x.w + ' を けす');
+    del.setAttribute('aria-label', x.w + ' をけす');
     del.textContent = '×';
     del.addEventListener('click', async () => {
       if(del.dataset.armed !== '1'){ del.dataset.armed = '1'; del.textContent = 'けす？'; return; }
       del.disabled = true;
-      try{ await deleteMyWord(x.id); }catch(e){ myStatus('けせませんでした。もう一度 ためしてね。', true); del.disabled = false; }
+      try{ await deleteMyWord(x.id); }catch(e){ myStatus('けせませんでした。もう一度ためしてね。', true); del.disabled = false; }
     });
     li.appendChild(del);
     list.appendChild(li);
@@ -2654,13 +2704,13 @@ function renderMy(){
 $('#myForm').addEventListener('submit', async e => {
   e.preventDefault();
   const w = $('#myW').value.trim(), m = $('#myM').value.trim();
-  if(!w || !m){ myStatus('英語と 意味の 両方を 入れてね。', true); return; }
+  if(!w || !m){ myStatus('英語と意味の両方を入れてね。', true); return; }
   const btn = $('#myAdd'); btn.disabled = true;
   try{
     const r = await addMyWords([{w, m, e:$('#myE').value.trim(), j:$('#myJ').value.trim()}]);
-    if(r.added){ myStatus(`「${w}」を 追加したよ！`); ['#myW','#myM','#myE','#myJ'].forEach(s => $(s).value = ''); $('#myW').focus(); }
-    else myStatus(`「${w}」は もう 入っているよ。`, true);
-  }catch(err){ myStatus('追加できませんでした。もう一度 ためしてね。', true); }
+    if(r.added){ myStatus(`「${w}」を追加したよ！`); ['#myW','#myM','#myE','#myJ'].forEach(s => $(s).value = ''); $('#myW').focus(); }
+    else myStatus(`「${w}」はもう入っているよ。`, true);
+  }catch(err){ myStatus('追加できませんでした。もう一度ためしてね。', true); }
   btn.disabled = false;
 });
 $('#myBulkAdd').addEventListener('click', async () => {
@@ -2670,13 +2720,13 @@ $('#myBulkAdd').addEventListener('click', async () => {
     const m = l.match(/^(.+?)\s*[=＝:：]\s*(.+)$/);
     if(m) items.push({w:m[1].trim(), m:m[2].trim(), e:'', j:''}); else bad.push(l);
   });
-  if(!items.length){ myStatus('「英語 = 意味」の 形で 1行に 1つずつ 書いてね。', true); return; }
+  if(!items.length){ myStatus('「英語 = 意味」の形で 1行に 1つずつ書いてね。', true); return; }
   const btn = $('#myBulkAdd'); btn.disabled = true;
   try{
     const r = await addMyWords(items);
     $('#myBulk').value = bad.join('\n');
-    myStatus(`${r.added}語 追加したよ！` + (r.skipped ? `（${r.skipped}語は もう 入っていた）` : '') + (bad.length ? ` 読めなかった 行が ${bad.length}つ あるよ。` : ''), bad.length > 0);
-  }catch(err){ myStatus('追加できませんでした。もう一度 ためしてね。', true); }
+    myStatus(`${r.added}語追加したよ！` + (r.skipped ? `（${r.skipped}語はもう入っていた）` : '') + (bad.length ? ` 読めなかった行が ${bad.length}つあるよ。` : ''), bad.length > 0);
+  }catch(err){ myStatus('追加できませんでした。もう一度ためしてね。', true); }
   btn.disabled = false;
 });
 $('#myMix').addEventListener('click', () => { S.mixMy = S.mixMy === false; persist(); renderMy(); });
