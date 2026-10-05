@@ -132,6 +132,22 @@ canvas.sprite.illust{image-rendering:auto}
 .clear-box{display:flex;gap:14px;align-items:flex-start;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(244,240,226,.25)}
 .clear-box b{color:var(--gold);font-weight:normal}
 .clear-box p{margin:6px 0 0}
+.my-panel{display:grid;grid-template-columns:56px 1fr;gap:8px 12px;align-items:center}
+.my-panel canvas{height:52px;margin:0 auto}
+.my-actions{grid-column:1/-1;display:flex;gap:10px}
+.my-actions .btn{flex:1;text-align:center}
+.my-form{display:flex;flex-direction:column;gap:10px}
+.my-form input,.my-bulk textarea{background:var(--shadow);border:2px solid var(--frame);border-radius:4px;padding:8px 10px;font-size:16px;width:100%;color:var(--ink);font-family:var(--f-ui)}
+.my-form input::placeholder,.my-bulk textarea::placeholder{color:#5a6290}
+.my-form input:focus-visible,.my-bulk textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.my-bulk{display:flex;flex-direction:column;gap:10px}
+.my-bulk summary{cursor:pointer;color:var(--gold)}
+.my-bulk[open]{gap:10px}
+.wlist.my-list li{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) auto auto}
+.wlist.my-list li.empty{display:block;color:var(--muted);font-size:14px}
+.del{background:transparent;border:2px solid var(--muted);border-radius:4px;color:var(--muted);font:inherit;font-size:13px;padding:2px 8px;cursor:pointer;white-space:nowrap}
+.del[data-armed="1"]{border-color:var(--danger);color:var(--danger)}
+.del:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .soon{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .soon .win{padding:10px 12px;border-style:dashed;opacity:.7}
 .soon b{display:block;font-weight:normal}
@@ -266,6 +282,17 @@ h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);marg
         <div class="num" style="font-size:22px;color:var(--sky)" id="mapDue">0</div>
       </div>
     </div>
+    <div class="win my-panel">
+      <div class="sp"><canvas class="sprite" id="memoSprite"></canvas></div>
+      <div class="grow">
+        <div class="sname">マイたんご <span class="num" id="mapMy"></span></div>
+        <div class="smeta">最近 覚えた 単語を 追加して、メモリンと 練習しよう</div>
+      </div>
+      <div class="my-actions">
+        <button class="btn small" id="myBtn">単語を 追加</button>
+        <button class="btn small" id="memoBtn">たたかう</button>
+      </div>
+    </div>
     <h2>アメリカ横断の たび ─ ハワイから ニューヨークへ</h2>
     <div class="win mapwin">
       <svg id="usmap" viewBox="0 0 975 610" role="img" aria-label="アメリカの地図"></svg>
@@ -347,6 +374,32 @@ h2{font-size:14px;font-weight:normal;letter-spacing:.2em;color:var(--muted);marg
     <div class="tabs" id="dexTabs"></div>
     <p class="note">いみを かくして、すぐ言えるか ためそう。タップで いみと 例文が でるよ。</p>
     <div class="win"><ul class="wlist dex" id="dexList"></ul></div>
+  </section>
+
+  <!-- MY WORDS -->
+  <section class="screen" id="s-my" hidden>
+    <div class="row spread">
+      <button class="btn small" id="myBack">もどる</button>
+      <span class="label" id="myCount"></span>
+    </div>
+    <form class="win my-form" id="myForm" autocomplete="off">
+      <div class="label">最近 覚えた 単語を 追加</div>
+      <div class="field"><label class="label" for="myW">英語</label><input id="myW" maxlength="60" placeholder="例：awesome / Never give up."></div>
+      <div class="field"><label class="label" for="myM">意味</label><input id="myM" maxlength="40" placeholder="例：すごい・最高の"></div>
+      <div class="field"><label class="label" for="myE">例文（なくても OK）</label><input id="myE" maxlength="120" placeholder="例：That movie was awesome!"></div>
+      <div class="field"><label class="label" for="myJ">例文の 意味（なくても OK）</label><input id="myJ" maxlength="80" placeholder="例：あの映画は最高だった！"></div>
+      <button class="btn primary" id="myAdd" type="submit">追加する</button>
+      <p class="note" id="myStatus" role="status"></p>
+    </form>
+    <details class="win my-bulk">
+      <summary>まとめて 追加する</summary>
+      <p class="note">1行に 1つずつ「英語 = 意味」の 形で 書いてね。</p>
+      <textarea id="myBulk" rows="5" placeholder="awesome = すごい&#10;exhausted = くたくたの&#10;Take it easy. = 気楽にね。"></textarea>
+      <button class="btn" id="myBulkAdd" type="button">まとめて 追加</button>
+    </details>
+    <button class="btn" id="myMix" type="button"></button>
+    <p class="note" id="mySync"></p>
+    <div class="win"><ul class="wlist my-list" id="myList"></ul></div>
   </section>
 
   <!-- PASSPORT -->
@@ -1908,7 +1961,12 @@ const stateCleared = st => st.mons.every(id => S.wins[id]);
 const stateOpen = st => st.code === 'HI' || STATES.some(o => o.next.includes(st.code) && stateCleared(o));
 const monOpen = (st, i) => stateOpen(st) && (i === 0 || !!S.wins[st.mons[i-1]]);
 function poolFor(m){
+  if(m.cat === 'my') return MYWORDS;
+  const mix = S.mixMy === false ? [] : MYWORDS;
   if(m.cat === 'all') return WORDS;
+  return basePool(m).concat(mix.filter(w => !basePool(m).includes(w)));
+}
+function basePool(m){
   const cats = m.boss ? [...new Set(stateOf(m.state).mons.map(id => MON[id].cat))] : [m.cat];
   return WORDS.filter(w => cats.includes(w.c));
 }
@@ -1990,7 +2048,7 @@ function spriteEl(id, cls){
   return cv;
 }
 
-const SCREENS = ['title','map','battle','result','dex','setting','pass'];
+const SCREENS = ['title','map','battle','result','dex','setting','pass','my'];
 function show(name){
   SCREENS.forEach(s => { $('#s-'+s).hidden = s !== name; });
   window.scrollTo(0,0);
@@ -2053,7 +2111,11 @@ function pickWords(pool, n){
   }).sort((a,b) => b.k - a.k).slice(0,n).map(x => x.w);
 }
 function makeChoices(word){
-  const others = shuffle(WORDS.filter(x => x.c === word.c && x.m !== word.m)).slice(0,3);
+  let others = shuffle(WORDS.filter(x => x.c === word.c && x.m !== word.m)).slice(0,3);
+  if(others.length < 3){
+    const used = new Set([word.m, ...others.map(x => x.m)]);
+    shuffle(WORDS).forEach(x => { if(others.length < 3 && !used.has(x.m)){ used.add(x.m); others.push(x); } });
+  }
   return shuffle([word, ...others]);
 }
 function giveExp(n){
@@ -2089,6 +2151,9 @@ function renderMap(){
   $('#mapDue').textContent = due;
   $('#mapStamps').textContent = STATES.filter(stateCleared).length;
   $('#artBtn').textContent = 'えのタッチ：' + (S.art === 'pixel' ? 'ドット絵' : 'イラスト');
+  $('#mapMy').textContent = MY.length + '語';
+  drawSprite($('#memoSprite'), 'memo');
+  $('#memoBtn').disabled = MYWORDS.length === 0;
   if(!selState){
     const cur = STATES.find(st => stateOpen(st) && !stateCleared(st)) || STATES[STATES.length-1];
     selState = cur.code;
@@ -2329,8 +2394,8 @@ function answer(i){
       $('#choices').hidden = true;
       $('#exWord').textContent = word.w;
       $('#exAns').textContent = word.m;
-      $('#exEn').textContent = word.e;
-      $('#exJa').textContent = word.j;
+      $('#exEn').textContent = word.e || '';
+      $('#exJa').textContent = word.j || '';
       $('#explain').hidden = false;
       $('#nextBtn').focus({preventScroll:true});
     }, 700);
@@ -2358,10 +2423,10 @@ function win(){
   retrigger($('#eSprite'), 'anim-vanish');
   play('win');
   setMsg(`${m.name}を たおした！`);
-  const st = stateOf(m.state);
-  const wasClear = stateCleared(st);
+  const st = m.state ? stateOf(m.state) : null;
+  const wasClear = st ? stateCleared(st) : true;
   S.wins[m.id] = (S.wins[m.id] || 0) + 1;
-  B.clearState = !wasClear && stateCleared(st) ? st : null;
+  B.clearState = st && !wasClear && stateCleared(st) ? st : null;
   const ups = giveExp(m.exp);
   persist();
   later(() => showResult(true, m.exp, ups), 1300);
@@ -2479,7 +2544,148 @@ $('#settingBack').addEventListener('click', () => {
   persist(); renderMap(); show('map');
 });
 
+/* ===================== MY WORDS ===================== */
+// Words the player adds. Saved in the artifact's db (same list on phone and PC);
+// falls back to this browser's storage when db is not available.
+CATS.my = {name:'マイたんご', desc:'自分で 追加した 単語'};
+ILLUST.memo = {body:`
+  <path d="M30 30H170V150L130 190H30Z" fill="#ffe14d"/>
+  <path d="M170 150H130V190Z" fill="#e8c43a"/>
+  <rect x="78" y="16" width="44" height="20" fill="#bfe6f5" stroke="none" opacity=".85" transform="rotate(-5 100 26)"/>
+  <path d="M50 60h84M50 80h100M50 100h70" fill="none" stroke="#c9a82a" stroke-width="3"/>
+  <circle cx="80" cy="130" r="6" fill="#2b2233" stroke="none"/><circle cx="116" cy="130" r="6" fill="#2b2233" stroke="none"/>
+  <path d="M88 148Q98 158 108 148" fill="none" stroke-width="4"/>
+  <ellipse cx="64" cy="142" rx="8" ry="5" fill="#ff9aa8" stroke="none"/><ellipse cx="132" cy="142" rx="8" ry="5" fill="#ff9aa8" stroke="none"/>
+  <path d="M150 40L186 76L176 86L140 50Z" fill="#ff7a5a"/><path d="M140 50L134 34L150 40Z" fill="#f2d9b0"/>`};
+MONSTERS.push({id:'memo', state:null, bg:'bg-town', boss:false, name:'メモリン', cat:'my', hp:80, atk:7, exp:30,
+  intro:'メモリンが キミの 新しい 単語を もって あらわれた！', laugh:'メモメモ〜',
+  defeat:'メモリン「ちゃんと 覚えてるね！」', lose:'メモリン「もう一回 見なおそう！」'});
+
+let MY = [];          // [{id, w, m, e, j, at}]
+let MYWORDS = [];     // word objects used in battles
+let myDb = null;
+const MY_KEY = 'answerquest.my';
+
+function applyMy(){
+  for(let i = WORDS.length - 1; i >= 0; i--) if(WORDS[i].c === 'my') WORDS.splice(i, 1);
+  MYWORDS = MY.map(x => {
+    const same = WORDS.find(w => w.w.toLowerCase() === x.w.toLowerCase());
+    if(same) return same;
+    const w = {w:x.w, m:x.m, c:'my', e:x.e || '', j:x.j || ''};
+    WORDS.push(w);
+    return w;
+  });
+  if(!$('#s-map').hidden) renderMap();
+  if(!$('#s-my').hidden) renderMy();
+  if(!$('#s-dex').hidden) renderDex();
+}
+async function initMy(){
+  try{
+    const db = window.claude && window.claude.use ? await window.claude.use('db') : null;
+    if(db){
+      myDb = db;
+      db.collection('mywords').orderBy('at', 'desc').onSnapshot(snap => {
+        MY = snap.docs.map(d => Object.assign({id:d.id}, d.data()));
+        applyMy();
+      }, () => {});
+      return;
+    }
+  }catch(e){}
+  try{ MY = JSON.parse(localStorage.getItem(MY_KEY) || '[]'); }catch(e){ MY = []; }
+  applyMy();
+}
+function saveLocalMy(){ try{ localStorage.setItem(MY_KEY, JSON.stringify(MY)); }catch(e){} }
+
+async function addMyWords(items){
+  const have = new Set(MY.map(x => x.w.toLowerCase()));
+  const fresh = [];
+  items.forEach(it => {
+    const key = it.w.toLowerCase();
+    if(!have.has(key)){ have.add(key); fresh.push(it); }
+  });
+  if(!fresh.length) return {added:0, skipped:items.length};
+  if(myDb){
+    for(const [i, it] of fresh.entries()){
+      await myDb.collection('mywords').add(Object.assign({at: Date.now() + i}, it));
+    }
+  }else{
+    fresh.forEach((it, i) => MY.unshift(Object.assign({id: 'l' + (Date.now() + i), at: Date.now() + i}, it)));
+    saveLocalMy(); applyMy();
+  }
+  return {added:fresh.length, skipped:items.length - fresh.length};
+}
+async function deleteMyWord(id){
+  if(myDb){ await myDb.doc('mywords/' + id).delete(); }
+  else{ MY = MY.filter(x => x.id !== id); saveLocalMy(); applyMy(); }
+}
+
+function myStatus(text, bad){
+  const el = $('#myStatus');
+  el.textContent = text;
+  el.style.color = bad ? 'var(--danger)' : 'var(--hp)';
+}
+function renderMy(){
+  $('#mySync').textContent = myDb
+    ? 'スマホと PCで 同じ マイたんごが 使えます。'
+    : 'マイたんごは この端末の ブラウザに 保存されます。';
+  $('#myMix').textContent = '旅の バトルにも まぜる：' + (S.mixMy === false ? 'オフ' : 'オン');
+  $('#myCount').textContent = `${MY.length} 語`;
+  const list = $('#myList'); list.innerHTML = '';
+  if(!MY.length){
+    list.innerHTML = '<li class="empty">まだ ありません。上の フォームから 最近 覚えた 単語を 追加しよう。</li>';
+    return;
+  }
+  MY.forEach(x => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="en">${esc(x.w)}</span><span class="ja">${esc(x.m)}</span>${starsHTML(getP(x.w).s)}`;
+    const del = document.createElement('button');
+    del.className = 'del'; del.type = 'button';
+    del.setAttribute('aria-label', x.w + ' を けす');
+    del.textContent = '×';
+    del.addEventListener('click', async () => {
+      if(del.dataset.armed !== '1'){ del.dataset.armed = '1'; del.textContent = 'けす？'; return; }
+      del.disabled = true;
+      try{ await deleteMyWord(x.id); }catch(e){ myStatus('けせませんでした。もう一度 ためしてね。', true); del.disabled = false; }
+    });
+    li.appendChild(del);
+    list.appendChild(li);
+  });
+}
+$('#myForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const w = $('#myW').value.trim(), m = $('#myM').value.trim();
+  if(!w || !m){ myStatus('英語と 意味の 両方を 入れてね。', true); return; }
+  const btn = $('#myAdd'); btn.disabled = true;
+  try{
+    const r = await addMyWords([{w, m, e:$('#myE').value.trim(), j:$('#myJ').value.trim()}]);
+    if(r.added){ myStatus(`「${w}」を 追加したよ！`); ['#myW','#myM','#myE','#myJ'].forEach(s => $(s).value = ''); $('#myW').focus(); }
+    else myStatus(`「${w}」は もう 入っているよ。`, true);
+  }catch(err){ myStatus('追加できませんでした。もう一度 ためしてね。', true); }
+  btn.disabled = false;
+});
+$('#myBulkAdd').addEventListener('click', async () => {
+  const lines = $('#myBulk').value.split('\n').map(l => l.trim()).filter(Boolean);
+  const items = [], bad = [];
+  lines.forEach(l => {
+    const m = l.match(/^(.+?)\s*[=＝:：]\s*(.+)$/);
+    if(m) items.push({w:m[1].trim(), m:m[2].trim(), e:'', j:''}); else bad.push(l);
+  });
+  if(!items.length){ myStatus('「英語 = 意味」の 形で 1行に 1つずつ 書いてね。', true); return; }
+  const btn = $('#myBulkAdd'); btn.disabled = true;
+  try{
+    const r = await addMyWords(items);
+    $('#myBulk').value = bad.join('\n');
+    myStatus(`${r.added}語 追加したよ！` + (r.skipped ? `（${r.skipped}語は もう 入っていた）` : '') + (bad.length ? ` 読めなかった 行が ${bad.length}つ あるよ。` : ''), bad.length > 0);
+  }catch(err){ myStatus('追加できませんでした。もう一度 ためしてね。', true); }
+  btn.disabled = false;
+});
+$('#myMix').addEventListener('click', () => { S.mixMy = S.mixMy === false; persist(); renderMy(); });
+$('#myBack').addEventListener('click', () => { renderMap(); show('map'); });
+$('#myBtn').addEventListener('click', () => { play('select'); renderMy(); show('my'); });
+$('#memoBtn').addEventListener('click', () => { if(MYWORDS.length){ play('select'); startBattle('memo'); } });
+
 /* ===================== BOOT ===================== */
 renderTitle();
 show('title');
+initMy();
 </script>
