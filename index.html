@@ -3390,11 +3390,24 @@ function renderCityHero(){
   if(v.dataset.src === src) return;
   v.dataset.src = src;
   v.hidden = true;
-  v.onloadeddata = () => { v.hidden = false; const p = v.play(); if(p && p.catch) p.catch(() => {}); };
+  // Show the video only once it is really playing. If autoplay is blocked
+  // (e.g. iPhone Low Power Mode), the animated city stays and the first tap starts the video.
+  v.onplaying = () => { v.hidden = false; };
   v.onerror = () => { v.hidden = true; };
-  v.muted = true; v.playsInline = true; v.loop = true;
+  v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = true;
+  v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+  const tryPlay = () => { const p = v.play(); if(p && p.catch) p.catch(() => {}); };
+  v.oncanplay = tryPlay;
   v.src = src;
+  v.load();
+  tryPlay();
 }
+function kickCityVideo(){
+  const v = $('#cityVideo');
+  if(v && v.paused && v.dataset.src){ const p = v.play(); if(p && p.catch) p.catch(() => {}); }
+}
+['pointerdown','touchstart','keydown'].forEach(ev => document.addEventListener(ev, kickCityVideo, {passive:true}));
+document.addEventListener('visibilitychange', () => { if(!document.hidden) kickCityVideo(); });
 
 /* ===================== BOOT ===================== */
 if(!S.v2){
