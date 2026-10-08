@@ -559,6 +559,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
       </div>
     </div>
     <p class="note">レベルと★の記録はこの端末のブラウザに保存されます。</p>
+    <p class="note">タイトル画面の街の動画：Pexels（無料ライセンス）</p>
     <button class="btn" id="settingBack" hidden>もどる</button>
   </section>
 </div>
@@ -3308,8 +3309,8 @@ const CITY = {
   CA:{name:'Los Angeles, California', sky:['#3b2a6b','#ff7a59','#ffc178'], kind:'city'},
   NV:{name:'Las Vegas, Nevada', sky:['#0b0b2a','#2a1250','#5a1a6a'], kind:'neon'},
   AZ:{name:'Grand Canyon, Arizona', sky:['#3a3a8a','#ff8a4a','#ffd08a'], kind:'canyon'},
-  CO:{name:'Denver, Colorado', sky:['#1c3c78','#6aa0e0','#d8ecff'], kind:'mountain'},
-  TX:{name:'Austin, Texas', sky:['#2a2a6a','#ff6a3c','#ffb35a'], kind:'city'},
+  CO:{name:'Red Rocks, Colorado', sky:['#1c3c78','#6aa0e0','#d8ecff'], kind:'mountain'},
+  TX:{name:'Dallas, Texas', sky:['#2a2a6a','#ff6a3c','#ffb35a'], kind:'city'},
   IL:{name:'Chicago, Illinois', sky:['#0e1a3a','#2b4a8a','#7a9ad0'], kind:'city'},
   LA:{name:'New Orleans, Louisiana', sky:['#1a1a3a','#5a2a5a','#c46a6a'], kind:'city'},
   FL:{name:'Miami, Florida', sky:['#2a80d6','#ff8fa8','#ffd2a0'], kind:'beach'},
@@ -3391,6 +3392,7 @@ function renderCityHero(){
   v.hidden = true;
   v.onloadeddata = () => { v.hidden = false; const p = v.play(); if(p && p.catch) p.catch(() => {}); };
   v.onerror = () => { v.hidden = true; };
+  v.muted = true; v.playsInline = true; v.loop = true;
   v.src = src;
 }
 
