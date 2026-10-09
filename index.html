@@ -414,6 +414,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .tstamps{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .tstamp{color:#fff;font-weight:800;font-size:13px;padding:6px 12px;border-radius:999px;transform:rotate(-3deg)}
 .talk-ico{font-size:30px;display:grid;place-items:center}
+#nameInput::placeholder,#nameInput2::placeholder{color:var(--muted);opacity:.55}
 </style>
 
 <div class="app" id="app">
@@ -433,7 +434,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
     </div>
     <div class="win field">
       <label class="label" for="nameInput">プレイヤー名</label>
-      <input id="nameInput" maxlength="8" autocomplete="off">
+      <input id="nameInput" maxlength="8" autocomplete="off" placeholder="ゆうしゃ">
     </div>
     <button class="btn primary" id="startBtn">冒険をはじめる</button>
   </section>
@@ -616,7 +617,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
     <div class="win settings">
       <div class="field">
         <label class="label" for="nameInput2">プレイヤー名</label>
-        <input id="nameInput2" maxlength="8" autocomplete="off">
+        <input id="nameInput2" maxlength="8" autocomplete="off" placeholder="ゆうしゃ">
       </div>
       <button class="btn" id="soundBtn"></button>
       <button class="btn" id="artBtn"></button>
@@ -2599,7 +2600,7 @@ function giveExp(n){
 function renderTitle(){
   const par = $('#parade'); par.innerHTML = '';
   MONSTERS.filter(m => m.boss && !m.special).forEach(m => par.appendChild(spriteEl(m.id)));
-  $('#nameInput').value = S.name;
+  $('#nameInput').value = S.name === 'ゆうしゃ' ? '' : S.name;
 }
 $('#startBtn').addEventListener('click', () => {
   S.name = ($('#nameInput').value.trim() || 'ゆうしゃ').slice(0,8);
@@ -3226,7 +3227,7 @@ $('#dexBack').addEventListener('click', () => { renderMap(); show('map'); });
 function renderSetting(){
   $('#easyBtn').textContent = '出題形式：' + (S.easy ? '4択（ゆるい）' : '思い出してめくる（おすすめ）');
   $('#voiceBtn').textContent = '英語の読み上げ：' + (S.voice === false ? 'オフ' : 'オン');
-  $('#nameInput2').value = S.name;
+  $('#nameInput2').value = S.name === 'ゆうしゃ' ? '' : S.name;
   $('#soundBtn').textContent = '効果音：' + (S.sound ? 'オン' : 'オフ');
   $('#resetConfirm').hidden = true;
 }
