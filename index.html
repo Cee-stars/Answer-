@@ -370,6 +370,41 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
   .choices{grid-template-columns:1fr}
   .choices .btn{min-height:50px}
 }
+/* Talk mode */
+#s-talk{gap:12px}
+.talk-top{display:flex;align-items:center;gap:10px}
+.talk-top .num{font-family:var(--f-en);font-weight:800;font-size:13px;color:var(--muted)}
+.talk-stage{position:relative;height:150px;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(135deg,#ffd6c2,#ff9a6b)}
+.talk-stage.tg-hotel{background:linear-gradient(135deg,#c9b8ff,#7a5ad6)}
+.talk-stage.tg-move{background:linear-gradient(135deg,#a8f0e6,#11b3a3)}
+.talk-stage.tg-shop{background:linear-gradient(135deg,#bcd8ff,#2f8cff)}
+.talk-stage.tg-talk{background:linear-gradient(135deg,#ffe7a8,#f5ad14)}
+#talkVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.talk-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.55))}
+.talk-scene{position:absolute;left:14px;bottom:10px;color:#fff;font-weight:800;font-size:15px;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.talk-log{display:flex;flex-direction:column;gap:8px}
+.bub{max-width:86%;padding:10px 14px;border-radius:18px;box-shadow:var(--shadow);animation:slideIn .3s cubic-bezier(.65,0,.35,1)}
+.bub .txt{font-family:var(--f-en);font-weight:800;font-size:17px;line-height:1.35}
+.bub .sub{font-size:12px;opacity:.85;margin-top:2px}
+.bub.them{align-self:flex-start;background:var(--surface);border-bottom-left-radius:6px;cursor:pointer}
+.bub.me{align-self:flex-end;background:var(--brand);color:#fff;border-bottom-right-radius:6px;cursor:pointer}
+.bub.me.fix{background:var(--surface);color:var(--ink);box-shadow:0 0 0 2px var(--bad)}
+.bub.me.retry{background:var(--brand-2)}
+.bub.sys{align-self:center;background:transparent;box-shadow:none;color:var(--muted);font-size:12px;font-weight:700;padding:2px}
+.bub .who{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:var(--muted);margin-bottom:2px}
+.ava{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:11px;font-family:var(--f-en)}
+.talk-task{display:flex;flex-direction:column;gap:10px}
+.talk-intent{font-size:22px;font-weight:800;line-height:1.35}
+.talk-hint{font-family:var(--f-en);font-weight:700;color:var(--muted);margin:0}
+.t-msg{font-size:13px;color:var(--muted);margin:0}
+.t-panel{display:flex;flex-direction:column;gap:10px}
+.t-choices{display:grid;grid-template-columns:1fr;gap:8px}
+.t-choices .btn{justify-content:flex-start;text-align:left;background:var(--surface-2);border:2px solid transparent}
+.tf-en{font-family:var(--f-en);font-weight:900;font-size:20px}
+#talkStreak:empty{display:none}
+.tstamps{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.tstamp{color:#fff;font-weight:800;font-size:13px;padding:6px 12px;border-radius:999px;transform:rotate(-3deg)}
+.talk-ico{font-size:30px;display:grid;place-items:center}
 </style>
 
 <div class="app" id="app">
@@ -410,10 +445,10 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
     </div>
     <div class="win today" id="todayCard"></div>
     <div class="win qm-card">
-      <div class="sp"><canvas class="sprite" id="hatenaSprite"></canvas></div>
+      <div class="sp talk-ico" aria-hidden="true">💬</div>
       <div class="grow">
-        <div class="sname">疑問文モード <span class="chip new-chip">NEW</span></div>
-        <div class="smeta">ハテナンと、実際に使える質問を練習しよう</div>
+        <div class="sname">会話モード <span class="chip new-chip">NEW</span></div>
+        <div class="smeta">カフェ・駅・ホテルで、店員さんや友だちに質問してみよう（バトルなし・10問）</div>
         <div class="smeta" id="qmCardMeta"></div>
       </div>
       <button class="btn small primary" id="qmStart" type="button">スタート</button>
@@ -473,31 +508,6 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
         <button class="btn rate r2" id="rate2" type="button"><b>△</b>迷った</button>
         <button class="btn rate r1" id="rate1" type="button"><b>×</b>だめだった</button>
       </div>
-    </div>
-    <div class="win qm-build" id="qmBuild" hidden>
-      <div class="label">単語をタップして質問を組み立てよう（タップした単語をもう一度押すと戻せる）</div>
-      <div class="qm-line" id="qmLine"></div>
-      <div class="qm-pool" id="qmPool"></div>
-      <div class="btn-row"><button class="btn" id="qmClear" type="button">やり直す</button><button class="btn primary" id="qmCheck" type="button">決定</button></div>
-    </div>
-    <div class="recall-box" id="qmSay" hidden>
-      <button class="btn primary flip" id="qmFlip" type="button">答えを見る</button>
-      <p class="note">日本語と相手の答えを見て、英語の質問を声に出してから押そう</p>
-    </div>
-    <div class="win qm-reveal" id="qmReveal" hidden>
-      <div class="label" id="qmTitle"></div>
-      <div class="qm-en"><span id="qmEn"></span> <span class="tone" id="qmTone"></span></div>
-      <div class="exj" id="qmJa"></div>
-      <div class="qm-pair"><div class="label">よくある返事</div><div class="ex" id="qmAns"></div><div class="exj" id="qmAnsJa"></div></div>
-      <p class="trivia" id="qmNote"></p>
-      <p class="trivia bad" id="qmWhy" hidden></p>
-      <button class="btn" id="qmSayBtn" type="button">🔊 もう一度聞く</button>
-      <div class="rates" id="qmRates" hidden>
-        <button class="btn rate r3" id="qr3" type="button"><b>◎</b>すぐ言えた</button>
-        <button class="btn rate r2" id="qr2" type="button"><b>△</b>迷った</button>
-        <button class="btn rate r1" id="qr1" type="button"><b>×</b>言えなかった</button>
-      </div>
-      <button class="btn primary" id="qmNext" type="button">次へ</button>
     </div>
     <div class="choices" id="choices"></div>
     <div class="win explain" id="explain" hidden>
@@ -613,9 +623,56 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
       </div>
     </div>
     <p class="note">レベルと★の記録はこの端末のブラウザに保存されます。</p>
-    <p class="note">タイトル画面の街の動画：Pexels（無料ライセンス）</p>
+    <p class="note">タイトル画面と会話モードの動画：Pexels（無料ライセンス）</p>
     <button class="btn" id="settingBack" hidden>もどる</button>
   </section>
+
+  <!-- TALK MODE -->
+  <section class="screen" id="s-talk" hidden>
+    <div class="talk-top">
+      <button class="btn small ghost" id="talkQuit" type="button">やめる</button>
+      <div class="grow"><div class="bar gold"><i id="talkProg"></i></div></div>
+      <span class="num" id="talkCount"></span>
+      <span class="chip" id="talkStreak"></span>
+    </div>
+    <div class="talk-stage" id="talkStage">
+      <video id="talkVideo" muted loop playsinline autoplay preload="auto" hidden aria-hidden="true"></video>
+      <div class="talk-shade"></div>
+      <div class="talk-scene" id="talkSceneName"></div>
+    </div>
+    <div class="talk-log" id="talkLog" aria-live="polite"></div>
+    <div class="win talk-task" id="talkTask">
+      <div class="label" id="tkLabel"></div>
+      <div class="talk-intent" id="tkIntent"></div>
+      <p class="talk-hint" id="tkHint"></p>
+      <p class="t-msg" id="tkMsg"></p>
+      <div class="t-panel" id="tkBuild" hidden>
+        <div class="qm-line" id="tkLine"></div>
+        <div class="qm-pool" id="tkPool"></div>
+        <div class="btn-row"><button class="btn" id="tkClear" type="button">やり直す</button><button class="btn primary" id="tkCheck" type="button">決定</button></div>
+      </div>
+      <div class="t-panel" id="tkSay" hidden>
+        <button class="btn primary flip" id="tkFlip" type="button">言えた！ 答えを見る</button>
+      </div>
+      <div class="rates" id="tkRates" hidden>
+        <button class="btn rate r3" id="tkr3" type="button"><b>◎</b>すぐ言えた</button>
+        <button class="btn rate r2" id="tkr2" type="button"><b>△</b>迷った</button>
+        <button class="btn rate r1" id="tkr1" type="button"><b>×</b>言えなかった</button>
+      </div>
+      <div class="t-choices" id="tkChoices" hidden></div>
+      <div class="t-panel" id="tkFeedback" hidden>
+        <div class="label" id="tkfTitle"></div>
+        <div class="tf-en" id="tkfEn"></div>
+        <div class="exj" id="tkfJa"></div>
+        <p class="trivia bad" id="tkfWhy" hidden></p>
+        <p class="trivia" id="tkfNote"></p>
+        <button class="btn" id="tkSayAgain" type="button">🔊 もう一度聞く</button>
+      </div>
+      <button class="btn primary" id="tkNext" type="button" hidden>次へ</button>
+    </div>
+    <div id="talkSummary" class="screen" hidden></div>
+  </section>
+
 </div>
 
 <nav class="nav" id="nav" hidden aria-label="メニュー">
@@ -2405,7 +2462,7 @@ function spriteEl(id, cls){
   return cv;
 }
 
-const SCREENS = ['title','map','battle','result','dex','setting','pass','my'];
+const SCREENS = ['title','map','battle','result','dex','setting','pass','my','talk'];
 function show(name){
   const cur = SCREENS.find(s => !$('#s-'+s).hidden);
   const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2710,7 +2767,6 @@ function startBattle(id){
   const pool = poolFor(m);
   B = {m, pool, mhp:m.hp, php:maxHP(S.lv), pmax:maxHP(S.lv), queue:pickWords(pool, 12),
        combo:0, maxCombo:0, log:[], locked:true, raf:0, last:null, cur:null, goodCount:0, flipMs:0, mode:''};
-  if(m.id === 'hatena') B.queue = pickQ(8);
   const scene = $('#scene');
   scene.className = 'scene ' + m.bg;
   const cv = $('#eSprite');
@@ -2747,7 +2803,7 @@ function say(text){
   }catch(e){}
 }
 function hideBattlePanels(){
-  ['#choices','#explain','#recallBox','#reveal','#qmBuild','#qmSay','#qmReveal'].forEach(s => $(s).hidden = true);
+  ['#choices','#explain','#recallBox','#reveal'].forEach(s => $(s).hidden = true);
 }
 function startTimer(limit, onTimeout){
   B.t0 = performance.now(); B.limit = limit; B.onTimeout = onTimeout;
@@ -2809,7 +2865,6 @@ function bumpDaily(isNew){
 }
 
 function nextQ(){
-  if(B.m.id === 'hatena'){ nextQM(); return; }
   $('#qWord').classList.remove('qm-ja');
   if(B.php <= 0){ lose(); return; }
   if(B.queue.length === 0) B.queue = pickWords(B.pool.filter(w => w !== B.last), 8);
@@ -4505,13 +4560,13 @@ function qWhy(q, picked){
   if(WH.test(q.en)) return '疑問詞（What / Where など）→ 助動詞（do / is / can）→ 主語 → 動詞 の順です。';
   return '助動詞（Do / Is / Can など）を先頭に出して、そのあとに主語を置きます。';
 }
-function pickQ(n){
+function pickQ(n, queued = []){
   ensureDaily();
   if(S.daily.qNew == null) S.daily.qNew = 0;
   const now = Date.now(), due = [], fresh = [], rest = [];
   QITEMS.forEach(q => { const p = S.words[q.key]; if(!p) fresh.push(q); else if(p.due <= now && p.s < 5) due.push(q); else rest.push(q); });
   const order = (a, b) => a.level - b.level || a.idx - b.idx;
-  const queuedNew = B && B.queue ? B.queue.filter(q => !S.words[q.key]).length : 0;
+  const queuedNew = queued.filter(q => !S.words[q.key]).length;
   const allow = Math.max(0, Q_DAILY_NEW - S.daily.qNew - queuedNew);
   const out = shuffle(due).sort((a, b) => getP(a.key).s - getP(b.key).s).slice(0, n);
   out.push(...fresh.sort(order).slice(0, Math.min(allow, n - out.length)));
@@ -4519,7 +4574,23 @@ function pickQ(n){
   if(out.length < n) out.push(...fresh.filter(q => !out.includes(q)).sort(order).slice(0, n - out.length));
   return out;
 }
-function qGrade(q, kind, ms){
+/* ===================== TALK MODE (question practice, no battle) ===================== */
+// No HP, no game over: a chat with people in real places. 10 turns per set.
+const TALK_GROUPS = {
+  food:{name:'カフェ・レストラン', role:'Server', roleJa:'店員', color:'#ff8a3d', re:/レストラン|カフェ|注文|会計|食事|飲み物|人気店|食後/},
+  hotel:{name:'ホテル', role:'Front desk', roleJa:'ホテルのスタッフ', color:'#7a5ad6', re:/ホテル/},
+  move:{name:'駅・空港・道', role:'Local', roleJa:'駅員・通りの人', color:'#11b3a3', re:/道|駅|バス|電車|空港|地下鉄|タクシー|街/},
+  shop:{name:'お店', role:'Clerk', roleJa:'店員', color:'#2f8cff', re:/店|服屋|靴屋|買い物|レジ/},
+  talk:{name:'友だちと雑談', role:'Alex', roleJa:'友だちのアレックス', color:'#f5ad14', re:/.*/}
+};
+const TALK_TURNS = 10;
+function talkGroup(q){
+  for(const [k, g] of Object.entries(TALK_GROUPS)) if(g.re.test(q.scene)) return k;
+  return 'talk';
+}
+let T = null;
+
+function tGrade(q, kind){
   ensureDaily();
   const p = Object.assign({}, getP(q.key));
   const before = p.s;
@@ -4530,225 +4601,267 @@ function qGrade(q, kind, ms){
   else { p.s = Math.max(0, p.s - 2); p.due = Date.now(); }
   S.words[q.key] = p;
   S.daily.answered++;
-  B.log.push({word:{w:q.en, m:q.ja}, ok: kind === 'good' || kind === 'soso' || kind === 'meet', ms: ms || 0, before, after: p.s});
+  T.items.set(q.key, {q, before: T.items.has(q.key) ? T.items.get(q.key).before : before, after: p.s});
   persist();
 }
-
-function nextQM(){
-  if(B.php <= 0){ lose(); return; }
-  if(!B.queue.length) B.queue = pickQ(8);
-  B.qcount = (B.qcount || 0) + 1;
-  hideBattlePanels();
-  B.locked = false;
-  const seen = QITEMS.filter(q => S.words[q.key]);
-  if(B.qcount % 3 === 0 && seen.length >= 4){ startReply(shuffle(seen)[0]); return; }
-  const q = B.queue.shift();
-  B.cur = q;
+function tScore(ok){
+  if(ok){ T.correct++; T.streak++; T.best = Math.max(T.best, T.streak); T.groupsOk.add(T.group); play('hit'); }
+  else { T.streak = 0; play('miss'); }
+  $('#talkStreak').textContent = T.streak >= 2 ? '🔥 ' + T.streak + '連続' : '';
+}
+function bubble(kind, text, sub, extra){
+  const d = document.createElement('div');
+  d.className = 'bub ' + kind + (extra ? ' ' + extra : '');
+  if(kind === 'them'){
+    const g = TALK_GROUPS[T.group];
+    d.innerHTML = `<div class="who"><span class="ava" style="background:${g.color}">${g.role[0]}</span>${esc(g.role)}</div>`;
+  }
+  const t = document.createElement('div'); t.className = 'txt'; t.textContent = text; d.appendChild(t);
+  if(sub){ const s = document.createElement('div'); s.className = 'sub'; s.textContent = sub; d.appendChild(s); }
+  $('#talkLog').appendChild(d);
+  d.scrollIntoView({block:'nearest', behavior:'smooth'});
+  return d;
+}
+function setScene(group){
+  if(T.group === group) return;
+  T.group = group;
+  const g = TALK_GROUPS[group];
+  $('#talkSceneName').textContent = '📍 ' + g.name;
+  bubble('sys', `場面：${g.name}（相手：${g.roleJa}）`);
+  const v = $('#talkVideo');
+  v.hidden = true;
+  v.onplaying = () => { v.hidden = false; };
+  v.muted = true; v.playsInline = true; v.loop = true;
+  v.src = 'video/scene_' + group + '.mp4';
+  const p = v.play(); if(p && p.catch) p.catch(() => {});
+  $('#talkStage').className = 'talk-stage tg-' + group;
+}
+function tPanels(show){
+  ['#tkBuild','#tkSay','#tkRates','#tkChoices','#tkFeedback','#tkNext'].forEach(s => $(s).hidden = !show.includes(s));
+}
+function startTalk(){
+  ensureDaily();
+  T = {turn:0, correct:0, total:0, streak:0, best:0, group:null, queue:[], items:new Map(), groupsOk:new Set(), goodCount:0};
+  T.queue = pickQ(TALK_TURNS, []);
+  $('#talkLog').innerHTML = '';
+  $('#talkSummary').hidden = true;
+  $('#talkTask').hidden = false;
+  $('#talkStreak').textContent = '';
+  show('talk');
+  nextTurn();
+}
+function nextTurn(){
+  if(T.turn >= TALK_TURNS){ endTalk(); return; }
+  T.turn++;
+  $('#talkProg').style.width = ((T.turn - 1) / TALK_TURNS * 100) + '%';
+  $('#talkCount').textContent = `${T.turn} / ${TALK_TURNS}`;
+  const seen = QITEMS.filter(q => S.words[q.key] && getP(q.key).s >= 1);
+  if(T.turn % 3 === 0 && seen.length >= 4){ startTReply(shuffle(seen)[0]); return; }
+  if(!T.queue.length) T.queue = pickQ(4, []);
+  const q = T.queue.shift();
+  T.cur = q;
+  setScene(talkGroup(q));
   const p = S.words[q.key];
-  $('#qWord').classList.add('qm-ja');
-  $('#qWord').textContent = q.ja;
-  $('#qCat').innerHTML = esc(q.scene) + ' ' + starsHTML(p ? p.s : 0) + (p ? '' : ' <span class="chip new-chip">NEW</span>');
-  $('#qHint').textContent = '相手の答え：「' + qFirstAnswer(q) + '」';
-  $('#qHint').hidden = false;
-  retrigger($('#questionWin'), 'slide-in');
-  if(!p || p.s < 3) startBuild(q, !p, false); else startSay(q);
+  $('#tkLabel').innerHTML = (p ? 'あなたが聞きたいこと ' + starsHTML(p.s) : 'あなたが聞きたいこと <span class="chip new-chip">NEW</span>');
+  $('#tkIntent').textContent = q.ja;
+  $('#tkHint').textContent = `${TALK_GROUPS[T.group].role}の答え：「${qFirstAnswer(q)}」`;
+  $('#tkHint').hidden = false;
+  retrigger($('#talkTask'), 'slide-in');
+  if(!p || p.s < 3) startTBuild(q, !p, false); else startTSay(q);
 }
-// ----- build the question from tiles -----
-function startBuild(q, isNew, isCheck){
-  B.mode = 'build'; B.isNew = isNew; B.isCheck = isCheck; B.tries = 0;
+// ----- build -----
+function startTBuild(q, isNew, isCheck){
+  T.mode = 'build'; T.isNew = isNew; T.isCheck = isCheck; T.tries = 0;
   const tiles = qTokens(q).map(tileText).concat(qDecoys(q, q.level >= 2 ? 2 : 1));
-  B.tiles = shuffle(tiles.map((t, i) => ({t, id:i})));
-  B.picked = [];
-  renderBuild();
-  $('#qmBuild').hidden = false;
-  retrigger($('#qmBuild'), 'slide-in');
-  if(isCheck) setMsg('抜き打ちチェック！ 本当に言えるか、組み立ててみよう', '外すと★が2つ下がる');
-  else setMsg(isNew ? 'はじめての疑問文！ 日本語と相手の答えから、質問を組み立てよう' : '質問を組み立てよう', '使わない単語もまざっているよ');
-  startTimer(0);
+  T.tiles = shuffle(tiles.map((t, i) => ({t, id:i})));
+  T.picked = [];
+  if(isCheck) $('#tkLabel').innerHTML = '抜き打ちチェック！ 本当に言えるか組み立ててみよう';
+  $('#tkMsg').textContent = isNew ? 'はじめての質問。単語をタップして組み立てよう（使わない単語もまざっています）' : '単語をタップして質問を組み立てよう';
+  renderTBuild();
+  tPanels(['#tkBuild']);
 }
-function renderBuild(){
-  const line = $('#qmLine'); line.innerHTML = '';
-  if(!B.picked.length) line.innerHTML = '<span class="qm-ph">ここに単語を並べる</span>';
-  B.picked.forEach((tile, k) => {
+function renderTBuild(){
+  const line = $('#tkLine'); line.innerHTML = '';
+  if(!T.picked.length) line.innerHTML = '<span class="qm-ph">ここに単語を並べる</span>';
+  T.picked.forEach((tile, k) => {
     const b = document.createElement('button');
     b.className = 'tile on'; b.type = 'button'; b.textContent = tile.t;
-    b.addEventListener('click', () => { B.picked.splice(k, 1); renderBuild(); });
+    b.addEventListener('click', () => { T.picked.splice(k, 1); renderTBuild(); });
     line.appendChild(b);
   });
-  if(B.picked.length) line.insertAdjacentHTML('beforeend', '<span class="qm-q">?</span>');
-  const pool = $('#qmPool'); pool.innerHTML = '';
-  B.tiles.forEach(tile => {
-    if(B.picked.includes(tile)) return;
+  if(T.picked.length) line.insertAdjacentHTML('beforeend', '<span class="qm-q">?</span>');
+  const pool = $('#tkPool'); pool.innerHTML = '';
+  T.tiles.forEach(tile => {
+    if(T.picked.includes(tile)) return;
     const b = document.createElement('button');
     b.className = 'tile'; b.type = 'button'; b.textContent = tile.t;
-    b.addEventListener('click', () => { B.picked.push(tile); renderBuild(); });
+    b.addEventListener('click', () => { T.picked.push(tile); renderTBuild(); });
     pool.appendChild(b);
   });
-  $('#qmCheck').disabled = !B.picked.length;
+  $('#tkCheck').disabled = !T.picked.length;
 }
-function checkBuild(){
-  if(!B || B.mode !== 'build' || B.locked || !B.picked.length) return;
-  const q = B.cur;
-  const ok = qNorm(B.picked.map(t => t.t).join(' ')) === qNorm(q.en);
-  B.tries++;
-  if(ok){ finishBuild(true, ''); return; }
-  const why = qWhy(q, B.picked.map(t => t.t));
-  if(B.tries < 2 && !B.isCheck){ play('miss'); setMsg('おしい！ もう一度', '💡 ' + why); retrigger($('#qmLine'), 'anim-shake'); return; }
-  finishBuild(false, why);
+function checkTBuild(){
+  if(!T || T.mode !== 'build' || !T.picked.length) return;
+  const q = T.cur;
+  const ok = qNorm(T.picked.map(t => t.t).join(' ')) === qNorm(q.en);
+  T.tries++;
+  if(ok){ finishTBuild(true, ''); return; }
+  const why = qWhy(q, T.picked.map(t => t.t));
+  if(T.tries < 2 && !T.isCheck){ play('miss'); $('#tkMsg').textContent = 'おしい！ もう一度。💡 ' + why; retrigger($('#tkLine'), 'anim-shake'); return; }
+  finishTBuild(false, why);
 }
-function finishBuild(ok, why){
-  B.locked = true;
-  const q = B.cur;
-  $('#qmBuild').hidden = true;
-  const first = B.tries === 1;
-  showQReveal(q, ok ? (first ? '正解！ 声に出して言ってみよう' : '2回目で正解！ 声に出して言ってみよう') : '正解はこう', ok ? '' : why, false);
-  if(B.isNew){
-    qGrade(q, 'meet');
-    B.queue.splice(Math.min(3, B.queue.length), 0, q);
-    if(ok){ const dmg = hitMonster(first ? 1.2 : .6, first); setMsg(`${B.m.name}に${dmg}のダメージ！`, '少しあとで、もう一度出るよ'); }
-    else { play('miss'); setMsg('大丈夫、はじめては難しい。正しい形を見て覚えよう', '少しあとで、もう一度出るよ'); }
-    return;
-  }
-  if(ok){
-    qGrade(q, first ? 'good' : 'soso');
-    const dmg = hitMonster(first ? 1.2 : .6, first);
-    setMsg(`${B.isCheck ? 'チェック合格！ ' : ''}${B.m.name}に${dmg}のダメージ！`, '声に出して言ってみよう');
-  }else{
-    qGrade(q, 'bad');
-    monsterAttack(B.isCheck ? 'チェックで外れた… ' : '');
-    B.queue.splice(Math.min(3, B.queue.length), 0, q);
-  }
+function finishTBuild(ok, why){
+  T.mode = 'done';
+  const q = T.cur, first = T.tries === 1;
+  tPanels([]);
+  if(ok) bubble('me', q.en + ' ' + qTone(q), '', first ? '' : 'retry');
+  else bubble('me', q.en + ' ' + qTone(q), '正しくはこう言います', 'fix');
+  if(S.voice !== false) say(q.en);
+  setTimeout(() => bubble('them', q.answer.split(' / ')[0], q.answerJa), 550);
+  if(T.isNew){ tGrade(q, 'meet'); if(T.turn + 2 < TALK_TURNS) T.queue.splice(1, 0, q); }
+  else tGrade(q, ok ? (first ? 'good' : 'soso') : 'bad');
+  tScore(ok && first);
+  showTFeedback(q, ok ? (first ? '正解！ 声に出して言ってみよう' : '2回目で正解！ 声に出して言ってみよう') : 'まちがえても大丈夫。正しい形を見て、声に出してみよう', why);
 }
-// ----- say it aloud, then self-rate -----
-function startSay(q){
-  B.mode = 'say';
-  $('#qmSay').hidden = false;
-  setMsg('日本語を見て、英語で質問を声に出そう', '言えたら「答えを見る」');
-  startTimer(RECALL_MS, () => sayFlip(true));
+// ----- say aloud -----
+function startTSay(q){
+  T.mode = 'say';
+  T.t0 = performance.now();
+  $('#tkMsg').textContent = '英語の質問を声に出して言ってみよう。言えたらボタンを押す';
+  tPanels(['#tkSay']);
 }
-function sayFlip(timedOut){
-  if(!B || B.mode !== 'say' || B.locked) return;
-  B.flipMs = stopTimer();
-  $('#qmSay').hidden = true;
-  showQReveal(B.cur, timedOut ? '時間切れ… 正しい形を確認しよう' : `${(B.flipMs/1000).toFixed(1)}秒で言えた。正直に評価しよう`, '', true);
-  $('#qr3').disabled = !!timedOut;
+function tFlip(){
+  if(!T || T.mode !== 'say') return;
+  T.mode = 'rate';
+  T.ms = performance.now() - T.t0;
+  const q = T.cur;
+  bubble('me', q.en + ' ' + qTone(q));
+  if(S.voice !== false) say(q.en);
+  setTimeout(() => bubble('them', q.answer.split(' / ')[0], q.answerJa), 550);
+  $('#tkMsg').textContent = `${(T.ms/1000).toFixed(1)}秒。正しく言えたか、正直に評価しよう`;
+  tPanels(['#tkRates']);
 }
-function rateQ(r){
-  if(!B || B.mode !== 'say') return;
-  B.mode = 'rated';
-  const q = B.cur;
-  $('#qmReveal').hidden = true;
+function tRate(r){
+  if(!T || T.mode !== 'rate') return;
+  const q = T.cur;
   if(r === 3){
-    B.qgood = (B.qgood || 0) + 1;
-    if(B.qgood % 3 === 0){ B.locked = false; startBuild(q, false, true); return; }
-    qGrade(q, 'good', B.flipMs);
-    const ms = B.flipMs, crit = ms < CRIT_MS;
-    const dmg = hitMonster(crit ? 1.8 : ms < NORMAL_MS ? 1 : .6, crit);
-    setMsg(`${crit ? '会心の一撃！ ' : ''}${B.m.name}に${dmg}のダメージ！`, q.en);
-  }else if(r === 2){
-    qGrade(q, 'soso', B.flipMs);
-    const dmg = hitMonster(.4, false); B.combo = 0;
-    setMsg(`ちょっと迷った攻撃。${B.m.name}に${dmg}のダメージ`, 'この質問は10分後にまた出るよ');
-  }else{
-    qGrade(q, 'bad', B.flipMs);
-    monsterAttack('');
-    B.queue.splice(Math.min(3, B.queue.length), 0, q);
-  }
-  later(() => { B.mhp <= 0 ? win() : nextQM(); }, 1100);
+    T.goodCount++;
+    if(T.goodCount % 3 === 0){ startTBuild(q, false, true); return; }
+    tGrade(q, 'good'); tScore(true);
+  }else if(r === 2){ tGrade(q, 'soso'); T.streak = 0; $('#talkStreak').textContent = ''; }
+  else { tGrade(q, 'bad'); tScore(false); }
+  T.mode = 'done';
+  showTFeedback(q, r === 3 ? 'ばっちり！' : r === 2 ? '10分後にもう一度出ます' : 'すぐにもう一度練習します', '');
 }
-// ----- be asked, pick a natural reply -----
-function startReply(q){
-  B.mode = 'reply'; B.cur = q;
-  $('#qWord').classList.remove('qm-ja');
-  $('#qWord').textContent = q.en;
-  $('#qCat').innerHTML = '聞かれたら答えよう ' + qTone(q);
-  $('#qHint').hidden = true;
-  retrigger($('#questionWin'), 'slide-in');
+// ----- be asked, reply -----
+function startTReply(q){
+  T.mode = 'reply'; T.cur = q;
+  setScene(talkGroup(q));
+  $('#tkLabel').textContent = '相手に聞かれた！ 自然な返事を選ぼう';
+  $('#tkIntent').textContent = '';
+  $('#tkHint').hidden = true;
+  bubble('them', q.en + ' ' + qTone(q));
   if(S.voice !== false) say(q.en);
   const right = qFirstAnswer(q);
-  const pool = shuffle(QITEMS.filter(x => x !== q && x.pattern !== q.pattern).map(qFirstAnswer)).filter(a => a !== right);
-  let wrong = [];
+  const wrong = [];
   if(/mind/i.test(q.en)) wrong.push('Yes, I do.');
-  pool.forEach(a => { if(wrong.length < 3 && !wrong.includes(a)) wrong.push(a); });
-  B.replyOpts = shuffle([right, ...wrong.slice(0, 3)]);
-  B.replyRight = B.replyOpts.indexOf(right);
-  const box = $('#choices'); box.innerHTML = ''; box.hidden = false;
-  B.replyOpts.forEach((a, i) => {
+  shuffle(QITEMS.filter(x => x !== q && x.pattern !== q.pattern).map(qFirstAnswer)).forEach(a => { if(wrong.length < 3 && a !== right && !wrong.includes(a)) wrong.push(a); });
+  T.opts = shuffle([right, ...wrong]);
+  T.right = T.opts.indexOf(right);
+  const box = $('#tkChoices'); box.innerHTML = '';
+  T.opts.forEach((a, i) => {
     const b = document.createElement('button');
     b.className = 'btn'; b.type = 'button';
     b.innerHTML = `<span class="key">${i+1}</span><span class="en-opt">${esc(a)}</span>`;
-    b.addEventListener('click', () => answerReply(i));
+    b.addEventListener('click', () => tReply(i));
     box.appendChild(b);
   });
-  B.pick = answerReply;
-  setMsg('相手に質問された！ 自然な返事をえらぼう', '');
-  startTimer(0);
+  $('#tkMsg').textContent = '🔊 音声でも聞けます（上の質問をタップ）';
+  tPanels(['#tkChoices']);
+  retrigger($('#talkTask'), 'slide-in');
 }
-function answerReply(i){
-  if(!B || B.mode !== 'reply' || B.locked) return;
-  B.locked = true;
-  const q = B.cur, ok = i === B.replyRight;
-  const btns = [...$('#choices').children];
+function tReply(i){
+  if(!T || T.mode !== 'reply') return;
+  T.mode = 'wait';
+  const q = T.cur, ok = i === T.right;
+  const btns = [...$('#tkChoices').children];
   btns.forEach(b => b.disabled = true);
-  btns[B.replyRight].classList.add('is-right');
-  if(!ok && i >= 0) btns[i].classList.add('is-wrong');
-  B.log.push({word:{w:q.en, m:q.ja}, ok, ms:0, before:getP(q.key).s, after:getP(q.key).s});
+  btns[T.right].classList.add('is-right');
+  if(!ok) btns[i].classList.add('is-wrong');
+  bubble('me', T.opts[i], '', ok ? '' : 'fix');
+  tScore(ok);
   S.daily.answered++; persist();
-  if(ok){ const dmg = hitMonster(1, false); setMsg(`ばっちり！ ${B.m.name}に${dmg}のダメージ！`, `${q.en} ＝ ${q.ja}`); later(() => { B.mhp <= 0 ? win() : nextQM(); }, 1300); }
-  else { monsterAttack(''); later(() => { $('#choices').hidden = true; showQReveal(q, '自然な返事はこれ', '', false); }, 700); }
+  setTimeout(() => { T.mode = 'done'; $('#tkChoices').hidden = true; showTFeedback(q, ok ? 'ばっちり！ 自然な返事です' : `自然な返事は「${qFirstAnswer(q)}」`, ''); }, 600);
 }
-// ----- shared reveal card -----
-function showQReveal(q, title, why, withRates){
-  $('#qmTitle').textContent = title;
-  $('#qmEn').textContent = q.en;
-  $('#qmTone').textContent = qTone(q);
-  $('#qmTone').title = qTone(q) === '↗' ? '文末を上げる' : '文末を下げる';
-  $('#qmJa').textContent = q.ja + '（' + q.pattern + '）';
-  $('#qmAns').textContent = q.answer;
-  $('#qmAnsJa').textContent = q.answerJa;
-  $('#qmNote').textContent = '💡 ' + q.note;
-  $('#qmWhy').textContent = why ? '✗ ' + why : '';
-  $('#qmWhy').hidden = !why;
-  $('#qmRates').hidden = !withRates;
-  $('#qmNext').hidden = !!withRates;
-  $('#qmReveal').hidden = false;
-  retrigger($('#qmReveal'), 'slide-in');
-  if(S.voice !== false) say(q.en);
+function showTFeedback(q, title, why){
+  $('#tkfTitle').textContent = title;
+  $('#tkfEn').textContent = q.en;
+  $('#tkfJa').textContent = q.ja + '（' + q.pattern + '）';
+  $('#tkfWhy').textContent = why ? '✗ ' + why : '';
+  $('#tkfWhy').hidden = !why;
+  $('#tkfNote').textContent = '💡 ' + q.note;
+  tPanels(['#tkFeedback','#tkNext']);
+  $('#tkNext').textContent = T.turn >= TALK_TURNS ? '結果を見る' : '次へ';
+  retrigger($('#tkFeedback'), 'slide-in');
+  $('#tkNext').focus({preventScroll:true});
+  $('#talkTask').scrollIntoView({block:'nearest', behavior:'smooth'});
 }
-$('#qmCheck').addEventListener('click', checkBuild);
-$('#qmClear').addEventListener('click', () => { if(B && B.mode === 'build' && !B.locked){ B.picked = []; renderBuild(); } });
-$('#qmFlip').addEventListener('click', () => sayFlip(false));
-$('#qmSayBtn').addEventListener('click', () => { if(B && B.cur) say(B.cur.en); });
-$('#qr3').addEventListener('click', () => rateQ(3));
-$('#qr2').addEventListener('click', () => rateQ(2));
-$('#qr1').addEventListener('click', () => rateQ(1));
-$('#qmNext').addEventListener('click', () => {
-  if(!B || $('#qmReveal').hidden) return;
-  $('#qmReveal').hidden = true;
-  if(B.mhp <= 0) win(); else nextQM();
-});
+function endTalk(){
+  $('#talkProg').style.width = '100%';
+  const gained = 10 + T.correct * 5;
+  const ups = giveExp(gained);
+  S.talk = S.talk || {sets:0, stamps:{}};
+  S.talk.sets++;
+  T.groupsOk.forEach(g => { S.talk.stamps[g] = (S.talk.stamps[g] || 0) + 1; });
+  persist();
+  play('win');
+  $('#talkTask').hidden = true;
+  const box = $('#talkSummary');
+  const stamps = [...T.groupsOk].map(g => `<span class="tstamp" style="background:${TALK_GROUPS[g].color}">${esc(TALK_GROUPS[g].name)}</span>`).join('');
+  const rows = [...T.items.values()].map(x => {
+    const diff = x.after - x.before;
+    const tag = diff > 0 ? `<span class="up">▲${diff}</span>` : diff < 0 ? `<span class="down">▼${-diff}</span>` : '';
+    return `<li><span class="en">${esc(x.q.en)}</span><span class="ja">${esc(x.q.ja)}</span><span>${starsHTML(x.after)} ${tag}</span></li>`;
+  }).join('');
+  box.innerHTML = `<div class="result-title win-t">Nice talk!</div>
+    <div class="win stats"><div><b class="num">${T.correct}/${TALK_TURNS}</b><span>うまく言えた</span></div><div><b class="num">${T.best}</b><span>最高連続</span></div><div><b class="num">+${gained}</b><span>EXP</span></div></div>
+    ${ups ? `<div class="win"><b>レベルアップ！ Lv ${S.lv} になった！</b></div>` : ''}
+    <div class="win"><div class="label">今回の会話スタンプ</div><div class="tstamps">${stamps || '<span class="note">1回目でうまく言えると、場面のスタンプがもらえます</span>'}</div></div>
+    <div class="win"><div class="label">今回の質問</div><ul class="wlist">${rows}</ul></div>
+    <div class="btn-row"><button class="btn primary" id="talkAgain" type="button">もう1セット</button><button class="btn" id="talkHome" type="button">ホームへ</button></div>`;
+  box.hidden = false;
+  $('#talkAgain').addEventListener('click', () => { play('select'); startTalk(); });
+  $('#talkHome').addEventListener('click', () => { T = null; renderMap(); show('map'); });
+  if(ups) setTimeout(() => play('lvup'), 800);
+  window.scrollTo(0, 0);
+}
+$('#tkCheck').addEventListener('click', checkTBuild);
+$('#tkClear').addEventListener('click', () => { if(T && T.mode === 'build'){ T.picked = []; renderTBuild(); } });
+$('#tkFlip').addEventListener('click', tFlip);
+$('#tkr3').addEventListener('click', () => tRate(3));
+$('#tkr2').addEventListener('click', () => tRate(2));
+$('#tkr1').addEventListener('click', () => tRate(1));
+$('#tkNext').addEventListener('click', () => { if(T) nextTurn(); });
+$('#tkSayAgain').addEventListener('click', () => { if(T && T.cur) say(T.cur.en); });
+$('#talkLog').addEventListener('click', e => { const b = e.target.closest('.bub.them,.bub.me'); if(b) say(b.querySelector('.txt').textContent.replace(/[↗↘]/g, '')); });
+$('#talkQuit').addEventListener('click', () => { T = null; renderMap(); show('map'); });
 document.addEventListener('keydown', e => {
-  if($('#s-battle').hidden || !B || B.m.id !== 'hatena') return;
+  if($('#s-talk').hidden || !T) return;
   const k = e.key;
-  if(!$('#qmReveal').hidden){
-    if(!$('#qmRates').hidden && ['1','2','3'].includes(k)){ rateQ(4 - +k); e.preventDefault(); e.stopImmediatePropagation(); }
-    else if(!$('#qmNext').hidden && (k === 'Enter' || k === ' ') && document.activeElement !== $('#qmNext')){ $('#qmNext').click(); e.preventDefault(); e.stopImmediatePropagation(); }
-    return;
-  }
-  if(!$('#qmSay').hidden && (k === ' ' || k === 'Enter')){ if(document.activeElement !== $('#qmFlip')) sayFlip(false); e.preventDefault(); e.stopImmediatePropagation(); return; }
-  if(!$('#qmBuild').hidden){
-    if(k === 'Enter'){ checkBuild(); e.preventDefault(); e.stopImmediatePropagation(); }
-    else if(k === 'Backspace' && B.picked.length){ B.picked.pop(); renderBuild(); e.preventDefault(); e.stopImmediatePropagation(); }
-  }
-}, true);
+  if(T.mode === 'build'){ if(k === 'Enter'){ checkTBuild(); e.preventDefault(); } else if(k === 'Backspace' && T.picked.length){ T.picked.pop(); renderTBuild(); e.preventDefault(); } }
+  else if(T.mode === 'say' && (k === ' ' || k === 'Enter')){ if(document.activeElement !== $('#tkFlip')) tFlip(); e.preventDefault(); }
+  else if(T.mode === 'rate' && ['1','2','3'].includes(k)){ tRate(4 - +k); e.preventDefault(); }
+  else if(T.mode === 'reply' && ['1','2','3','4'].includes(k)){ tReply(+k - 1); e.preventDefault(); }
+  else if(T.mode === 'done' && (k === 'Enter' || k === ' ') && !$('#tkNext').hidden && document.activeElement !== $('#tkNext')){ nextTurn(); e.preventDefault(); }
+});
+
 function renderQCard(){
   ensureDaily();
   const learned = QITEMS.filter(q => getP(q.key).s >= 3).length;
   const seen = QITEMS.filter(q => S.words[q.key]).length;
   $('#qmCardMeta').textContent = `覚えた ${learned} / ${QITEMS.length}・出会った ${seen}・今日の新しい疑問文 ${Math.min(S.daily.qNew || 0, 99)} / ${Q_DAILY_NEW}`;
-  drawSprite($('#hatenaSprite'), 'hatena');
 }
-$('#qmStart').addEventListener('click', () => { play('select'); startBattle('hatena'); });
+$('#qmStart').addEventListener('click', () => { play('select'); startTalk(); });
 
 /* ===================== BOOT ===================== */
 if(!S.v2){
