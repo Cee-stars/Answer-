@@ -286,7 +286,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 
 /* Bottom tab bar */
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom, 0px))}
-.nav-in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.nav-in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
 .nav-btn{border:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-size:11px;font-weight:700;cursor:pointer;border-radius:12px}
 .nav-btn svg{width:24px;height:24px}
 .nav-btn[aria-current="page"]{color:var(--brand)}
@@ -416,6 +416,44 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .tstamp{color:#fff;font-weight:800;font-size:13px;padding:6px 12px;border-radius:999px;transform:rotate(-3deg)}
 .talk-ico{font-size:30px;display:grid;place-items:center}
 #nameInput::placeholder,#nameInput2::placeholder{color:var(--muted);opacity:.55}
+
+/* ===== Layout rules after the clean-up: spacing 4/8/12/16/24, radius 20/12/999, one primary button per screen ===== */
+.home-top{display:flex;align-items:center;gap:8px;min-height:44px}
+.avatar.sm{width:36px;height:36px;font-size:16px;grid-row:auto}
+.home-top .hero-name{font-size:17px}
+.lv-chip{font-size:12px;font-weight:800;color:var(--brand)}
+.icon-btn{width:44px;height:44px;border:0;border-radius:12px;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer}
+.icon-btn svg{width:22px;height:22px}
+.today2{display:flex;flex-direction:column;gap:12px}
+.today-num .num{font-size:30px;font-weight:900;line-height:1}
+.today-num .of{font-size:15px;color:var(--muted);font-weight:700}
+.next-foe{display:flex;align-items:center;gap:12px;background:var(--surface-2);border-radius:12px;padding:12px}
+.next-foe .sp{width:48px;height:48px;flex:none;display:grid;place-items:center}
+.next-foe .sp canvas,.next-foe .sp img{max-width:48px;max-height:48px}
+.sname{display:block;font-weight:800;font-size:17px;line-height:1.3}
+.smeta{display:block;font-size:13px;color:var(--muted);line-height:1.4}
+.big-btn{min-height:56px;font-size:17px;width:100%}
+.sec-head{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.sec-head h2{margin:0;font-size:17px}
+.link-btn{border:0;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:700;min-height:44px;cursor:pointer}
+.hscroll{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px;margin:-4px -2px -12px;scrollbar-width:none}
+.hscroll::-webkit-scrollbar{display:none}
+.mode-card{scroll-snap-align:start;flex:none;width:136px;min-height:112px;border:0;text-align:left;font:inherit;color:inherit;display:flex;flex-direction:column;gap:4px;padding:12px;cursor:pointer;border-radius:20px}
+.mode-card .ico{font-size:24px;line-height:1.2}
+.mode-card .sname{font-size:15px}
+.mode-card .smeta{font-size:12px}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mode-grid .mode-card{width:auto}
+.row-card{display:flex;align-items:center;gap:12px;border:0;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;min-height:64px;border-radius:20px}
+.row-card .ico{width:44px;height:44px;border-radius:12px;background:var(--surface-2);display:grid;place-items:center;font-size:22px;flex:none}
+.row-card .chev{color:var(--muted);font-size:20px}
+.row-card .smeta{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg{display:flex;background:var(--surface-2);border-radius:12px;padding:4px;flex:1;max-width:260px}
+.seg-b{flex:1;min-height:40px;border:0;border-radius:10px;background:transparent;font-family:inherit;font-weight:800;font-size:13px;color:var(--muted);cursor:pointer}
+.seg-b.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.btn.small{min-height:44px}
+.tab{min-height:44px}
+.nav-btn{min-height:52px;font-size:12px}
 </style>
 
 <div class="app" id="app">
@@ -442,52 +480,57 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 
   <!-- HOME / MAP -->
   <section class="screen" id="s-map" hidden>
-    <div class="win profile">
-      <div class="avatar" id="mapAvatar"></div>
-      <div class="hero-name" id="mapName"></div>
-      <div class="lv" id="mapLv"></div>
-      <div class="bar gold"><i id="mapExp"></i></div>
-      <div class="label" id="mapExpText"></div>
+    <header class="home-top">
+      <div class="avatar sm" id="mapAvatar"></div>
+      <div class="grow"><span class="hero-name" id="mapName"></span> <span class="lv-chip" id="mapLv"></span></div>
+      <button class="icon-btn" id="gearBtn" type="button" aria-label="設定"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+    </header>
+    <div class="win today2" id="todayCard">
+      <div class="row spread"><span class="label">今日の学習</span><span class="chip" id="todayDue"></span></div>
+      <div class="today-num"><b class="num" id="todayNew">0</b><span class="of"> / <span id="todayGoal">10</span>語</span></div>
+      <div class="bar gold"><i id="todayBar"></i></div>
+      <div class="next-foe" id="nextFoe"></div>
+      <button class="btn primary big-btn" id="goBtn" type="button">はじめる</button>
     </div>
-    <div class="stat-tiles">
-      <div class="tile"><div class="label">マスター</div><div class="num"><span id="mapMastered">0</span><span class="of"> / <span id="mapTotal">0</span></span></div></div>
-      <div class="tile t-gold"><div class="label">スタンプ</div><div class="num"><span id="mapStamps">0</span><span class="of"> / 12</span></div></div>
-      <div class="tile t-sky"><div class="label">復習まち</div><div class="num" id="mapDue">0</div></div>
-    </div>
-    <div class="win today" id="todayCard"></div>
-    <div class="win qm-card">
-      <div class="sp talk-ico" aria-hidden="true">💬</div>
-      <div class="grow">
-        <div class="sname">会話モード <span class="chip new-chip">NEW</span></div>
-        <div class="smeta">カフェ・駅・ホテルで、英語の質問を声に出して言おう（答えは隠れていて、ヒントは必要な分だけ）</div>
-        <div class="smeta" id="qmCardMeta"></div>
-      </div>
-      <button class="btn small primary" id="qmStart" type="button">スタート</button>
-    </div>
-    <div class="win my-panel">
-      <div class="sp"><canvas class="sprite" id="memoSprite"></canvas></div>
-      <div class="grow">
-        <div class="sname">マイたんご <span class="chip num" id="mapMy"></span></div>
-        <div class="smeta">最近覚えた単語を追加して、メモリンと練習しよう</div>
-      </div>
-      <div class="my-actions">
-        <button class="btn small ghost" id="myBtn">単語を追加</button>
-        <button class="btn small primary" id="memoBtn">バトル</button>
-      </div>
-    </div>
-    <h2>スペシャルバトル</h2>
-    <div class="win state-panel"><div class="stage-list" id="specialList"></div></div>
-    <h2>アメリカ横断の旅</h2>
+    <div class="sec-head"><h2>あそぶ</h2><button class="link-btn" id="playAll" type="button">すべて見る ›</button></div>
+    <div class="hscroll" id="homeModes"></div>
+    <button class="win row-card" id="homeMy" type="button">
+      <span class="ico">📒</span>
+      <span class="grow"><span class="sname">マイたんご</span><span class="smeta" id="mapMy"></span></span>
+      <span class="chev">›</span>
+    </button>
+  </section>
+
+  <!-- PLAY (all modes) -->
+  <section class="screen" id="s-play" hidden>
+    <div class="screen-title">あそぶ</div>
+    <button class="win row-card" id="journeyCard" type="button">
+      <span class="ico">🗺️</span>
+      <span class="grow"><span class="sname">アメリカ横断の旅</span><span class="smeta" id="journeyMeta"></span></span>
+      <span class="chev">›</span>
+    </button>
+    <div class="mode-grid" id="modeGrid"></div>
+    <button class="win row-card" id="placeCard" type="button">
+      <span class="ico">🎯</span>
+      <span class="grow"><span class="sname">レベル診断</span><span class="smeta" id="placeMeta">3分で難易度を合わせる</span></span>
+      <span class="chev">›</span>
+    </button>
+  </section>
+
+  <!-- JOURNEY (US map) -->
+  <section class="screen" id="s-journey" hidden>
+    <div class="row spread"><div class="screen-title">アメリカ横断の旅</div><button class="btn small" id="journeyBack" type="button">もどる</button></div>
     <div class="win mapwin">
       <svg id="usmap" viewBox="0 0 975 610" role="img" aria-label="アメリカの地図"></svg>
       <div class="legend"><span><i class="lg-clear"></i>クリア</span><span><i class="lg-open"></i>挑戦できる</span><span><i class="lg-lock"></i>まだ</span></div>
     </div>
     <div class="win state-panel" id="statePanel"></div>
-    <h2>準備中のモード</h2>
-    <div class="soon">
-      <div class="win"><b>スペル</b><span>意味からつづりを完成させる</span></div>
-      <div class="win"><b>ならべかえ</b><span>単語を並べて文をつくる</span></div>
-    </div>
+  </section>
+
+  <!-- SPECIAL BATTLES -->
+  <section class="screen" id="s-special" hidden>
+    <div class="row spread"><div class="screen-title">スペシャルバトル</div><button class="btn small" id="specialBack" type="button">もどる</button></div>
+    <div class="win state-panel"><div class="stage-list" id="specialList"></div></div>
   </section>
 
   <!-- BATTLE -->
@@ -565,7 +608,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
   <!-- DEX -->
   <section class="screen" id="s-dex" hidden>
     <div class="row spread">
-      <div class="screen-title">単語図鑑</div>
+      <div class="seg" role="tablist"><button class="seg-b on" type="button" data-go="dex">図鑑</button><button class="seg-b" type="button" data-go="my">マイたんご</button></div>
       <button class="btn small" id="dexHide" aria-pressed="false">意味をかくす</button>
       <button class="btn small" id="dexBack" hidden>もどる</button>
     </div>
@@ -577,7 +620,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
   <!-- MY WORDS -->
   <section class="screen" id="s-my" hidden>
     <div class="row spread">
-      <div class="screen-title">マイたんご</div>
+      <div class="seg" role="tablist"><button class="seg-b" type="button" data-go="dex">図鑑</button><button class="seg-b on" type="button" data-go="my">マイたんご</button></div>
       <span class="chip num" id="myCount"></span>
       <button class="btn small" id="myBack" hidden>もどる</button>
     </div>
@@ -596,6 +639,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
       <textarea id="myBulk" rows="5" placeholder="awesome = すごい&#10;exhausted = くたくたの&#10;Take it easy. = 気楽にね。"></textarea>
       <button class="btn" id="myBulkAdd" type="button">まとめて追加</button>
     </details>
+    <button class="btn primary" id="memoBtn" type="button">マイたんごでバトル</button>
     <button class="btn" id="myMix" type="button"></button>
     <p class="note" id="mySync"></p>
     <div class="win"><ul class="wlist my-list" id="myList"></ul></div>
@@ -604,11 +648,17 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
   <!-- PASSPORT -->
   <section class="screen" id="s-pass" hidden>
     <div class="row spread">
-      <div class="screen-title">パスポート</div>
+      <div class="screen-title">きろく</div>
       <span class="chip num" id="passCount"></span>
       <button class="btn small" id="passBack" hidden>もどる</button>
     </div>
-    <p class="note">州をクリアすると、スタンプと英語の豆知識がもらえます。</p>
+    <div class="stat-tiles">
+      <div class="tile"><div class="label">マスター</div><div class="num"><span id="mapMastered">0</span><span class="of"> / <span id="mapTotal">0</span></span></div></div>
+      <div class="tile t-gold"><div class="label">スタンプ</div><div class="num"><span id="mapStamps">0</span><span class="of"> / 12</span></div></div>
+      <div class="tile t-sky"><div class="label">復習まち</div><div class="num" id="mapDue">0</div></div>
+    </div>
+    <div class="win"><div class="row spread"><span class="label">レベル</span><span class="label" id="mapExpText"></span></div><div class="bar gold"><i id="mapExp"></i></div></div>
+    <div class="label">パスポート（州をクリアするとスタンプ）</div>
     <div class="stamps" id="stampList"></div>
   </section>
 
@@ -635,7 +685,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
     </div>
     <p class="note">レベルと★の記録はこの端末のブラウザに保存されます。</p>
     <p class="note">タイトル画面と会話モードの動画：Pexels（無料ライセンス）</p>
-    <button class="btn" id="settingBack" hidden>もどる</button>
+    <button class="btn" id="settingBack">もどる</button>
   </section>
 
   <!-- TALK MODE -->
@@ -700,11 +750,10 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 
 <nav class="nav" id="nav" hidden aria-label="メニュー">
   <div class="nav-in">
-    <button class="nav-btn" id="navHome" data-screen="map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>マップ</button>
-    <button class="nav-btn" id="dexBtn" data-screen="dex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 7h6"/></svg>図鑑</button>
-    <button class="nav-btn" id="navMy" data-screen="my"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg>マイたんご</button>
-    <button class="nav-btn" id="passBtn" data-screen="pass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M9 17h6"/></svg>パスポート</button>
-    <button class="nav-btn" id="settingBtn" data-screen="setting"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>設定</button>
+    <button class="nav-btn" id="navHome" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>ホーム</button>
+    <button class="nav-btn" id="navPlay" data-tab="play"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16l13-8z"/></svg>あそぶ</button>
+    <button class="nav-btn" id="dexBtn" data-tab="words"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 7h6"/></svg>たんご</button>
+    <button class="nav-btn" id="passBtn" data-tab="record"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13.5 7 21l5-2.5 5 2.5-2-7.5"/></svg>きろく</button>
   </div>
 </nav>
 
@@ -2485,7 +2534,7 @@ function spriteEl(id, cls){
   return cv;
 }
 
-const SCREENS = ['title','map','battle','result','dex','setting','pass','my','talk'];
+const SCREENS = ['title','map','play','journey','special','battle','result','dex','setting','pass','my','talk'];
 function show(name){
   const cur = SCREENS.find(s => !$('#s-'+s).hidden);
   const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2501,11 +2550,12 @@ function show(name){
 }
 function applyShow(name){
   SCREENS.forEach(s => { $('#s-'+s).hidden = s !== name; });
-  const tabbed = ['map','dex','my','pass','setting'].includes(name);
+  const TAB_OF = {map:'home', play:'play', journey:'play', special:'play', dex:'words', my:'words', pass:'record'};
+  const tabbed = name in TAB_OF;
   $('#nav').hidden = !tabbed;
   $('#app').classList.toggle('with-nav', tabbed);
   document.querySelectorAll('.nav-btn').forEach(b => {
-    if(b.dataset.screen === name) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current');
+    if(b.dataset.tab === TAB_OF[name]) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current');
   });
   window.scrollTo(0,0);
 }
@@ -2610,36 +2660,80 @@ $('#startBtn').addEventListener('click', () => {
 
 /* ===================== MAP ===================== */
 let selState = null;
+function currentState(){ return STATES.find(st => stateOpen(st) && !stateCleared(st)) || STATES[STATES.length-1]; }
+// the next monster on the journey: the first open one not yet beaten in the current state
+function nextFoe(){
+  const st = currentState();
+  let i = st.mons.findIndex((id, k) => monOpen(st, k) && !S.wins[id]);
+  if(i < 0) i = st.mons.findIndex((id, k) => monOpen(st, k));
+  return {st, i, id: st.mons[Math.max(0, i)]};
+}
+function dueCount(){
+  const now = Date.now();
+  return WORDS.filter(w => { const p = S.words[w.w]; return p && p.due <= now && p.s < 5; }).length;
+}
 function renderMap(){
   $('#mapName').textContent = S.name;
   $('#mapAvatar').textContent = [...S.name][0] || '?';
   $('#mapLv').textContent = 'Lv ' + S.lv;
-  $('#mapExp').style.width = (S.exp / expNeed(S.lv) * 100) + '%';
-  $('#mapExpText').textContent = `次のレベルまで ${expNeed(S.lv) - S.exp} EXP ・ HP ${maxHP(S.lv)}`;
-  const now = Date.now();
-  let mastered = 0, due = 0;
-  WORDS.forEach(w => { const p = S.words[w.w]; if(p){ if(p.s >= 5) mastered++; if(p.due <= now && p.s < 5) due++; } });
+  ensureDaily();
+  const due = dueCount();
+  $('#todayDue').textContent = '復習 ' + due + '語';
+  $('#todayDue').hidden = !due;
+  $('#todayNew').textContent = Math.min(S.daily.newCount, 99);
+  $('#todayGoal').textContent = DAILY_NEW;
+  $('#todayBar').style.width = Math.min(100, S.daily.newCount / DAILY_NEW * 100) + '%';
+  const f = nextFoe(), m = MONSTERS.find(x => x.id === f.id);
+  const box = $('#nextFoe'); box.innerHTML = '';
+  const sp = document.createElement('div'); sp.className = 'sp'; sp.appendChild(spriteEl(f.id));
+  const tx = document.createElement('div'); tx.className = 'grow';
+  tx.innerHTML = `<div class="sname">${esc(m.name)}</div><div class="smeta">${esc(f.st.ja)} ${f.i + 1}/${f.st.mons.length}${m.cat !== 'all' ? ' ・ ' + esc(CATS[m.cat].name) : ''}</div>`;
+  box.append(sp, tx);
+  $('#mapMy').textContent = MY.length + '語 ・ 自分の単語を追加';
+  renderHomeModes();
+  if(!selState) selState = currentState().code;
+}
+function renderRecord(){
+  let mastered = 0;
+  WORDS.forEach(w => { const p = S.words[w.w]; if(p && p.s >= 5) mastered++; });
   $('#mapMastered').textContent = mastered;
   $('#mapTotal').textContent = WORDS.length;
-  $('#mapDue').textContent = due;
+  $('#mapDue').textContent = dueCount();
   $('#mapStamps').textContent = STATES.filter(stateCleared).length;
-  ensureDaily();
-  $('#todayCard').innerHTML = `<div class="today-row"><div><div class="label">今日の新しい単語</div><div class="num big">${Math.min(S.daily.newCount, 99)}<span class="of"> / ${DAILY_NEW}</span></div></div>
-    <div><div class="label">今日答えた数</div><div class="num big">${S.daily.answered}<span class="of"> 問</span></div></div></div>
-    <div class="bar gold"><i style="width:${Math.min(100, S.daily.newCount / DAILY_NEW * 100)}%"></i></div>
-    <div class="note">${S.daily.newCount >= DAILY_NEW ? '今日の新しい単語は目標達成！ 復習中心でいこう' : '新しい単語は1日10語までが目安。復習が先に出ます'}</div>`;
-  $('#artBtn').textContent = '絵のタイプ：' + (S.art === 'pixel' ? 'ドット絵' : 'イラスト');
-  $('#mapMy').textContent = MY.length + '語';
-  drawSprite($('#memoSprite'), 'memo');
-  $('#memoBtn').disabled = MYWORDS.length === 0;
-  if(!selState){
-    const cur = STATES.find(st => stateOpen(st) && !stateCleared(st)) || STATES[STATES.length-1];
-    selState = cur.code;
-  }
+  $('#mapExp').style.width = (S.exp / expNeed(S.lv) * 100) + '%';
+  $('#mapExpText').textContent = `Lv ${S.lv} ・ 次まで ${expNeed(S.lv) - S.exp} EXP`;
+}
+/* ----- play modes: one list feeds the home row and the play grid ----- */
+const MODES = [
+  {id:'talk', icon:'💬', name:'会話モード', sub:'質問を声に出す', go:() => startTalk()},
+  {id:'para', icon:'🔁', name:'言い換えバトル', sub:'big → large → huge', go:() => window.startPara && startPara()},
+  {id:'cloze', icon:'📝', name:'例文で覚える', sub:'使い方まで', go:() => window.startCloze && startCloze()},
+  {id:'speed', icon:'⚡', name:'スピード処理', sub:'要するに何？', go:() => window.startSpeed && startSpeed()},
+  {id:'shiri', icon:'🔔', name:'しりとり・早押し', sub:'速さで勝負', go:() => window.startShiri && startShiri()},
+  {id:'special', icon:'👾', name:'スペシャルバトル', sub:'口語フレーズ特訓', go:() => { renderSpecials(); show('special'); }}
+];
+function modeCard(md){
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'win mode-card';
+  b.innerHTML = `<span class="ico">${md.icon}</span><span class="sname">${esc(md.name)}</span><span class="smeta">${esc(md.sub)}</span>`;
+  b.addEventListener('click', () => { play('select'); md.go(); });
+  return b;
+}
+function renderHomeModes(){
+  const row = $('#homeModes'); row.innerHTML = '';
+  MODES.forEach(md => row.appendChild(modeCard(md)));
+}
+function renderPlay(){
+  const st = currentState();
+  $('#journeyMeta').textContent = `${st.ja} ・ スタンプ ${STATES.filter(stateCleared).length}/12`;
+  const g = $('#modeGrid'); g.innerHTML = '';
+  MODES.forEach(md => g.appendChild(modeCard(md)));
+  $('#placeMeta').textContent = S.place ? `前回の結果：${S.place.label}（もう一度測る）` : '3分で難易度を合わせる';
+}
+function renderJourney(){
+  if(!selState) selState = currentState().code;
   drawUSMap();
   renderStatePanel();
-  if(typeof renderQCard === 'function') renderQCard();
-  renderSpecials();
 }
 function renderSpecials(){
   const list = $('#specialList'); list.innerHTML = '';
@@ -2755,18 +2849,30 @@ function renderPass(){
   }).join('');
 }
 $('#navHome').addEventListener('click', () => { renderMap(); show('map'); });
-$('#navMy').addEventListener('click', () => { renderMy(); show('my'); });
+$('#navPlay').addEventListener('click', () => { play('select'); renderPlay(); show('play'); });
+$('#gearBtn').addEventListener('click', () => { play('select'); renderSetting(); show('setting'); });
+$('#goBtn').addEventListener('click', () => { play('select'); startBattle(nextFoe().id); });
+$('#playAll').addEventListener('click', () => { play('select'); renderPlay(); show('play'); });
+$('#homeMy').addEventListener('click', () => { play('select'); renderMy(); show('my'); });
+$('#journeyCard').addEventListener('click', () => { play('select'); renderJourney(); show('journey'); });
+$('#placeCard').addEventListener('click', () => { play('select'); if(window.startPlace) startPlace(); });
+$('#journeyBack').addEventListener('click', () => { renderPlay(); show('play'); });
+$('#specialBack').addEventListener('click', () => { renderPlay(); show('play'); });
+document.querySelectorAll('.seg-b').forEach(b => b.addEventListener('click', () => {
+  if(b.classList.contains('on')) return;
+  play('select');
+  if(b.dataset.go === 'dex'){ renderDex(); show('dex'); } else { renderMy(); show('my'); }
+}));
 $('#nameInput2').addEventListener('change', () => {
   S.name = ($('#nameInput2').value.trim() || 'ゆうしゃ').slice(0,8); persist();
 });
-$('#passBtn').addEventListener('click', () => { play('select'); renderPass(); show('pass'); });
+$('#passBtn').addEventListener('click', () => { play('select'); renderRecord(); renderPass(); show('pass'); });
 $('#passBack').addEventListener('click', () => { renderMap(); show('map'); });
 $('#artBtn').addEventListener('click', () => {
   S.art = S.art === 'pixel' ? 'illust' : 'pixel';
-  persist(); play('select'); renderMap(); renderTitle();
+  persist(); play('select'); renderSetting(); renderTitle();
 });
 $('#dexBtn').addEventListener('click', () => { play('select'); renderDex(); show('dex'); });
-$('#settingBtn').addEventListener('click', () => { play('select'); renderSetting(); show('setting'); });
 
 /* ===================== BATTLE ===================== */
 let B = null;
@@ -3230,6 +3336,7 @@ function renderSetting(){
   $('#voiceBtn').textContent = '英語の読み上げ：' + (S.voice === false ? 'オフ' : 'オン');
   $('#nameInput2').value = S.name === 'ゆうしゃ' ? '' : S.name;
   $('#soundBtn').textContent = '効果音：' + (S.sound ? 'オン' : 'オフ');
+  $('#artBtn').textContent = '絵のタイプ：' + (S.art === 'pixel' ? 'ドット絵' : 'イラスト');
   $('#resetConfirm').hidden = true;
 }
 $('#easyBtn').addEventListener('click', () => { S.easy = !S.easy; persist(); renderSetting(); });
@@ -3333,6 +3440,7 @@ function renderMy(){
     : 'マイたんごはこの端末のブラウザに保存されます。';
   $('#myMix').textContent = '旅のバトルにもまぜる：' + (S.mixMy === false ? 'オフ' : 'オン');
   $('#myCount').textContent = `${MY.length} 語`;
+  $('#memoBtn').disabled = MYWORDS.length === 0;
   const list = $('#myList'); list.innerHTML = '';
   if(!MY.length){
     list.innerHTML = '<li class="empty">まだありません。上のフォームから最近覚えた単語を追加しよう。</li>';
@@ -3384,7 +3492,6 @@ $('#myBulkAdd').addEventListener('click', async () => {
 });
 $('#myMix').addEventListener('click', () => { S.mixMy = S.mixMy === false; persist(); renderMy(); });
 $('#myBack').addEventListener('click', () => { renderMap(); show('map'); });
-$('#myBtn').addEventListener('click', () => { play('select'); renderMy(); show('my'); });
 $('#memoBtn').addEventListener('click', () => { if(MYWORDS.length){ play('select'); startBattle('memo'); } });
 
 /* ===================== SPECIAL (player's own pictures) ===================== */
@@ -4938,13 +5045,7 @@ document.addEventListener('keydown', e => {
   else if(T.mode === 'done' && (k === 'Enter' || k === ' ') && !$('#tkNext').hidden && document.activeElement !== $('#tkNext')){ nextTurn(); e.preventDefault(); }
 });
 
-function renderQCard(){
-  ensureDaily();
-  const learned = QITEMS.filter(q => getP(q.key).s >= 3).length;
-  const seen = QITEMS.filter(q => S.words[q.key]).length;
-  $('#qmCardMeta').textContent = `覚えた ${learned} / ${QITEMS.length}・出会った ${seen}・今日の新しい疑問文 ${Math.min(S.daily.qNew || 0, 99)} / ${Q_DAILY_NEW}`;
-}
-$('#qmStart').addEventListener('click', () => { play('select'); startTalk(); });
+
 
 /* ===================== BOOT ===================== */
 if(!S.v2){
