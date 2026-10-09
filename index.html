@@ -374,7 +374,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 #s-talk{gap:12px}
 .talk-top{display:flex;align-items:center;gap:10px}
 .talk-top .num{font-family:var(--f-en);font-weight:800;font-size:13px;color:var(--muted)}
-.talk-stage{position:relative;height:150px;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(135deg,#ffd6c2,#ff9a6b)}
+.talk-stage{position:relative;height:120px;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(135deg,#ffd6c2,#ff9a6b)}
 .talk-stage.tg-hotel{background:linear-gradient(135deg,#c9b8ff,#7a5ad6)}
 .talk-stage.tg-move{background:linear-gradient(135deg,#a8f0e6,#11b3a3)}
 .talk-stage.tg-shop{background:linear-gradient(135deg,#bcd8ff,#2f8cff)}
@@ -402,6 +402,15 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .t-choices .btn{justify-content:flex-start;text-align:left;background:var(--surface-2);border:2px solid transparent}
 .tf-en{font-family:var(--f-en);font-weight:900;font-size:20px}
 #talkStreak:empty{display:none}
+.tk-ctx{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.tk-note{width:100%;font-size:12px;color:var(--muted)}
+.tk-hints{display:flex;flex-direction:column;gap:6px}
+.tk-hint{padding:8px 12px;border-radius:12px;background:var(--surface-2);font-family:var(--f-en);font-weight:800}
+.tk-hint .label{font-family:var(--f-ui);margin-right:6px}
+.tk-heard{margin:0;font-size:13px;font-weight:700;color:var(--brand)}
+.tk-alt{margin:0;font-size:13px;color:var(--muted);font-family:var(--f-en)}
+#tkMic.rec{background:var(--bad);color:#fff}
+
 .tstamps{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .tstamp{color:#fff;font-weight:800;font-size:13px;padding:6px 12px;border-radius:999px;transform:rotate(-3deg)}
 .talk-ico{font-size:30px;display:grid;place-items:center}
@@ -448,7 +457,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
       <div class="sp talk-ico" aria-hidden="true">💬</div>
       <div class="grow">
         <div class="sname">会話モード <span class="chip new-chip">NEW</span></div>
-        <div class="smeta">カフェ・駅・ホテルで、店員さんや友だちに質問してみよう（バトルなし・10問）</div>
+        <div class="smeta">カフェ・駅・ホテルで、英語の質問を声に出して言おう（答えは隠れていて、ヒントは必要な分だけ）</div>
         <div class="smeta" id="qmCardMeta"></div>
       </div>
       <button class="btn small primary" id="qmStart" type="button">スタート</button>
@@ -643,27 +652,39 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
     <div class="talk-log" id="talkLog" aria-live="polite"></div>
     <div class="win talk-task" id="talkTask">
       <div class="label" id="tkLabel"></div>
+      <div class="tk-ctx" id="tkCtx"></div>
       <div class="talk-intent" id="tkIntent"></div>
-      <p class="talk-hint" id="tkHint"></p>
+      <div class="tk-hints" id="tkHints"></div>
       <p class="t-msg" id="tkMsg"></p>
+      <div class="t-panel" id="tkModel" hidden>
+        <div class="tf-en" id="tkModelEn"></div>
+        <p class="trivia" id="tkModelNote"></p>
+        <p class="t-msg">お手本を聞いて、1回まねして言ってみよう</p>
+        <div class="btn-row"><button class="btn" id="tkListen" type="button">🔊 もう一度</button><button class="btn primary" id="tkCopied" type="button">まねした！</button></div>
+      </div>
+      <div class="t-panel" id="tkAct" hidden>
+        <button class="btn primary flip" id="tkSaid" type="button">言った！ 答え合わせ</button>
+        <div class="btn-row"><button class="btn" id="tkHintBtn" type="button">💡 ヒント</button><button class="btn" id="tkMic" type="button" hidden>🎤 声で答える</button></div>
+      </div>
       <div class="t-panel" id="tkBuild" hidden>
         <div class="qm-line" id="tkLine"></div>
         <div class="qm-pool" id="tkPool"></div>
         <div class="btn-row"><button class="btn" id="tkClear" type="button">やり直す</button><button class="btn primary" id="tkCheck" type="button">決定</button></div>
       </div>
-      <div class="t-panel" id="tkSay" hidden>
-        <button class="btn primary flip" id="tkFlip" type="button">言えた！ 答えを見る</button>
+      <div class="t-panel" id="tkReveal" hidden>
+        <div class="tf-en" id="tkAnsEn"></div>
+        <p class="tk-heard" id="tkHeard" hidden></p>
+        <p class="tk-alt" id="tkAlt" hidden></p>
+        <p class="tk-alt" id="tkNear" hidden></p>
+        <div class="rates">
+          <button class="btn rate r3" id="tkr3" type="button"><b>◎</b>言えた</button>
+          <button class="btn rate r2" id="tkr2" type="button"><b>◯</b>別の言い方で</button>
+          <button class="btn rate r1" id="tkr1" type="button"><b>×</b>言えなかった</button>
+        </div>
       </div>
-      <div class="rates" id="tkRates" hidden>
-        <button class="btn rate r3" id="tkr3" type="button"><b>◎</b>すぐ言えた</button>
-        <button class="btn rate r2" id="tkr2" type="button"><b>△</b>迷った</button>
-        <button class="btn rate r1" id="tkr1" type="button"><b>×</b>言えなかった</button>
-      </div>
-      <div class="t-choices" id="tkChoices" hidden></div>
       <div class="t-panel" id="tkFeedback" hidden>
         <div class="label" id="tkfTitle"></div>
         <div class="tf-en" id="tkfEn"></div>
-        <div class="exj" id="tkfJa"></div>
         <p class="trivia bad" id="tkfWhy" hidden></p>
         <p class="trivia" id="tkfNote"></p>
         <button class="btn" id="tkSayAgain" type="button">🔊 もう一度聞く</button>
@@ -4534,7 +4555,7 @@ function tileText(tok, i){
 function qNorm(s){ return s.toLowerCase().replace(/[?.,!]/g, '').replace(/\s+/g, ' ').trim(); }
 function qDecoys(q, n){
   const toks = qTokens(q).map(t => t.toLowerCase().replace(/[,?]/g, ''));
-  const swap = {do:'does', does:'do', did:'does', is:'are', are:'is', was:'were', can:'could', could:'can'};
+  const swap = {do:'does', does:'do', did:'does', is:'are', are:'is', was:'were'};  // no can/could: both are often correct
   const near = [], generic = [];
   toks.forEach(t => { const s = swap[t]; if(s && !toks.includes(s) && !near.includes(s)) near.push(s); });
   ['do','does','did','is','are'].forEach(a => { if(!toks.includes(a) && !near.includes(a)) generic.push(a); });
@@ -4574,8 +4595,14 @@ function pickQ(n, queued = []){
   if(out.length < n) out.push(...fresh.filter(q => !out.includes(q)).sort(order).slice(0, n - out.length));
   return out;
 }
+// Talk-mode data from the translator: [ja_new, role, politeness, scene note, keyword, accepted alternatives, understandable-but-different, modal-free]
+const QV2 = {"Are you hungry?":["お腹すいてる？","友だち","くだけた","出かけた先で","hungry",["Are you hungry now?"],["Are you starving?","Do you want to eat?"],0],"Is this your first time here?":["ここに来るのは今回が初めて？（「今回が」を主語に）","旅先で会った人","ふつう","旅先で隣の人に。来たことがあるかではなく『今回が初めてか』を聞く","first time",["Is this your first visit here?","Is it your first time here?"],["Have you been here before?"],0],"Was it crowded?":["混んでた？","友だち","くだけた","出かけた話を聞く","crowded",[],["Was it busy?","Was it packed?"],0],"Do you like spicy food?":["辛い食べ物は好き？","友だち","くだけた","店を選ぶ","spicy",["Do you like spicy foods?"],["Can you eat spicy food?","Do you like hot food?"],0],"Does she speak Japanese?":["彼女って、ふだん日本語話す人？","友だち","くだけた","友人について。能力（できる）ではなく、日本語を話す人かどうか","speak",[],["Can she speak Japanese?"],0],"Does this bus go downtown?":["このバス、ダウンタウン（中心街）に行きますか？","バスの運転手","丁寧","バス停","downtown",[],["Does this bus go to the city center?"],0],"Did you have breakfast?":["朝ごはん食べた？","家族・友だち","くだけた","朝のあいさつ","breakfast",["Did you eat breakfast?"],["Have you had breakfast?"],0],"Do you want to grab lunch?":["お昼、一緒に食べに行きたい？（軽く誘う）","同僚・友だち","くだけた","同僚をカジュアルに誘う。「〜したい？」の形で","grab",["Do you want to get lunch?","Do you want to have lunch?","Want to grab lunch?","Wanna grab lunch?"],["Shall we have lunch?","Why don't we have lunch?","Let's have lunch."],0],"Can you drive?":["車の運転、できる？","友だち","くだけた","旅行の計画","drive",["Can you drive a car?"],["Do you drive?"],0],"Are you going to come to the party?":["パーティー、来るつもり？","友だち","くだけた","友だちに予定（つもり）を確認","party",["Are you going to the party?"],["Are you coming to the party?","Will you come to the party?"],0],"Is it going to rain today?":["今日って雨になりそう？","家族・友だち","くだけた","出かける前に空を見ながら。予測を聞く","rain",[],["Will it rain today?","Do you think it will rain today?"],0],"Should I bring anything?":["何か持っていったほうがいい？","招待してくれた人","ふつう","招待されたとき","bring",["Should I bring something?"],["Do I need to bring anything?"],0],"When's your birthday?":["誕生日いつ？","友だち","くだけた","雑談","birthday",["When is your birthday?"],[],0],"What's the Wi-Fi password?":["Wi-Fiのパスワードは何ですか？","カフェの店員","ふつう","カフェ","password",["What's the password for the Wi-Fi?"],["Can I have the Wi-Fi password?"],0],"Where do you live?":["どこに住んでるの？","初対面の人","ふつう","初対面の雑談","live",[],[],0],"What time does the store open?":["お店は何時に開きますか？","通りの人・店員","丁寧","店・施設","open",["What time does the shop open?"],["When does the store open?"],0],"What did you do last weekend?":["先週末は何をしたの？","同僚","くだけた","週明け","weekend",["What did you do over the weekend?","What did you do on the weekend?"],["How was your weekend?"],0],"Which one do you want?":["（いくつか並べて）どれが欲しい？","友だち","くだけた","お店で友だちに。好みではなく『欲しいもの』を選ばせる","want",["Which do you want?"],["Which one do you like?","Which one is good?"],0],"Why are you learning English?":["なんで英語を勉強してるの？（今まさに続けていること）","友だち","くだけた","雑談","learning",["Why are you studying English?"],["Why do you study English?"],0],"Who wants coffee?":["コーヒー欲しい人〜？","職場のみんな","くだけた","職場でみんなに。『飲む習慣がある人』ではなく『今欲しい人』","wants",["Who wants some coffee?","Anyone want coffee?","Anybody want coffee?"],["Who drinks coffee?"],0],"What happened?":["何があったの？","友だち","くだけた","様子が変なとき","happened",["What happened to you?"],["What's wrong?"],0],"Who did you go with?":["誰と行ったの？","友だち","くだけた","出かけた話","with",["Who did you go there with?"],["Who went with you?"],0],"How far is it?":["どのくらい遠いですか？","通りの人","丁寧","道を聞く","far",["How far is it from here?"],[],0],"How often do you work out?":["どのくらいの頻度で（ジムなどで）体を鍛えてる？","友だち","くだけた","趣味の話","work out",["How often do you exercise?"],[],0],"How many people are coming?":["何人来るの？","幹事の友だち","ふつう","人数の確認","people",[],["How many people will come?"],0],"Do you have a table for two?":["（店員に）2人用のテーブル、ありますか？","店員","丁寧","レストランの入口で店員に。お店が持っているか（have）を聞く","table",["Do you have a table for 2?"],["Can we get a table for two?","Is there a table for two?"],0],"How long is the wait?":["待ち時間はどのくらいですか？","店員","丁寧","人気店の入口で店員に。『待ち時間』を主語にする","wait",["How long's the wait?"],["How long do we have to wait?","How long will it take?"],0],"What do you recommend?":["（店員に）あなたは何をすすめますか？","店員","ふつう","注文で迷ったとき店員に","recommend",["What would you recommend?"],["What's your recommendation?","What's good here?"],0],"Can I get a refill?":["おかわりをもらえますか？","店員","ふつう","レストランで飲み物","refill",["Can I have a refill?","Could I get a refill?"],["Can I have another one?"],1],"Could we get the check, please?":["（店員に・丁寧に）私たちにお会計をもらえますか？","店員","丁寧","2人以上で食事後、テーブルで店員に。主語は『私たち』","check",["Could we get the bill, please?","Can we get the check, please?","Could we have the check, please?"],["Check, please.","Can I get the check?"],1],"Is the tip included?":["チップは含まれていますか？","店員","丁寧","会計","tip",[],["Does it include the tip?"],0],"How much is it with tax?":["税込みでいくらですか？","店員","丁寧","レジ","tax",["How much is it including tax?","How much is this with tax?"],["Does that include tax?"],0],"Do you take credit cards?":["（お店の人に）お店はクレジットカードを受け付けてますか？","店員","丁寧","店員に『お店が受け付けるか』を聞く（主語はお店＝you）","take",["Do you accept credit cards?","Do you take credit card?"],["Can I use a credit card?","Can I pay by credit card?"],0],"Can I try this on?":["これ、試着してもいいですか？","店員","ふつう","服屋","try",["Could I try this on?","May I try this on?","Can I try it on?"],[],1],"Do you have this in a smaller size?":["（店員に）これと同じもので、もっと小さいサイズありますか？","店員","丁寧","服屋で手に持った商品を見せながら","size",["Do you have this in smaller size?","Do you have this in a small size?"],["Do you have a smaller size?","Is there a smaller size?"],0],"Is there a drugstore around here?":["この辺に薬局はありますか？","通りの人","丁寧","街なか","drugstore",["Is there a pharmacy around here?","Is there a drugstore near here?","Is there a drugstore nearby?"],["Where is a drugstore?"],0],"How do I get to the subway station?":["地下鉄の駅へはどう行けばいいですか？","通りの人","丁寧","道案内","get to",["How can I get to the subway station?","How do I get to the metro station?"],["Where is the subway station?"],0],"Is it within walking distance?":["そこって『歩ける距離内』ですか？","ホテルのスタッフ","ふつう","ホテルで場所を聞いたあと。距離のひとかたまり表現 walking distance を使う","walking distance",["Is that within walking distance?","Is it in walking distance?"],["Can I walk there?","Can I walk there from here?"],0],"Does this bus go to Union Square?":["このバスはユニオンスクエアに行きますか？","バスの運転手","ふつう","バス停","Union Square",[],[],0],"Which line goes to the airport?":["どの線が空港に行きますか？","駅員","ふつう","駅","line",["What line goes to the airport?"],["Which line should I take to the airport?"],0],"Where do I get off for the museum?":["美術館に行くには、私はどこで降りますか？","バスの運転手","丁寧","バスの運転手に。主語は『私』","get off",["Where do I get off for the art museum?"],["Where should I get off for the museum?"],0],"Can I leave my bags here?":["（フロントで）荷物をここに置いていってもいいですか？","フロント","ふつう","チェックイン前/後に荷物を預ける。『私が置いていく』許可を求める","leave",["Could I leave my bags here?","Can I leave my luggage here?","May I leave my bags here?"],["Could you keep my bags?","Can you keep my luggage?"],1],"What time is checkout?":["チェックアウトは何時ですか？","フロント","ふつう","ホテル","checkout",["What time is check-out?","When is checkout?"],["What time do I have to check out?"],0],"Could I get a late checkout?":["（フロントに丁寧に）レイトチェックアウトをもらうことはできますか？","フロント","丁寧","ホテルのフロントに。『レイトチェックアウト』をサービスとして頼む","late",["Can I get a late checkout?","Could I have a late checkout?"],["Can I check out late?"],1],"Is breakfast included?":["朝食は付いていますか？","フロント","ふつう","予約・チェックイン","included",["Is the breakfast included?"],["Does it come with breakfast?","Does the room include breakfast?"],0],"Where do I check in for this flight?":["この便は、どこでチェックインすればいいですか？（私は）","空港の係員","ふつう","空港で係員に航空券を見せながら。主語は『私』","check in",["Where can I check in for this flight?"],["Where is the check-in for this flight?"],0],"Which gate does this flight leave from?":["この便はどのゲートから出ますか？","空港の係員","ふつう","空港","gate",["What gate does this flight leave from?","Which gate does this flight depart from?"],["What's the gate for this flight?"],0],"Is this the line for security?":["これは保安検査の列ですか？","並んでいる人","ふつう","空港","security",["Is this the security line?"],[],0],"Could you call a cab for me?":["タクシーを呼んでいただけますか？","フロント","丁寧","ホテル・レストラン","cab",["Could you call a taxi for me?","Could you call me a cab?","Could you call me a taxi?"],[],1],"Can you help me?":["手伝ってもらえる？／ちょっと助けてもらえますか？","近くの人","ふつう","困ったとき","help",["Could you help me?"],[],1],"Can I ask you something?":["ちょっと聞いてもいい？","誰でも","くだけた","質問の前置き","ask",["Can I ask you a question?","Could I ask you something?"],[],1],"Can I use your bathroom?":["（友だちの家で）お手洗い、使わせてもらってもいい？","友だちの家の人","ふつう","友人の家","use",["Could I use your bathroom?","May I use your bathroom?","Can I use your restroom?","Can I use the bathroom?"],[],1],"Could you write it down for me?":["それ、書いてもらえますか？","店員など","丁寧","聞き取りが不安なとき","write",["Could you write it down?","Could you write that down for me?"],[],1],"Could you take a picture of us?":["私たちの写真を撮ってもらえますか？","観光客","丁寧","観光地","picture",["Could you take a photo of us?","Could you take our picture?"],[],1],"Could I have some water, please?":["お水をいただけますか？","店員","丁寧","レストラン","water",["Could I have some water?","Can I get some water, please?"],["Water, please."],1],"Could you speak a little more slowly?":["もう少しゆっくり話していただけますか？","話し相手","丁寧","店・電話","slowly",["Could you speak more slowly?","Could you speak a little slower?"],[],1],"May I ask who's calling?":["（電話で・とても丁寧に）どなたからのお電話か、お聞きしてもよろしいですか？","電話の相手","とても丁寧","会社で電話を受けたとき","calling",["May I ask who is calling?","Can I ask who's calling?"],["Who's calling, please?","Who is this?"],1],"May I see your passport, please?":["（係員として）パスポートを拝見してもよろしいですか？","旅行者（自分は係員）","とても丁寧","空港・ホテル","passport",["May I see your passport?","Could I see your passport, please?"],[],1],"Is it okay if I open the window?":["窓、開けても大丈夫ですか？","同じ部屋の人","ふつう","同じ部屋の人に。『大丈夫＝okay』で聞く","okay",["Is it OK if I open the window?","Is it all right if I open the window?","Is it alright if I open the window?"],["Can I open the window?","Do you mind if I open the window?"],0],"Do you mind if I sit here?":["ここに座っても、お嫌じゃないですか？","隣の席の人","丁寧","カフェで知らない人の隣に。相手が気にするか（mind）を聞く","mind",["Would you mind if I sat here?"],["Can I sit here?","Is this seat taken?"],0],"Would you mind closing the window?":["窓を閉めていただくのは、お嫌ではないですか？","知らない人","とても丁寧","目上・知らない人へのとても丁寧なお願い","mind",["Do you mind closing the window?"],["Could you close the window?"],0],"Would you mind if I left a little early today?":["（上司に）今日少し早く帰らせてもらっても、差し支えないでしょうか？","上司","とても丁寧","職場で上司に、とても丁寧に許可を求める","early",["Would you mind if I left a bit early today?"],["Is it okay if I leave a little early today?","Can I leave a little early today?"],0],"Would you like something to drink?":["（来客に）何か飲み物はいかがですか？","来客","丁寧","来客・機内","drink",["Would you like anything to drink?","Would you like a drink?"],["Do you want something to drink?"],0],"Would you like me to carry that?":["それ、私に運んでほしいですか？（丁寧に申し出る）","荷物の多い人","丁寧","相手の荷物が重そうなとき、丁寧に申し出る","carry",["Would you like me to carry it?"],["Shall I carry that?","Can I carry that for you?","Do you want me to carry that?"],0],"Could you do me a favor?":["（相手に）ひとつ、お願いを聞いてくれない？","友だち・同僚","ふつう","頼みごとの前置き。相手に『してもらう』形","favor",["Can you do me a favor?"],["Can I ask you a favor?"],1],"Do you have a minute?":["今、1分ほど時間ありますか？","同僚・上司","ふつう","職場で同僚・上司に話しかける前置き","minute",["Do you have a second?","Have you got a minute?","Got a minute?"],["Can I talk to you?"],0],"Do you know where the restroom is?":["お手洗いがどこかご存じですか？","店員・通りの人","丁寧","店・施設","restroom",["Do you know where the bathroom is?","Do you know where the toilet is?"],["Where is the restroom?"],0],"Can you tell me how to get to the museum?":["美術館への行き方を教えてもらえますか？","通りの人","ふつう","道を聞く","tell",["Could you tell me how to get to the museum?"],["How do I get to the museum?"],1],"Do you know what time the store closes?":["お店が何時に閉まるか分かりますか？","通りの人","丁寧","買い物","close",["Do you know what time the shop closes?","Do you know when the store closes?"],["What time does the store close?"],0],"Do you know if there's an ATM around here?":["この辺にATMがあるかご存じですか？","通りの人","丁寧","街なか","ATM",["Do you know if there is an ATM near here?","Do you know whether there's an ATM around here?","Do you know if there's an ATM nearby?"],["Is there an ATM around here?"],0],"Could you tell me when the next train leaves?":["次の電車がいつ出るか教えていただけますか？","駅員","丁寧","駅の窓口","next train",["Can you tell me when the next train leaves?"],["When does the next train leave?"],1],"Would it be possible to change my room?":["（フロントに・とても丁寧に）部屋を替えることは可能でしょうか？","フロント","とても丁寧","ホテルで。『可能＝possible』を使って丁寧に","possible",["Would it be possible to change rooms?","Is it possible to change my room?"],["Could I change my room?"],0],"How's it going?":["（友だちに軽く）最近どんな感じ？","友だち","くだけた","会ったときのくだけたあいさつ。How are you? 以外で","going",["How is it going?"],["How are you?","How are you doing?"],0],"How was your weekend?":["週末どうだった？","同僚","くだけた","月曜の雑談","weekend",["How was the weekend?"],["How did your weekend go?","What did you do last weekend?"],0],"What do you do for fun?":["楽しみのために、ふだん何してる？","初対面の人","くだけた","初対面の雑談。hobby は堅いので使わない","fun",[],["What are your hobbies?","What's your hobby?"],0],"What about you?":["（話を返して）で、あなたのほうは？","話し相手","くだけた","自分の話をしたあとに相手に返す","about",["How about you?"],["And you?"],0],"What did you do there?":["そこで何したの？","友だち","くだけた","旅行の話","there",[],[],0],"What was it like?":["それ、どんなふうだった？（何に似てた？）","友だち","くだけた","相手の体験の様子を詳しく聞く","like",[],["How was it?"],0],"How did you get into that?":["それにどうやってハマったの？（get into＝ハマる）","友だち","くだけた","趣味の話を広げる","get into",["How did you get into it?"],["How did you start that?"],0],"Oh really? How come?":["えっ本当？ なんで？（カジュアルに2文で）","友だち","くだけた","意外な話を聞いて。Why 以外のくだけた言い方","come",["Really? How come?","How come?"],["Why?","Really? Why?"],0],"Have you been here before?":["ここ、前に来たことある？","友だち","くだけた","店・観光地","before",["Have you ever been here?","Have you ever been here before?"],["Is this your first time here?","Have you come here before?"],0],"How long have you lived here?":["ここに住んでどのくらい？","知り合い","ふつう","住まいの雑談","long",["How long have you been living here?"],["How long have you been here?"],0],"Any plans for the weekend?":["週末、何か予定は？（主語・動詞を省いて短く）","同僚","くだけた","金曜の雑談。Do you have を省略した形","plans",["Any plans this weekend?"],["Do you have any plans for the weekend?"],0],"What do you think?":["どう思う？","友だち","くだけた","意見を聞く","think",[],[],0],"What did you think of the movie?":["その映画、どう思った？","友だち","くだけた","感想（意見）を聞く。think を使う","think",["What did you think about the movie?"],["How was the movie?"],0],"Would you recommend it?":["それ、（人に）すすめる？","友だち","くだけた","店・映画・本について相手の意見を聞く","recommend",["Do you recommend it?"],["Is it good?"],0],"Which one do you prefer?":["2つのうち、どっちのほうが好み？（比べて）","友だち","くだけた","二択で好みを聞く。like better より短く","prefer",["Which do you prefer?"],["Which one do you like better?","Which one do you like?"],0],"Where do you think we should eat?":["どこで食べるべきだと思う？（相手の意見を聞く）","友だち","くだけた","相談・提案。do you think を挟む","should",[],["Where should we eat?"],0],"Sorry, what was that?":["ごめん、今のは何だった？","友だち","くだけた","聞き取れなかったとき、くだけた聞き返し","sorry",["What was that?","Sorry, what was that again?"],["Sorry, what did you say?","Pardon?"],0],"What do you mean?":["どういう意味？","友だち","くだけた","意味がわからないとき","mean",["What do you mean by that?"],["What does that mean?"],0],"Sorry, did you say fifteen or fifty?":["（すみません）15って言いました？それとも50？","店員","ふつう","数字の聞き返し","say",["Did you say fifteen or fifty?"],["Was it fifteen or fifty?","Fifteen or fifty?"],0],"How do you spell that?":["それ、どうつづるの？","話し相手","ふつう","名前・地名の確認","spell",["How do you spell it?"],["Could you spell that?","Can you spell that for me?"],0],"It's really hot today, isn't it?":["今日ほんと暑いよね（同意を求めて語尾を下げる）","友だち","くだけた","天気の雑談","hot",["It's so hot today, isn't it?"],["It's really hot today, right?"],0],"You're from Osaka, aren't you?":["大阪出身、だったよね？（確認で語尾を上げる）","知り合い","ふつう","記憶の確認","from",[],["You're from Osaka, right?","Are you from Osaka?"],0],"You don't eat meat, do you?":["お肉は食べないんだよね？","友だち","ふつう","食事の前の確認","meat",[],["You don't eat meat, right?","Do you eat meat?"],0],"Don't you like it?":["それ、好きじゃないの？","友だち","くだけた","反応が意外なとき","like",["Don't you like that?"],["You don't like it?","Do you not like it?"],0],"Aren't you cold?":["寒くないの？","友だち","くだけた","薄着の相手","cold",[],["Are you not cold?","Are you cold?"],0]};
+const JUDGE = {"rules":[["[‘’ʼ`]","'"],["[！-～]",""],["[?.,!;:\\\"()、。]"," "],["\\bwi ?-? ?fi\\b","wifi"],["\\bcheck ?-? ?(out|in)\\b","check$1"],["\\bo\\.? ?k\\.?\\b|\\bokay\\b","ok"],["\\ball ?right\\b|\\balright\\b","ok"],["\\be ?-? ?mail\\b","email"],["\\bunion square\\b","unionsquare"],["-"," "],["\\bwanna\\b","want to"],["\\bgonna\\b","going to"],["\\bgotta\\b","got to"],["\\bgimme\\b","give me"],["\\blemme\\b","let me"],["\\bya\\b","you"],["\\bwhatcha\\b","what are you"],["\\b(what|where|when|who|how|it|that|there|here)'?s\\b","$1 is"],["\\bi'?m\\b","i am"],["\\b(you|we|they)'re\\b","$1 are"],["\\byoure\\b","you are"],["\\b(is|are|was|were|do|does|did|have|has|should|would|could)n'?t\\b","$1 not"],["\\bcan'?t\\b","cannot"],["\\bwon'?t\\b","will not"],["\\b(i|you|it|we|they)'ll\\b","$1 will"],["\\b(i|you|we|they)'ve\\b","$1 have"],["\\b(i|you|we|they)'d\\b","$1 would"],["\\b(um+|uh+|er+|erm|hmm+|ah+)\\b"," "],["^\\s*(sorry|excuse me|oh|so|hey|well|and|ok)\\s+",""],["\\s+(please|then|again)\\s*$",""],["^\\s*please\\s+",""],["\\s+"," "],["\\b(\\w+)( \\1\\b)+","$1"]],"numbers":{"0":"zero","1":"one","2":"two","3":"three","4":"four","5":"five","6":"six","7":"seven","8":"eight","9":"nine","10":"ten","11":"eleven","12":"twelve","13":"thirteen","14":"fourteen","15":"fifteen","16":"sixteen","17":"seventeen","18":"eighteen","19":"nineteen","20":"twenty","30":"thirty","40":"forty","50":"fifty","60":"sixty","70":"seventy","80":"eighty","90":"ninety","100":"a hundred"},"synonyms":[["check","bill"],["cab","taxi"],["restroom","bathroom","toilet"],["store","shop"],["picture","photo"],["drugstore","pharmacy"],["bags","luggage","baggage"],["minute","second"],["anything","something"]],"homophones":[["for","four","fore"],["to","too","two"],["write","right"],["i","eye"],["there","their","they're"],["your","you're"],["whose","who's"],["meat","meet"],["eight","ate"],["by","buy","bye"],["see","sea"],["know","no"],["some","sum"],["wait","weight"],["here","hear"],["would","wood"],["one","won"],["new","knew"],["check","czech"],["way","weigh"],["break","brake"],["mind","mine"],["cold","called"]],"articles":["a","an","some","the"],"modalFree":"^(can|could|may) (i|we)\\b|^(can|could|would) you\\b"};
 /* ===================== TALK MODE (question practice, no battle) ===================== */
-// No HP, no game over: a chat with people in real places. 10 turns per set.
+// Designed and checked in simulation by three agents (linguist / polyglot / translator):
+// the partner's answer stays hidden, hints come one at a time on request, every turn is spoken,
+// alternative correct wordings count, and the old 4-choice reply turn is now "say the question
+// that gets this answer". One turn should take about 10 seconds.
 const TALK_GROUPS = {
   food:{name:'カフェ・レストラン', role:'Server', roleJa:'店員', color:'#ff8a3d', re:/レストラン|カフェ|注文|会計|食事|飲み物|人気店|食後/},
   hotel:{name:'ホテル', role:'Front desk', roleJa:'ホテルのスタッフ', color:'#7a5ad6', re:/ホテル/},
@@ -4588,8 +4615,82 @@ function talkGroup(q){
   for(const [k, g] of Object.entries(TALK_GROUPS)) if(g.re.test(q.scene)) return k;
   return 'talk';
 }
-let T = null;
+QITEMS.forEach(q => {
+  const v = QV2[q.en];
+  if(!v) return;
+  [q.jaNew, q.role, q.polite, q.sceneNote, q.keyword, q.accept, q.nearMiss, q.modalFree] = v;
+});
 
+/* ----- answer judge (for speech recognition) ----- */
+const JUDGE_RX = JUDGE.rules.map(([p, r]) => [new RegExp(p, 'g'), r]);
+const JUDGE_SYN = {};
+JUDGE.synonyms.forEach(g => g.forEach(w => JUDGE_SYN[w] = g[0]));
+function jNorm(s, q, asr){
+  s = ' ' + s.toLowerCase() + ' ';
+  JUDGE_RX.forEach(([rx, r]) => { s = s.replace(rx, r); });
+  s = s.replace(/\b(\d{1,2}):(\d{2})\b/g, (m, h, mm) => (JUDGE.numbers[+h] || h) + ' ' + (JUDGE.numbers[+mm] || mm));
+  s = s.replace(/\b\d+\b/g, n => JUDGE.numbers[n] || n);
+  let w = s.trim().split(/\s+/).map(x => JUDGE_SYN[x] || x);
+  if(q && q.modalFree) w = w.join(' ').replace(new RegExp(JUDGE.modalFree), m => m.split(' ').pop() === 'you' ? 'can you' : 'can ' + m.split(' ').pop()).split(' ');
+  if(asr && q){
+    const target = new Set(jNorm(q.en, null, false).split(' '));
+    w = w.map(x => { if(target.has(x)) return x; const g = JUDGE.homophones.find(h => h.includes(x)); return g ? (g.find(y => target.has(y)) || x) : x; });
+  }
+  return w.join(' ');
+}
+function jDropArticles(s){ return s.split(' ').filter(w => !JUDGE.articles.includes(w)).join(' '); }
+// 'good' = same as the answer or an accepted alternative, 'near' = understandable but not today's pattern, null = no match
+function judgeSaid(alts, q){
+  const ok = [q.en, ...(q.accept || [])].map(a => jNorm(a, q, false));
+  const near = (q.nearMiss || []).map(a => jNorm(a, q, false));
+  let best = null;
+  for(const raw of alts){
+    const s = jNorm(raw, q, true);
+    if(ok.includes(s) || ok.some(a => jDropArticles(a) === jDropArticles(s))) return 'good';
+    if(near.includes(s)) best = 'near';
+  }
+  return best;
+}
+
+/* ----- speech recognition: an optional helper, never the only judge ----- */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let srOff = !SR, srBusy = null;
+function listen(q){
+  if(srOff || srBusy) return;
+  let rec;
+  try{ rec = new SR(); }catch(e){ srOff = true; tSyncMic(); return; }
+  rec.lang = 'en-US'; rec.maxAlternatives = 5; rec.interimResults = false; rec.continuous = false;
+  srBusy = rec;
+  $('#tkMic').classList.add('rec');
+  $('#tkMic').textContent = '🎤 聞いています…';
+  rec.onresult = e => {
+    const alts = [...e.results[0]].map(r => r.transcript);
+    T.heard = alts[0];
+    T.heardGrade = judgeSaid(alts, q);
+  };
+  rec.onerror = e => {
+    if(e.error === 'not-allowed' || e.error === 'service-not-allowed' || e.error === 'audio-capture'){ srOff = true; toast('このブラウザではマイクが使えないので、声に出してから「答え合わせ」を押してね'); }
+  };
+  rec.onend = () => {
+    srBusy = null;
+    $('#tkMic').classList.remove('rec');
+    tSyncMic();
+    if(T && T.cur === q && (T.mode === 'ask') && T.heard != null) tReveal();
+  };
+  try{ rec.start(); }catch(e){ srBusy = null; srOff = true; tSyncMic(); }
+}
+function tSyncMic(){
+  const b = $('#tkMic');
+  b.hidden = srOff;
+  b.textContent = '🎤 声で答える';
+}
+function toast(text){
+  const m = $('#tkMsg');
+  m.textContent = text;
+}
+
+/* ----- one set ----- */
+let T = null;
 function tGrade(q, kind){
   ensureDaily();
   const p = Object.assign({}, getP(q.key));
@@ -4606,7 +4707,7 @@ function tGrade(q, kind){
 }
 function tScore(ok){
   if(ok){ T.correct++; T.streak++; T.best = Math.max(T.best, T.streak); T.groupsOk.add(T.group); play('hit'); }
-  else { T.streak = 0; play('miss'); }
+  else { T.streak = 0; }
   $('#talkStreak').textContent = T.streak >= 2 ? '🔥 ' + T.streak + '連続' : '';
 }
 function bubble(kind, text, sub, extra){
@@ -4627,7 +4728,6 @@ function setScene(group){
   T.group = group;
   const g = TALK_GROUPS[group];
   $('#talkSceneName').textContent = '📍 ' + g.name;
-  bubble('sys', `場面：${g.name}（相手：${g.roleJa}）`);
   const v = $('#talkVideo');
   v.hidden = true;
   v.onplaying = () => { v.hidden = false; };
@@ -4637,11 +4737,11 @@ function setScene(group){
   $('#talkStage').className = 'talk-stage tg-' + group;
 }
 function tPanels(show){
-  ['#tkBuild','#tkSay','#tkRates','#tkChoices','#tkFeedback','#tkNext'].forEach(s => $(s).hidden = !show.includes(s));
+  ['#tkModel','#tkAct','#tkBuild','#tkReveal','#tkFeedback','#tkNext'].forEach(s => $(s).hidden = !show.includes(s));
 }
 function startTalk(){
   ensureDaily();
-  T = {turn:0, correct:0, total:0, streak:0, best:0, group:null, queue:[], items:new Map(), groupsOk:new Set(), goodCount:0};
+  T = {turn:0, correct:0, streak:0, best:0, group:null, queue:[], items:new Map(), groupsOk:new Set(), goodCount:0, recent:[]};
   T.queue = pickQ(TALK_TURNS, []);
   $('#talkLog').innerHTML = '';
   $('#talkSummary').hidden = true;
@@ -4650,33 +4750,104 @@ function startTalk(){
   show('talk');
   nextTurn();
 }
+function ctxChips(q){
+  const c = [];
+  if(q.role) c.push(`<span class="chip">相手：${esc(q.role)}</span>`);
+  if(q.polite) c.push(`<span class="chip">${esc(q.polite)}</span>`);
+  return c.join('') + (q.sceneNote ? `<div class="tk-note">${esc(q.sceneNote)}</div>` : '');
+}
 function nextTurn(){
   if(T.turn >= TALK_TURNS){ endTalk(); return; }
   T.turn++;
   $('#talkProg').style.width = ((T.turn - 1) / TALK_TURNS * 100) + '%';
   $('#talkCount').textContent = `${T.turn} / ${TALK_TURNS}`;
-  const seen = QITEMS.filter(q => S.words[q.key] && getP(q.key).s >= 1);
-  if(T.turn % 3 === 0 && seen.length >= 4){ startTReply(shuffle(seen)[0]); return; }
+  T.hints = 0; T.heard = null; T.heardGrade = null; T.tiles = null;
+  $('#tkHints').innerHTML = '';
+  $('#talkLog').innerHTML = '';  // each turn is its own short exchange, so earlier answers can't leak
+  $('#tkMsg').textContent = '';
+  // every 3rd turn: hear the answer, say the question that gets it
+  const seen = QITEMS.filter(q => S.words[q.key] && getP(q.key).s >= 1 && !T.recent.includes(q));
+  if(T.turn % 3 === 0 && seen.length >= 2){ startElicit(shuffle(seen)[0]); return; }
   if(!T.queue.length) T.queue = pickQ(4, []);
   const q = T.queue.shift();
-  T.cur = q;
+  T.cur = q; T.kind = 'ask';
+  T.recent = [q, ...T.recent].slice(0, 3);
   setScene(talkGroup(q));
-  const p = S.words[q.key];
-  $('#tkLabel').innerHTML = (p ? 'あなたが聞きたいこと ' + starsHTML(p.s) : 'あなたが聞きたいこと <span class="chip new-chip">NEW</span>');
-  $('#tkIntent').textContent = q.ja;
-  $('#tkHint').textContent = `${TALK_GROUPS[T.group].role}の答え：「${qFirstAnswer(q)}」`;
-  $('#tkHint').hidden = false;
+  $('#tkCtx').innerHTML = ctxChips(q);
+  $('#tkIntent').textContent = q.jaNew || q.ja;
   retrigger($('#talkTask'), 'slide-in');
-  if(!p || p.s < 3) startTBuild(q, !p, false); else startTSay(q);
+  if(!S.words[q.key]) startMeet(q); else startAsk(q);
 }
-// ----- build -----
-function startTBuild(q, isNew, isCheck){
-  T.mode = 'build'; T.isNew = isNew; T.isCheck = isCheck; T.tries = 0;
+// first time: hear it once, copy it once
+function startMeet(q){
+  T.mode = 'meet';
+  $('#tkLabel').innerHTML = 'はじめての質問 <span class="chip new-chip">NEW</span>';
+  $('#tkModelEn').textContent = q.en + ' ' + qTone(q);
+  $('#tkModelNote').textContent = q.note;
+  tPanels(['#tkModel']);
+  if(S.voice !== false) say(q.en);
+  $('#tkCopied').focus({preventScroll:true});
+}
+function finishMeet(){
+  if(!T || T.mode !== 'meet') return;
+  const q = T.cur;
+  T.mode = 'done';
+  tPanels([]);
+  bubble('me', q.en + ' ' + qTone(q));
+  setTimeout(() => { bubble('them', qFirstAnswer(q), q.answerJa); }, 450);
+  tGrade(q, 'meet');
+  if(T.turn + 2 < TALK_TURNS) T.queue.splice(1, 0, q);
+  setTimeout(() => { if(T && T.mode === 'done') nextTurn(); }, 900);
+}
+function startAsk(q){
+  T.mode = 'ask';
+  $('#tkLabel').innerHTML = 'あなたが聞きたいこと ' + starsHTML(getP(q.key).s);
+  $('#tkMsg').textContent = '英語で声に出して言ってみよう';
+  tSyncMic();
+  $('#tkHintBtn').textContent = '💡 ヒント';
+  tPanels(['#tkAct']);
+}
+function startElicit(q){
+  T.cur = q; T.kind = 'elicit'; T.mode = 'ask';
+  T.recent = [q, ...T.recent].slice(0, 3);
+  setScene(talkGroup(q));
+  $('#tkLabel').textContent = 'この返事が返ってくる質問は？';
+  $('#tkCtx').innerHTML = ctxChips(q);
+  $('#tkIntent').textContent = '';
+  const b = bubble('them', '「' + qFirstAnswer(q) + '」', q.answerJa, 'elicit');
+  if(S.voice !== false) say(qFirstAnswer(q));
+  $('#tkMsg').textContent = '相手がこう答えるような質問を、声に出して言おう';
+  tSyncMic();
+  $('#tkHintBtn').textContent = '💡 ヒント';
+  tPanels(['#tkAct']);
+  retrigger($('#talkTask'), 'slide-in');
+}
+// hints on demand; the order that held up in simulation: keyword, first word, partner's answer, tiles
+function tHintSteps(q){
+  const first = qTokens(q).slice(0, 1).join(' ');
+  const steps = T.kind === 'elicit'
+    ? [['日本語', q.jaNew || q.ja], ['最初の1語', first + ' …'], ['タイル', null]]
+    : [['キーワード', q.keyword || ''], ['最初の1語', first + ' …'], ['相手の答え', qFirstAnswer(q)], ['タイル', null]];
+  return steps.filter(s => s[1] !== '');
+}
+function tHint(){
+  if(!T || T.mode !== 'ask') return;
+  const steps = tHintSteps(T.cur);
+  const st = steps[T.hints];
+  if(!st) return;
+  T.hints++;
+  if(st[1] === null){ startTiles(T.cur); return; }
+  $('#tkHints').insertAdjacentHTML('beforeend', `<div class="tk-hint"><span class="label">${esc(st[0])}</span> ${esc(st[1])}</div>`);
+  $('#tkHintBtn').textContent = T.hints < steps.length ? `💡 次のヒント（${T.hints}/${steps.length}）` : '💡 ヒント';
+  $('#tkHintBtn').disabled = T.hints >= steps.length;
+}
+// tiles: the last hint
+function startTiles(q){
+  T.mode = 'build'; T.tries = 0;
   const tiles = qTokens(q).map(tileText).concat(qDecoys(q, q.level >= 2 ? 2 : 1));
   T.tiles = shuffle(tiles.map((t, i) => ({t, id:i})));
   T.picked = [];
-  if(isCheck) $('#tkLabel').innerHTML = '抜き打ちチェック！ 本当に言えるか組み立ててみよう';
-  $('#tkMsg').textContent = isNew ? 'はじめての質問。単語をタップして組み立てよう（使わない単語もまざっています）' : '単語をタップして質問を組み立てよう';
+  $('#tkMsg').textContent = '単語をタップして並べよう（使わない単語もまざっています）';
   renderTBuild();
   tPanels(['#tkBuild']);
 }
@@ -4702,101 +4873,63 @@ function renderTBuild(){
 }
 function checkTBuild(){
   if(!T || T.mode !== 'build' || !T.picked.length) return;
-  const q = T.cur;
-  const ok = qNorm(T.picked.map(t => t.t).join(' ')) === qNorm(q.en);
+  const q = T.cur, said = T.picked.map(t => t.t).join(' ');
+  const ok = qNorm(said) === qNorm(q.en) || judgeSaid([said], q) === 'good';
   T.tries++;
-  if(ok){ finishTBuild(true, ''); return; }
+  if(ok){ finishTurn('soso', '並べられた！ もう一度、声に出して言ってみよう'); return; }
   const why = qWhy(q, T.picked.map(t => t.t));
-  if(T.tries < 2 && !T.isCheck){ play('miss'); $('#tkMsg').textContent = 'おしい！ もう一度。💡 ' + why; retrigger($('#tkLine'), 'anim-shake'); return; }
-  finishTBuild(false, why);
+  if(T.tries < 2){ play('miss'); $('#tkMsg').textContent = 'おしい！ もう一度。💡 ' + why; retrigger($('#tkLine'), 'anim-shake'); return; }
+  finishTurn('bad', '正しい形を見て、声に出してみよう', why);
 }
-function finishTBuild(ok, why){
-  T.mode = 'done';
-  const q = T.cur, first = T.tries === 1;
-  tPanels([]);
-  if(ok) bubble('me', q.en + ' ' + qTone(q), '', first ? '' : 'retry');
-  else bubble('me', q.en + ' ' + qTone(q), '正しくはこう言います', 'fix');
-  if(S.voice !== false) say(q.en);
-  setTimeout(() => bubble('them', q.answer.split(' / ')[0], q.answerJa), 550);
-  if(T.isNew){ tGrade(q, 'meet'); if(T.turn + 2 < TALK_TURNS) T.queue.splice(1, 0, q); }
-  else tGrade(q, ok ? (first ? 'good' : 'soso') : 'bad');
-  tScore(ok && first);
-  showTFeedback(q, ok ? (first ? '正解！ 声に出して言ってみよう' : '2回目で正解！ 声に出して言ってみよう') : 'まちがえても大丈夫。正しい形を見て、声に出してみよう', why);
-}
-// ----- say aloud -----
-function startTSay(q){
-  T.mode = 'say';
-  T.t0 = performance.now();
-  $('#tkMsg').textContent = '英語の質問を声に出して言ってみよう。言えたらボタンを押す';
-  tPanels(['#tkSay']);
-}
-function tFlip(){
-  if(!T || T.mode !== 'say') return;
+// reveal after speaking (or after the mic heard something)
+function tReveal(){
+  if(!T || T.mode !== 'ask') return;
+  if(srBusy){ try{ srBusy.stop(); }catch(e){} return; }
   T.mode = 'rate';
-  T.ms = performance.now() - T.t0;
   const q = T.cur;
-  bubble('me', q.en + ' ' + qTone(q));
+  $('#tkMsg').textContent = '';
+  $('#tkAnsEn').textContent = q.en + ' ' + qTone(q);
+  const alt = q.accept && q.accept.length ? 'これもOK：' + q.accept.join(' / ') : '';
+  $('#tkAlt').textContent = alt; $('#tkAlt').hidden = !alt;
+  const near = q.nearMiss && q.nearMiss.length ? '通じるけど今日の型とは別：' + q.nearMiss.join(' / ') : '';
+  $('#tkNear').textContent = near; $('#tkNear').hidden = !near;
+  if(T.heard != null){
+    $('#tkHeard').hidden = false;
+    $('#tkHeard').textContent = '聞き取り：「' + T.heard + '」' + (T.heardGrade === 'good' ? ' → ◎ 合っています' : T.heardGrade === 'near' ? ' → ◯ 通じます' : ' → 自分で判定してね（聞き取りまちがいもあります）');
+  }else $('#tkHeard').hidden = true;
   if(S.voice !== false) say(q.en);
-  setTimeout(() => bubble('them', q.answer.split(' / ')[0], q.answerJa), 550);
-  $('#tkMsg').textContent = `${(T.ms/1000).toFixed(1)}秒。正しく言えたか、正直に評価しよう`;
-  tPanels(['#tkRates']);
+  tPanels(['#tkReveal']);
+  if(T.heardGrade === 'good'){ setTimeout(() => { if(T && T.mode === 'rate' && T.cur === q) tRate(3); }, 900); }
 }
+// ◎ said it / ◯ said it another (understandable) way / × couldn't
 function tRate(r){
   if(!T || T.mode !== 'rate') return;
   const q = T.cur;
   if(r === 3){
-    T.goodCount++;
-    if(T.goodCount % 3 === 0){ startTBuild(q, false, true); return; }
-    tGrade(q, 'good'); tScore(true);
-  }else if(r === 2){ tGrade(q, 'soso'); T.streak = 0; $('#talkStreak').textContent = ''; }
-  else { tGrade(q, 'bad'); tScore(false); }
+    if(T.hints === 0){
+      T.goodCount++;
+      // every 3rd unaided ◎ gets a quick tile check, so self-rating stays honest
+      if(T.goodCount % 3 === 0 && T.heardGrade !== 'good'){ T.hints = 99; startTiles(q); $('#tkMsg').textContent = '抜き打ちチェック！ 並べてみよう'; return; }
+      finishTurn('good', 'ばっちり！');
+    }else finishTurn('soso', 'ヒントありで言えた！ 次はヒントなしで');
+  }
+  else if(r === 2) finishTurn('soso', '通じます！ 今日の形でもう一度言ってみよう');
+  else finishTurn('bad', '大丈夫。正しい形を聞いて、まねしてみよう');
+}
+function finishTurn(kind, title, why){
+  const q = T.cur, fromTiles = T.mode === 'build';
   T.mode = 'done';
-  showTFeedback(q, r === 3 ? 'ばっちり！' : r === 2 ? '10分後にもう一度出ます' : 'すぐにもう一度練習します', '');
-}
-// ----- be asked, reply -----
-function startTReply(q){
-  T.mode = 'reply'; T.cur = q;
-  setScene(talkGroup(q));
-  $('#tkLabel').textContent = '相手に聞かれた！ 自然な返事を選ぼう';
-  $('#tkIntent').textContent = '';
-  $('#tkHint').hidden = true;
-  bubble('them', q.en + ' ' + qTone(q));
-  if(S.voice !== false) say(q.en);
-  const right = qFirstAnswer(q);
-  const wrong = [];
-  if(/mind/i.test(q.en)) wrong.push('Yes, I do.');
-  shuffle(QITEMS.filter(x => x !== q && x.pattern !== q.pattern).map(qFirstAnswer)).forEach(a => { if(wrong.length < 3 && a !== right && !wrong.includes(a)) wrong.push(a); });
-  T.opts = shuffle([right, ...wrong]);
-  T.right = T.opts.indexOf(right);
-  const box = $('#tkChoices'); box.innerHTML = '';
-  T.opts.forEach((a, i) => {
-    const b = document.createElement('button');
-    b.className = 'btn'; b.type = 'button';
-    b.innerHTML = `<span class="key">${i+1}</span><span class="en-opt">${esc(a)}</span>`;
-    b.addEventListener('click', () => tReply(i));
-    box.appendChild(b);
-  });
-  $('#tkMsg').textContent = '🔊 音声でも聞けます（上の質問をタップ）';
-  tPanels(['#tkChoices']);
-  retrigger($('#talkTask'), 'slide-in');
-}
-function tReply(i){
-  if(!T || T.mode !== 'reply') return;
-  T.mode = 'wait';
-  const q = T.cur, ok = i === T.right;
-  const btns = [...$('#tkChoices').children];
-  btns.forEach(b => b.disabled = true);
-  btns[T.right].classList.add('is-right');
-  if(!ok) btns[i].classList.add('is-wrong');
-  bubble('me', T.opts[i], '', ok ? '' : 'fix');
-  tScore(ok);
-  S.daily.answered++; persist();
-  setTimeout(() => { T.mode = 'done'; $('#tkChoices').hidden = true; showTFeedback(q, ok ? 'ばっちり！ 自然な返事です' : `自然な返事は「${qFirstAnswer(q)}」`, ''); }, 600);
-}
-function showTFeedback(q, title, why){
+  if(T.hints === 99 && kind === 'soso') kind = 'good';  // passed the spot check
+  tPanels([]);
+  bubble('me', q.en + ' ' + qTone(q), '', kind === 'bad' ? 'fix' : kind === 'soso' ? 'retry' : '');
+  if(fromTiles && S.voice !== false) say(q.en);
+  if(T.kind !== 'elicit') setTimeout(() => bubble('them', qFirstAnswer(q), q.answerJa), 450);
+  tGrade(q, kind);
+  tScore(kind === 'good');
+  if(kind === 'bad'){ play('miss'); if(T.turn + 3 <= TALK_TURNS) T.queue.splice(2, 0, q); }
+  if(kind === 'good'){ setTimeout(() => { if(T && T.mode === 'done' && T.cur === q) nextTurn(); }, 1100); return; }
   $('#tkfTitle').textContent = title;
-  $('#tkfEn').textContent = q.en;
-  $('#tkfJa').textContent = q.ja + '（' + q.pattern + '）';
+  $('#tkfEn').textContent = q.en + ' ' + qTone(q);
   $('#tkfWhy').textContent = why ? '✗ ' + why : '';
   $('#tkfWhy').hidden = !why;
   $('#tkfNote').textContent = '💡 ' + q.note;
@@ -4824,9 +4957,9 @@ function endTalk(){
     return `<li><span class="en">${esc(x.q.en)}</span><span class="ja">${esc(x.q.ja)}</span><span>${starsHTML(x.after)} ${tag}</span></li>`;
   }).join('');
   box.innerHTML = `<div class="result-title win-t">Nice talk!</div>
-    <div class="win stats"><div><b class="num">${T.correct}/${TALK_TURNS}</b><span>うまく言えた</span></div><div><b class="num">${T.best}</b><span>最高連続</span></div><div><b class="num">+${gained}</b><span>EXP</span></div></div>
+    <div class="win stats"><div><b class="num">${T.correct}/${TALK_TURNS}</b><span>ヒントなしで言えた</span></div><div><b class="num">${T.best}</b><span>最高連続</span></div><div><b class="num">+${gained}</b><span>EXP</span></div></div>
     ${ups ? `<div class="win"><b>レベルアップ！ Lv ${S.lv} になった！</b></div>` : ''}
-    <div class="win"><div class="label">今回の会話スタンプ</div><div class="tstamps">${stamps || '<span class="note">1回目でうまく言えると、場面のスタンプがもらえます</span>'}</div></div>
+    <div class="win"><div class="label">今回の会話スタンプ</div><div class="tstamps">${stamps || '<span class="note">ヒントなしで言えると、場面のスタンプがもらえます</span>'}</div></div>
     <div class="win"><div class="label">今回の質問</div><ul class="wlist">${rows}</ul></div>
     <div class="btn-row"><button class="btn primary" id="talkAgain" type="button">もう1セット</button><button class="btn" id="talkHome" type="button">ホームへ</button></div>`;
   box.hidden = false;
@@ -4835,23 +4968,27 @@ function endTalk(){
   if(ups) setTimeout(() => play('lvup'), 800);
   window.scrollTo(0, 0);
 }
+$('#tkCopied').addEventListener('click', finishMeet);
+$('#tkListen').addEventListener('click', () => { if(T && T.cur) say(T.cur.en); });
+$('#tkHintBtn').addEventListener('click', tHint);
+$('#tkMic').addEventListener('click', () => { if(T && T.mode === 'ask') listen(T.cur); });
+$('#tkSaid').addEventListener('click', tReveal);
 $('#tkCheck').addEventListener('click', checkTBuild);
 $('#tkClear').addEventListener('click', () => { if(T && T.mode === 'build'){ T.picked = []; renderTBuild(); } });
-$('#tkFlip').addEventListener('click', tFlip);
 $('#tkr3').addEventListener('click', () => tRate(3));
 $('#tkr2').addEventListener('click', () => tRate(2));
 $('#tkr1').addEventListener('click', () => tRate(1));
-$('#tkNext').addEventListener('click', () => { if(T) nextTurn(); });
+$('#tkNext').addEventListener('click', () => { if(T && T.mode === 'done') nextTurn(); });
 $('#tkSayAgain').addEventListener('click', () => { if(T && T.cur) say(T.cur.en); });
-$('#talkLog').addEventListener('click', e => { const b = e.target.closest('.bub.them,.bub.me'); if(b) say(b.querySelector('.txt').textContent.replace(/[↗↘]/g, '')); });
-$('#talkQuit').addEventListener('click', () => { T = null; renderMap(); show('map'); });
+$('#talkLog').addEventListener('click', e => { const b = e.target.closest('.bub.them,.bub.me'); if(b) say(b.querySelector('.txt').textContent.replace(/[↗↘「」]/g, '')); });
+$('#talkQuit').addEventListener('click', () => { if(srBusy) try{ srBusy.abort(); }catch(e){} T = null; renderMap(); show('map'); });
 document.addEventListener('keydown', e => {
   if($('#s-talk').hidden || !T) return;
   const k = e.key;
-  if(T.mode === 'build'){ if(k === 'Enter'){ checkTBuild(); e.preventDefault(); } else if(k === 'Backspace' && T.picked.length){ T.picked.pop(); renderTBuild(); e.preventDefault(); } }
-  else if(T.mode === 'say' && (k === ' ' || k === 'Enter')){ if(document.activeElement !== $('#tkFlip')) tFlip(); e.preventDefault(); }
+  if(T.mode === 'meet' && (k === 'Enter' || k === ' ')){ if(document.activeElement !== $('#tkCopied')) finishMeet(); e.preventDefault(); }
+  else if(T.mode === 'ask'){ if(k === ' ' || k === 'Enter'){ if(document.activeElement !== $('#tkSaid')) tReveal(); e.preventDefault(); } else if(k === 'h' || k === 'H'){ tHint(); e.preventDefault(); } }
+  else if(T.mode === 'build'){ if(k === 'Enter'){ checkTBuild(); e.preventDefault(); } else if(k === 'Backspace' && T.picked.length){ T.picked.pop(); renderTBuild(); e.preventDefault(); } }
   else if(T.mode === 'rate' && ['1','2','3'].includes(k)){ tRate(4 - +k); e.preventDefault(); }
-  else if(T.mode === 'reply' && ['1','2','3','4'].includes(k)){ tReply(+k - 1); e.preventDefault(); }
   else if(T.mode === 'done' && (k === 'Enter' || k === ' ') && !$('#tkNext').hidden && document.activeElement !== $('#tkNext')){ nextTurn(); e.preventDefault(); }
 });
 

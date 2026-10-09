@@ -1,0 +1,2058 @@
+{
+ "Are you hungry?": {
+  "en": "Are you hungry?",
+  "ja": "お腹すいてる？",
+  "ja_new": "お腹すいてる？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "出かけた先で"
+  },
+  "keyword": "hungry",
+  "rule": "状態を表す語なので be動詞で始める",
+  "accept": [
+   "Are you hungry now?"
+  ],
+  "near_miss": [
+   "Are you starving?",
+   "Do you want to eat?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Are you ~?"
+ },
+ "Is this your first time here?": {
+  "en": "Is this your first time here?",
+  "ja": "ここは初めてですか？",
+  "ja_new": "ここに来るのは今回が初めて？（「今回が」を主語に）",
+  "context": {
+   "role": "旅先で会った人",
+   "polite": "ふつう",
+   "scene": "旅先で隣の人に。来たことがあるかではなく『今回が初めてか』を聞く"
+  },
+  "keyword": "first time",
+  "rule": "「これは〜ですか」の形。主語は「これ」",
+  "accept": [
+   "Is this your first visit here?",
+   "Is it your first time here?"
+  ],
+  "near_miss": [
+   "Have you been here before?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Is this ~?"
+ },
+ "Was it crowded?": {
+  "en": "Was it crowded?",
+  "ja": "混んでた？",
+  "ja_new": "混んでた？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "出かけた話を聞く"
+  },
+  "keyword": "crowded",
+  "rule": "過去の様子を聞く be動詞の疑問文",
+  "accept": [],
+  "near_miss": [
+   "Was it busy?",
+   "Was it packed?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Was it ~?"
+ },
+ "Do you like spicy food?": {
+  "en": "Do you like spicy food?",
+  "ja": "辛い食べ物は好き？",
+  "ja_new": "辛い食べ物は好き？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "店を選ぶ"
+  },
+  "keyword": "spicy",
+  "rule": "一般動詞の疑問文：助動詞を先頭に",
+  "accept": [
+   "Do you like spicy foods?"
+  ],
+  "near_miss": [
+   "Can you eat spicy food?",
+   "Do you like hot food?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Do you ~?"
+ },
+ "Does she speak Japanese?": {
+  "en": "Does she speak Japanese?",
+  "ja": "彼女は日本語を話せるの？",
+  "ja_new": "彼女って、ふだん日本語話す人？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "友人について。能力（できる）ではなく、日本語を話す人かどうか"
+  },
+  "keyword": "speak",
+  "rule": "能力ではなく習慣・事実を聞く。主語は3人称単数",
+  "accept": [],
+  "near_miss": [
+   "Can she speak Japanese?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Does he/she ~?"
+ },
+ "Does this bus go downtown?": {
+  "en": "Does this bus go downtown?",
+  "ja": "このバスは中心街に行きますか？",
+  "ja_new": "このバス、ダウンタウン（中心街）に行きますか？",
+  "context": {
+   "role": "バスの運転手",
+   "polite": "丁寧",
+   "scene": "バス停"
+  },
+  "keyword": "downtown",
+  "rule": "主語は3人称単数。中心街の前に前置詞は付けない",
+  "accept": [],
+  "near_miss": [
+   "Does this bus go to the city center?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Does this ~?"
+ },
+ "Did you have breakfast?": {
+  "en": "Did you have breakfast?",
+  "ja": "朝ごはん食べた？",
+  "ja_new": "朝ごはん食べた？",
+  "context": {
+   "role": "家族・友だち",
+   "polite": "くだけた",
+   "scene": "朝のあいさつ"
+  },
+  "keyword": "breakfast",
+  "rule": "過去の疑問文。食べる＝「持つ」に当たる動詞、原形で",
+  "accept": [
+   "Did you eat breakfast?"
+  ],
+  "near_miss": [
+   "Have you had breakfast?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Did you ~?"
+ },
+ "Do you want to grab lunch?": {
+  "en": "Do you want to grab lunch?",
+  "ja": "お昼一緒に食べない？",
+  "ja_new": "お昼、一緒に食べに行きたい？（軽く誘う）",
+  "context": {
+   "role": "同僚・友だち",
+   "polite": "くだけた",
+   "scene": "同僚をカジュアルに誘う。「〜したい？」の形で"
+  },
+  "keyword": "grab",
+  "rule": "「〜したい？」で誘う型。後ろは原形",
+  "accept": [
+   "Do you want to get lunch?",
+   "Do you want to have lunch?",
+   "Want to grab lunch?",
+   "Wanna grab lunch?"
+  ],
+  "near_miss": [
+   "Shall we have lunch?",
+   "Why don't we have lunch?",
+   "Let's have lunch."
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Do you want to ~?"
+ },
+ "Can you drive?": {
+  "en": "Can you drive?",
+  "ja": "車の運転できる？",
+  "ja_new": "車の運転、できる？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "旅行の計画"
+  },
+  "keyword": "drive",
+  "rule": "能力を聞く助動詞で始める（丁寧形ではない）",
+  "accept": [
+   "Can you drive a car?"
+  ],
+  "near_miss": [
+   "Do you drive?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Can you ~?"
+ },
+ "Are you going to come to the party?": {
+  "en": "Are you going to come to the party?",
+  "ja": "パーティー来る予定？",
+  "ja_new": "パーティー、来るつもり？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "友だちに予定（つもり）を確認"
+  },
+  "keyword": "party",
+  "rule": "前から決めているつもりを聞く be動詞の型",
+  "accept": [
+   "Are you going to the party?"
+  ],
+  "near_miss": [
+   "Are you coming to the party?",
+   "Will you come to the party?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Are you going to ~?"
+ },
+ "Is it going to rain today?": {
+  "en": "Is it going to rain today?",
+  "ja": "今日、雨降るかな？",
+  "ja_new": "今日って雨になりそう？",
+  "context": {
+   "role": "家族・友だち",
+   "polite": "くだけた",
+   "scene": "出かける前に空を見ながら。予測を聞く"
+  },
+  "keyword": "rain",
+  "rule": "天気の予測。主語は天気を表す「それ」",
+  "accept": [],
+  "near_miss": [
+   "Will it rain today?",
+   "Do you think it will rain today?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Is it going to ~?"
+ },
+ "Should I bring anything?": {
+  "en": "Should I bring anything?",
+  "ja": "何か持っていったほうがいい？",
+  "ja_new": "何か持っていったほうがいい？",
+  "context": {
+   "role": "招待してくれた人",
+   "polite": "ふつう",
+   "scene": "招待されたとき"
+  },
+  "keyword": "bring",
+  "rule": "自分がすべきかを聞く助動詞で始める。疑問文では「何か」は否定・疑問用の語",
+  "accept": [
+   "Should I bring something?"
+  ],
+  "near_miss": [
+   "Do I need to bring anything?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Should I ~?"
+ },
+ "When's your birthday?": {
+  "en": "When's your birthday?",
+  "ja": "誕生日いつ？",
+  "ja_new": "誕生日いつ？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "雑談"
+  },
+  "keyword": "birthday",
+  "rule": "疑問詞＋be動詞＋主語（短縮してよい）",
+  "accept": [
+   "When is your birthday?"
+  ],
+  "near_miss": [],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "When is ~?"
+ },
+ "What's the Wi-Fi password?": {
+  "en": "What's the Wi-Fi password?",
+  "ja": "Wi-Fiのパスワードは何ですか？",
+  "ja_new": "Wi-Fiのパスワードは何ですか？",
+  "context": {
+   "role": "カフェの店員",
+   "polite": "ふつう",
+   "scene": "カフェ"
+  },
+  "keyword": "password",
+  "rule": "疑問詞＋be動詞＋決まったもの",
+  "accept": [
+   "What's the password for the Wi-Fi?"
+  ],
+  "near_miss": [
+   "Can I have the Wi-Fi password?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "What is ~?"
+ },
+ "Where do you live?": {
+  "en": "Where do you live?",
+  "ja": "どこに住んでるの？",
+  "ja_new": "どこに住んでるの？",
+  "context": {
+   "role": "初対面の人",
+   "polite": "ふつう",
+   "scene": "初対面の雑談"
+  },
+  "keyword": "live",
+  "rule": "疑問詞＋助動詞＋主語＋動詞",
+  "accept": [],
+  "near_miss": [],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "Where do you ~?"
+ },
+ "What time does the store open?": {
+  "en": "What time does the store open?",
+  "ja": "お店は何時に開きますか？",
+  "ja_new": "お店は何時に開きますか？",
+  "context": {
+   "role": "通りの人・店員",
+   "polite": "丁寧",
+   "scene": "店・施設"
+  },
+  "keyword": "open",
+  "rule": "「何時」で始め、主語は3人称単数",
+  "accept": [
+   "What time does the shop open?"
+  ],
+  "near_miss": [
+   "When does the store open?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "What time does ~?"
+ },
+ "What did you do last weekend?": {
+  "en": "What did you do last weekend?",
+  "ja": "先週末は何をしたの？",
+  "ja_new": "先週末は何をしたの？",
+  "context": {
+   "role": "同僚",
+   "polite": "くだけた",
+   "scene": "週明け"
+  },
+  "keyword": "weekend",
+  "rule": "疑問詞＋過去の助動詞＋主語＋原形",
+  "accept": [
+   "What did you do over the weekend?",
+   "What did you do on the weekend?"
+  ],
+  "near_miss": [
+   "How was your weekend?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "What did you ~?"
+ },
+ "Which one do you want?": {
+  "en": "Which one do you want?",
+  "ja": "どれがいい？",
+  "ja_new": "（いくつか並べて）どれが欲しい？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "お店で友だちに。好みではなく『欲しいもの』を選ばせる"
+  },
+  "keyword": "want",
+  "rule": "「どの」で始めて、相手の欲しいものを聞く",
+  "accept": [
+   "Which do you want?"
+  ],
+  "near_miss": [
+   "Which one do you like?",
+   "Which one is good?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Which ~ do you ~?"
+ },
+ "Why are you learning English?": {
+  "en": "Why are you learning English?",
+  "ja": "なんで英語を勉強してるの？",
+  "ja_new": "なんで英語を勉強してるの？（今まさに続けていること）",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "雑談"
+  },
+  "keyword": "learning",
+  "rule": "理由の疑問詞＋be動詞＋〜ing",
+  "accept": [
+   "Why are you studying English?"
+  ],
+  "near_miss": [
+   "Why do you study English?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Why are you ~ing?"
+ },
+ "Who wants coffee?": {
+  "en": "Who wants coffee?",
+  "ja": "コーヒー飲む人？",
+  "ja_new": "コーヒー欲しい人〜？",
+  "context": {
+   "role": "職場のみんな",
+   "polite": "くだけた",
+   "scene": "職場でみんなに。『飲む習慣がある人』ではなく『今欲しい人』"
+  },
+  "keyword": "wants",
+  "rule": "「誰が」が主語なので助動詞を使わず、動詞に s",
+  "accept": [
+   "Who wants some coffee?",
+   "Anyone want coffee?",
+   "Anybody want coffee?"
+  ],
+  "near_miss": [
+   "Who drinks coffee?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Who＋動詞？（主語を尋ねる）"
+ },
+ "What happened?": {
+  "en": "What happened?",
+  "ja": "何があったの？",
+  "ja_new": "何があったの？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "様子が変なとき"
+  },
+  "keyword": "happened",
+  "rule": "「何が」が主語なので助動詞を使わず過去形",
+  "accept": [
+   "What happened to you?"
+  ],
+  "near_miss": [
+   "What's wrong?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "What＋動詞の過去形？（主語を尋ねる）"
+ },
+ "Who did you go with?": {
+  "en": "Who did you go with?",
+  "ja": "誰と行ったの？",
+  "ja_new": "誰と行ったの？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "出かけた話"
+  },
+  "keyword": "with",
+  "rule": "「誰と」の前置詞は文末に残す",
+  "accept": [
+   "Who did you go there with?"
+  ],
+  "near_miss": [
+   "Who went with you?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "Who did you ~ with?（目的語を尋ねる）"
+ },
+ "How far is it?": {
+  "en": "How far is it?",
+  "ja": "どのくらい遠いですか？",
+  "ja_new": "どのくらい遠いですか？",
+  "context": {
+   "role": "通りの人",
+   "polite": "丁寧",
+   "scene": "道を聞く"
+  },
+  "keyword": "far",
+  "rule": "「どのくらい」＋形容詞＋be動詞＋主語",
+  "accept": [
+   "How far is it from here?"
+  ],
+  "near_miss": [],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "How＋形容詞＋is ~?"
+ },
+ "How often do you work out?": {
+  "en": "How often do you work out?",
+  "ja": "どのくらいの頻度で運動してる？",
+  "ja_new": "どのくらいの頻度で（ジムなどで）体を鍛えてる？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "趣味の話"
+  },
+  "keyword": "work out",
+  "rule": "頻度を聞く疑問詞＋助動詞＋主語＋動詞のかたまり",
+  "accept": [
+   "How often do you exercise?"
+  ],
+  "near_miss": [],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "How often do you ~?"
+ },
+ "How many people are coming?": {
+  "en": "How many people are coming?",
+  "ja": "何人来るの？",
+  "ja_new": "何人来るの？",
+  "context": {
+   "role": "幹事の友だち",
+   "polite": "ふつう",
+   "scene": "人数の確認"
+  },
+  "keyword": "people",
+  "rule": "「何人が」が主語。助動詞は使わず、近い予定は be動詞＋〜ing",
+  "accept": [],
+  "near_miss": [
+   "How many people will come?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "How many＋名詞＋動詞？（主語を尋ねる）"
+ },
+ "Do you have a table for two?": {
+  "en": "Do you have a table for two?",
+  "ja": "2人なんですが、席はありますか？",
+  "ja_new": "（店員に）2人用のテーブル、ありますか？",
+  "context": {
+   "role": "店員",
+   "polite": "丁寧",
+   "scene": "レストランの入口で店員に。お店が持っているか（have）を聞く"
+  },
+  "keyword": "table",
+  "rule": "お店（相手）が持っているかを聞く",
+  "accept": [
+   "Do you have a table for 2?"
+  ],
+  "near_miss": [
+   "Can we get a table for two?",
+   "Is there a table for two?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Do you have ~?"
+ },
+ "How long is the wait?": {
+  "en": "How long is the wait?",
+  "ja": "どのくらい待ちますか？",
+  "ja_new": "待ち時間はどのくらいですか？",
+  "context": {
+   "role": "店員",
+   "polite": "丁寧",
+   "scene": "人気店の入口で店員に。『待ち時間』を主語にする"
+  },
+  "keyword": "wait",
+  "rule": "「どのくらい」＋形容詞＋be動詞＋決まったもの",
+  "accept": [
+   "How long's the wait?"
+  ],
+  "near_miss": [
+   "How long do we have to wait?",
+   "How long will it take?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "How long is ~?"
+ },
+ "What do you recommend?": {
+  "en": "What do you recommend?",
+  "ja": "おすすめは何ですか？",
+  "ja_new": "（店員に）あなたは何をすすめますか？",
+  "context": {
+   "role": "店員",
+   "polite": "ふつう",
+   "scene": "注文で迷ったとき店員に"
+  },
+  "keyword": "recommend",
+  "rule": "疑問詞＋助動詞＋相手＋動詞",
+  "accept": [
+   "What would you recommend?"
+  ],
+  "near_miss": [
+   "What's your recommendation?",
+   "What's good here?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "What do you ~?"
+ },
+ "Can I get a refill?": {
+  "en": "Can I get a refill?",
+  "ja": "おかわりをもらえますか？",
+  "ja_new": "おかわりをもらえますか？",
+  "context": {
+   "role": "店員",
+   "polite": "ふつう",
+   "scene": "レストランで飲み物"
+  },
+  "keyword": "refill",
+  "rule": "自分がもらえるかを聞く助動詞＋私＋「手に入れる」",
+  "accept": [
+   "Can I have a refill?",
+   "Could I get a refill?"
+  ],
+  "near_miss": [
+   "Can I have another one?"
+  ],
+  "ambiguity": "C",
+  "modal_free": true,
+  "pattern": "Can I get ~?"
+ },
+ "Could we get the check, please?": {
+  "en": "Could we get the check, please?",
+  "ja": "お会計をお願いできますか？",
+  "ja_new": "（店員に・丁寧に）私たちにお会計をもらえますか？",
+  "context": {
+   "role": "店員",
+   "polite": "丁寧",
+   "scene": "2人以上で食事後、テーブルで店員に。主語は『私たち』"
+  },
+  "keyword": "check",
+  "rule": "主語は「私たち」。丁寧な助動詞＋「手に入れる」、最後に一言添える",
+  "accept": [
+   "Could we get the bill, please?",
+   "Can we get the check, please?",
+   "Could we have the check, please?"
+  ],
+  "near_miss": [
+   "Check, please.",
+   "Can I get the check?"
+  ],
+  "ambiguity": "B",
+  "modal_free": true,
+  "pattern": "Could we get ~?"
+ },
+ "Is the tip included?": {
+  "en": "Is the tip included?",
+  "ja": "チップは含まれていますか？",
+  "ja_new": "チップは含まれていますか？",
+  "context": {
+   "role": "店員",
+   "polite": "丁寧",
+   "scene": "会計"
+  },
+  "keyword": "tip",
+  "rule": "be動詞＋決まったもの＋「含まれた」の形",
+  "accept": [],
+  "near_miss": [
+   "Does it include the tip?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "Is ~ included?"
+ },
+ "How much is it with tax?": {
+  "en": "How much is it with tax?",
+  "ja": "税込みでいくらですか？",
+  "ja_new": "税込みでいくらですか？",
+  "context": {
+   "role": "店員",
+   "polite": "丁寧",
+   "scene": "レジ"
+  },
+  "keyword": "tax",
+  "rule": "値段を聞く疑問詞＋be動詞＋それ＋「〜込みで」",
+  "accept": [
+   "How much is it including tax?",
+   "How much is this with tax?"
+  ],
+  "near_miss": [
+   "Does that include tax?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "How much is ~?"
+ },
+ "Do you take credit cards?": {
+  "en": "Do you take credit cards?",
+  "ja": "クレジットカードは使えますか？",
+  "ja_new": "（お店の人に）お店はクレジットカードを受け付けてますか？",
+  "context": {
+   "role": "店員",
+   "polite": "丁寧",
+   "scene": "店員に『お店が受け付けるか』を聞く（主語はお店＝you）"
+  },
+  "keyword": "take",
+  "rule": "お店（相手）が受け付けるか。受け付ける＝「取る」の動詞",
+  "accept": [
+   "Do you accept credit cards?",
+   "Do you take credit card?"
+  ],
+  "near_miss": [
+   "Can I use a credit card?",
+   "Can I pay by credit card?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Do you take ~?"
+ },
+ "Can I try this on?": {
+  "en": "Can I try this on?",
+  "ja": "これ、試着してもいいですか？",
+  "ja_new": "これ、試着してもいいですか？",
+  "context": {
+   "role": "店員",
+   "polite": "ふつう",
+   "scene": "服屋"
+  },
+  "keyword": "try",
+  "rule": "自分がしてよいかを聞く。「これ」は動詞と副詞の間",
+  "accept": [
+   "Could I try this on?",
+   "May I try this on?",
+   "Can I try it on?"
+  ],
+  "near_miss": [],
+  "ambiguity": "C",
+  "modal_free": true,
+  "pattern": "Can I ~?"
+ },
+ "Do you have this in a smaller size?": {
+  "en": "Do you have this in a smaller size?",
+  "ja": "これの小さいサイズはありますか？",
+  "ja_new": "（店員に）これと同じもので、もっと小さいサイズありますか？",
+  "context": {
+   "role": "店員",
+   "polite": "丁寧",
+   "scene": "服屋で手に持った商品を見せながら"
+  },
+  "keyword": "size",
+  "rule": "相手が持っているか＋もの＋「〜の形で」＋サイズ",
+  "accept": [
+   "Do you have this in smaller size?",
+   "Do you have this in a small size?"
+  ],
+  "near_miss": [
+   "Do you have a smaller size?",
+   "Is there a smaller size?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Do you have ~ in ...?"
+ },
+ "Is there a drugstore around here?": {
+  "en": "Is there a drugstore around here?",
+  "ja": "この辺に薬局はありますか？",
+  "ja_new": "この辺に薬局はありますか？",
+  "context": {
+   "role": "通りの人",
+   "polite": "丁寧",
+   "scene": "街なか"
+  },
+  "keyword": "drugstore",
+  "rule": "「〜がありますか」は存在を表す構文",
+  "accept": [
+   "Is there a pharmacy around here?",
+   "Is there a drugstore near here?",
+   "Is there a drugstore nearby?"
+  ],
+  "near_miss": [
+   "Where is a drugstore?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Is there ~?"
+ },
+ "How do I get to the subway station?": {
+  "en": "How do I get to the subway station?",
+  "ja": "地下鉄の駅へはどう行けばいいですか？",
+  "ja_new": "地下鉄の駅へはどう行けばいいですか？",
+  "context": {
+   "role": "通りの人",
+   "polite": "丁寧",
+   "scene": "道案内"
+  },
+  "keyword": "get to",
+  "rule": "「私はどうやって」＋到着する動詞のかたまり",
+  "accept": [
+   "How can I get to the subway station?",
+   "How do I get to the metro station?"
+  ],
+  "near_miss": [
+   "Where is the subway station?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "How do I get to ~?"
+ },
+ "Is it within walking distance?": {
+  "en": "Is it within walking distance?",
+  "ja": "歩いて行ける距離ですか？",
+  "ja_new": "そこって『歩ける距離内』ですか？",
+  "context": {
+   "role": "ホテルのスタッフ",
+   "polite": "ふつう",
+   "scene": "ホテルで場所を聞いたあと。距離のひとかたまり表現 walking distance を使う"
+  },
+  "keyword": "walking distance",
+  "rule": "be動詞＋それ＋「〜以内」＋距離のかたまり",
+  "accept": [
+   "Is that within walking distance?",
+   "Is it in walking distance?"
+  ],
+  "near_miss": [
+   "Can I walk there?",
+   "Can I walk there from here?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Is it ~?"
+ },
+ "Does this bus go to Union Square?": {
+  "en": "Does this bus go to Union Square?",
+  "ja": "このバスはユニオンスクエアに行きますか？",
+  "ja_new": "このバスはユニオンスクエアに行きますか？",
+  "context": {
+   "role": "バスの運転手",
+   "polite": "ふつう",
+   "scene": "バス停"
+  },
+  "keyword": "Union Square",
+  "rule": "主語は3人称単数の一般動詞＋行き先",
+  "accept": [],
+  "near_miss": [],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "Does ~ go to ...?"
+ },
+ "Which line goes to the airport?": {
+  "en": "Which line goes to the airport?",
+  "ja": "どの線が空港に行きますか？",
+  "ja_new": "どの線が空港に行きますか？",
+  "context": {
+   "role": "駅員",
+   "polite": "ふつう",
+   "scene": "駅"
+  },
+  "keyword": "line",
+  "rule": "「どの線が」が主語：助動詞を使わず動詞に s",
+  "accept": [
+   "What line goes to the airport?"
+  ],
+  "near_miss": [
+   "Which line should I take to the airport?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "Which ~ goes ...?（主語を尋ねる）"
+ },
+ "Where do I get off for the museum?": {
+  "en": "Where do I get off for the museum?",
+  "ja": "美術館に行くにはどこで降りればいいですか？",
+  "ja_new": "美術館に行くには、私はどこで降りますか？",
+  "context": {
+   "role": "バスの運転手",
+   "polite": "丁寧",
+   "scene": "バスの運転手に。主語は『私』"
+  },
+  "keyword": "get off",
+  "rule": "主語は「私」。目的地は「〜のために」の前置詞で",
+  "accept": [
+   "Where do I get off for the art museum?"
+  ],
+  "near_miss": [
+   "Where should I get off for the museum?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Where do I ~?"
+ },
+ "Can I leave my bags here?": {
+  "en": "Can I leave my bags here?",
+  "ja": "荷物を預かってもらえますか？",
+  "ja_new": "（フロントで）荷物をここに置いていってもいいですか？",
+  "context": {
+   "role": "フロント",
+   "polite": "ふつう",
+   "scene": "チェックイン前/後に荷物を預ける。『私が置いていく』許可を求める"
+  },
+  "keyword": "leave",
+  "rule": "自分がしてよいかを聞く。預ける＝「置いていく」",
+  "accept": [
+   "Could I leave my bags here?",
+   "Can I leave my luggage here?",
+   "May I leave my bags here?"
+  ],
+  "near_miss": [
+   "Could you keep my bags?",
+   "Can you keep my luggage?"
+  ],
+  "ambiguity": "A",
+  "modal_free": true,
+  "pattern": "Can I ~?"
+ },
+ "What time is checkout?": {
+  "en": "What time is checkout?",
+  "ja": "チェックアウトは何時ですか？",
+  "ja_new": "チェックアウトは何時ですか？",
+  "context": {
+   "role": "フロント",
+   "polite": "ふつう",
+   "scene": "ホテル"
+  },
+  "keyword": "checkout",
+  "rule": "「何時」＋be動詞＋名詞",
+  "accept": [
+   "What time is check-out?",
+   "When is checkout?"
+  ],
+  "near_miss": [
+   "What time do I have to check out?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "What time is ~?"
+ },
+ "Could I get a late checkout?": {
+  "en": "Could I get a late checkout?",
+  "ja": "チェックアウトを遅くしてもらえますか？",
+  "ja_new": "（フロントに丁寧に）レイトチェックアウトをもらうことはできますか？",
+  "context": {
+   "role": "フロント",
+   "polite": "丁寧",
+   "scene": "ホテルのフロントに。『レイトチェックアウト』をサービスとして頼む"
+  },
+  "keyword": "late",
+  "rule": "丁寧に、自分がもらえるか（助動詞＋私＋手に入れる）",
+  "accept": [
+   "Can I get a late checkout?",
+   "Could I have a late checkout?"
+  ],
+  "near_miss": [
+   "Can I check out late?"
+  ],
+  "ambiguity": "A",
+  "modal_free": true,
+  "pattern": "Could I get ~?"
+ },
+ "Is breakfast included?": {
+  "en": "Is breakfast included?",
+  "ja": "朝食は付いていますか？",
+  "ja_new": "朝食は付いていますか？",
+  "context": {
+   "role": "フロント",
+   "polite": "ふつう",
+   "scene": "予約・チェックイン"
+  },
+  "keyword": "included",
+  "rule": "be動詞＋名詞＋「含まれた」",
+  "accept": [
+   "Is the breakfast included?"
+  ],
+  "near_miss": [
+   "Does it come with breakfast?",
+   "Does the room include breakfast?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Is ~ included?"
+ },
+ "Where do I check in for this flight?": {
+  "en": "Where do I check in for this flight?",
+  "ja": "この便のチェックインはどこですか？",
+  "ja_new": "この便は、どこでチェックインすればいいですか？（私は）",
+  "context": {
+   "role": "空港の係員",
+   "polite": "ふつう",
+   "scene": "空港で係員に航空券を見せながら。主語は『私』"
+  },
+  "keyword": "check in",
+  "rule": "主語は「私」。場所の疑問詞＋助動詞＋私＋動詞",
+  "accept": [
+   "Where can I check in for this flight?"
+  ],
+  "near_miss": [
+   "Where is the check-in for this flight?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Where do I ~?"
+ },
+ "Which gate does this flight leave from?": {
+  "en": "Which gate does this flight leave from?",
+  "ja": "この便はどのゲートから出ますか？",
+  "ja_new": "この便はどのゲートから出ますか？",
+  "context": {
+   "role": "空港の係員",
+   "polite": "ふつう",
+   "scene": "空港"
+  },
+  "keyword": "gate",
+  "rule": "「どのゲートから」：前置詞は文末に残す",
+  "accept": [
+   "What gate does this flight leave from?",
+   "Which gate does this flight depart from?"
+  ],
+  "near_miss": [
+   "What's the gate for this flight?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Which ~ does ... from?"
+ },
+ "Is this the line for security?": {
+  "en": "Is this the line for security?",
+  "ja": "これは保安検査の列ですか？",
+  "ja_new": "これは保安検査の列ですか？",
+  "context": {
+   "role": "並んでいる人",
+   "polite": "ふつう",
+   "scene": "空港"
+  },
+  "keyword": "security",
+  "rule": "be動詞＋これ＋その列＋「〜用の」",
+  "accept": [
+   "Is this the security line?"
+  ],
+  "near_miss": [],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Is this ~?"
+ },
+ "Could you call a cab for me?": {
+  "en": "Could you call a cab for me?",
+  "ja": "タクシーを呼んでいただけますか？",
+  "ja_new": "タクシーを呼んでいただけますか？",
+  "context": {
+   "role": "フロント",
+   "polite": "丁寧",
+   "scene": "ホテル・レストラン"
+  },
+  "keyword": "cab",
+  "rule": "丁寧に相手に頼む。「私のために」は文末",
+  "accept": [
+   "Could you call a taxi for me?",
+   "Could you call me a cab?",
+   "Could you call me a taxi?"
+  ],
+  "near_miss": [],
+  "ambiguity": "B",
+  "modal_free": true,
+  "pattern": "Could you ~ for me?"
+ },
+ "Can you help me?": {
+  "en": "Can you help me?",
+  "ja": "手伝ってもらえる？／ちょっと助けてもらえますか？",
+  "ja_new": "手伝ってもらえる？／ちょっと助けてもらえますか？",
+  "context": {
+   "role": "近くの人",
+   "polite": "ふつう",
+   "scene": "困ったとき"
+  },
+  "keyword": "help",
+  "rule": "相手に頼む助動詞＋相手",
+  "accept": [
+   "Could you help me?"
+  ],
+  "near_miss": [],
+  "ambiguity": "C",
+  "modal_free": true,
+  "pattern": "Can you ~?"
+ },
+ "Can I ask you something?": {
+  "en": "Can I ask you something?",
+  "ja": "ちょっと聞いてもいい？",
+  "ja_new": "ちょっと聞いてもいい？",
+  "context": {
+   "role": "誰でも",
+   "polite": "くだけた",
+   "scene": "質問の前置き"
+  },
+  "keyword": "ask",
+  "rule": "自分がしてよいか＋相手に＋何か",
+  "accept": [
+   "Can I ask you a question?",
+   "Could I ask you something?"
+  ],
+  "near_miss": [],
+  "ambiguity": "B",
+  "modal_free": true,
+  "pattern": "Can I ~?"
+ },
+ "Can I use your bathroom?": {
+  "en": "Can I use your bathroom?",
+  "ja": "お手洗いをお借りしてもいいですか？",
+  "ja_new": "（友だちの家で）お手洗い、使わせてもらってもいい？",
+  "context": {
+   "role": "友だちの家の人",
+   "polite": "ふつう",
+   "scene": "友人の家"
+  },
+  "keyword": "use",
+  "rule": "トイレは「借りる」ではなく「使う」で言う。自分がしてよいか",
+  "accept": [
+   "Could I use your bathroom?",
+   "May I use your bathroom?",
+   "Can I use your restroom?",
+   "Can I use the bathroom?"
+  ],
+  "near_miss": [],
+  "ambiguity": "B",
+  "modal_free": true,
+  "pattern": "Can I ~?"
+ },
+ "Could you write it down for me?": {
+  "en": "Could you write it down for me?",
+  "ja": "それ、書いてもらえますか？",
+  "ja_new": "それ、書いてもらえますか？",
+  "context": {
+   "role": "店員など",
+   "polite": "丁寧",
+   "scene": "聞き取りが不安なとき"
+  },
+  "keyword": "write",
+  "rule": "丁寧な依頼。「それ」は動詞と副詞の間",
+  "accept": [
+   "Could you write it down?",
+   "Could you write that down for me?"
+  ],
+  "near_miss": [],
+  "ambiguity": "C",
+  "modal_free": true,
+  "pattern": "Could you ~?"
+ },
+ "Could you take a picture of us?": {
+  "en": "Could you take a picture of us?",
+  "ja": "私たちの写真を撮ってもらえますか？",
+  "ja_new": "私たちの写真を撮ってもらえますか？",
+  "context": {
+   "role": "観光客",
+   "polite": "丁寧",
+   "scene": "観光地"
+  },
+  "keyword": "picture",
+  "rule": "丁寧な依頼。「私たちの」は「〜の」の前置詞で",
+  "accept": [
+   "Could you take a photo of us?",
+   "Could you take our picture?"
+  ],
+  "near_miss": [],
+  "ambiguity": "B",
+  "modal_free": true,
+  "pattern": "Could you ~?"
+ },
+ "Could I have some water, please?": {
+  "en": "Could I have some water, please?",
+  "ja": "お水をいただけますか？",
+  "ja_new": "お水をいただけますか？",
+  "context": {
+   "role": "店員",
+   "polite": "丁寧",
+   "scene": "レストラン"
+  },
+  "keyword": "water",
+  "rule": "丁寧に自分がもらう助動詞＋私＋「持つ」＋いくらか",
+  "accept": [
+   "Could I have some water?",
+   "Can I get some water, please?"
+  ],
+  "near_miss": [
+   "Water, please."
+  ],
+  "ambiguity": "C",
+  "modal_free": true,
+  "pattern": "Could I ~?"
+ },
+ "Could you speak a little more slowly?": {
+  "en": "Could you speak a little more slowly?",
+  "ja": "もう少しゆっくり話していただけますか？",
+  "ja_new": "もう少しゆっくり話していただけますか？",
+  "context": {
+   "role": "話し相手",
+   "polite": "丁寧",
+   "scene": "店・電話"
+  },
+  "keyword": "slowly",
+  "rule": "丁寧な依頼＋「もう少し」＋比較",
+  "accept": [
+   "Could you speak more slowly?",
+   "Could you speak a little slower?"
+  ],
+  "near_miss": [],
+  "ambiguity": "C",
+  "modal_free": true,
+  "pattern": "Could you ~?"
+ },
+ "May I ask who's calling?": {
+  "en": "May I ask who's calling?",
+  "ja": "どちら様でしょうか？（電話で）",
+  "ja_new": "（電話で・とても丁寧に）どなたからのお電話か、お聞きしてもよろしいですか？",
+  "context": {
+   "role": "電話の相手",
+   "polite": "とても丁寧",
+   "scene": "会社で電話を受けたとき"
+  },
+  "keyword": "calling",
+  "rule": "丁寧に聞いてよいか＋「誰が電話しているか」を普通の語順で",
+  "accept": [
+   "May I ask who is calling?",
+   "Can I ask who's calling?"
+  ],
+  "near_miss": [
+   "Who's calling, please?",
+   "Who is this?"
+  ],
+  "ambiguity": "A",
+  "modal_free": true,
+  "pattern": "May I ~?"
+ },
+ "May I see your passport, please?": {
+  "en": "May I see your passport, please?",
+  "ja": "パスポートを拝見できますか？",
+  "ja_new": "（係員として）パスポートを拝見してもよろしいですか？",
+  "context": {
+   "role": "旅行者（自分は係員）",
+   "polite": "とても丁寧",
+   "scene": "空港・ホテル"
+  },
+  "keyword": "passport",
+  "rule": "とても丁寧に許可を求める助動詞＋私＋「見る」",
+  "accept": [
+   "May I see your passport?",
+   "Could I see your passport, please?"
+  ],
+  "near_miss": [],
+  "ambiguity": "C",
+  "modal_free": true,
+  "pattern": "May I ~?"
+ },
+ "Is it okay if I open the window?": {
+  "en": "Is it okay if I open the window?",
+  "ja": "窓を開けてもいいですか？",
+  "ja_new": "窓、開けても大丈夫ですか？",
+  "context": {
+   "role": "同じ部屋の人",
+   "polite": "ふつう",
+   "scene": "同じ部屋の人に。『大丈夫＝okay』で聞く"
+  },
+  "keyword": "okay",
+  "rule": "「大丈夫？」＋「もし私が」＋普通の文",
+  "accept": [
+   "Is it OK if I open the window?",
+   "Is it all right if I open the window?",
+   "Is it alright if I open the window?"
+  ],
+  "near_miss": [
+   "Can I open the window?",
+   "Do you mind if I open the window?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Is it okay if I ~?"
+ },
+ "Do you mind if I sit here?": {
+  "en": "Do you mind if I sit here?",
+  "ja": "ここに座ってもいいですか？",
+  "ja_new": "ここに座っても、お嫌じゃないですか？",
+  "context": {
+   "role": "隣の席の人",
+   "polite": "丁寧",
+   "scene": "カフェで知らない人の隣に。相手が気にするか（mind）を聞く"
+  },
+  "keyword": "mind",
+  "rule": "相手が気にするか＋「もし私が」＋普通の文",
+  "accept": [
+   "Would you mind if I sat here?"
+  ],
+  "near_miss": [
+   "Can I sit here?",
+   "Is this seat taken?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Do you mind if I ~?"
+ },
+ "Would you mind closing the window?": {
+  "en": "Would you mind closing the window?",
+  "ja": "窓を閉めていただけませんか？",
+  "ja_new": "窓を閉めていただくのは、お嫌ではないですか？",
+  "context": {
+   "role": "知らない人",
+   "polite": "とても丁寧",
+   "scene": "目上・知らない人へのとても丁寧なお願い"
+  },
+  "keyword": "mind",
+  "rule": "控えめな助動詞＋相手＋気にする＋〜ing",
+  "accept": [
+   "Do you mind closing the window?"
+  ],
+  "near_miss": [
+   "Could you close the window?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Would you mind ~ing?"
+ },
+ "Would you mind if I left a little early today?": {
+  "en": "Would you mind if I left a little early today?",
+  "ja": "今日、少し早めに帰ってもよろしいでしょうか？",
+  "ja_new": "（上司に）今日少し早く帰らせてもらっても、差し支えないでしょうか？",
+  "context": {
+   "role": "上司",
+   "polite": "とても丁寧",
+   "scene": "職場で上司に、とても丁寧に許可を求める"
+  },
+  "keyword": "early",
+  "rule": "控えめに「もし私が」＋過去形で許可を求める",
+  "accept": [
+   "Would you mind if I left a bit early today?"
+  ],
+  "near_miss": [
+   "Is it okay if I leave a little early today?",
+   "Can I leave a little early today?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Would you mind if I + 過去形?"
+ },
+ "Would you like something to drink?": {
+  "en": "Would you like something to drink?",
+  "ja": "何かお飲みになりますか？",
+  "ja_new": "（来客に）何か飲み物はいかがですか？",
+  "context": {
+   "role": "来客",
+   "polite": "丁寧",
+   "scene": "来客・機内"
+  },
+  "keyword": "drink",
+  "rule": "丁寧に勧める型＋「何か」＋飲むための",
+  "accept": [
+   "Would you like anything to drink?",
+   "Would you like a drink?"
+  ],
+  "near_miss": [
+   "Do you want something to drink?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Would you like ~?"
+ },
+ "Would you like me to carry that?": {
+  "en": "Would you like me to carry that?",
+  "ja": "それ、お持ちしましょうか？",
+  "ja_new": "それ、私に運んでほしいですか？（丁寧に申し出る）",
+  "context": {
+   "role": "荷物の多い人",
+   "polite": "丁寧",
+   "scene": "相手の荷物が重そうなとき、丁寧に申し出る"
+  },
+  "keyword": "carry",
+  "rule": "丁寧に「私に〜してほしいか」を聞く型",
+  "accept": [
+   "Would you like me to carry it?"
+  ],
+  "near_miss": [
+   "Shall I carry that?",
+   "Can I carry that for you?",
+   "Do you want me to carry that?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Would you like me to ~?"
+ },
+ "Could you do me a favor?": {
+  "en": "Could you do me a favor?",
+  "ja": "ちょっとお願いがあるんだけど",
+  "ja_new": "（相手に）ひとつ、お願いを聞いてくれない？",
+  "context": {
+   "role": "友だち・同僚",
+   "polite": "ふつう",
+   "scene": "頼みごとの前置き。相手に『してもらう』形"
+  },
+  "keyword": "favor",
+  "rule": "相手に依頼する助動詞＋相手＋「私に親切をする」",
+  "accept": [
+   "Can you do me a favor?"
+  ],
+  "near_miss": [
+   "Can I ask you a favor?"
+  ],
+  "ambiguity": "A",
+  "modal_free": true,
+  "pattern": "Could you ~?"
+ },
+ "Do you have a minute?": {
+  "en": "Do you have a minute?",
+  "ja": "ちょっといいですか？（今、時間ある？）",
+  "ja_new": "今、1分ほど時間ありますか？",
+  "context": {
+   "role": "同僚・上司",
+   "polite": "ふつう",
+   "scene": "職場で同僚・上司に話しかける前置き"
+  },
+  "keyword": "minute",
+  "rule": "相手が（時間を）持っているか",
+  "accept": [
+   "Do you have a second?",
+   "Have you got a minute?",
+   "Got a minute?"
+  ],
+  "near_miss": [
+   "Can I talk to you?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Do you have ~?"
+ },
+ "Do you know where the restroom is?": {
+  "en": "Do you know where the restroom is?",
+  "ja": "お手洗いがどこかご存じですか？",
+  "ja_new": "お手洗いがどこかご存じですか？",
+  "context": {
+   "role": "店員・通りの人",
+   "polite": "丁寧",
+   "scene": "店・施設"
+  },
+  "keyword": "restroom",
+  "rule": "「知ってる？」の後は普通の語順（be動詞は最後）",
+  "accept": [
+   "Do you know where the bathroom is?",
+   "Do you know where the toilet is?"
+  ],
+  "near_miss": [
+   "Where is the restroom?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "Do you know where ~?"
+ },
+ "Can you tell me how to get to the museum?": {
+  "en": "Can you tell me how to get to the museum?",
+  "ja": "美術館への行き方を教えてもらえますか？",
+  "ja_new": "美術館への行き方を教えてもらえますか？",
+  "context": {
+   "role": "通りの人",
+   "polite": "ふつう",
+   "scene": "道を聞く"
+  },
+  "keyword": "tell",
+  "rule": "「教えてくれる？」＋「どうやって〜するか」",
+  "accept": [
+   "Could you tell me how to get to the museum?"
+  ],
+  "near_miss": [
+   "How do I get to the museum?"
+  ],
+  "ambiguity": "C",
+  "modal_free": true,
+  "pattern": "Can you tell me how to ~?"
+ },
+ "Do you know what time the store closes?": {
+  "en": "Do you know what time the store closes?",
+  "ja": "お店が何時に閉まるか分かりますか？",
+  "ja_new": "お店が何時に閉まるか分かりますか？",
+  "context": {
+   "role": "通りの人",
+   "polite": "丁寧",
+   "scene": "買い物"
+  },
+  "keyword": "close",
+  "rule": "「知ってる？」＋何時＋主語＋動詞s（普通の語順）",
+  "accept": [
+   "Do you know what time the shop closes?",
+   "Do you know when the store closes?"
+  ],
+  "near_miss": [
+   "What time does the store close?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "Do you know what time ~?"
+ },
+ "Do you know if there's an ATM around here?": {
+  "en": "Do you know if there's an ATM around here?",
+  "ja": "この辺にATMがあるかご存じですか？",
+  "ja_new": "この辺にATMがあるかご存じですか？",
+  "context": {
+   "role": "通りの人",
+   "polite": "丁寧",
+   "scene": "街なか"
+  },
+  "keyword": "ATM",
+  "rule": "「知ってる？」＋「〜かどうか」＋存在を表す普通の文",
+  "accept": [
+   "Do you know if there is an ATM near here?",
+   "Do you know whether there's an ATM around here?",
+   "Do you know if there's an ATM nearby?"
+  ],
+  "near_miss": [
+   "Is there an ATM around here?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "Do you know if ~?"
+ },
+ "Could you tell me when the next train leaves?": {
+  "en": "Could you tell me when the next train leaves?",
+  "ja": "次の電車がいつ出るか教えていただけますか？",
+  "ja_new": "次の電車がいつ出るか教えていただけますか？",
+  "context": {
+   "role": "駅員",
+   "polite": "丁寧",
+   "scene": "駅の窓口"
+  },
+  "keyword": "next train",
+  "rule": "丁寧に「教えて」＋いつ＋主語＋動詞s（普通の語順）",
+  "accept": [
+   "Can you tell me when the next train leaves?"
+  ],
+  "near_miss": [
+   "When does the next train leave?"
+  ],
+  "ambiguity": "C",
+  "modal_free": true,
+  "pattern": "Could you tell me when ~?"
+ },
+ "Would it be possible to change my room?": {
+  "en": "Would it be possible to change my room?",
+  "ja": "部屋を替えていただくことは可能でしょうか？",
+  "ja_new": "（フロントに・とても丁寧に）部屋を替えることは可能でしょうか？",
+  "context": {
+   "role": "フロント",
+   "polite": "とても丁寧",
+   "scene": "ホテルで。『可能＝possible』を使って丁寧に"
+  },
+  "keyword": "possible",
+  "rule": "控えめな「〜は可能でしょうか」の型＋原形",
+  "accept": [
+   "Would it be possible to change rooms?",
+   "Is it possible to change my room?"
+  ],
+  "near_miss": [
+   "Could I change my room?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Would it be possible to ~?"
+ },
+ "How's it going?": {
+  "en": "How's it going?",
+  "ja": "調子どう？",
+  "ja_new": "（友だちに軽く）最近どんな感じ？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "会ったときのくだけたあいさつ。How are you? 以外で"
+  },
+  "keyword": "going",
+  "rule": "決まり文句：疑問詞＋短縮 be動詞＋それ＋〜ing",
+  "accept": [
+   "How is it going?"
+  ],
+  "near_miss": [
+   "How are you?",
+   "How are you doing?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "How's ~?"
+ },
+ "How was your weekend?": {
+  "en": "How was your weekend?",
+  "ja": "週末どうだった？",
+  "ja_new": "週末どうだった？",
+  "context": {
+   "role": "同僚",
+   "polite": "くだけた",
+   "scene": "月曜の雑談"
+  },
+  "keyword": "weekend",
+  "rule": "様子を聞く疑問詞＋過去の be動詞＋あなたの〜",
+  "accept": [
+   "How was the weekend?"
+  ],
+  "near_miss": [
+   "How did your weekend go?",
+   "What did you do last weekend?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "How was ~?"
+ },
+ "What do you do for fun?": {
+  "en": "What do you do for fun?",
+  "ja": "趣味は何？",
+  "ja_new": "楽しみのために、ふだん何してる？",
+  "context": {
+   "role": "初対面の人",
+   "polite": "くだけた",
+   "scene": "初対面の雑談。hobby は堅いので使わない"
+  },
+  "keyword": "fun",
+  "rule": "何を＋助動詞＋相手＋する＋「楽しみのために」",
+  "accept": [],
+  "near_miss": [
+   "What are your hobbies?",
+   "What's your hobby?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "What do you ~?"
+ },
+ "What about you?": {
+  "en": "What about you?",
+  "ja": "あなたは？",
+  "ja_new": "（話を返して）で、あなたのほうは？",
+  "context": {
+   "role": "話し相手",
+   "polite": "くだけた",
+   "scene": "自分の話をしたあとに相手に返す"
+  },
+  "keyword": "about",
+  "rule": "疑問詞＋「〜については」＋あなた",
+  "accept": [
+   "How about you?"
+  ],
+  "near_miss": [
+   "And you?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "What about ~?"
+ },
+ "What did you do there?": {
+  "en": "What did you do there?",
+  "ja": "そこで何したの？",
+  "ja_new": "そこで何したの？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "旅行の話"
+  },
+  "keyword": "there",
+  "rule": "何を＋過去の助動詞＋相手＋する＋そこで",
+  "accept": [],
+  "near_miss": [],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "What did you ~?"
+ },
+ "What was it like?": {
+  "en": "What was it like?",
+  "ja": "どんな感じだった？",
+  "ja_new": "それ、どんなふうだった？（何に似てた？）",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "相手の体験の様子を詳しく聞く"
+  },
+  "keyword": "like",
+  "rule": "何＋過去の be動詞＋それ＋「〜のような」を文末に",
+  "accept": [],
+  "near_miss": [
+   "How was it?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "What was ~ like?"
+ },
+ "How did you get into that?": {
+  "en": "How did you get into that?",
+  "ja": "どうやってハマったの？",
+  "ja_new": "それにどうやってハマったの？（get into＝ハマる）",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "趣味の話を広げる"
+  },
+  "keyword": "get into",
+  "rule": "どうやって＋過去の助動詞＋相手＋「ハマる」のかたまり",
+  "accept": [
+   "How did you get into it?"
+  ],
+  "near_miss": [
+   "How did you start that?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "How did you ~?"
+ },
+ "Oh really? How come?": {
+  "en": "Oh really? How come?",
+  "ja": "え、なんで？",
+  "ja_new": "えっ本当？ なんで？（カジュアルに2文で）",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "意外な話を聞いて。Why 以外のくだけた言い方"
+  },
+  "keyword": "come",
+  "rule": "驚き＋理由を聞くくだけた2語（後ろは普通の語順）",
+  "accept": [
+   "Really? How come?",
+   "How come?"
+  ],
+  "near_miss": [
+   "Why?",
+   "Really? Why?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "How come (~)?"
+ },
+ "Have you been here before?": {
+  "en": "Have you been here before?",
+  "ja": "ここ、来たことある？",
+  "ja_new": "ここ、前に来たことある？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "店・観光地"
+  },
+  "keyword": "before",
+  "rule": "経験：完了の助動詞＋相手＋「いたことがある」＋ここ",
+  "accept": [
+   "Have you ever been here?",
+   "Have you ever been here before?"
+  ],
+  "near_miss": [
+   "Is this your first time here?",
+   "Have you come here before?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Have you (ever) ~?"
+ },
+ "How long have you lived here?": {
+  "en": "How long have you lived here?",
+  "ja": "ここに住んでどのくらい？",
+  "ja_new": "ここに住んでどのくらい？",
+  "context": {
+   "role": "知り合い",
+   "polite": "ふつう",
+   "scene": "住まいの雑談"
+  },
+  "keyword": "long",
+  "rule": "期間の疑問詞＋完了の助動詞＋相手＋過去分詞",
+  "accept": [
+   "How long have you been living here?"
+  ],
+  "near_miss": [
+   "How long have you been here?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "How long have you ~?"
+ },
+ "Any plans for the weekend?": {
+  "en": "Any plans for the weekend?",
+  "ja": "週末、何か予定ある？",
+  "ja_new": "週末、何か予定は？（主語・動詞を省いて短く）",
+  "context": {
+   "role": "同僚",
+   "polite": "くだけた",
+   "scene": "金曜の雑談。Do you have を省略した形"
+  },
+  "keyword": "plans",
+  "rule": "主語・動詞を省いて「何か」＋予定＋その週末",
+  "accept": [
+   "Any plans this weekend?"
+  ],
+  "near_miss": [
+   "Do you have any plans for the weekend?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Any ~?（省略形）"
+ },
+ "What do you think?": {
+  "en": "What do you think?",
+  "ja": "どう思う？",
+  "ja_new": "どう思う？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "意見を聞く"
+  },
+  "keyword": "think",
+  "rule": "何を＋助動詞＋相手＋考える",
+  "accept": [],
+  "near_miss": [],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "What do you think?"
+ },
+ "What did you think of the movie?": {
+  "en": "What did you think of the movie?",
+  "ja": "映画どうだった？",
+  "ja_new": "その映画、どう思った？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "感想（意見）を聞く。think を使う"
+  },
+  "keyword": "think",
+  "rule": "何を＋過去の助動詞＋相手＋考える＋「〜について」",
+  "accept": [
+   "What did you think about the movie?"
+  ],
+  "near_miss": [
+   "How was the movie?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "What did you think of ~?"
+ },
+ "Would you recommend it?": {
+  "en": "Would you recommend it?",
+  "ja": "それ、おすすめ？",
+  "ja_new": "それ、（人に）すすめる？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "店・映画・本について相手の意見を聞く"
+  },
+  "keyword": "recommend",
+  "rule": "控えめな助動詞＋相手＋すすめる＋それ",
+  "accept": [
+   "Do you recommend it?"
+  ],
+  "near_miss": [
+   "Is it good?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Would you ~?"
+ },
+ "Which one do you prefer?": {
+  "en": "Which one do you prefer?",
+  "ja": "どっちが好き？",
+  "ja_new": "2つのうち、どっちのほうが好み？（比べて）",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "二択で好みを聞く。like better より短く"
+  },
+  "keyword": "prefer",
+  "rule": "「どちら」＋助動詞＋相手＋「〜の方を好む」",
+  "accept": [
+   "Which do you prefer?"
+  ],
+  "near_miss": [
+   "Which one do you like better?",
+   "Which one do you like?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Which ~ do you ~?"
+ },
+ "Where do you think we should eat?": {
+  "en": "Where do you think we should eat?",
+  "ja": "どこで食べたらいいと思う？",
+  "ja_new": "どこで食べるべきだと思う？（相手の意見を聞く）",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "相談・提案。do you think を挟む"
+  },
+  "keyword": "should",
+  "rule": "疑問詞＋「あなたは思う？」＋普通の語順（私たちは〜すべき）",
+  "accept": [],
+  "near_miss": [
+   "Where should we eat?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "Wh + do you think + 平叙文?"
+ },
+ "Sorry, what was that?": {
+  "en": "Sorry, what was that?",
+  "ja": "ごめん、何て？",
+  "ja_new": "ごめん、今のは何だった？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "聞き取れなかったとき、くだけた聞き返し"
+  },
+  "keyword": "sorry",
+  "rule": "謝る一言＋何＋過去の be動詞＋それ",
+  "accept": [
+   "What was that?",
+   "Sorry, what was that again?"
+  ],
+  "near_miss": [
+   "Sorry, what did you say?",
+   "Pardon?"
+  ],
+  "ambiguity": "A",
+  "modal_free": false,
+  "pattern": "What was that?"
+ },
+ "What do you mean?": {
+  "en": "What do you mean?",
+  "ja": "どういう意味？",
+  "ja_new": "どういう意味？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "意味がわからないとき"
+  },
+  "keyword": "mean",
+  "rule": "何を＋助動詞＋相手＋「意味する」",
+  "accept": [
+   "What do you mean by that?"
+  ],
+  "near_miss": [
+   "What does that mean?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "What do you mean (by ~)?"
+ },
+ "Sorry, did you say fifteen or fifty?": {
+  "en": "Sorry, did you say fifteen or fifty?",
+  "ja": "15って言った？50って言った？",
+  "ja_new": "（すみません）15って言いました？それとも50？",
+  "context": {
+   "role": "店員",
+   "polite": "ふつう",
+   "scene": "数字の聞き返し"
+  },
+  "keyword": "say",
+  "rule": "謝る一言＋過去の助動詞＋相手＋言う＋A か B",
+  "accept": [
+   "Did you say fifteen or fifty?"
+  ],
+  "near_miss": [
+   "Was it fifteen or fifty?",
+   "Fifteen or fifty?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "Did you say A or B?"
+ },
+ "How do you spell that?": {
+  "en": "How do you spell that?",
+  "ja": "それ、どうつづるの？",
+  "ja_new": "それ、どうつづるの？",
+  "context": {
+   "role": "話し相手",
+   "polite": "ふつう",
+   "scene": "名前・地名の確認"
+  },
+  "keyword": "spell",
+  "rule": "どうやって＋助動詞＋相手＋つづる＋それ",
+  "accept": [
+   "How do you spell it?"
+  ],
+  "near_miss": [
+   "Could you spell that?",
+   "Can you spell that for me?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "How do you ~?"
+ },
+ "It's really hot today, isn't it?": {
+  "en": "It's really hot today, isn't it?",
+  "ja": "今日ほんと暑いよね",
+  "ja_new": "今日ほんと暑いよね（同意を求めて語尾を下げる）",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "天気の雑談"
+  },
+  "keyword": "hot",
+  "rule": "普通の文＋、be動詞の否定＋それ（下げ調子）",
+  "accept": [
+   "It's so hot today, isn't it?"
+  ],
+  "near_miss": [
+   "It's really hot today, right?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "付加疑問（肯定文, isn't it?）↘"
+ },
+ "You're from Osaka, aren't you?": {
+  "en": "You're from Osaka, aren't you?",
+  "ja": "大阪出身だよね？",
+  "ja_new": "大阪出身、だったよね？（確認で語尾を上げる）",
+  "context": {
+   "role": "知り合い",
+   "polite": "ふつう",
+   "scene": "記憶の確認"
+  },
+  "keyword": "from",
+  "rule": "普通の文＋、be動詞の否定＋相手（上げ調子）",
+  "accept": [],
+  "near_miss": [
+   "You're from Osaka, right?",
+   "Are you from Osaka?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "付加疑問（肯定文, aren't you?）↗"
+ },
+ "You don't eat meat, do you?": {
+  "en": "You don't eat meat, do you?",
+  "ja": "お肉は食べないんだよね？",
+  "ja_new": "お肉は食べないんだよね？",
+  "context": {
+   "role": "友だち",
+   "polite": "ふつう",
+   "scene": "食事の前の確認"
+  },
+  "keyword": "meat",
+  "rule": "否定の文＋、肯定の助動詞＋相手",
+  "accept": [],
+  "near_miss": [
+   "You don't eat meat, right?",
+   "Do you eat meat?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "付加疑問（否定文, do you?）"
+ },
+ "Don't you like it?": {
+  "en": "Don't you like it?",
+  "ja": "それ、好きじゃないの？",
+  "ja_new": "それ、好きじゃないの？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "反応が意外なとき"
+  },
+  "keyword": "like",
+  "rule": "否定の助動詞で始める（意外な気持ち）",
+  "accept": [
+   "Don't you like that?"
+  ],
+  "near_miss": [
+   "You don't like it?",
+   "Do you not like it?"
+  ],
+  "ambiguity": "B",
+  "modal_free": false,
+  "pattern": "否定疑問（Don't you ~?）"
+ },
+ "Aren't you cold?": {
+  "en": "Aren't you cold?",
+  "ja": "寒くないの？",
+  "ja_new": "寒くないの？",
+  "context": {
+   "role": "友だち",
+   "polite": "くだけた",
+   "scene": "薄着の相手"
+  },
+  "keyword": "cold",
+  "rule": "否定の be動詞で始める",
+  "accept": [],
+  "near_miss": [
+   "Are you not cold?",
+   "Are you cold?"
+  ],
+  "ambiguity": "D",
+  "modal_free": false,
+  "pattern": "否定疑問（Aren't you ~?）"
+ }
+}
