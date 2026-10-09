@@ -335,6 +335,26 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .slide-in{animation:slideIn .4s cubic-bezier(.65,0,.35,1)}
 @keyframes slideIn{from{transform:translateX(70%);opacity:.35}to{transform:none;opacity:1}}
 
+/* Question mode */
+.qword.qm-ja{font-family:var(--f-ui);font-size:clamp(20px,5.6vw,26px);font-weight:800;line-height:1.35}
+.qm-build{display:flex;flex-direction:column;gap:12px}
+.qm-line{min-height:58px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px;border-radius:14px;background:var(--surface-2);border:2px dashed var(--line)}
+.qm-ph{color:var(--muted);font-size:13px}
+.qm-q{font-family:var(--f-en);font-weight:900;font-size:20px;color:var(--muted)}
+.qm-pool{display:flex;flex-wrap:wrap;gap:8px;min-height:44px}
+.tile{border:0;border-radius:12px;padding:9px 14px;font-family:var(--f-en);font-weight:800;font-size:17px;background:var(--surface);color:var(--ink);box-shadow:0 0 0 2px var(--line),0 3px 0 var(--line);cursor:pointer;position:relative;overflow:hidden;isolation:isolate}
+.tile.on{background:var(--brand);color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.tile:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.qm-reveal{display:flex;flex-direction:column;gap:6px}
+.qm-en{font-family:var(--f-en);font-weight:900;font-size:24px;line-height:1.3}
+.tone{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--surface-2);color:var(--brand);font-size:18px;vertical-align:middle}
+.qm-pair{margin-top:6px;padding:10px 12px;border-radius:12px;background:var(--surface-2)}
+.qm-pair .ex{font-family:var(--f-en);font-weight:700}
+.trivia.bad{background:rgba(240,67,79,.1);color:var(--bad)}
+.en-opt{font-family:var(--f-en);font-weight:700}
+.qm-card{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center}
+.qm-card canvas{height:52px;margin:0 auto}
+
 /* Motion */
 @keyframes bob{50%{transform:translateY(-6px)}}
 @keyframes hit{0%,100%{transform:translateX(0);filter:none}20%{transform:translateX(-10px);filter:brightness(2)}40%{transform:translateX(9px)}60%{transform:translateX(-6px);filter:brightness(1.6)}80%{transform:translateX(3px)}}
@@ -389,6 +409,15 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
       <div class="tile t-sky"><div class="label">復習まち</div><div class="num" id="mapDue">0</div></div>
     </div>
     <div class="win today" id="todayCard"></div>
+    <div class="win qm-card">
+      <div class="sp"><canvas class="sprite" id="hatenaSprite"></canvas></div>
+      <div class="grow">
+        <div class="sname">疑問文モード <span class="chip new-chip">NEW</span></div>
+        <div class="smeta">ハテナンと、実際に使える質問を練習しよう</div>
+        <div class="smeta" id="qmCardMeta"></div>
+      </div>
+      <button class="btn small primary" id="qmStart" type="button">スタート</button>
+    </div>
     <div class="win my-panel">
       <div class="sp"><canvas class="sprite" id="memoSprite"></canvas></div>
       <div class="grow">
@@ -444,6 +473,31 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
         <button class="btn rate r2" id="rate2" type="button"><b>△</b>迷った</button>
         <button class="btn rate r1" id="rate1" type="button"><b>×</b>だめだった</button>
       </div>
+    </div>
+    <div class="win qm-build" id="qmBuild" hidden>
+      <div class="label">単語をタップして質問を組み立てよう（タップした単語をもう一度押すと戻せる）</div>
+      <div class="qm-line" id="qmLine"></div>
+      <div class="qm-pool" id="qmPool"></div>
+      <div class="btn-row"><button class="btn" id="qmClear" type="button">やり直す</button><button class="btn primary" id="qmCheck" type="button">決定</button></div>
+    </div>
+    <div class="recall-box" id="qmSay" hidden>
+      <button class="btn primary flip" id="qmFlip" type="button">答えを見る</button>
+      <p class="note">日本語と相手の答えを見て、英語の質問を声に出してから押そう</p>
+    </div>
+    <div class="win qm-reveal" id="qmReveal" hidden>
+      <div class="label" id="qmTitle"></div>
+      <div class="qm-en"><span id="qmEn"></span> <span class="tone" id="qmTone"></span></div>
+      <div class="exj" id="qmJa"></div>
+      <div class="qm-pair"><div class="label">よくある返事</div><div class="ex" id="qmAns"></div><div class="exj" id="qmAnsJa"></div></div>
+      <p class="trivia" id="qmNote"></p>
+      <p class="trivia bad" id="qmWhy" hidden></p>
+      <button class="btn" id="qmSayBtn" type="button">🔊 もう一度聞く</button>
+      <div class="rates" id="qmRates" hidden>
+        <button class="btn rate r3" id="qr3" type="button"><b>◎</b>すぐ言えた</button>
+        <button class="btn rate r2" id="qr2" type="button"><b>△</b>迷った</button>
+        <button class="btn rate r1" id="qr1" type="button"><b>×</b>言えなかった</button>
+      </div>
+      <button class="btn primary" id="qmNext" type="button">次へ</button>
     </div>
     <div class="choices" id="choices"></div>
     <div class="win explain" id="explain" hidden>
@@ -2504,6 +2558,7 @@ function renderMap(){
   }
   drawUSMap();
   renderStatePanel();
+  if(typeof renderQCard === 'function') renderQCard();
   renderSpecials();
 }
 function renderSpecials(){
@@ -2655,6 +2710,7 @@ function startBattle(id){
   const pool = poolFor(m);
   B = {m, pool, mhp:m.hp, php:maxHP(S.lv), pmax:maxHP(S.lv), queue:pickWords(pool, 12),
        combo:0, maxCombo:0, log:[], locked:true, raf:0, last:null, cur:null, goodCount:0, flipMs:0, mode:''};
+  if(m.id === 'hatena') B.queue = pickQ(8);
   const scene = $('#scene');
   scene.className = 'scene ' + m.bg;
   const cv = $('#eSprite');
@@ -2691,7 +2747,7 @@ function say(text){
   }catch(e){}
 }
 function hideBattlePanels(){
-  ['#choices','#explain','#recallBox','#reveal'].forEach(s => $(s).hidden = true);
+  ['#choices','#explain','#recallBox','#reveal','#qmBuild','#qmSay','#qmReveal'].forEach(s => $(s).hidden = true);
 }
 function startTimer(limit, onTimeout){
   B.t0 = performance.now(); B.limit = limit; B.onTimeout = onTimeout;
@@ -2753,6 +2809,8 @@ function bumpDaily(isNew){
 }
 
 function nextQ(){
+  if(B.m.id === 'hatena'){ nextQM(); return; }
+  $('#qWord').classList.remove('qm-ja');
   if(B.php <= 0){ lose(); return; }
   if(B.queue.length === 0) B.queue = pickWords(B.pool.filter(w => w !== B.last), 8);
   let word = B.queue.shift();
@@ -3052,7 +3110,7 @@ $('#toMapBtn').addEventListener('click', () => { B = null; play('select'); rende
 let dexCat = 'all', dexHide = false;
 function renderDex(){
   const tabs = $('#dexTabs');
-  const opts = [['all','すべて'], ['culture','アメリカ文化'], ...Object.entries(CATS).map(([k,v]) => [k, v.name])];
+  const opts = [['all','すべて'], ['question','疑問文'], ['culture','アメリカ文化'], ...Object.entries(CATS).filter(([k]) => k !== 'question').map(([k,v]) => [k, v.name])];
   tabs.innerHTML = '';
   opts.forEach(([k,label]) => {
     const t = document.createElement('button');
@@ -3065,12 +3123,14 @@ function renderDex(){
   list.classList.toggle('hide', dexHide);
   $('#dexHide').setAttribute('aria-pressed', String(dexHide));
   $('#dexHide').textContent = dexHide ? '意味を表示' : '意味をかくす';
-  const words = WORDS.filter(w => dexCat === 'all' || (dexCat === 'culture' ? !!w.t : w.c === dexCat))
-    .slice().sort((a,b) => getP(a.w).s - getP(b.w).s);
+  const words = (dexCat === 'question'
+      ? QITEMS.map(q => ({w:q.en, m:q.ja, e:'返事の例：' + q.answer, j:q.answerJa, t:q.note, k:q.key}))
+      : WORDS.filter(w => dexCat === 'all' || (dexCat === 'culture' ? !!w.t : w.c === dexCat)))
+    .slice().sort((a,b) => getP(a.k || a.w).s - getP(b.k || b.w).s);
   list.innerHTML = '';
   words.forEach(w => {
     const li = document.createElement('li');
-    li.innerHTML = `<span class="en">${esc(w.w)}</span><span class="ja">${esc(w.m)}</span>${starsHTML(getP(w.w).s)}`;
+    li.innerHTML = `<span class="en">${esc(w.w)}</span><span class="ja">${esc(w.m)}</span>${starsHTML(getP(w.k || w.w).s)}`;
     li.addEventListener('click', () => {
       li.classList.toggle('peek');
       const ex = li.querySelector('.exrow');
@@ -3408,6 +3468,1287 @@ function kickCityVideo(){
 }
 ['pointerdown','touchstart','keydown'].forEach(ev => document.addEventListener(ev, kickCityVideo, {passive:true}));
 document.addEventListener('visibilitychange', () => { if(!document.hidden) kickCityVideo(); });
+
+const QITEMS = [
+{
+"en": "Are you hungry?",
+"ja": "お腹すいてる？",
+"pattern": "Are you ~?",
+"scene": "友人と出かけたとき",
+"answer": "Yeah, a little.",
+"answerJa": "うん、ちょっとね。",
+"note": "hungry は形容詞なので be 動詞を使います。Do you hungry? はよくある誤りです。",
+"level": 1
+},
+{
+"en": "Is this your first time here?",
+"ja": "ここは初めてですか？",
+"pattern": "Is this ~?",
+"scene": "旅先での雑談",
+"answer": "Yeah, it is. It's amazing.",
+"answerJa": "はい、そうなんです。すごくいいところですね。",
+"note": "Is を文頭に出すだけで、語順は This is の入れ替えです。短く Yes, it is. と答えられるように練習しましょう。",
+"level": 1
+},
+{
+"en": "Was it crowded?",
+"ja": "混んでた？",
+"pattern": "Was it ~?",
+"scene": "出かけた話を聞く",
+"answer": "Yeah, it was packed.",
+"answerJa": "うん、ぎゅうぎゅうだった。",
+"note": "過去の be 疑問文は Was/Were を前に出します。Did it crowded? は誤りです。packed は「すし詰め」というくだけた言い方です。",
+"level": 1
+},
+{
+"en": "Do you like spicy food?",
+"ja": "辛い食べ物は好き？",
+"pattern": "Do you ~?",
+"scene": "食事の店を選ぶ",
+"answer": "Yes, I love it.",
+"answerJa": "うん、大好き。",
+"note": "一般動詞の疑問文は Do を前に置きます。Are you like ~? と be を混ぜる誤りに注意。実際は「ジュ ライク」のように縮まって聞こえます。",
+"level": 1
+},
+{
+"en": "Does she speak Japanese?",
+"ja": "彼女は日本語を話せるの？",
+"pattern": "Does he/she ~?",
+"scene": "友人について聞く",
+"answer": "Yes, she does. A little.",
+"answerJa": "うん、話せるよ。少しだけね。",
+"note": "Does を使ったら動詞の s は消えます（Does she speaks ~? は誤り）。三単現の s は Does に移る、と覚えましょう。",
+"level": 1
+},
+{
+"en": "Does this bus go downtown?",
+"ja": "このバスは中心街に行きますか？",
+"pattern": "Does this ~?",
+"scene": "バス停",
+"answer": "No, you need the number 5.",
+"answerJa": "いいえ、5番に乗ってください。",
+"note": "this bus は三人称単数なので Does です。downtown には to を付けません（go to downtown は誤り）。",
+"level": 2
+},
+{
+"en": "Did you have breakfast?",
+"ja": "朝ごはん食べた？",
+"pattern": "Did you ~?",
+"scene": "朝のあいさつ",
+"answer": "Yeah, I had some toast.",
+"answerJa": "うん、トーストを食べたよ。",
+"note": "Did の後の動詞は原形に戻します（Did you had ~? は誤り）。過去形は Did に1回だけ、と覚えましょう。",
+"level": 1
+},
+{
+"en": "Do you want to grab lunch?",
+"ja": "お昼一緒に食べない？",
+"pattern": "Do you want to ~?",
+"scene": "同僚や友人を誘う",
+"answer": "Sure, where do you want to go?",
+"answerJa": "いいね、どこに行きたい？",
+"note": "Do you want to ~? は「~しない？」という誘い方としてよく使われます。会話では Wanna grab lunch? と縮めることも多いです。grab は「さっと食べる」の意味。",
+"level": 2
+},
+{
+"en": "Can you drive?",
+"ja": "車の運転できる？",
+"pattern": "Can you ~?",
+"scene": "旅行の計画",
+"answer": "Yeah, but I don't have a car.",
+"answerJa": "うん、でも車は持ってないんだ。",
+"note": "Can の後は動詞の原形で、Do は付けません（Do you can drive? は誤り）。Can you ~? は「できる？」と「してくれる？」のどちらの意味にもなります。",
+"level": 1
+},
+{
+"en": "Are you going to come to the party?",
+"ja": "パーティー来る予定？",
+"pattern": "Are you going to ~?",
+"scene": "予定を確認する",
+"answer": "Yeah, I'll be there.",
+"answerJa": "うん、行くよ。",
+"note": "すでに決まっている予定を聞くときは be going to を使います。Will you come? は「来てくれる？」というお願いに近くなります。",
+"level": 2
+},
+{
+"en": "Is it going to rain today?",
+"ja": "今日、雨降るかな？",
+"pattern": "Is it going to ~?",
+"scene": "出かける前",
+"answer": "Looks like it. Take an umbrella.",
+"answerJa": "降りそうだね。傘を持っていきなよ。",
+"note": "天気の予想は Will it rain? より Is it going to rain? のほうが会話ではよく使われます。主語の it を落とさないようにしましょう。",
+"level": 2
+},
+{
+"en": "Should I bring anything?",
+"ja": "何か持っていったほうがいい？",
+"pattern": "Should I ~?",
+"scene": "招待されたとき",
+"answer": "Just yourself! Maybe some drinks.",
+"answerJa": "手ぶらでいいよ！飲み物があるといいかも。",
+"note": "Should I ~? は「~したほうがいい？」と相手に判断を求める言い方です。疑問文なので some ではなく anything を使います。",
+"level": 2
+},
+{
+"en": "When's your birthday?",
+"ja": "誕生日いつ？",
+"pattern": "When is ~?",
+"scene": "雑談",
+"answer": "It's in March. March 3rd.",
+"answerJa": "3月だよ。3月3日。",
+"note": "Wh＋be は「疑問詞＋is＋主語」の順です。会話では When's と縮めます。When your birthday is? は誤りです。",
+"level": 1
+},
+{
+"en": "What's the Wi-Fi password?",
+"ja": "Wi-Fiのパスワードは何ですか？",
+"pattern": "What is ~?",
+"scene": "カフェ・ホテル",
+"answer": "It's on your receipt.",
+"answerJa": "レシートに書いてありますよ。",
+"note": "What is ~? の基本の形で、すぐに使えます。日本語の「Wi-Fiのパスワードは？」をそのまま英語にして The Wi-Fi password? と言うこともできますが、まず完全な形で言えるようにしましょう。",
+"level": 1
+},
+{
+"en": "Where do you live?",
+"ja": "どこに住んでるの？",
+"pattern": "Where do you ~?",
+"scene": "初対面の雑談",
+"answer": "I live in Osaka.",
+"answerJa": "大阪に住んでるよ。",
+"note": "Where you live? のように do が抜ける誤りが一番多いです。be 動詞の Where are you from? との違いを意識しましょう。",
+"level": 1
+},
+{
+"en": "What time does the store open?",
+"ja": "お店は何時に開きますか？",
+"pattern": "What time does ~?",
+"scene": "店・施設",
+"answer": "It opens at nine.",
+"answerJa": "9時に開きます。",
+"note": "質問では does＋open（s なし）、答えでは opens（s あり）になります。s がどこに行くかに注目しましょう。",
+"level": 2
+},
+{
+"en": "What did you do last weekend?",
+"ja": "先週末は何をしたの？",
+"pattern": "What did you ~?",
+"scene": "週明けの会話",
+"answer": "Not much. I just stayed home.",
+"answerJa": "特に何も。家でゆっくりしてたよ。",
+"note": "did と do が両方入るのが正しい形です（後ろの do は「する」という意味の動詞）。What did you did? や What you did? は誤りです。",
+"level": 2
+},
+{
+"en": "Which one do you want?",
+"ja": "どれがいい？",
+"pattern": "Which ~ do you ~?",
+"scene": "買い物・選ぶ",
+"answer": "The blue one, please.",
+"answerJa": "青いのをお願い。",
+"note": "選択肢が目の前にあるときは What より Which を使います。one は名詞の繰り返しを避ける言い方です。",
+"level": 2
+},
+{
+"en": "Why are you learning English?",
+"ja": "なんで英語を勉強してるの？",
+"pattern": "Why are you ~ing?",
+"scene": "雑談",
+"answer": "For work, mostly.",
+"answerJa": "主に仕事のためだよ。",
+"note": "進行形は be を前に出します（Why do you learning ~? は誤り）。答えは Because ~ でなくても、For ~ だけで自然です。",
+"level": 2
+},
+{
+"en": "Who wants coffee?",
+"ja": "コーヒー飲む人？",
+"pattern": "Who＋動詞？（主語を尋ねる）",
+"scene": "みんなに聞く",
+"answer": "Me! / I do.",
+"answerJa": "はい！／飲む。",
+"note": "Who が主語なので do は付けず、語順も入れ替えません（Who does want ~? は誤り）。Who は三人称単数扱いで wants になります。",
+"level": 2
+},
+{
+"en": "What happened?",
+"ja": "何があったの？",
+"pattern": "What＋動詞の過去形？（主語を尋ねる）",
+"scene": "相手の様子が変なとき",
+"answer": "I lost my wallet.",
+"answerJa": "財布をなくしちゃった。",
+"note": "What が主語なので did は付けません。What did happen? は強調する場合以外は不自然です。",
+"level": 2
+},
+{
+"en": "Who did you go with?",
+"ja": "誰と行ったの？",
+"pattern": "Who did you ~ with?（目的語を尋ねる）",
+"scene": "出かけた話を聞く",
+"answer": "I went with my sister.",
+"answerJa": "妹と行ったよ。",
+"note": "Who wants? と違って、Who が目的語なので did が必要です。with は文末に残すのが自然な会話の言い方です。",
+"level": 3
+},
+{
+"en": "How far is it?",
+"ja": "どのくらい遠いですか？",
+"pattern": "How＋形容詞＋is ~?",
+"scene": "道を聞く",
+"answer": "About ten minutes on foot.",
+"answerJa": "歩いて10分くらいです。",
+"note": "How far は距離を、How long does it take? は時間を聞きます。ただしアメリカでは How far? にも時間で答えることがよくあります。",
+"level": 2
+},
+{
+"en": "How often do you work out?",
+"ja": "どのくらいの頻度で運動してる？",
+"pattern": "How often do you ~?",
+"scene": "健康・趣味の話",
+"answer": "About three times a week.",
+"answerJa": "週3回くらいかな。",
+"note": "How often の後は普通の do 疑問文の語順です。答えは once / twice / three times a week の形で言います。",
+"level": 3
+},
+{
+"en": "How many people are coming?",
+"ja": "何人来るの？",
+"pattern": "How many＋名詞＋動詞？（主語を尋ねる）",
+"scene": "人数の確認・予約",
+"answer": "About ten, I think.",
+"answerJa": "10人くらいだと思う。",
+"note": "How many people が主語なので、語順は入れ替えません（How many people are they coming? は誤り）。How many people do you need? のように目的語を尋ねる文との違いに注意しましょう。",
+"level": 3
+},
+{
+"en": "Do you have a table for two?",
+"ja": "2人なんですが、席はありますか？",
+"pattern": "Do you have ~?",
+"scene": "レストランの入口",
+"answer": "Sure, right this way.",
+"answerJa": "はい、こちらへどうぞ。",
+"note": "「2人です」を Two people. だけで済ませがちですが、Do you have a table for ~? の型で言えると通じやすいです。Do を落として You have a table? にしないように注意。",
+"level": 1
+},
+{
+"en": "How long is the wait?",
+"ja": "どのくらい待ちますか？",
+"pattern": "How long is ~?",
+"scene": "人気店の入口",
+"answer": "About twenty minutes.",
+"answerJa": "20分くらいです。",
+"note": "wait はここでは名詞で「待ち時間」の意味です。How long do I have to wait? でも正しいですが、店ではこの短い形がよく使われます。",
+"level": 2
+},
+{
+"en": "What do you recommend?",
+"ja": "おすすめは何ですか？",
+"pattern": "What do you ~?",
+"scene": "レストランで注文",
+"answer": "The burger is really popular.",
+"answerJa": "ハンバーガーがすごく人気ですよ。",
+"note": "What you recommend? と do を落とす誤りが多いです。What is your recommendation? も文法的には正しいですが硬く聞こえます。",
+"level": 2
+},
+{
+"en": "Can I get a refill?",
+"ja": "おかわりをもらえますか？",
+"pattern": "Can I get ~?",
+"scene": "レストランで飲み物",
+"answer": "Sure, I'll be right back with that.",
+"answerJa": "はい、すぐお持ちします。",
+"note": "アメリカではソフトドリンクのおかわりは無料のことが多いです。Can I get の get を have に替えても通じます。One more, please. より自然です。",
+"level": 1
+},
+{
+"en": "Could we get the check, please?",
+"ja": "お会計をお願いできますか？",
+"pattern": "Could we get ~?",
+"scene": "レストランで食後",
+"answer": "Sure, I'll bring it right over.",
+"answerJa": "はい、すぐお持ちします。",
+"note": "アメリカでは勘定書を check と言い、bill はイギリス英語です。グループなら I ではなく we を使います。席で頼むのが普通で、レジに歩いて行かないのが一般的です。",
+"level": 2
+},
+{
+"en": "Is the tip included?",
+"ja": "チップは含まれていますか？",
+"pattern": "Is ~ included?",
+"scene": "会計のとき",
+"answer": "No, it's not. / Yes, there's an 18% gratuity for groups.",
+"answerJa": "いいえ、含まれていません。／はい、団体様は18%のサービス料が入っています。",
+"note": "Does it include tip? より、be＋過去分詞の Is ~ included? が定番です。アメリカでは普通は含まれていませんが、大人数のときは gratuity として含まれていることがあります。",
+"level": 2
+},
+{
+"en": "How much is it with tax?",
+"ja": "税込みでいくらですか？",
+"pattern": "How much is ~?",
+"scene": "お店のレジ",
+"answer": "It comes to $21.50.",
+"answerJa": "合計で21ドル50セントです。",
+"note": "アメリカでは値札に売上税が含まれていないので、レジで金額が上がります。返事の It comes to ~ は「合計で～になります」という決まった言い方です。",
+"level": 1
+},
+{
+"en": "Do you take credit cards?",
+"ja": "クレジットカードは使えますか？",
+"pattern": "Do you take ~?",
+"scene": "お店・タクシー",
+"answer": "Yes, we do. / Sorry, cash only.",
+"answerJa": "はい、使えます。／すみません、現金のみです。",
+"note": "take は「受け付ける」という意味です。Can I use credit card? は a が抜けやすく、店に聞くなら主語を you（お店）にするのが自然です。返事も Yes, we do. と do で受けます。",
+"level": 1
+},
+{
+"en": "Can I try this on?",
+"ja": "これ、試着してもいいですか？",
+"pattern": "Can I ~?",
+"scene": "服屋",
+"answer": "Sure, the fitting rooms are in the back.",
+"answerJa": "どうぞ、試着室は奥です。",
+"note": "this や it のような代名詞は try と on の間に入れます。Can I try on this? はやや不自然で、try on this shirt のように名詞なら後ろに置けます。",
+"level": 1
+},
+{
+"en": "Do you have this in a smaller size?",
+"ja": "これの小さいサイズはありますか？",
+"pattern": "Do you have ~ in ...?",
+"scene": "服屋・靴屋",
+"answer": "Let me check in the back.",
+"answerJa": "在庫を見てきますね。",
+"note": "in a smaller size や in black のように in で色やサイズを言います。この in をまるごと型として覚えると、入れ替えがききます。",
+"level": 2
+},
+{
+"en": "Is there a drugstore around here?",
+"ja": "この辺に薬局はありますか？",
+"pattern": "Is there ~?",
+"scene": "街なか",
+"answer": "Yeah, there's one on the next block.",
+"answerJa": "ええ、次の区画にありますよ。",
+"note": "あるかどうかわからないときは Is there ~? を使います。Where is a drugstore? は不自然で、Where is the ~? は特定の場所を指すときの言い方です。",
+"level": 1
+},
+{
+"en": "How do I get to the subway station?",
+"ja": "地下鉄の駅へはどう行けばいいですか？",
+"pattern": "How do I get to ~?",
+"scene": "道案内",
+"answer": "Go straight two blocks and turn left.",
+"answerJa": "2ブロックまっすぐ行って左です。",
+"note": "How can I go to ~? も通じますが、get to の方が自然です。How I get to ~? と do を落とさないこと。",
+"level": 2
+},
+{
+"en": "Is it within walking distance?",
+"ja": "歩いて行ける距離ですか？",
+"pattern": "Is it ~?",
+"scene": "道案内・ホテル",
+"answer": "Yeah, it's about ten minutes on foot.",
+"answerJa": "ええ、歩いて10分くらいです。",
+"note": "Can I walk there? でも通じます。within walking distance はまるごと覚えるべき決まった言い方です。",
+"level": 2
+},
+{
+"en": "Does this bus go to Union Square?",
+"ja": "このバスはユニオンスクエアに行きますか？",
+"pattern": "Does ~ go to ...?",
+"scene": "バス停・車内",
+"answer": "Yes, it does. / No, you want the 38.",
+"answerJa": "はい、行きます。／いいえ、38番に乗ってください。",
+"note": "主語が this bus なので Does を使い、動詞は go のまま（goes にしない）。Does this bus goes ~? は日本人に典型的な誤りです。",
+"level": 1
+},
+{
+"en": "Which line goes to the airport?",
+"ja": "どの線が空港に行きますか？",
+"pattern": "Which ~ goes ...?（主語を尋ねる）",
+"scene": "駅・地下鉄",
+"answer": "Take the blue line.",
+"answerJa": "ブルーラインに乗ってください。",
+"note": "Which line が主語なので do は入らず、goes に s が付きます。Which line does go ~? は誤りです。Does this bus go ~? と比べて違いを確認しましょう。",
+"level": 3
+},
+{
+"en": "Where do I get off for the museum?",
+"ja": "美術館に行くにはどこで降りればいいですか？",
+"pattern": "Where do I ~?",
+"scene": "バス・電車",
+"answer": "Get off at the third stop.",
+"answerJa": "3つ目の停留所で降りてください。",
+"note": "Where I get off? のように語順をそのままにしないこと。do I を入れます。「降りる」は get off、「乗る」は get on です。",
+"level": 2
+},
+{
+"en": "Can I leave my bags here?",
+"ja": "荷物を預かってもらえますか？",
+"pattern": "Can I ~?",
+"scene": "ホテルのフロント",
+"answer": "Sure, here's your claim tag.",
+"answerJa": "はい、こちらが引換札です。",
+"note": "「預ける」を keep で言おうとして迷いがちですが、Can I leave ~? で十分通じます。チェックイン前やチェックアウト後によく使います。",
+"level": 1
+},
+{
+"en": "What time is checkout?",
+"ja": "チェックアウトは何時ですか？",
+"pattern": "What time is ~?",
+"scene": "ホテル",
+"answer": "It's at 11.",
+"answerJa": "11時です。",
+"note": "When is checkout? でも正しいです。What time is ~? の is を抜かして What time checkout? にしないように注意。",
+"level": 1
+},
+{
+"en": "Could I get a late checkout?",
+"ja": "チェックアウトを遅くしてもらえますか？",
+"pattern": "Could I get ~?",
+"scene": "ホテルのフロント",
+"answer": "Let me see... We can do 1 p.m.",
+"answerJa": "確認しますね…13時まで大丈夫です。",
+"note": "お願いごとなので Can より Could の方がやわらかく聞こえます。late checkout は1語のように覚えます。",
+"level": 3
+},
+{
+"en": "Is breakfast included?",
+"ja": "朝食は付いていますか？",
+"pattern": "Is ~ included?",
+"scene": "ホテルの予約・チェックイン",
+"answer": "Yes, it's served from 7 to 10.",
+"answerJa": "はい、7時から10時までです。",
+"note": "Does breakfast include? は誤りです（朝食が何かを含む、という意味になってしまう）。「含まれている」は受け身の is included です。",
+"level": 2
+},
+{
+"en": "Where do I check in for this flight?",
+"ja": "この便のチェックインはどこですか？",
+"pattern": "Where do I ~?",
+"scene": "空港",
+"answer": "Counter C, over there.",
+"answerJa": "あちらのCカウンターです。",
+"note": "Where is check-in? でも通じますが、do I を入れた形が言えると応用がききます。check in（動詞）と check-in（名詞）を区別しましょう。",
+"level": 2
+},
+{
+"en": "Which gate does this flight leave from?",
+"ja": "この便はどのゲートから出ますか？",
+"pattern": "Which ~ does ... from?",
+"scene": "空港",
+"answer": "Gate 23. It's on your boarding pass.",
+"answerJa": "23番ゲートです。搭乗券に書いてありますよ。",
+"note": "前置詞 from は文末に残ります。主語が this flight なので does を使い、leave に s は付けません。",
+"level": 3
+},
+{
+"en": "Is this the line for security?",
+"ja": "これは保安検査の列ですか？",
+"pattern": "Is this ~?",
+"scene": "空港・人気店",
+"answer": "Yes, it is. / No, this one's for priority.",
+"answerJa": "はい、そうです。／いいえ、ここは優先レーンです。",
+"note": "アメリカでは「列」を line と言い、queue はイギリス英語です。Is this the line for ~? は店やトイレなど、どこでも使えます。",
+"level": 2
+},
+{
+"en": "Could you call a cab for me?",
+"ja": "タクシーを呼んでいただけますか？",
+"pattern": "Could you ~ for me?",
+"scene": "ホテルのフロント・レストラン",
+"answer": "Of course. Where are you headed?",
+"answerJa": "かしこまりました。どちらまで？",
+"note": "Could you call me a taxi? も正しいですが、for me の形の方が組み立てやすいです。cab はアメリカでよく使う口語です。",
+"level": 3
+},
+{
+"en": "Can you help me?",
+"ja": "手伝ってもらえる？／ちょっと助けてもらえますか？",
+"pattern": "Can you ~?",
+"scene": "困ったとき全般",
+"answer": "Sure. What do you need?",
+"answerJa": "いいよ。何が必要？",
+"note": "Can you は「できますか」と能力を聞く文ではなく、気軽なお願いです。Help me! だけだと「助けて！」という緊急事態に聞こえます。",
+"level": 1
+},
+{
+"en": "Can I ask you something?",
+"ja": "ちょっと聞いてもいい？",
+"pattern": "Can I ~?",
+"scene": "質問の前置き",
+"answer": "Sure, go ahead.",
+"answerJa": "いいよ、どうぞ。",
+"note": "いきなり質問するより、この一言を前に置くと感じよく聞こえます。I have a question. より口語的で自然です。",
+"level": 1
+},
+{
+"en": "Can I use your bathroom?",
+"ja": "お手洗いをお借りしてもいいですか？",
+"pattern": "Can I ~?",
+"scene": "友人・知人の家",
+"answer": "Of course. It's the first door on the right.",
+"answerJa": "もちろん。右側の最初のドアだよ。",
+"note": "「借りる」を直訳した borrow は使いません（動かせない物には use）。家のトイレは bathroom で、restroom は主に店などの公共のトイレです。",
+"level": 1
+},
+{
+"en": "Could you write it down for me?",
+"ja": "それ、書いてもらえますか？",
+"pattern": "Could you ~?",
+"scene": "住所・名前の聞き取りが不安なとき",
+"answer": "Sure, here you go.",
+"answerJa": "いいですよ、どうぞ。",
+"note": "聞き取れないときの強い味方です。Could you は Can you より少していねいで、知らない人にはこちらが無難です。",
+"level": 2
+},
+{
+"en": "Could you take a picture of us?",
+"ja": "私たちの写真を撮ってもらえますか？",
+"pattern": "Could you ~?",
+"scene": "観光地",
+"answer": "Sure, no problem. Say cheese!",
+"answerJa": "いいですよ。はい、チーズ！",
+"note": "「撮る」は take です。shoot は使いません。take our picture でも通じます。「私の写真」なら take a picture of me です。",
+"level": 1
+},
+{
+"en": "Could I have some water, please?",
+"ja": "お水をいただけますか？",
+"pattern": "Could I ~?",
+"scene": "レストラン",
+"answer": "Of course. I'll be right back.",
+"answerJa": "かしこまりました。すぐお持ちします。",
+"note": "I want water. は子どもっぽく、ぶっきらぼうに聞こえます。Could I have は Can I get より少していねいです。",
+"level": 2
+},
+{
+"en": "Could you speak a little more slowly?",
+"ja": "もう少しゆっくり話していただけますか？",
+"pattern": "Could you ~?",
+"scene": "店・電話・初対面",
+"answer": "Oh, sorry. Of course.",
+"answerJa": "あ、ごめんなさい。もちろん。",
+"note": "Please speak slowly. は命令に聞こえやすいので、Could you で始めます。a little を入れるとさらにやわらかくなります。",
+"level": 2
+},
+{
+"en": "May I ask who's calling?",
+"ja": "どちら様でしょうか？（電話で）",
+"pattern": "May I ~?",
+"scene": "電話を受けたとき",
+"answer": "This is Ken Tanaka from ABC.",
+"answerJa": "ABC社の田中ケンです。",
+"note": "Who are you? はかなり失礼です。電話で名乗るときは I am ではなく This is ~ を使います。",
+"level": 3
+},
+{
+"en": "May I see your passport, please?",
+"ja": "パスポートを拝見できますか？",
+"pattern": "May I ~?",
+"scene": "空港・ホテル（言われる側）",
+"answer": "Sure, here you go.",
+"answerJa": "はい、どうぞ。",
+"note": "May I は係員がよく使う、かしこまった言い方です。自分から友人に言うと堅すぎるので、まずは聞いて答えられれば十分です。",
+"level": 2
+},
+{
+"en": "Is it okay if I open the window?",
+"ja": "窓を開けてもいいですか？",
+"pattern": "Is it okay if I ~?",
+"scene": "部屋・車の中",
+"answer": "Sure, go ahead.",
+"answerJa": "いいよ、どうぞ。",
+"note": "かしこまった場面以外ならたいてい使える、便利な型です。if の後は普通の文の語順（I open）で、未来のことでも will は付けません。",
+"level": 2
+},
+{
+"en": "Do you mind if I sit here?",
+"ja": "ここに座ってもいいですか？",
+"pattern": "Do you mind if I ~?",
+"scene": "カフェ・電車",
+"answer": "No, go ahead. / Sure, go ahead.",
+"answerJa": "どうぞ。",
+"note": "mind は「嫌だと思う」という意味なので、No が「どうぞ」になります。実際の会話では Sure と答える人も多いです。Yes, I do. と答えると「嫌です」の意味になるので注意しましょう。",
+"level": 2
+},
+{
+"en": "Would you mind closing the window?",
+"ja": "窓を閉めていただけませんか？",
+"pattern": "Would you mind ~ing?",
+"scene": "目上の人・知らない人へのお願い",
+"answer": "Not at all. / Sure, no problem.",
+"answerJa": "いいですよ。",
+"note": "mind の後は -ing です（Would you mind to close は誤り）。Do you mind より Would you mind の方がていねいです。",
+"level": 3
+},
+{
+"en": "Would you mind if I left a little early today?",
+"ja": "今日、少し早めに帰ってもよろしいでしょうか？",
+"pattern": "Would you mind if I + 過去形?",
+"scene": "職場で上司に",
+"answer": "No, that's fine.",
+"answerJa": "いいですよ、大丈夫です。",
+"note": "Would you mind if の後は過去形（left）にすると、さらに控えめになります。今日のことでも過去形を使う点が日本人には意外です。",
+"level": 3
+},
+{
+"en": "Would you like something to drink?",
+"ja": "何かお飲みになりますか？",
+"pattern": "Would you like ~?",
+"scene": "来客・機内（すすめられる側）",
+"answer": "Yes, please. Water would be great.",
+"answerJa": "はい、お願いします。お水をいただけると嬉しいです。",
+"note": "Do you want ~? のていねいな形です。Yes. だけで終わらず please を添えると感じよく聞こえます。断るときは No, thank you. です。",
+"level": 2
+},
+{
+"en": "Would you like me to carry that?",
+"ja": "それ、お持ちしましょうか？",
+"pattern": "Would you like me to ~?",
+"scene": "相手の荷物が重そうなとき",
+"answer": "Oh, thanks. That would be great.",
+"answerJa": "あ、ありがとう。助かります。",
+"note": "「〜しましょうか」は Shall I ~? より、こちらの方がアメリカでは自然です。me を落として Would you like to carry と言うと、「あなたが運びたい？」という意味になってしまいます。",
+"level": 3
+},
+{
+"en": "Could you do me a favor?",
+"ja": "ちょっとお願いがあるんだけど",
+"pattern": "Could you ~?",
+"scene": "頼みごとの前置き",
+"answer": "Sure. What is it?",
+"answerJa": "いいよ。何？",
+"note": "「お願い」を直訳した I have a request. は堅く聞こえます。この文を言ってから内容を伝えるのが自然な流れです。",
+"level": 2
+},
+{
+"en": "Do you have a minute?",
+"ja": "ちょっといいですか？（今、時間ある？）",
+"pattern": "Do you have ~?",
+"scene": "話しかける前置き（職場）",
+"answer": "Sure. What's up?",
+"answerJa": "いいよ。どうしたの？",
+"note": "「1分」ではなく「少しの時間」という意味です。Are you free now? より自然です。忙しいときは Can it wait a bit? と返します。",
+"level": 2
+},
+{
+"en": "Do you know where the restroom is?",
+"ja": "お手洗いがどこかご存じですか？",
+"pattern": "Do you know where ~?",
+"scene": "店・施設",
+"answer": "It's down the hall on the left.",
+"answerJa": "廊下の先、左側です。",
+"note": "where の後は普通の文の語順（the restroom is）にします。where is the restroom の順は誤りです。Where is ~? と直接聞くよりやわらかい印象になります。",
+"level": 2
+},
+{
+"en": "Can you tell me how to get to the museum?",
+"ja": "美術館への行き方を教えてもらえますか？",
+"pattern": "Can you tell me how to ~?",
+"scene": "道を聞く",
+"answer": "Sure. Go straight and turn left at the light.",
+"answerJa": "いいですよ。まっすぐ行って、信号を左です。",
+"note": "how to + 動詞の形なら語順に迷いません。「教える」の teach は勉強や技術を教えるときの語なので、道を聞くときは tell を使います。",
+"level": 2
+},
+{
+"en": "Do you know what time the store closes?",
+"ja": "お店が何時に閉まるか分かりますか？",
+"pattern": "Do you know what time ~?",
+"scene": "買い物・施設",
+"answer": "I think it closes at nine.",
+"answerJa": "たしか9時に閉まります。",
+"note": "what time does the store close の does は消え、closes の s が戻ります。直接の疑問文とのこの差が一番の間違いポイントです。",
+"level": 2
+},
+{
+"en": "Do you know if there's an ATM around here?",
+"ja": "この辺にATMがあるかご存じですか？",
+"pattern": "Do you know if ~?",
+"scene": "街中",
+"answer": "Yeah, there's one inside that convenience store.",
+"answerJa": "ええ、あのコンビニの中にありますよ。",
+"note": "Yes/Noで答える内容を間接疑問にするときは if を使います（Do you know is there は誤り）。around here を付けると「この辺に」の意味が自然に出ます。",
+"level": 3
+},
+{
+"en": "Could you tell me when the next train leaves?",
+"ja": "次の電車がいつ出るか教えていただけますか？",
+"pattern": "Could you tell me when ~?",
+"scene": "駅の窓口",
+"answer": "It leaves at 3:15 from platform 2.",
+"answerJa": "3時15分に2番線から出ます。",
+"note": "文の頭の Could you tell me だけが疑問文の語順で、when の後は普通の文の語順です。when does the next train leave と言ってしまうのはよくある誤りです。",
+"level": 3
+},
+{
+"en": "Would it be possible to change my room?",
+"ja": "部屋を替えていただくことは可能でしょうか？",
+"pattern": "Would it be possible to ~?",
+"scene": "ホテルのフロント",
+"answer": "Let me check what we have available.",
+"answerJa": "空いているお部屋を確認いたします。",
+"note": "相手に手間がかかるお願いに使う、とてもていねいな形です。I want to change my room. だと要求のように聞こえます。",
+"level": 3
+},
+{
+"en": "How's it going?",
+"ja": "調子どう？",
+"pattern": "How's ~?",
+"scene": "会ったときの挨拶",
+"answer": "Not bad. You?",
+"answerJa": "まあまあだよ。そっちは？",
+"note": "本気で体調を聞く質問ではなく挨拶です。I'm fine, thank you. And you?より短く返し、最後にYou?と聞き返すのが自然です。",
+"level": 1
+},
+{
+"en": "How was your weekend?",
+"ja": "週末どうだった？",
+"pattern": "How was ~?",
+"scene": "月曜の雑談",
+"answer": "Pretty good. I just relaxed at home.",
+"answerJa": "よかったよ。家でのんびりしてた。",
+"note": "Good.だけで終わると会话が止まります。何をしたかを一言足すと、相手が次の質問をしやすくなります。",
+"level": 1
+},
+{
+"en": "What do you do for fun?",
+"ja": "趣味は何？",
+"pattern": "What do you ~?",
+"scene": "初対面の雑談",
+"answer": "I'm really into hiking.",
+"answerJa": "ハイキングにハマってる。",
+"note": "What is your hobby?は文法的には正しいですが、少し硬く聞こえます。会話ではこちらの方が自然です。",
+"level": 1
+},
+{
+"en": "What about you?",
+"ja": "あなたは？",
+"pattern": "What about ~?",
+"scene": "質問を返す",
+"answer": "Me? I like cooking.",
+"answerJa": "私？料理が好きかな。",
+"note": "聞かれて答えたら、この一言で必ず返しましょう。質問を返さないと、相手は「興味がないのかな」と感じます。How about you?もほぼ同じ意味です。",
+"level": 1
+},
+{
+"en": "What did you do there?",
+"ja": "そこで何したの？",
+"pattern": "What did you ~?",
+"scene": "旅行の話を広げる",
+"answer": "Mostly just walked around and ate a lot.",
+"answerJa": "ほとんど歩き回って、たくさん食べてた。",
+"note": "What did you did?は誤りです。didを前に出したら、後ろの動詞は原形にします。相手の I went to Kyoto. を受けて続ける「返しの一手」の基本形です。",
+"level": 2
+},
+{
+"en": "What was it like?",
+"ja": "どんな感じだった？",
+"pattern": "What was ~ like?",
+"scene": "体験の感想を聞く",
+"answer": "It was amazing, but really crowded.",
+"answerJa": "最高だったけど、すごく混んでた。",
+"note": "How was it like?は日本人に多い誤りです。How was it?か、What was it like?のどちらかにします。",
+"level": 2
+},
+{
+"en": "How did you get into that?",
+"ja": "どうやってハマったの？",
+"pattern": "How did you ~?",
+"scene": "趣味の話を広げる",
+"answer": "A friend took me once, and I got hooked.",
+"answerJa": "友達に一度連れて行かれて、ハマっちゃった。",
+"note": "get intoは「〜に興味を持つ・ハマる」という意味です。趣味の答えに続ける質問として定番です。",
+"level": 2
+},
+{
+"en": "Oh really? How come?",
+"ja": "え、なんで？",
+"pattern": "How come (~)?",
+"scene": "意外な話の理由を聞く",
+"answer": "Well, I just got tired of it.",
+"answerJa": "うーん、ただ飽きちゃって。",
+"note": "How comeの後は語順を変えず、doも使いません（How come you quit?）。How come did you quit?は誤りです。Why?だけより柔らかく聞こえます。",
+"level": 2
+},
+{
+"en": "Have you been here before?",
+"ja": "ここ、来たことある？",
+"pattern": "Have you (ever) ~?",
+"scene": "店・観光地",
+"answer": "No, it's my first time.",
+"answerJa": "ううん、初めて。",
+"note": "Did you come here before?より自然です。経験はhave + 過去分詞で聞きます。答えはYes, I have. / No, it's my first time.",
+"level": 2
+},
+{
+"en": "How long have you lived here?",
+"ja": "ここに住んでどのくらい？",
+"pattern": "How long have you ~?",
+"scene": "住まいの雑談",
+"answer": "For about three years now.",
+"answerJa": "もう3年くらいかな。",
+"note": "How long do you live here?は誤りです。今まで続いている期間はhave livedで聞きます。答えはFor ~ / Since ~で始めます。",
+"level": 2
+},
+{
+"en": "Any plans for the weekend?",
+"ja": "週末、何か予定ある？",
+"pattern": "Any ~?（省略形）",
+"scene": "金曜の雑談",
+"answer": "Not really. Maybe just catch up on sleep.",
+"answerJa": "特にないかな。寝だめするかも。",
+"note": "Do you have any plansのDo you haveを省いた、会話でよく使う形です。文末は↗で上げます。",
+"level": 2
+},
+{
+"en": "What do you think?",
+"ja": "どう思う？",
+"pattern": "What do you think?",
+"scene": "意見を聞く",
+"answer": "I think it's a good idea.",
+"answerJa": "いい考えだと思う。",
+"note": "How do you think?は誤りです（「どうやって考える？」の意味になります）。意見はWhatで聞きます。",
+"level": 1
+},
+{
+"en": "What did you think of the movie?",
+"ja": "映画どうだった？",
+"pattern": "What did you think of ~?",
+"scene": "感想を聞く",
+"answer": "I loved it. The ending was great.",
+"answerJa": "すごくよかった。ラストが最高だった。",
+"note": "「どう思った」をHowで言わないようにします。How was the movie?でもOKですが、こちらの方が具体的な意見を引き出せます。",
+"level": 2
+},
+{
+"en": "Would you recommend it?",
+"ja": "それ、おすすめ？",
+"pattern": "Would you ~?",
+"scene": "店・映画・本",
+"answer": "Definitely! You should go.",
+"answerJa": "絶対！行った方がいいよ。",
+"note": "Do you recommend it?より、相手の感想をそっと聞く感じが出ます。答えはDefinitely. / Not really.が自然です。",
+"level": 2
+},
+{
+"en": "Which one do you prefer?",
+"ja": "どっちが好き？",
+"pattern": "Which ~ do you ~?",
+"scene": "二択で好みを聞く",
+"answer": "I'd go with the blue one.",
+"answerJa": "青い方かな。",
+"note": "候補が決まっているときはWhatではなくWhichを使います。preferの後のthan ~ は文脈から分かるので省きます。",
+"level": 2
+},
+{
+"en": "Where do you think we should eat?",
+"ja": "どこで食べたらいいと思う？",
+"pattern": "Wh + do you think + 平叙文?",
+"scene": "相談・提案",
+"answer": "How about that ramen place?",
+"answerJa": "あのラーメン屋はどう？",
+"note": "Do you think where we should eat?は誤りです。wh語は文頭に置き、think の後ろは平叙文の語順（we should）にします。",
+"level": 3
+},
+{
+"en": "Sorry, what was that?",
+"ja": "ごめん、何て？",
+"pattern": "What was that?",
+"scene": "聞き取れなかったとき",
+"answer": "I said, do you want to grab lunch?",
+"answerJa": "お昼食べに行かない？って言ったの。",
+"note": "What?だけだと失礼に聞こえることがあります。Sorry,を付けると柔らかくなります。Excuse me?は語調によって「は？」と聞こえるので注意しましょう。",
+"level": 1
+},
+{
+"en": "What do you mean?",
+"ja": "どういう意味？",
+"pattern": "What do you mean (by ~)?",
+"scene": "意味がわからないとき",
+"answer": "I mean we should leave a little earlier.",
+"answerJa": "ちょっと早めに出ようってこと。",
+"note": "What does it mean?は単語の意味を聞く言い方です。相手の言いたいことを聞くときはWhat do you mean?を使います。強く言うと反論に聞こえるので、文末は軽く。",
+"level": 2
+},
+{
+"en": "Sorry, did you say fifteen or fifty?",
+"ja": "15って言った？50って言った？",
+"pattern": "Did you say A or B?",
+"scene": "数字の聞き返し",
+"answer": "Fifteen. One-five.",
+"answerJa": "15。いち、ご。",
+"note": "-teenと-tyは聞き間違えやすいので、聞こえた候補を挙げて確認すると確実です。Aの後で↗、Bの後で↘にします。",
+"level": 2
+},
+{
+"en": "How do you spell that?",
+"ja": "それ、どうつづるの？",
+"pattern": "How do you ~?",
+"scene": "名前・地名を確認",
+"answer": "It's S-M-I-T-H.",
+"answerJa": "S-M-I-T-Hです。",
+"note": "How do you write that?より、つづりを聞くspellの方が自然です。Could you spell that for me?とすると、よりていねいになります。",
+"level": 2
+},
+{
+"en": "It's really hot today, isn't it?",
+"ja": "今日ほんと暑いよね",
+"pattern": "付加疑問（肯定文, isn't it?）↘",
+"scene": "天気の雑談",
+"answer": "Yeah, it's crazy.",
+"answerJa": "うん、やばいよね。",
+"note": "文末を↘で下げると同意を求める合図になり、本当の質問ではありません。Yes, it is.だけで終わらず、一言足すと会話が続きます。",
+"level": 2
+},
+{
+"en": "You're from Osaka, aren't you?",
+"ja": "大阪出身だよね？",
+"pattern": "付加疑問（肯定文, aren't you?）↗",
+"scene": "記憶を確認",
+"answer": "Yeah, that's right.",
+"answerJa": "うん、そうだよ。",
+"note": "自信がないときは↗で上げると本当の質問になります。付加疑問の主語は代名詞にし、前の文と同じ助動詞を否定形にします。",
+"level": 3
+},
+{
+"en": "You don't eat meat, do you?",
+"ja": "お肉は食べないんだよね？",
+"pattern": "付加疑問（否定文, do you?）",
+"scene": "食事の前に確認",
+"answer": "No, I don't. I'm vegetarian.",
+"answerJa": "うん、食べない。ベジタリアンなんだ。",
+"note": "日本語の「うん」につられてYesと言うと、「食べる」の意味になってしまいます。食べないならNo, I don't.と答えます。",
+"level": 3
+},
+{
+"en": "Don't you like it?",
+"ja": "それ、好きじゃないの？",
+"pattern": "否定疑問（Don't you ~?）",
+"scene": "相手の反応が意外なとき",
+"answer": "No, not really.",
+"answerJa": "うん、あんまり好きじゃない。",
+"note": "英語は事実で答えます。好きならYes, I do!、好きでないならNo（日本語の「うん」に当たる）です。迷ったらYes/Noの後に内容を言いましょう。",
+"level": 3
+},
+{
+"en": "Aren't you cold?",
+"ja": "寒くないの？",
+"pattern": "否定疑問（Aren't you ~?）",
+"scene": "薄着の相手を心配",
+"answer": "No, I'm fine.",
+"answerJa": "うん、平気。",
+"note": "驚きや心配を表す聞き方です。寒くないならNo, I'm fine.、寒いならYes, I'm freezing.と答えます。日本語の「うん」はNoに当たる点に注意しましょう。",
+"level": 3
+}
+];
+/* ===================== QUESTION MODE ===================== */
+// Designed in three meetings by a linguist-programmer, an 8-language speaker, a translator and an
+// IELTS 9.0 holder. Per question: build it from tiles (seeing the Japanese and the other person's
+// reply) → say it aloud and self-rate once it is familiar → every third turn, be asked and pick a reply.
+CATS.question = {name:'疑問文', desc:'疑問文トレーニング'};
+QITEMS.forEach((q, i) => { q.key = 'Q:' + q.en; q.idx = i; });
+ILLUST.hatena = {body:`
+  <ellipse cx="100" cy="132" rx="62" ry="56" fill="#5aa0ff"/>
+  <path d="M70 100C74 84 88 76 102 76" fill="none" stroke="#a8d0ff" stroke-width="8"/>
+  <path d="M82 62q0-28 20-28t20 22q0 14-16 20v12" fill="none" stroke="#2b2233" stroke-width="16"/>
+  <path d="M82 62q0-28 20-28t20 22q0 14-16 20v12" fill="none" stroke="#ffb020" stroke-width="9"/>
+  <circle cx="106" cy="104" r="8" fill="#ffb020"/>
+  <circle cx="80" cy="132" r="9" fill="#fff"/><circle cx="122" cy="132" r="9" fill="#fff"/>
+  <circle cx="82" cy="134" r="4.5" fill="#2b2233" stroke="none"/><circle cx="124" cy="134" r="4.5" fill="#2b2233" stroke="none"/>
+  <ellipse cx="102" cy="160" rx="8" ry="10" fill="#2b2233"/>
+  <ellipse cx="64" cy="150" rx="9" ry="5" fill="#ff9aa8" stroke="none"/><ellipse cx="140" cy="150" rx="9" ry="5" fill="#ff9aa8" stroke="none"/>`};
+MONSTERS.push({id:'hatena', state:null, bg:'bg-town', boss:false, name:'ハテナン', cat:'question', hp:90, atk:8, exp:50,
+  intro:'ハテナン「？？？ 質問しないと、何もわからないよ！」', laugh:'ハテ？',
+  defeat:'ハテナン「いい質問だったね！ その調子！」', lose:'ハテナン「質問の形を、もう一度見直そう？」'});
+
+const Q_DAILY_NEW = 5;
+const WH = /^(what|where|when|why|who|which|whose|how)\b/i;
+const PROPER = /^(I|I'm|Japanese|Union|Square|Osaka|ABC|Wi-Fi)$/;
+const qFirstAnswer = q => q.answer.split(' / ')[0];
+function qTone(q){
+  if(/↘/.test(q.pattern)) return '↘';
+  if(/↗/.test(q.pattern)) return '↗';
+  const s = q.en.replace(/^(sorry,?|oh really\?|oh,?)\s*/i, '');
+  return WH.test(s) ? '↘' : '↗';
+}
+function qTokens(q){ return q.en.replace(/\?$/, '').split(/\s+/); }
+function tileText(tok, i){
+  if(i === 0 && !PROPER.test(tok.replace(/[^A-Za-z'-]/g, ''))) return tok.charAt(0).toLowerCase() + tok.slice(1);
+  return tok;
+}
+function qNorm(s){ return s.toLowerCase().replace(/[?.,!]/g, '').replace(/\s+/g, ' ').trim(); }
+function qDecoys(q, n){
+  const toks = qTokens(q).map(t => t.toLowerCase().replace(/[,?]/g, ''));
+  const swap = {do:'does', does:'do', did:'does', is:'are', are:'is', was:'were', can:'could', could:'can'};
+  const near = [], generic = [];
+  toks.forEach(t => { const s = swap[t]; if(s && !toks.includes(s) && !near.includes(s)) near.push(s); });
+  ['do','does','did','is','are'].forEach(a => { if(!toks.includes(a) && !near.includes(a)) generic.push(a); });
+  return [...shuffle(near), ...shuffle(generic)].slice(0, n);
+}
+function qWhy(q, picked){
+  const clean = t => t.toLowerCase().replace(/[,?]/g, '');
+  const toks = qTokens(q).map(clean), pl = picked.map(clean);
+  const extra = pl.filter(t => !toks.includes(t));
+  const doFam = ['do','does','did'], beFam = ['is','are','was','were','am'];
+  if(extra.length){
+    const x = extra[0];
+    if(doFam.includes(x) && /主語/.test(q.pattern)) return '主語をたずねる疑問文（Who / What が主語）には do / does / did を付けません。';
+    if(doFam.includes(x) && toks.some(t => beFam.includes(t))) return 'be動詞（is / are / was）の疑問文には do / does を付けません。';
+    const used = toks.find(t => doFam.includes(t));
+    if(doFam.includes(x) && used) return `この文は「${used}」を使います。主語が he / she / it なら does、過去なら did です。`;
+    if(doFam.includes(x)) return 'この文には do / does / did は入りません。';
+    if(beFam.includes(x)) return `「${x}」ではなく、主語に合った形を選ぼう（I → am、you / 複数 → are、he / she / it → is）。`;
+    return `「${x}」はこの文では使いません。`;
+  }
+  if(toks.some(t => !pl.includes(t))) return 'まだ使っていない単語があります。';
+  if(/know|tell me|wonder/i.test(q.pattern)) return 'Do you know where 〜 / Can you tell me 〜 のあとは、ふつうの文の語順（主語 → 動詞）になります。';
+  if(WH.test(q.en)) return '疑問詞（What / Where など）→ 助動詞（do / is / can）→ 主語 → 動詞 の順です。';
+  return '助動詞（Do / Is / Can など）を先頭に出して、そのあとに主語を置きます。';
+}
+function pickQ(n){
+  ensureDaily();
+  if(S.daily.qNew == null) S.daily.qNew = 0;
+  const now = Date.now(), due = [], fresh = [], rest = [];
+  QITEMS.forEach(q => { const p = S.words[q.key]; if(!p) fresh.push(q); else if(p.due <= now && p.s < 5) due.push(q); else rest.push(q); });
+  const order = (a, b) => a.level - b.level || a.idx - b.idx;
+  const queuedNew = B && B.queue ? B.queue.filter(q => !S.words[q.key]).length : 0;
+  const allow = Math.max(0, Q_DAILY_NEW - S.daily.qNew - queuedNew);
+  const out = shuffle(due).sort((a, b) => getP(a.key).s - getP(b.key).s).slice(0, n);
+  out.push(...fresh.sort(order).slice(0, Math.min(allow, n - out.length)));
+  if(out.length < n) out.push(...shuffle(rest).sort((a, b) => getP(a.key).s - getP(b.key).s).slice(0, n - out.length));
+  if(out.length < n) out.push(...fresh.filter(q => !out.includes(q)).sort(order).slice(0, n - out.length));
+  return out;
+}
+function qGrade(q, kind, ms){
+  ensureDaily();
+  const p = Object.assign({}, getP(q.key));
+  const before = p.s;
+  p.n++;
+  if(kind === 'meet'){ p.s = 0; p.due = Date.now(); S.daily.qNew = (S.daily.qNew || 0) + 1; }
+  else if(kind === 'good'){ p.ok++; p.s = Math.min(5, p.s + 1); p.due = Date.now() + INTERVALS[p.s]; }
+  else if(kind === 'soso'){ p.due = Date.now() + INTERVALS[1]; }
+  else { p.s = Math.max(0, p.s - 2); p.due = Date.now(); }
+  S.words[q.key] = p;
+  S.daily.answered++;
+  B.log.push({word:{w:q.en, m:q.ja}, ok: kind === 'good' || kind === 'soso' || kind === 'meet', ms: ms || 0, before, after: p.s});
+  persist();
+}
+
+function nextQM(){
+  if(B.php <= 0){ lose(); return; }
+  if(!B.queue.length) B.queue = pickQ(8);
+  B.qcount = (B.qcount || 0) + 1;
+  hideBattlePanels();
+  B.locked = false;
+  const seen = QITEMS.filter(q => S.words[q.key]);
+  if(B.qcount % 3 === 0 && seen.length >= 4){ startReply(shuffle(seen)[0]); return; }
+  const q = B.queue.shift();
+  B.cur = q;
+  const p = S.words[q.key];
+  $('#qWord').classList.add('qm-ja');
+  $('#qWord').textContent = q.ja;
+  $('#qCat').innerHTML = esc(q.scene) + ' ' + starsHTML(p ? p.s : 0) + (p ? '' : ' <span class="chip new-chip">NEW</span>');
+  $('#qHint').textContent = '相手の答え：「' + qFirstAnswer(q) + '」';
+  $('#qHint').hidden = false;
+  retrigger($('#questionWin'), 'slide-in');
+  if(!p || p.s < 3) startBuild(q, !p, false); else startSay(q);
+}
+// ----- build the question from tiles -----
+function startBuild(q, isNew, isCheck){
+  B.mode = 'build'; B.isNew = isNew; B.isCheck = isCheck; B.tries = 0;
+  const tiles = qTokens(q).map(tileText).concat(qDecoys(q, q.level >= 2 ? 2 : 1));
+  B.tiles = shuffle(tiles.map((t, i) => ({t, id:i})));
+  B.picked = [];
+  renderBuild();
+  $('#qmBuild').hidden = false;
+  retrigger($('#qmBuild'), 'slide-in');
+  if(isCheck) setMsg('抜き打ちチェック！ 本当に言えるか、組み立ててみよう', '外すと★が2つ下がる');
+  else setMsg(isNew ? 'はじめての疑問文！ 日本語と相手の答えから、質問を組み立てよう' : '質問を組み立てよう', '使わない単語もまざっているよ');
+  startTimer(0);
+}
+function renderBuild(){
+  const line = $('#qmLine'); line.innerHTML = '';
+  if(!B.picked.length) line.innerHTML = '<span class="qm-ph">ここに単語を並べる</span>';
+  B.picked.forEach((tile, k) => {
+    const b = document.createElement('button');
+    b.className = 'tile on'; b.type = 'button'; b.textContent = tile.t;
+    b.addEventListener('click', () => { B.picked.splice(k, 1); renderBuild(); });
+    line.appendChild(b);
+  });
+  if(B.picked.length) line.insertAdjacentHTML('beforeend', '<span class="qm-q">?</span>');
+  const pool = $('#qmPool'); pool.innerHTML = '';
+  B.tiles.forEach(tile => {
+    if(B.picked.includes(tile)) return;
+    const b = document.createElement('button');
+    b.className = 'tile'; b.type = 'button'; b.textContent = tile.t;
+    b.addEventListener('click', () => { B.picked.push(tile); renderBuild(); });
+    pool.appendChild(b);
+  });
+  $('#qmCheck').disabled = !B.picked.length;
+}
+function checkBuild(){
+  if(!B || B.mode !== 'build' || B.locked || !B.picked.length) return;
+  const q = B.cur;
+  const ok = qNorm(B.picked.map(t => t.t).join(' ')) === qNorm(q.en);
+  B.tries++;
+  if(ok){ finishBuild(true, ''); return; }
+  const why = qWhy(q, B.picked.map(t => t.t));
+  if(B.tries < 2 && !B.isCheck){ play('miss'); setMsg('おしい！ もう一度', '💡 ' + why); retrigger($('#qmLine'), 'anim-shake'); return; }
+  finishBuild(false, why);
+}
+function finishBuild(ok, why){
+  B.locked = true;
+  const q = B.cur;
+  $('#qmBuild').hidden = true;
+  const first = B.tries === 1;
+  showQReveal(q, ok ? (first ? '正解！ 声に出して言ってみよう' : '2回目で正解！ 声に出して言ってみよう') : '正解はこう', ok ? '' : why, false);
+  if(B.isNew){
+    qGrade(q, 'meet');
+    B.queue.splice(Math.min(3, B.queue.length), 0, q);
+    if(ok){ const dmg = hitMonster(first ? 1.2 : .6, first); setMsg(`${B.m.name}に${dmg}のダメージ！`, '少しあとで、もう一度出るよ'); }
+    else { play('miss'); setMsg('大丈夫、はじめては難しい。正しい形を見て覚えよう', '少しあとで、もう一度出るよ'); }
+    return;
+  }
+  if(ok){
+    qGrade(q, first ? 'good' : 'soso');
+    const dmg = hitMonster(first ? 1.2 : .6, first);
+    setMsg(`${B.isCheck ? 'チェック合格！ ' : ''}${B.m.name}に${dmg}のダメージ！`, '声に出して言ってみよう');
+  }else{
+    qGrade(q, 'bad');
+    monsterAttack(B.isCheck ? 'チェックで外れた… ' : '');
+    B.queue.splice(Math.min(3, B.queue.length), 0, q);
+  }
+}
+// ----- say it aloud, then self-rate -----
+function startSay(q){
+  B.mode = 'say';
+  $('#qmSay').hidden = false;
+  setMsg('日本語を見て、英語で質問を声に出そう', '言えたら「答えを見る」');
+  startTimer(RECALL_MS, () => sayFlip(true));
+}
+function sayFlip(timedOut){
+  if(!B || B.mode !== 'say' || B.locked) return;
+  B.flipMs = stopTimer();
+  $('#qmSay').hidden = true;
+  showQReveal(B.cur, timedOut ? '時間切れ… 正しい形を確認しよう' : `${(B.flipMs/1000).toFixed(1)}秒で言えた。正直に評価しよう`, '', true);
+  $('#qr3').disabled = !!timedOut;
+}
+function rateQ(r){
+  if(!B || B.mode !== 'say') return;
+  B.mode = 'rated';
+  const q = B.cur;
+  $('#qmReveal').hidden = true;
+  if(r === 3){
+    B.qgood = (B.qgood || 0) + 1;
+    if(B.qgood % 3 === 0){ B.locked = false; startBuild(q, false, true); return; }
+    qGrade(q, 'good', B.flipMs);
+    const ms = B.flipMs, crit = ms < CRIT_MS;
+    const dmg = hitMonster(crit ? 1.8 : ms < NORMAL_MS ? 1 : .6, crit);
+    setMsg(`${crit ? '会心の一撃！ ' : ''}${B.m.name}に${dmg}のダメージ！`, q.en);
+  }else if(r === 2){
+    qGrade(q, 'soso', B.flipMs);
+    const dmg = hitMonster(.4, false); B.combo = 0;
+    setMsg(`ちょっと迷った攻撃。${B.m.name}に${dmg}のダメージ`, 'この質問は10分後にまた出るよ');
+  }else{
+    qGrade(q, 'bad', B.flipMs);
+    monsterAttack('');
+    B.queue.splice(Math.min(3, B.queue.length), 0, q);
+  }
+  later(() => { B.mhp <= 0 ? win() : nextQM(); }, 1100);
+}
+// ----- be asked, pick a natural reply -----
+function startReply(q){
+  B.mode = 'reply'; B.cur = q;
+  $('#qWord').classList.remove('qm-ja');
+  $('#qWord').textContent = q.en;
+  $('#qCat').innerHTML = '聞かれたら答えよう ' + qTone(q);
+  $('#qHint').hidden = true;
+  retrigger($('#questionWin'), 'slide-in');
+  if(S.voice !== false) say(q.en);
+  const right = qFirstAnswer(q);
+  const pool = shuffle(QITEMS.filter(x => x !== q && x.pattern !== q.pattern).map(qFirstAnswer)).filter(a => a !== right);
+  let wrong = [];
+  if(/mind/i.test(q.en)) wrong.push('Yes, I do.');
+  pool.forEach(a => { if(wrong.length < 3 && !wrong.includes(a)) wrong.push(a); });
+  B.replyOpts = shuffle([right, ...wrong.slice(0, 3)]);
+  B.replyRight = B.replyOpts.indexOf(right);
+  const box = $('#choices'); box.innerHTML = ''; box.hidden = false;
+  B.replyOpts.forEach((a, i) => {
+    const b = document.createElement('button');
+    b.className = 'btn'; b.type = 'button';
+    b.innerHTML = `<span class="key">${i+1}</span><span class="en-opt">${esc(a)}</span>`;
+    b.addEventListener('click', () => answerReply(i));
+    box.appendChild(b);
+  });
+  B.pick = answerReply;
+  setMsg('相手に質問された！ 自然な返事をえらぼう', '');
+  startTimer(0);
+}
+function answerReply(i){
+  if(!B || B.mode !== 'reply' || B.locked) return;
+  B.locked = true;
+  const q = B.cur, ok = i === B.replyRight;
+  const btns = [...$('#choices').children];
+  btns.forEach(b => b.disabled = true);
+  btns[B.replyRight].classList.add('is-right');
+  if(!ok && i >= 0) btns[i].classList.add('is-wrong');
+  B.log.push({word:{w:q.en, m:q.ja}, ok, ms:0, before:getP(q.key).s, after:getP(q.key).s});
+  S.daily.answered++; persist();
+  if(ok){ const dmg = hitMonster(1, false); setMsg(`ばっちり！ ${B.m.name}に${dmg}のダメージ！`, `${q.en} ＝ ${q.ja}`); later(() => { B.mhp <= 0 ? win() : nextQM(); }, 1300); }
+  else { monsterAttack(''); later(() => { $('#choices').hidden = true; showQReveal(q, '自然な返事はこれ', '', false); }, 700); }
+}
+// ----- shared reveal card -----
+function showQReveal(q, title, why, withRates){
+  $('#qmTitle').textContent = title;
+  $('#qmEn').textContent = q.en;
+  $('#qmTone').textContent = qTone(q);
+  $('#qmTone').title = qTone(q) === '↗' ? '文末を上げる' : '文末を下げる';
+  $('#qmJa').textContent = q.ja + '（' + q.pattern + '）';
+  $('#qmAns').textContent = q.answer;
+  $('#qmAnsJa').textContent = q.answerJa;
+  $('#qmNote').textContent = '💡 ' + q.note;
+  $('#qmWhy').textContent = why ? '✗ ' + why : '';
+  $('#qmWhy').hidden = !why;
+  $('#qmRates').hidden = !withRates;
+  $('#qmNext').hidden = !!withRates;
+  $('#qmReveal').hidden = false;
+  retrigger($('#qmReveal'), 'slide-in');
+  if(S.voice !== false) say(q.en);
+}
+$('#qmCheck').addEventListener('click', checkBuild);
+$('#qmClear').addEventListener('click', () => { if(B && B.mode === 'build' && !B.locked){ B.picked = []; renderBuild(); } });
+$('#qmFlip').addEventListener('click', () => sayFlip(false));
+$('#qmSayBtn').addEventListener('click', () => { if(B && B.cur) say(B.cur.en); });
+$('#qr3').addEventListener('click', () => rateQ(3));
+$('#qr2').addEventListener('click', () => rateQ(2));
+$('#qr1').addEventListener('click', () => rateQ(1));
+$('#qmNext').addEventListener('click', () => {
+  if(!B || $('#qmReveal').hidden) return;
+  $('#qmReveal').hidden = true;
+  if(B.mhp <= 0) win(); else nextQM();
+});
+document.addEventListener('keydown', e => {
+  if($('#s-battle').hidden || !B || B.m.id !== 'hatena') return;
+  const k = e.key;
+  if(!$('#qmReveal').hidden){
+    if(!$('#qmRates').hidden && ['1','2','3'].includes(k)){ rateQ(4 - +k); e.preventDefault(); e.stopImmediatePropagation(); }
+    else if(!$('#qmNext').hidden && (k === 'Enter' || k === ' ') && document.activeElement !== $('#qmNext')){ $('#qmNext').click(); e.preventDefault(); e.stopImmediatePropagation(); }
+    return;
+  }
+  if(!$('#qmSay').hidden && (k === ' ' || k === 'Enter')){ if(document.activeElement !== $('#qmFlip')) sayFlip(false); e.preventDefault(); e.stopImmediatePropagation(); return; }
+  if(!$('#qmBuild').hidden){
+    if(k === 'Enter'){ checkBuild(); e.preventDefault(); e.stopImmediatePropagation(); }
+    else if(k === 'Backspace' && B.picked.length){ B.picked.pop(); renderBuild(); e.preventDefault(); e.stopImmediatePropagation(); }
+  }
+}, true);
+function renderQCard(){
+  ensureDaily();
+  const learned = QITEMS.filter(q => getP(q.key).s >= 3).length;
+  const seen = QITEMS.filter(q => S.words[q.key]).length;
+  $('#qmCardMeta').textContent = `覚えた ${learned} / ${QITEMS.length}・出会った ${seen}・今日の新しい疑問文 ${Math.min(S.daily.qNew || 0, 99)} / ${Q_DAILY_NEW}`;
+  drawSprite($('#hatenaSprite'), 'hatena');
+}
+$('#qmStart').addEventListener('click', () => { play('select'); startBattle('hatena'); });
 
 /* ===================== BOOT ===================== */
 if(!S.v2){
