@@ -102,7 +102,8 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .cityhero{position:relative;height:min(68vh,560px);min-height:400px;border-radius:28px;overflow:hidden;color:#fff;box-shadow:0 18px 44px rgba(10,16,40,.35);background:#0b1030}
 .city-anim,.city-anim svg,#cityVideo{position:absolute;inset:0;width:100%;height:100%}
 .city-anim svg{animation:kenburns 26s ease-in-out infinite alternate;transform-origin:50% 80%}
-#cityVideo{object-fit:cover}
+#cityVideo,.city-poster{object-fit:cover}
+.city-poster{position:absolute;inset:0;width:100%;height:100%;display:block}
 .city-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,8,28,.35) 0%,rgba(5,8,28,0) 30%,rgba(5,8,28,.15) 55%,rgba(5,8,28,.82) 100%)}
 .city-tag{position:absolute;top:16px;left:16px;font-size:12px;font-weight:800;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:6px 12px;border-radius:999px}
 .city-copy{position:absolute;left:20px;right:20px;bottom:22px}
@@ -3439,98 +3440,42 @@ document.addEventListener('pointerdown', e => {
 });
 document.addEventListener('animationend', e => { if(e.animationName === 'suck') e.target.classList.remove('press'); });
 /* ===================== TITLE CITY BACKGROUND ===================== */
-// Each state has a city. If video/<code>.mp4 exists it plays as a looping background;
-// until then an animated drawing of that city is shown.
+// Each state has a city with a vertical clip (video/v_<code>.mp4) and its first frame (img/poster_<code>.jpg).
 const CITY = {
-  HI:{name:'Honolulu, Hawaii', sky:['#2a6fd6','#ff9e6b','#ffd29a'], kind:'beach'},
-  CA:{name:'Los Angeles, California', sky:['#3b2a6b','#ff7a59','#ffc178'], kind:'city'},
-  NV:{name:'Las Vegas, Nevada', sky:['#0b0b2a','#2a1250','#5a1a6a'], kind:'neon'},
-  AZ:{name:'Grand Canyon, Arizona', sky:['#3a3a8a','#ff8a4a','#ffd08a'], kind:'canyon'},
-  CO:{name:'Red Rocks, Colorado', sky:['#1c3c78','#6aa0e0','#d8ecff'], kind:'mountain'},
-  TX:{name:'Dallas, Texas', sky:['#2a2a6a','#ff6a3c','#ffb35a'], kind:'city'},
-  IL:{name:'Chicago, Illinois', sky:['#0e1a3a','#2b4a8a','#7a9ad0'], kind:'city'},
-  LA:{name:'New Orleans, Louisiana', sky:['#1a1a3a','#5a2a5a','#c46a6a'], kind:'city'},
-  FL:{name:'Miami, Florida', sky:['#2a80d6','#ff8fa8','#ffd2a0'], kind:'beach'},
-  TN:{name:'Nashville, Tennessee', sky:['#10183a','#3a2a6a','#a05a8a'], kind:'city'},
-  PA:{name:'Philadelphia, Pennsylvania', sky:['#1a2a5a','#4a6ab0','#c0d4f0'], kind:'city'},
-  NY:{name:'New York City, New York', sky:['#05081c','#151d4a','#3a3a7a'], kind:'city'}
+  HI:{name:'Honolulu, Hawaii'},
+  CA:{name:'Los Angeles, California'},
+  NV:{name:'Las Vegas, Nevada'},
+  AZ:{name:'Grand Canyon, Arizona'},
+  CO:{name:'Red Rocks, Colorado'},
+  TX:{name:'Dallas, Texas'},
+  IL:{name:'Chicago, Illinois'},
+  LA:{name:'New Orleans, Louisiana'},
+  FL:{name:'Miami, Florida'},
+  TN:{name:'Nashville, Tennessee'},
+  PA:{name:'Philadelphia, Pennsylvania'},
+  NY:{name:'New York City, New York'}
 };
 function currentCityCode(){
   const st = STATES.find(s => stateOpen(s) && !stateCleared(s)) || STATES[STATES.length - 1];
   return st.code;
 }
-function seeded(seed){ let x = 0; for(const c of seed) x = (x * 31 + c.charCodeAt(0)) >>> 0; return () => { x = (x * 1664525 + 1013904223) >>> 0; return x / 4294967296; }; }
-function citySVG(code){
-  const c = CITY[code], R = seeded(code), W = 400, H = 600;
-  const night = ['NV','IL','NY','TN','LA'].includes(code);
-  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMax slice">
-  <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.sky[0]}"/><stop offset=".6" stop-color="${c.sky[1]}"/><stop offset="1" stop-color="${c.sky[2]}"/></linearGradient></defs>
-  <rect width="${W}" height="${H}" fill="url(#sky)"/>`;
-  if(night){ for(let i = 0; i < 40; i++) s += `<circle class="star" style="animation-delay:${(R()*4).toFixed(2)}s" cx="${(R()*W).toFixed(0)}" cy="${(R()*260).toFixed(0)}" r="${(R()*1.3+.3).toFixed(1)}" fill="#fff"/>`; s += `<circle cx="320" cy="90" r="22" fill="#fdf6d8" opacity=".9"/>`; }
-  else s += `<circle cx="${c.kind === 'beach' ? 200 : 300}" cy="${c.kind === 'beach' ? 330 : 140}" r="${c.kind === 'beach' ? 46 : 30}" fill="#fff4c8" opacity=".9"/>`;
-  s += `<g class="clouds">`;
-  for(let i = 0; i < 4; i++){ const y = 60 + R()*160, x = R()*W, w = 60 + R()*80; s += `<ellipse cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" rx="${w.toFixed(0)}" ry="${(w/5).toFixed(0)}" fill="#fff" opacity="${night ? .08 : .35}"/>`; }
-  s += `</g>`;
-  if(c.kind === 'mountain' || c.kind === 'canyon'){
-    const col = c.kind === 'canyon' ? '#b5532e' : '#3a4a78', col2 = c.kind === 'canyon' ? '#8a3a22' : '#26335a';
-    s += `<path d="M0 420 L60 330 L110 370 L170 280 L230 360 L290 300 L350 350 L400 310 L400 600 L0 600Z" fill="${col}"/>`;
-    if(c.kind === 'mountain') s += `<path d="M150 300 L170 280 L190 304 Z M270 318 L290 300 L306 320Z" fill="#f4f8ff"/>`;
-    s += `<path d="M0 470 L80 430 L150 460 L240 420 L330 455 L400 430 L400 600 L0 600Z" fill="${col2}"/>`;
-  }
-  if(c.kind === 'beach'){
-    s += `<rect y="380" width="${W}" height="120" fill="#2a8ad0" opacity=".85"/>`;
-    for(let i = 0; i < 8; i++) s += `<rect class="shimmer" style="animation-delay:${(R()*3).toFixed(2)}s" x="${(R()*W).toFixed(0)}" y="${(390 + R()*100).toFixed(0)}" width="${(20+R()*40).toFixed(0)}" height="2" fill="#fff" opacity=".6"/>`;
-    s += `<rect y="490" width="${W}" height="110" fill="#f0d49a"/>`;
-  }
-  // skyline (far + near)
-  const layer = (base, hmin, hmax, fill, winColor, litRate) => {
-    let x = -10, out = '';
-    while(x < W){
-      const w = 26 + R()*40, h = hmin + R()*(hmax - hmin), y = base - h;
-      out += `<rect x="${x.toFixed(0)}" y="${y.toFixed(0)}" width="${w.toFixed(0)}" height="${(h + 200).toFixed(0)}" fill="${fill}"/>`;
-      if(R() < .25) out += `<rect x="${(x + w/2 - 1).toFixed(0)}" y="${(y - 18).toFixed(0)}" width="2" height="18" fill="${fill}"/>`;
-      for(let wy = y + 8; wy < base - 6; wy += 12) for(let wx = x + 5; wx < x + w - 6; wx += 9){
-        if(R() < litRate) out += `<rect class="${R() < .15 ? 'twinkle' : ''}" style="animation-delay:${(R()*5).toFixed(2)}s" x="${wx.toFixed(0)}" y="${wy.toFixed(0)}" width="4" height="6" fill="${winColor()}"/>`;
-      }
-      x += w + 2 + R()*6;
-    }
-    return out;
-  };
-  const neon = () => ['#ff4fd8','#4fd8ff','#ffe14d','#ff6a4a'][Math.floor(R()*4)];
-  const warm = () => night ? '#ffd98a' : '#fff6d8';
-  if(c.kind === 'city' || c.kind === 'neon'){
-    s += layer(470, 80, 220, night ? '#1a2048' : '#5a6aa0', warm, night ? .35 : .12);
-    s += layer(520, 60, 170, night ? '#0b1030' : '#38457a', c.kind === 'neon' ? neon : warm, night ? .5 : .18);
-  }else if(c.kind === 'beach'){
-    s += layer(492, 30, 90, '#3a5a8a', warm, .1);
-    const palm = (x, h, flip) => `<path d="M${x} 600 Q${x + (flip ? -10 : 10)} ${600 - h/2} ${x + (flip ? -18 : 18)} ${600 - h}" stroke="#1a2a2a" stroke-width="7" fill="none"/>` +
-      [0,1,2,3,4].map(k => `<path class="frond" d="M${x + (flip ? -18 : 18)} ${600 - h} q${(-50 + k*25)} ${-10 + Math.abs(k-2)*12} ${(-70 + k*35)} ${30 + Math.abs(k-2)*10}" stroke="#1a2a2a" stroke-width="5" fill="none"/>`).join('');
-    s += palm(40, 230, false) + palm(360, 190, true);
-  }else{
-    s += layer(560, 20, 60, '#2a1a1a', warm, .1);
-  }
-  // street with moving car lights
-  s += `<rect y="560" width="${W}" height="40" fill="${c.kind === 'beach' ? '#e6c88a' : '#0a0c1a'}"/>`;
-  if(c.kind !== 'beach'){
-    s += `<g class="cars">`;
-    for(let i = 0; i < 6; i++) s += `<rect class="car ${i % 2 ? 'rev' : ''}" style="animation-delay:${(-R()*8).toFixed(2)}s" y="${i % 2 ? 576 : 584}" width="16" height="3" rx="1.5" fill="${i % 2 ? '#ff4a4a' : '#fff4c8'}"/>`;
-    s += `</g>`;
-  }
-  return s + `</svg>`;
-}
 function renderCityHero(){
   const code = currentCityCode();
   $('#cityTag').textContent = '📍 ' + CITY[code].name;
-  $('#cityAnim').innerHTML = citySVG(code);
+  // A still frame of the real clip shows at once, so the hero looks real even when autoplay is blocked
+  const poster = 'img/poster_' + code.toLowerCase() + '.jpg';
+  $('#cityAnim').innerHTML = `<img class="city-poster" src="${poster}" alt="" onerror="this.remove()">`;
   const v = $('#cityVideo');
-  const src = 'video/' + code.toLowerCase() + '.mp4';
+  const src = 'video/v_' + code.toLowerCase() + '.mp4';
+  v.poster = poster;
   if(v.dataset.src === src) return;
   v.dataset.src = src;
   v.hidden = true;
   // Show the video only once it is really playing. If autoplay is blocked
-  // (e.g. iPhone Low Power Mode), the animated city stays and the first tap starts the video.
+  // (e.g. iPhone Low Power Mode), the still frame stays and the first tap starts the video.
   v.onplaying = () => { v.hidden = false; };
-  v.onerror = () => { v.hidden = true; };
+  // fall back to the older landscape clip if the vertical one is missing
+  v.onerror = () => { const old = 'video/' + code.toLowerCase() + '.mp4'; if(v.dataset.src !== old){ v.dataset.src = old; v.src = old; v.load(); tryPlay(); } else v.hidden = true; };
   v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = true;
   v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
   const tryPlay = () => { const p = v.play(); if(p && p.catch) p.catch(() => {}); };
