@@ -714,6 +714,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
       <button class="btn" id="soundBtn"></button>
       <button class="btn" id="artBtn"></button>
       <button class="btn" id="easyBtn" type="button"></button>
+      <button class="btn" id="orderBtn" type="button"></button>
       <button class="btn" id="voiceBtn" type="button"></button>
       <button class="btn" id="resetBtn">記録を消す</button>
       <div class="win confirm" id="resetConfirm" hidden>
@@ -2688,13 +2689,27 @@ function pickWords(pool, n){
   const queued = (B && B.queue) ? B.queue.filter(w => !S.words[w.w]).length : 0;
   const allowance = Math.max(0, DAILY_NEW - S.daily.newCount - queued);
   const out = shuffle(due).sort((a,b) => getP(a.w).s - getP(b.w).s).slice(0, n);
-  out.push(...shuffle(fresh).slice(0, Math.min(allowance, n - out.length)));
+  out.push(...orderNew(fresh).slice(0, Math.min(allowance, n - out.length)));
   if(out.length < n){
     out.push(...rest.map(w => ({w, k: Math.pow(Math.random(), 1 / (getP(w.w).s >= 5 ? .3 : 6 - getP(w.w).s))}))
       .sort((a,b) => b.k - a.k).slice(0, n - out.length).map(x => x.w));
   }
   if(out.length < n) out.push(...shuffle(fresh.filter(w => !out.includes(w))).slice(0, n - out.length));
   return shuffle(out);
+}
+// How hard a word is: 0 = elementary school, 1–3 = junior high grade, 4+ = beyond (US culture words etc.)
+function wordGrade(w){
+  if(w.g != null) return w.g;
+  const b = typeof BANDS !== 'undefined' ? BANDS[w.w] : null;
+  return b ? [0, 1, 2, 3, 4, 4][b] : 1;
+}
+const NEW_ORDERS = {hard:'むずかしい単語から', easy:'やさしい単語から', mix:'ランダム'};
+// New words come in the order the player chose (default: harder first, since easy ones are usually known)
+function orderNew(list){
+  const mode = S.newOrder || 'hard';
+  const l = shuffle(list);
+  if(mode === 'mix') return l;
+  return l.sort((a, b) => mode === 'hard' ? wordGrade(b) - wordGrade(a) : wordGrade(a) - wordGrade(b));
 }
 function makeChoices(word){
   let others = shuffle(WORDS.filter(x => x.c === word.c && x.m !== word.m)).slice(0,3);
@@ -3407,6 +3422,7 @@ $('#dexBack').addEventListener('click', () => { renderMap(); show('map'); });
 function renderSetting(){
   $('#easyBtn').textContent = '出題形式：' + (S.easy ? '4択（ゆるい）' : '思い出してめくる（おすすめ）');
   $('#voiceBtn').textContent = '英語の読み上げ：' + (S.voice === false ? 'オフ' : 'オン');
+  $('#orderBtn').textContent = '新しい単語：' + NEW_ORDERS[S.newOrder || 'hard'];
   $('#nameInput2').value = S.name === 'ゆうしゃ' ? '' : S.name;
   $('#soundBtn').textContent = '効果音：' + (S.sound ? 'オン' : 'オフ');
   $('#artBtn').textContent = '絵のタイプ：' + (S.art === 'pixel' ? 'ドット絵' : 'イラスト');
@@ -3414,6 +3430,11 @@ function renderSetting(){
   if(typeof syncSyncLabel === 'function') syncSyncLabel();
 }
 $('#easyBtn').addEventListener('click', () => { S.easy = !S.easy; persist(); renderSetting(); });
+$('#orderBtn').addEventListener('click', () => {
+  const keys = Object.keys(NEW_ORDERS);
+  S.newOrder = keys[(keys.indexOf(S.newOrder || 'hard') + 1) % keys.length];
+  persist(); renderSetting();
+});
 $('#voiceBtn').addEventListener('click', () => { S.voice = S.voice === false; persist(); renderSetting(); });
 $('#soundBtn').addEventListener('click', () => { S.sound = !S.sound; persist(); renderSetting(); play('select'); });
 $('#resetBtn').addEventListener('click', () => { $('#resetConfirm').hidden = false; });
