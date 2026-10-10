@@ -1,0 +1,126 @@
+{"id": "t001", "answer": "stapler", "pexels_id": 6991328, "ok": true, "note": ""}
+{"id": "t002", "answer": "mechanical pencil", "pexels_id": null, "ok": false, "note": "3枚試したがシャーペンの写真が見つからず（鉛筆・ペンのみ）"}
+{"id": "t003", "answer": "eraser", "pexels_id": null, "ok": false, "note": "3枚不可（脳型消しゴム／トリミングで不明瞭／スケッチ主体）"}
+{"id": "t004", "answer": "correction tape", "pexels_id": 5412128, "ok": true, "note": ""}
+{"id": "t005", "answer": "highlighter", "pexels_id": 7681073, "ok": true, "note": ""}
+{"id": "t006", "answer": "marker", "pexels_id": 6209796, "ok": true, "note": "ホワイトボードマーカーで板書"}
+{"id": "t007", "answer": "ballpoint pen", "pexels_id": 197293, "ok": true, "note": ""}
+{"id": "t008", "answer": "tape", "pexels_id": 4246120, "ok": true, "note": "梱包用テープカッター（透明テープ台ではない）"}
+{"id": "t009", "answer": "sticky note", "pexels_id": 5310455, "ok": true, "note": ""}
+{"id": "t010", "answer": "thumbtack", "pexels_id": 1078850, "ok": true, "note": ""}
+{"id": "t011", "answer": "paper clip", "pexels_id": 760897, "ok": true, "note": ""}
+{"id": "t012", "answer": "glue stick", "pexels_id": 7869790, "ok": true, "note": "子どもの顔は口元まで写る（アップではない）"}
+{"id": "t013", "answer": "pencil case", "pexels_id": null, "ok": false, "note": "3枚不可（筆箱が写らない・ロゴ入りケース）"}
+{"id": "t014", "answer": "ruler", "pexels_id": 7718680, "ok": true, "note": ""}
+{"id": "t015", "answer": "air conditioner", "pexels_id": 38788452, "ok": true, "note": ""}
+{"id": "t016", "answer": "remote", "pexels_id": 5207535, "ok": true, "note": "リモコンのロゴは読めない大きさ"}
+{"id": "t017", "answer": "outlet", "pexels_id": 4148576, "ok": true, "note": "米式コンセント。上の差込口にスマートプラグあり"}
+{"id": "t018", "answer": "power strip", "pexels_id": null, "ok": false, "note": "電源タップの写真ページが検索で見つからず（3回）"}
+{"id": "t019", "answer": "plug", "pexels_id": 14071431, "ok": true, "note": "欧州型プラグ、緑の照明で色が不自然"}
+{"id": "t020", "answer": "refrigerator", "pexels_id": 2343467, "ok": true, "note": ""}
+{"id": "t021", "answer": "microwave", "pexels_id": 4686822, "ok": true, "note": "電子レンジに小さくメーカー名（読めない大きさ）"}
+{"id": "t022", "answer": "stove", "pexels_id": 17334258, "ok": true, "note": "ガスコンロのバーナー炎のアップ"}
+{"id": "t023", "answer": "vacuum cleaner", "pexels_id": 4107277, "ok": true, "note": ""}
+{"id": "t024", "answer": "faucet", "pexels_id": 861414, "ok": true, "note": ""}
+{"id": "t025", "answer": "tissue", "pexels_id": null, "ok": false, "note": "3枚不可（泣く人の顔／小さすぎ／トイレットペーパー）"}
+{"id": "t026", "answer": "plastic wrap", "pexels_id": null, "ok": false, "note": "ラップの写真ページが検索で見つからず（3回）"}
+{"id": "t027", "answer": "aluminum foil", "pexels_id": 2691359, "ok": true, "note": "くしゃくしゃのアルミ箔（ロールではない）→要確認"}
+{"id": "t028", "answer": "frying pan", "pexels_id": 8055165, "ok": true, "note": ""}
+{"id": "t029", "answer": "pot", "pexels_id": 30259380, "ok": true, "note": ""}
+{"id": "t030", "answer": "kettle", "pexels_id": 7623609, "ok": true, "note": "ドリップ用の細口ケトル（電気ケトルではない）、上部が少し切れる"}
+{"id": "t031", "answer": "thermos", "pexels_id": 5607796, "ok": true, "note": ""}
+{"id": "t032", "answer": "plastic bottle", "pexels_id": 2479095, "ok": true, "note": ""}
+{"id": "t033", "answer": "plastic bag", "pexels_id": 3900506, "ok": true, "note": ""}
+{"id": "t034", "answer": "cardboard box", "pexels_id": 8066784, "ok": true, "note": ""}
+{"id": "t035", "answer": "couch", "pexels_id": 5998023, "ok": true, "note": ""}
+{"id": "t036", "answer": "hair dryer", "pexels_id": 973406, "ok": true, "note": ""}
+{"id": "t037", "answer": "flashlight", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t038", "answer": "light bulb", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t039", "answer": "intercom", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t040", "answer": "apartment", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t041", "answer": "mug", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t042", "answer": "toothbrush", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t043", "answer": "french fries", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t044", "answer": "potato chips", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t045", "answer": "soda", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t046", "answer": "cream puff", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t047", "answer": "soft serve", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t048", "answer": "pudding", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t049", "answer": "pancake", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t050", "answer": "cookie", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t051", "answer": "red velvet cake", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t052", "answer": "eggplant", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t053", "answer": "bell pepper", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t054", "answer": "zucchini", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t055", "answer": "corn", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t056", "answer": "bean sprouts", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t057", "answer": "tangerine", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t058", "answer": "cotton candy", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t059", "answer": "popsicle", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t060", "answer": "whipped cream", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t061", "answer": "dress shirt", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t062", "answer": "sweatshirt", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t063", "answer": "hoodie", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t064", "answer": "sneakers", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t065", "answer": "pants", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t066", "answer": "jeans", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t067", "answer": "vest", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t068", "answer": "tank top", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t069", "answer": "backpack", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t070", "answer": "wallet", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t071", "answer": "scarf", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t072", "answer": "slippers", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t073", "answer": "flip-flops", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t074", "answer": "contact lenses", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t075", "answer": "steering wheel", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t076", "answer": "windshield", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t077", "answer": "license plate", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t078", "answer": "motorcycle", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t079", "answer": "crosswalk", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t080", "answer": "convenience store", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t081", "answer": "vending machine", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t082", "answer": "elevator", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t083", "answer": "parking lot", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t084", "answer": "sidewalk", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t085", "answer": "trash can", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t086", "answer": "mailbox", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t087", "answer": "gas station", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t088", "answer": "ferris wheel", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t089", "answer": "roller coaster", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t090", "answer": "stroller", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t091", "answer": "cash register", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t092", "answer": "laptop", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t093", "answer": "cell phone", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t094", "answer": "bandage", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id": "t095", "answer": "ATM", "pexels_id": null, "ok": false, "note": "未着手：WebSearchの上限（1ターン200回・全エージェント共有）に達したため"}
+{"id":"t038","ok":true,"note":"checked by lead"}
+{"id":"t042","ok":true,"note":"checked by lead"}
+{"id":"t043","ok":true,"note":"checked by lead"}
+{"id":"t044","ok":true,"note":"checked by lead"}
+{"id":"t045","ok":true,"note":"checked by lead"}
+{"id":"t046","ok":true,"note":"checked by lead"}
+{"id":"t047","ok":true,"note":"checked by lead"}
+{"id":"t048","ok":true,"note":"checked by lead"}
+{"id":"t049","ok":true,"note":"checked by lead"}
+{"id":"t050","ok":true,"note":"checked by lead"}
+{"id":"t051","ok":true,"note":"checked by lead"}
+{"id":"t052","ok":true,"note":"checked by lead"}
+{"id":"t053","ok":true,"note":"checked by lead"}
+{"id":"t055","ok":true,"note":"checked by lead"}
+{"id":"t056","ok":true,"note":"checked by lead"}
+{"id":"t057","ok":true,"note":"checked by lead"}
+{"id":"t058","ok":true,"note":"checked by lead"}
+{"id":"t059","ok":true,"note":"checked by lead"}
+{"id":"t060","ok":true,"note":"checked by lead"}
+{"id":"t061","ok":true,"note":"checked by lead"}
+{"id":"t063","ok":true,"note":"checked by lead"}
+{"id":"t064","ok":true,"note":"checked by lead"}
+{"id":"t066","ok":true,"note":"checked by lead"}
+{"id":"t069","ok":true,"note":"checked by lead"}
+{"id":"t070","ok":true,"note":"checked by lead"}
+{"id":"t072","ok":true,"note":"checked by lead"}
+{"id":"t073","ok":true,"note":"checked by lead"}
+{"id":"t075","ok":true,"note":"checked by lead"}
+{"id":"t076","ok":true,"note":"checked by lead"}
+{"id":"t078","ok":true,"note":"checked by lead"}
+{"id":"t083","ok":true,"note":"checked by lead"}

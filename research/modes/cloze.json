@@ -1,0 +1,1887 @@
+{
+ "meta": {
+  "count": 40,
+  "answer_len_rank": {
+   "最長": 11,
+   "中間/同長": 23,
+   "最短": 6
+  },
+  "ratio_over_2": 3,
+  "distractor_types": {
+   "meaning": 74,
+   "grammar": 46
+  },
+  "rules": [
+   "空所は1つ",
+   "選択肢（正解＋3）の中で文法的にも意味的にも入るのは正解だけ",
+   "別解は accept_free_input に列挙し、選択肢からは外す",
+   "空所の後ろか前に「答えを決める手がかり」（因果・対比・定義・コロケーション）を必ず置く",
+   "訳 ja は回答後に表示（先に見せると翻訳問題になる）"
+  ]
+ },
+ "items": [
+  {
+   "w": "borrow",
+   "sentence_with_blank": "Can I ___ your pen? I'll give it back in a minute.",
+   "ja": "ペンを借りてもいい？すぐ返すね。",
+   "options": [
+    "borrowed",
+    "borrow",
+    "sell",
+    "lend"
+   ],
+   "distractors": [
+    {
+     "word": "lend",
+     "type": "grammar",
+     "why": "Can I lend your pen? は方向が逆で語法も不可"
+    },
+    {
+     "word": "sell",
+     "type": "meaning",
+     "why": "「返す」と矛盾"
+    },
+    {
+     "word": "borrowed",
+     "type": "grammar",
+     "why": "can の後は原形"
+    }
+   ],
+   "why": "give it back（返す）で「借りる」に決まる",
+   "app_word": "borrow",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "borrowed": 8,
+     "borrow": 6,
+     "sell": 4,
+     "lend": 4
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 2.0
+   },
+   "accept_free_input": [
+    "borrow",
+    "use"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "lend",
+   "sentence_with_blank": "Could you ___ me your umbrella? I'll return it tomorrow.",
+   "ja": "傘を貸してくれる？明日返すから。",
+   "options": [
+    "lend",
+    "borrow",
+    "choose",
+    "carry"
+   ],
+   "distractors": [
+    {
+     "word": "borrow",
+     "type": "grammar",
+     "why": "borrow me ~ とは言えない（借りる側が主語）"
+    },
+    {
+     "word": "carry",
+     "type": "grammar",
+     "why": "carry me your umbrella の文型はない"
+    },
+    {
+     "word": "choose",
+     "type": "meaning",
+     "why": "「選んで」では return と合わない"
+    }
+   ],
+   "why": "me＋物（二重目的語）と return で lend に決まる",
+   "app_word": "lend",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "lend": 4,
+     "borrow": 6,
+     "choose": 6,
+     "carry": 5
+    },
+    "answer_rank": "最短",
+    "max_min_ratio": 1.5
+   },
+   "accept_free_input": [
+    "lend"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "arrive",
+   "sentence_with_blank": "Our bus will ___ in Chicago at 6:30 tomorrow morning.",
+   "ja": "バスは明日の朝6時半にシカゴに着きます。",
+   "options": [
+    "leave",
+    "visit",
+    "reach",
+    "arrive"
+   ],
+   "distractors": [
+    {
+     "word": "leave",
+     "type": "grammar",
+     "why": "leave は他動詞（leave Chicago）。in Chicago は付かない"
+    },
+    {
+     "word": "reach",
+     "type": "grammar",
+     "why": "reach も他動詞（reach Chicago）"
+    },
+    {
+     "word": "visit",
+     "type": "grammar",
+     "why": "visit in ~ とは言わない"
+    }
+   ],
+   "why": "in＋都市名をとれる「着く」は arrive だけ",
+   "app_word": "arrive",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "leave": 5,
+     "visit": 5,
+     "reach": 5,
+     "arrive": 6
+    },
+    "answer_rank": "最長",
+    "max_min_ratio": 1.2
+   },
+   "accept_free_input": [
+    "arrive",
+    "get in"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "forget",
+   "sentence_with_blank": "Don't ___ your passport. You can't fly without it!",
+   "ja": "パスポートを忘れないで。ないと飛行機に乗れないよ！",
+   "options": [
+    "bring",
+    "forget",
+    "remember",
+    "arrive"
+   ],
+   "distractors": [
+    {
+     "word": "remember",
+     "type": "meaning",
+     "why": "Don't remember は「覚えておくな」で逆"
+    },
+    {
+     "word": "bring",
+     "type": "meaning",
+     "why": "Don't bring は「持ってくるな」で後半と矛盾"
+    },
+    {
+     "word": "arrive",
+     "type": "grammar",
+     "why": "arrive は目的語をとれない"
+    }
+   ],
+   "why": "後半の「ないと乗れない」で「忘れるな」に決まる",
+   "app_word": "forget",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "bring": 5,
+     "forget": 6,
+     "remember": 8,
+     "arrive": 6
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.6
+   },
+   "accept_free_input": [
+    "forget",
+    "lose",
+    "leave"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "remember",
+   "sentence_with_blank": "I can't ___ his name. What was it again?",
+   "ja": "彼の名前が思い出せない。何だっけ？",
+   "options": [
+    "remember",
+    "explain",
+    "believe",
+    "forget"
+   ],
+   "distractors": [
+    {
+     "word": "forget",
+     "type": "meaning",
+     "why": "忘れられないなら聞き返さない"
+    },
+    {
+     "word": "believe",
+     "type": "meaning",
+     "why": "「名前を信じられない」は文脈に合わない"
+    },
+    {
+     "word": "explain",
+     "type": "meaning",
+     "why": "「名前を説明できない」は文脈に合わない"
+    }
+   ],
+   "why": "What was it again? で「思い出せない」に決まる",
+   "app_word": "remember",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "remember": 8,
+     "explain": 7,
+     "believe": 7,
+     "forget": 6
+    },
+    "answer_rank": "最長",
+    "max_min_ratio": 1.33
+   },
+   "accept_free_input": [
+    "remember",
+    "recall"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "wait",
+   "sentence_with_blank": "Please ___ here. The doctor will see you soon.",
+   "ja": "ここでお待ちください。すぐに先生が診ます。",
+   "options": [
+    "finish",
+    "wait",
+    "leave",
+    "waiting"
+   ],
+   "distractors": [
+    {
+     "word": "leave",
+     "type": "meaning",
+     "why": "すぐ診るのに「出て行って」は矛盾"
+    },
+    {
+     "word": "finish",
+     "type": "meaning",
+     "why": "何を終えるのか不明"
+    },
+    {
+     "word": "waiting",
+     "type": "grammar",
+     "why": "Please の後は原形"
+    }
+   ],
+   "why": "will see you soon で「待つ」に決まる",
+   "app_word": "wait",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "finish": 6,
+     "wait": 4,
+     "leave": 5,
+     "waiting": 7
+    },
+    "answer_rank": "最短",
+    "max_min_ratio": 1.75
+   },
+   "accept_free_input": [
+    "wait",
+    "stay",
+    "sit"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "finish",
+   "sentence_with_blank": "I'll ___ my homework by nine, and then we can play.",
+   "ja": "9時までに宿題を終わらせるから、そのあと遊ぼう。",
+   "options": [
+    "finished",
+    "finish",
+    "borrow",
+    "forget"
+   ],
+   "distractors": [
+    {
+     "word": "forget",
+     "type": "meaning",
+     "why": "宿題を忘れて遊ぶ、は by nine と合わない"
+    },
+    {
+     "word": "borrow",
+     "type": "meaning",
+     "why": "宿題を借りる、は不自然"
+    },
+    {
+     "word": "finished",
+     "type": "grammar",
+     "why": "will の後は原形"
+    }
+   ],
+   "why": "by nine と and then で「終える」に決まる",
+   "app_word": "finish",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "finished": 8,
+     "finish": 6,
+     "borrow": 6,
+     "forget": 6
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.33
+   },
+   "accept_free_input": [
+    "finish",
+    "do"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "believe",
+   "sentence_with_blank": "I can't ___ it! We won the game!",
+   "ja": "信じられない！試合に勝ったよ！",
+   "options": [
+    "borrow",
+    "believe",
+    "lend",
+    "arrive"
+   ],
+   "distractors": [
+    {
+     "word": "borrow",
+     "type": "meaning",
+     "why": "「それを借りられない」は文脈に合わない"
+    },
+    {
+     "word": "lend",
+     "type": "meaning",
+     "why": "同上"
+    },
+    {
+     "word": "arrive",
+     "type": "grammar",
+     "why": "arrive は目的語 it をとれない"
+    }
+   ],
+   "why": "I can't believe it! は驚きの決まり文句",
+   "app_word": "believe",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "borrow": 6,
+     "believe": 7,
+     "lend": 4,
+     "arrive": 6
+    },
+    "answer_rank": "最長",
+    "max_min_ratio": 1.75
+   },
+   "accept_free_input": [
+    "believe"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "explain",
+   "sentence_with_blank": "Can you ___ this word to me? I don't understand it.",
+   "ja": "この単語を説明してくれる？わからないんだ。",
+   "options": [
+    "tell",
+    "understand",
+    "borrow",
+    "explain"
+   ],
+   "distractors": [
+    {
+     "word": "tell",
+     "type": "grammar",
+     "why": "tell は tell me about this word の形。tell this word to me は不自然"
+    },
+    {
+     "word": "understand",
+     "type": "meaning",
+     "why": "わからないのは自分の方"
+    },
+    {
+     "word": "borrow",
+     "type": "meaning",
+     "why": "単語を借りる、は不自然"
+    }
+   ],
+   "why": "〜 to me と I don't understand で explain に決まる",
+   "app_word": "explain",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "tell": 4,
+     "understand": 10,
+     "borrow": 6,
+     "explain": 7
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 2.5
+   },
+   "accept_free_input": [
+    "explain"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "invite",
+   "sentence_with_blank": "I want to ___ you to my birthday party on Saturday.",
+   "ja": "土曜日の誕生日パーティーにあなたを招待したい。",
+   "options": [
+    "borrow",
+    "visit",
+    "invite",
+    "answer"
+   ],
+   "distractors": [
+    {
+     "word": "visit",
+     "type": "grammar",
+     "why": "visit you to ~ の形はない"
+    },
+    {
+     "word": "answer",
+     "type": "meaning",
+     "why": "パーティーに答える、は不自然"
+    },
+    {
+     "word": "borrow",
+     "type": "meaning",
+     "why": "あなたを借りる、は不自然"
+    }
+   ],
+   "why": "人 to パーティー の形をとるのは invite",
+   "app_word": "invite",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "borrow": 6,
+     "visit": 5,
+     "invite": 6,
+     "answer": 6
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.2
+   },
+   "accept_free_input": [
+    "invite",
+    "ask"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "spend",
+   "sentence_with_blank": "How much money did you ___ on your trip?",
+   "ja": "旅行にいくら使ったの？",
+   "options": [
+    "spend",
+    "lend",
+    "borrow",
+    "explain"
+   ],
+   "distractors": [
+    {
+     "word": "lend",
+     "type": "meaning",
+     "why": "旅行でお金を貸した、は How much ~ on your trip と合わない"
+    },
+    {
+     "word": "borrow",
+     "type": "meaning",
+     "why": "on your trip と合わない"
+    },
+    {
+     "word": "explain",
+     "type": "meaning",
+     "why": "お金を説明する、は不自然"
+    }
+   ],
+   "why": "spend money on ~ のコロケーション",
+   "app_word": "spend",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "spend": 5,
+     "lend": 4,
+     "borrow": 6,
+     "explain": 7
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.75
+   },
+   "accept_free_input": [
+    "spend"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "save",
+   "sentence_with_blank": "I don't buy coffee every day because I want to ___ money.",
+   "ja": "お金をためたいから毎日コーヒーは買わない。",
+   "options": [
+    "save",
+    "borrow",
+    "spend",
+    "saving"
+   ],
+   "distractors": [
+    {
+     "word": "spend",
+     "type": "meaning",
+     "why": "買わない理由が「使いたい」では矛盾"
+    },
+    {
+     "word": "borrow",
+     "type": "meaning",
+     "why": "借りたいから買わない、は理由にならない"
+    },
+    {
+     "word": "saving",
+     "type": "grammar",
+     "why": "want to の後は原形"
+    }
+   ],
+   "why": "because 節の因果で「ためる」に決まる。※for a new bike だけだと spend も入る",
+   "app_word": "save",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "save": 4,
+     "borrow": 6,
+     "spend": 5,
+     "saving": 6
+    },
+    "answer_rank": "最短",
+    "max_min_ratio": 1.5
+   },
+   "accept_free_input": [
+    "save"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "agree",
+   "sentence_with_blank": "I ___ with you. That's a great idea.",
+   "ja": "賛成。それはいい考えだね。",
+   "options": [
+    "understand",
+    "agree",
+    "promise",
+    "believe"
+   ],
+   "distractors": [
+    {
+     "word": "believe",
+     "type": "grammar",
+     "why": "believe with you とは言わない"
+    },
+    {
+     "word": "understand",
+     "type": "grammar",
+     "why": "understand with you とは言わない"
+    },
+    {
+     "word": "promise",
+     "type": "grammar",
+     "why": "promise with you とは言わない"
+    }
+   ],
+   "why": "〜 with you をとって賛成を表すのは agree",
+   "app_word": "agree",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "understand": 10,
+     "agree": 5,
+     "promise": 7,
+     "believe": 7
+    },
+    "answer_rank": "最短",
+    "max_min_ratio": 2.0
+   },
+   "accept_free_input": [
+    "agree"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "catch",
+   "sentence_with_blank": "Throw me the ball! I'll ___ it.",
+   "ja": "ボールを投げて！捕るから。",
+   "options": [
+    "build",
+    "throw",
+    "worry",
+    "catch"
+   ],
+   "distractors": [
+    {
+     "word": "throw",
+     "type": "meaning",
+     "why": "投げてと頼んだ側が投げるのは矛盾"
+    },
+    {
+     "word": "build",
+     "type": "meaning",
+     "why": "ボールを作る、は不自然"
+    },
+    {
+     "word": "worry",
+     "type": "grammar",
+     "why": "worry it とは言わない"
+    }
+   ],
+   "why": "Throw me と対になる動作",
+   "app_word": "catch",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "build": 5,
+     "throw": 5,
+     "worry": 5,
+     "catch": 5
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.0
+   },
+   "accept_free_input": [
+    "catch"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "hungry",
+   "sentence_with_blank": "I didn't eat breakfast, so I'm really ___.",
+   "ja": "朝ごはんを食べなかったから、すごくお腹が空いた。",
+   "options": [
+    "hungry",
+    "careful",
+    "hunger",
+    "full"
+   ],
+   "distractors": [
+    {
+     "word": "full",
+     "type": "meaning",
+     "why": "食べていないのに満腹は矛盾"
+    },
+    {
+     "word": "careful",
+     "type": "meaning",
+     "why": "食べなかったことの結果にならない"
+    },
+    {
+     "word": "hunger",
+     "type": "grammar",
+     "why": "名詞は I'm really の後に入らない"
+    }
+   ],
+   "why": "didn't eat → so の因果",
+   "app_word": "hungry",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "hungry": 6,
+     "careful": 7,
+     "hunger": 6,
+     "full": 4
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.75
+   },
+   "accept_free_input": [
+    "hungry",
+    "starving"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "afraid",
+   "sentence_with_blank": "My little brother is ___ of dogs.",
+   "ja": "弟は犬が怖い。",
+   "options": [
+    "afraid",
+    "fear",
+    "excited",
+    "famous"
+   ],
+   "distractors": [
+    {
+     "word": "excited",
+     "type": "grammar",
+     "why": "excited は about。of はとらない"
+    },
+    {
+     "word": "famous",
+     "type": "meaning",
+     "why": "犬で有名、なら for"
+    },
+    {
+     "word": "fear",
+     "type": "grammar",
+     "why": "名詞は is の後に of と続けられない"
+    }
+   ],
+   "why": "be afraid of の前置詞で決まる",
+   "app_word": "afraid",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "afraid": 6,
+     "fear": 4,
+     "excited": 7,
+     "famous": 6
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.75
+   },
+   "accept_free_input": [
+    "afraid",
+    "scared",
+    "frightened"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "bored",
+   "sentence_with_blank": "Nothing happens in this movie. I'm so ___.",
+   "ja": "この映画、何も起きない。退屈だ。",
+   "options": [
+    "bored",
+    "boring",
+    "famous",
+    "excited"
+   ],
+   "distractors": [
+    {
+     "word": "boring",
+     "type": "grammar",
+     "why": "I'm boring は「私はつまらない人」"
+    },
+    {
+     "word": "excited",
+     "type": "meaning",
+     "why": "何も起きないのにわくわくは矛盾"
+    },
+    {
+     "word": "famous",
+     "type": "meaning",
+     "why": "文脈に合わない"
+    }
+   ],
+   "why": "人の気持ち＝ -ed 形",
+   "app_word": "bored",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "bored": 5,
+     "boring": 6,
+     "famous": 6,
+     "excited": 7
+    },
+    "answer_rank": "最短",
+    "max_min_ratio": 1.4
+   },
+   "accept_free_input": [
+    "bored",
+    "tired",
+    "sleepy"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "excited",
+   "sentence_with_blank": "We're going to Disneyland tomorrow! I'm so ___!",
+   "ja": "明日ディズニーランドに行くんだ！すごく楽しみ！",
+   "options": [
+    "bored",
+    "excited",
+    "tired",
+    "exciting"
+   ],
+   "distractors": [
+    {
+     "word": "exciting",
+     "type": "grammar",
+     "why": "I'm exciting は「私は人をわくわくさせる」"
+    },
+    {
+     "word": "bored",
+     "type": "meaning",
+     "why": "楽しみの文脈と矛盾"
+    },
+    {
+     "word": "tired",
+     "type": "meaning",
+     "why": "まだ行っていない"
+    }
+   ],
+   "why": "人の気持ち＝ -ed 形",
+   "app_word": "excited",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "bored": 5,
+     "excited": 7,
+     "tired": 5,
+     "exciting": 8
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.6
+   },
+   "accept_free_input": [
+    "excited",
+    "happy"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "busy",
+   "sentence_with_blank": "Sorry, I can't talk now. I'm ___.",
+   "ja": "ごめん、今話せない。忙しいんだ。",
+   "options": [
+    "free",
+    "busy",
+    "business",
+    "kind"
+   ],
+   "distractors": [
+    {
+     "word": "free",
+     "type": "meaning",
+     "why": "暇なら話せる"
+    },
+    {
+     "word": "kind",
+     "type": "meaning",
+     "why": "理由にならない"
+    },
+    {
+     "word": "business",
+     "type": "grammar",
+     "why": "I'm business とは言わない"
+    }
+   ],
+   "why": "can't talk の理由",
+   "app_word": "busy",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "free": 4,
+     "busy": 4,
+     "business": 8,
+     "kind": 4
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 2.0
+   },
+   "accept_free_input": [
+    "busy"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "dangerous",
+   "sentence_with_blank": "Don't swim here today. The waves are too big. It's ___.",
+   "ja": "今日はここで泳がないで。波が高すぎて危ない。",
+   "options": [
+    "safe",
+    "dangerous",
+    "danger",
+    "useful"
+   ],
+   "distractors": [
+    {
+     "word": "safe",
+     "type": "meaning",
+     "why": "泳ぐなと言う理由と逆"
+    },
+    {
+     "word": "useful",
+     "type": "meaning",
+     "why": "文脈に合わない"
+    },
+    {
+     "word": "danger",
+     "type": "grammar",
+     "why": "It's danger とは言わない"
+    }
+   ],
+   "why": "Don't swim と too big の理由",
+   "app_word": "dangerous",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "safe": 4,
+     "dangerous": 9,
+     "danger": 6,
+     "useful": 6
+    },
+    "answer_rank": "最長",
+    "max_min_ratio": 2.25
+   },
+   "accept_free_input": [
+    "dangerous",
+    "unsafe"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "expensive",
+   "sentence_with_blank": "This bag is 900 dollars! It's too ___.",
+   "ja": "このかばん900ドル！高すぎる。",
+   "options": [
+    "expensive",
+    "price",
+    "heavy",
+    "cheap"
+   ],
+   "distractors": [
+    {
+     "word": "cheap",
+     "type": "meaning",
+     "why": "900ドルで too cheap は矛盾"
+    },
+    {
+     "word": "heavy",
+     "type": "meaning",
+     "why": "値段の話に合わない"
+    },
+    {
+     "word": "price",
+     "type": "grammar",
+     "why": "名詞は too の後に入らない"
+    }
+   ],
+   "why": "金額＋too で決まる",
+   "app_word": "expensive",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "expensive": 9,
+     "price": 5,
+     "heavy": 5,
+     "cheap": 5
+    },
+    "answer_rank": "最長",
+    "max_min_ratio": 1.8
+   },
+   "accept_free_input": [
+    "expensive"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "cheap",
+   "sentence_with_blank": "This T-shirt was only three dollars. It was really ___.",
+   "ja": "このTシャツはたった3ドルだった。本当に安かった。",
+   "options": [
+    "expensive",
+    "cheaply",
+    "cheap",
+    "delicious"
+   ],
+   "distractors": [
+    {
+     "word": "expensive",
+     "type": "meaning",
+     "why": "only と矛盾"
+    },
+    {
+     "word": "delicious",
+     "type": "meaning",
+     "why": "Tシャツに合わない"
+    },
+    {
+     "word": "cheaply",
+     "type": "grammar",
+     "why": "副詞は was の後に入らない"
+    }
+   ],
+   "why": "only＋金額で決まる",
+   "app_word": "cheap",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "expensive": 9,
+     "cheaply": 7,
+     "cheap": 5,
+     "delicious": 9
+    },
+    "answer_rank": "最短",
+    "max_min_ratio": 1.8
+   },
+   "accept_free_input": [
+    "cheap",
+    "inexpensive"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "famous",
+   "sentence_with_blank": "Hollywood is ___ for its movies.",
+   "ja": "ハリウッドは映画で有名だ。",
+   "options": [
+    "famous",
+    "popular",
+    "useful",
+    "fame"
+   ],
+   "distractors": [
+    {
+     "word": "popular",
+     "type": "grammar",
+     "why": "popular は with 人。popular for はまれ"
+    },
+    {
+     "word": "useful",
+     "type": "meaning",
+     "why": "「映画のために役立つ」では意味が通らない"
+    },
+    {
+     "word": "fame",
+     "type": "grammar",
+     "why": "名詞は is の後に for と続けられない"
+    }
+   ],
+   "why": "be famous for のコロケーション",
+   "app_word": "famous",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "famous": 6,
+     "popular": 7,
+     "useful": 6,
+     "fame": 4
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.75
+   },
+   "accept_free_input": [
+    "famous",
+    "known",
+    "well-known"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "popular",
+   "sentence_with_blank": "Pizza is very ___ with kids.",
+   "ja": "ピザは子どもにとても人気がある。",
+   "options": [
+    "delicious",
+    "popularity",
+    "famous",
+    "popular"
+   ],
+   "distractors": [
+    {
+     "word": "famous",
+     "type": "grammar",
+     "why": "famous with とは言わない（famous for / among）"
+    },
+    {
+     "word": "delicious",
+     "type": "grammar",
+     "why": "delicious with kids とは言わない"
+    },
+    {
+     "word": "popularity",
+     "type": "grammar",
+     "why": "名詞は very の後に入らない"
+    }
+   ],
+   "why": "be popular with 人 のコロケーション",
+   "app_word": "popular",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "delicious": 9,
+     "popularity": 10,
+     "famous": 6,
+     "popular": 7
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.67
+   },
+   "accept_free_input": [
+    "popular"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "different",
+   "sentence_with_blank": "My sister and I look very ___. She's tall and I'm short.",
+   "ja": "姉と私は見た目がまったく違う。姉は背が高く、私は低い。",
+   "options": [
+    "same",
+    "strange",
+    "different",
+    "difference"
+   ],
+   "distractors": [
+    {
+     "word": "same",
+     "type": "grammar",
+     "why": "very same とは言わず the same"
+    },
+    {
+     "word": "strange",
+     "type": "meaning",
+     "why": "背の高低は「変」の理由にならない"
+    },
+    {
+     "word": "difference",
+     "type": "grammar",
+     "why": "名詞は look very の後に入らない"
+    }
+   ],
+   "why": "tall と short の対比",
+   "app_word": "different",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "same": 4,
+     "strange": 7,
+     "different": 9,
+     "difference": 10
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 2.5
+   },
+   "accept_free_input": [
+    "different"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "delicious",
+   "sentence_with_blank": "This pizza is ___! Can I have another slice?",
+   "ja": "このピザおいしい！もう一切れもらえる？",
+   "options": [
+    "delicious",
+    "taste",
+    "empty",
+    "bored"
+   ],
+   "distractors": [
+    {
+     "word": "empty",
+     "type": "meaning",
+     "why": "中身がないのにもう一切れは矛盾"
+    },
+    {
+     "word": "bored",
+     "type": "grammar",
+     "why": "物が bored は不可"
+    },
+    {
+     "word": "taste",
+     "type": "grammar",
+     "why": "名詞・動詞は is の後に入らない"
+    }
+   ],
+   "why": "もう一切れ欲しい理由",
+   "app_word": "delicious",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "delicious": 9,
+     "taste": 5,
+     "empty": 5,
+     "bored": 5
+    },
+    "answer_rank": "最長",
+    "max_min_ratio": 1.8
+   },
+   "accept_free_input": [
+    "delicious",
+    "good",
+    "great",
+    "tasty"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "heavy",
+   "sentence_with_blank": "My suitcase is too ___. I can't carry it.",
+   "ja": "スーツケースが重すぎて運べない。",
+   "options": [
+    "light",
+    "empty",
+    "cheap",
+    "heavy"
+   ],
+   "distractors": [
+    {
+     "word": "light",
+     "type": "meaning",
+     "why": "軽すぎて運べないは矛盾"
+    },
+    {
+     "word": "empty",
+     "type": "meaning",
+     "why": "空なら運べる"
+    },
+    {
+     "word": "cheap",
+     "type": "meaning",
+     "why": "値段は運べない理由にならない"
+    }
+   ],
+   "why": "can't carry の理由",
+   "app_word": "heavy",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "light": 5,
+     "empty": 5,
+     "cheap": 5,
+     "heavy": 5
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.0
+   },
+   "accept_free_input": [
+    "heavy",
+    "big"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "empty",
+   "sentence_with_blank": "The bottle is ___. There's no water in it.",
+   "ja": "ボトルは空っぽ。水が入っていない。",
+   "options": [
+    "empty",
+    "full",
+    "heavy",
+    "wet"
+   ],
+   "distractors": [
+    {
+     "word": "full",
+     "type": "meaning",
+     "why": "no water と矛盾"
+    },
+    {
+     "word": "heavy",
+     "type": "meaning",
+     "why": "水がなければ重くない"
+    },
+    {
+     "word": "wet",
+     "type": "meaning",
+     "why": "水がないことの言い換えにならない"
+    }
+   ],
+   "why": "後の文がそのまま定義",
+   "app_word": "empty",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "empty": 5,
+     "full": 4,
+     "heavy": 5,
+     "wet": 3
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.67
+   },
+   "accept_free_input": [
+    "empty"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "careful",
+   "sentence_with_blank": "Be ___! The floor is wet.",
+   "ja": "気をつけて！床がぬれてるよ。",
+   "options": [
+    "lucky",
+    "careful",
+    "care",
+    "famous"
+   ],
+   "distractors": [
+    {
+     "word": "lucky",
+     "type": "meaning",
+     "why": "Be lucky は警告にならない"
+    },
+    {
+     "word": "famous",
+     "type": "meaning",
+     "why": "文脈に合わない"
+    },
+    {
+     "word": "care",
+     "type": "grammar",
+     "why": "Be care とは言わない"
+    }
+   ],
+   "why": "wet floor への警告",
+   "app_word": "careful",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "lucky": 5,
+     "careful": 7,
+     "care": 4,
+     "famous": 6
+    },
+    "answer_rank": "最長",
+    "max_min_ratio": 1.75
+   },
+   "accept_free_input": [
+    "careful"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "lucky",
+   "sentence_with_blank": "I found twenty dollars on the street. I'm so ___!",
+   "ja": "道で20ドル拾った。超ラッキー！",
+   "options": [
+    "angry",
+    "luck",
+    "careful",
+    "lucky"
+   ],
+   "distractors": [
+    {
+     "word": "careful",
+     "type": "meaning",
+     "why": "拾ったことと関係しない"
+    },
+    {
+     "word": "angry",
+     "type": "meaning",
+     "why": "喜ぶ場面と逆"
+    },
+    {
+     "word": "luck",
+     "type": "grammar",
+     "why": "I'm so luck とは言わない"
+    }
+   ],
+   "why": "偶然の得",
+   "app_word": "lucky",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "angry": 5,
+     "luck": 4,
+     "careful": 7,
+     "lucky": 5
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.75
+   },
+   "accept_free_input": [
+    "lucky",
+    "happy"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "umbrella",
+   "sentence_with_blank": "It's raining hard. Don't forget your ___.",
+   "ja": "雨が強いよ。傘を忘れないで。",
+   "options": [
+    "sunscreen",
+    "homework",
+    "weather",
+    "umbrella"
+   ],
+   "distractors": [
+    {
+     "word": "sunscreen",
+     "type": "meaning",
+     "why": "雨と合わない"
+    },
+    {
+     "word": "homework",
+     "type": "meaning",
+     "why": "雨と無関係"
+    },
+    {
+     "word": "weather",
+     "type": "meaning",
+     "why": "天気を忘れる、は不自然"
+    }
+   ],
+   "why": "raining が雨具に限定する",
+   "app_word": "umbrella",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "sunscreen": 9,
+     "homework": 8,
+     "weather": 7,
+     "umbrella": 8
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.29
+   },
+   "accept_free_input": [
+    "umbrella",
+    "raincoat"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "breakfast",
+   "sentence_with_blank": "I eat ___ at seven every morning before school.",
+   "ja": "毎朝、学校の前の7時に朝食を食べる。",
+   "options": [
+    "breakfast",
+    "lunch",
+    "kitchen",
+    "dinner"
+   ],
+   "distractors": [
+    {
+     "word": "dinner",
+     "type": "meaning",
+     "why": "morning と矛盾"
+    },
+    {
+     "word": "lunch",
+     "type": "meaning",
+     "why": "before school と矛盾"
+    },
+    {
+     "word": "kitchen",
+     "type": "meaning",
+     "why": "台所を食べる、は不可"
+    }
+   ],
+   "why": "every morning before school",
+   "app_word": "breakfast",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "breakfast": 9,
+     "lunch": 5,
+     "kitchen": 7,
+     "dinner": 6
+    },
+    "answer_rank": "最長",
+    "max_min_ratio": 1.8
+   },
+   "accept_free_input": [
+    "breakfast"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "yesterday",
+   "sentence_with_blank": "I went to the beach ___, and now I have a sunburn.",
+   "ja": "昨日ビーチに行って、今は日焼けで痛い。",
+   "options": [
+    "tomorrow",
+    "weekend",
+    "yesterday",
+    "future"
+   ],
+   "distractors": [
+    {
+     "word": "tomorrow",
+     "type": "grammar",
+     "why": "went（過去）と合わない"
+    },
+    {
+     "word": "future",
+     "type": "grammar",
+     "why": "名詞単独では副詞にならない"
+    },
+    {
+     "word": "weekend",
+     "type": "grammar",
+     "why": "冠詞なしの weekend は副詞にならない（last weekend なら可）"
+    }
+   ],
+   "why": "過去形＋now の結果",
+   "app_word": "yesterday",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "tomorrow": 8,
+     "weekend": 7,
+     "yesterday": 9,
+     "future": 6
+    },
+    "answer_rank": "最長",
+    "max_min_ratio": 1.5
+   },
+   "accept_free_input": [
+    "yesterday",
+    "last weekend（句なら可）"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "neighbor",
+   "sentence_with_blank": "Our ___ lives next door. She has a big dog.",
+   "ja": "隣の人は隣の家に住んでいて、大きな犬を飼っている。",
+   "options": [
+    "neighbor",
+    "homework",
+    "village",
+    "kitchen"
+   ],
+   "distractors": [
+    {
+     "word": "village",
+     "type": "meaning",
+     "why": "村は next door に住まない"
+    },
+    {
+     "word": "kitchen",
+     "type": "meaning",
+     "why": "台所は住まない"
+    },
+    {
+     "word": "homework",
+     "type": "meaning",
+     "why": "宿題は住まない"
+    }
+   ],
+   "why": "lives next door の定義",
+   "app_word": "neighbor",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "neighbor": 8,
+     "homework": 8,
+     "village": 7,
+     "kitchen": 7
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.14
+   },
+   "accept_free_input": [
+    "neighbor"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "library",
+   "sentence_with_blank": "You can borrow books for free at the ___.",
+   "ja": "図書館では本を無料で借りられる。",
+   "options": [
+    "library",
+    "hospital",
+    "store",
+    "station"
+   ],
+   "distractors": [
+    {
+     "word": "station",
+     "type": "meaning",
+     "why": "駅で本は借りない"
+    },
+    {
+     "word": "hospital",
+     "type": "meaning",
+     "why": "病院で本は借りない"
+    },
+    {
+     "word": "store",
+     "type": "meaning",
+     "why": "店は無料で貸さない"
+    }
+   ],
+   "why": "borrow books for free の定義",
+   "app_word": "library",
+   "app_source": "WORDS",
+   "len_check": {
+    "lengths": {
+     "library": 7,
+     "hospital": 8,
+     "store": 5,
+     "station": 7
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.6
+   },
+   "accept_free_input": [
+    "library"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "luggage",
+   "sentence_with_blank": "We have too much ___. We need a bigger car.",
+   "ja": "荷物が多すぎる。もっと大きい車が必要だ。",
+   "options": [
+    "luggage",
+    "luggages",
+    "passport",
+    "seat"
+   ],
+   "distractors": [
+    {
+     "word": "luggages",
+     "type": "grammar",
+     "why": "luggage は数えられない"
+    },
+    {
+     "word": "passport",
+     "type": "meaning",
+     "why": "much と合わず車の大きさとも無関係"
+    },
+    {
+     "word": "seat",
+     "type": "grammar",
+     "why": "much seat とは言わない"
+    }
+   ],
+   "why": "much＋不可算＋車の大きさ",
+   "app_word": "luggage",
+   "app_source": "W2.kuukou",
+   "len_check": {
+    "lengths": {
+     "luggage": 7,
+     "luggages": 8,
+     "passport": 8,
+     "seat": 4
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 2.0
+   },
+   "accept_free_input": [
+    "luggage",
+    "baggage",
+    "stuff"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "refill",
+   "sentence_with_blank": "Can I get a free ___ on my coffee?",
+   "ja": "コーヒーのおかわりを無料でもらえますか？",
+   "options": [
+    "discount",
+    "napkin",
+    "receipt",
+    "refill"
+   ],
+   "distractors": [
+    {
+     "word": "napkin",
+     "type": "meaning",
+     "why": "コーヒーにナプキンの「おかわり」はない"
+    },
+    {
+     "word": "receipt",
+     "type": "meaning",
+     "why": "on my coffee と合わない"
+    },
+    {
+     "word": "discount",
+     "type": "meaning",
+     "why": "a free discount は意味が重複して不自然"
+    }
+   ],
+   "why": "free ~ on my coffee は米国の決まり文句",
+   "app_word": "refill",
+   "app_source": "CULTURE",
+   "len_check": {
+    "lengths": {
+     "discount": 8,
+     "napkin": 6,
+     "receipt": 7,
+     "refill": 6
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.33
+   },
+   "accept_free_input": [
+    "refill"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "delay",
+   "sentence_with_blank": "There's a two-hour ___, so our flight will leave at five instead of three.",
+   "ja": "2時間の遅れがあるので、便は3時でなく5時に出発する。",
+   "options": [
+    "gate",
+    "delay",
+    "flight",
+    "late"
+   ],
+   "distractors": [
+    {
+     "word": "gate",
+     "type": "meaning",
+     "why": "搭乗口では時刻がずれない"
+    },
+    {
+     "word": "flight",
+     "type": "meaning",
+     "why": "two-hour flight だと時刻変更と合わない"
+    },
+    {
+     "word": "late",
+     "type": "grammar",
+     "why": "a two-hour late とは言わない"
+    }
+   ],
+   "why": "instead of の時刻差",
+   "app_word": "delay",
+   "app_source": "W2.kuukou",
+   "len_check": {
+    "lengths": {
+     "gate": 4,
+     "delay": 5,
+     "flight": 6,
+     "late": 4
+    },
+    "answer_rank": "中間/同長",
+    "max_min_ratio": 1.5
+   },
+   "accept_free_input": [
+    "delay"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "crowded",
+   "sentence_with_blank": "The train was so ___ that I couldn't sit down.",
+   "ja": "電車がとても混んでいて座れなかった。",
+   "options": [
+    "crowded",
+    "crowd",
+    "empty",
+    "quiet"
+   ],
+   "distractors": [
+    {
+     "word": "empty",
+     "type": "meaning",
+     "why": "空いていれば座れる"
+    },
+    {
+     "word": "quiet",
+     "type": "meaning",
+     "why": "座れない理由にならない"
+    },
+    {
+     "word": "crowd",
+     "type": "grammar",
+     "why": "名詞は so ~ that に入らない"
+    }
+   ],
+   "why": "couldn't sit down の理由",
+   "app_word": "crowded",
+   "app_source": "W2.machi",
+   "len_check": {
+    "lengths": {
+     "crowded": 7,
+     "crowd": 5,
+     "empty": 5,
+     "quiet": 5
+    },
+    "answer_rank": "最長",
+    "max_min_ratio": 1.4
+   },
+   "accept_free_input": [
+    "crowded",
+    "full",
+    "packed"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  },
+  {
+   "w": "sunscreen",
+   "sentence_with_blank": "It's very sunny today. Put on some ___.",
+   "ja": "今日は日差しが強い。日焼け止めを塗って。",
+   "options": [
+    "sunscreen",
+    "sunburn",
+    "water",
+    "umbrella"
+   ],
+   "distractors": [
+    {
+     "word": "sunburn",
+     "type": "meaning",
+     "why": "日焼けを塗る、は不可"
+    },
+    {
+     "word": "umbrella",
+     "type": "grammar",
+     "why": "put on some umbrella とは言わない"
+    },
+    {
+     "word": "water",
+     "type": "meaning",
+     "why": "日差し対策にならない"
+    }
+   ],
+   "why": "sunny と put on some",
+   "app_word": "sunscreen",
+   "app_source": "W2.umi",
+   "len_check": {
+    "lengths": {
+     "sunscreen": 9,
+     "sunburn": 7,
+     "water": 5,
+     "umbrella": 8
+    },
+    "answer_rank": "最長",
+    "max_min_ratio": 1.8
+   },
+   "accept_free_input": [
+    "sunscreen",
+    "sunblock"
+   ],
+   "note_accept": "自由入力（recall）では accept の語も○。選択肢には accept の語を入れない"
+  }
+ ],
+ "bad_examples": [
+  {
+   "sentence": "There are three cakes. Which one do you want to ___?",
+   "target": "choose",
+   "why_bad": "eat / buy / try / pick がすべて自然に入る。選択肢に1つでも混ざると正答者を×にする",
+   "fix": "It's hard to ___ between pizza and tacos. Both look good! でも decide / pick が入る → 選択肢から除外＋自由入力では accept に入れる"
+  },
+  {
+   "sentence": "I want to ___ money for a new bike.",
+   "target": "save",
+   "why_bad": "spend money for a new bike も文法的にも意味的にも通る",
+   "fix": "I don't buy coffee every day because I want to ___ money.（因果で save に決まる）"
+  },
+  {
+   "sentence": "I went to bed at 3 a.m., so I'm very ___ now.",
+   "target": "sleepy",
+   "why_bad": "tired も正しい。tired/sleepy の使い分けを問いたいなら、片方しか入らない文が必要",
+   "fix": "I'm ___. Let's go to bed.（sleepy 優勢だが tired も可）→ 単独の穴埋めより言い換えバトルの trap 組で扱う"
+  },
+  {
+   "sentence": "We're going to ___ Mount Fuji this summer.",
+   "target": "climb",
+   "why_bad": "visit / see / hike が入る",
+   "fix": "climb は例文穴埋めに向かない語として除外"
+  },
+  {
+   "sentence": "He sold his ___ yesterday.",
+   "target": "(名詞)",
+   "why_bad": "house / car / bike…何でも入る（文脈が名詞の種類を絞らない）",
+   "fix": "定義になる後続文（There's no water in it. など）を足す"
+  }
+ ]
+}

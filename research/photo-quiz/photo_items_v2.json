@@ -1,0 +1,4540 @@
+[
+ {
+  "id": "n001",
+  "kind": "noun",
+  "answer": "apple",
+  "accept": [],
+  "ja": "りんご",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "red apple isolated white background",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n002",
+  "kind": "noun",
+  "answer": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "ja": "バナナ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "single banana white background",
+  "why_one_answer": "房だと bananas も正解に",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n003",
+  "kind": "noun",
+  "answer": "strawberry",
+  "accept": [
+   "strawberries"
+  ],
+  "ja": "いちご",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "strawberries bowl close up",
+  "why_one_answer": "複数写れば strawberries も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n004",
+  "kind": "noun",
+  "answer": "grapes",
+  "accept": [
+   "grape"
+  ],
+  "ja": "ぶどう",
+  "katakana_trap": "英語は房で grapes（複数）が普通",
+  "sentence": "",
+  "photo_query": "bunch of purple grapes",
+  "why_one_answer": "grape 単数も○。色で wine と混同しない写真",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n005",
+  "kind": "noun",
+  "answer": "lemon",
+  "accept": [],
+  "ja": "レモン",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "lemon isolated",
+  "why_one_answer": "lime と混同しない黄色いもの",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n006",
+  "kind": "noun",
+  "answer": "tomato",
+  "accept": [],
+  "ja": "トマト",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "red tomato on vine",
+  "why_one_answer": "cherry tomato も○にする",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n007",
+  "kind": "noun",
+  "answer": "potato",
+  "accept": [
+   "potatoes"
+  ],
+  "ja": "じゃがいも",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "raw potatoes on wooden table",
+  "why_one_answer": "フライドポテト(fries)の写真は使わない",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n008",
+  "kind": "noun",
+  "answer": "carrot",
+  "accept": [
+   "carrots"
+  ],
+  "ja": "にんじん",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "fresh carrots with leaves",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n009",
+  "kind": "noun",
+  "answer": "onion",
+  "accept": [
+   "onions"
+  ],
+  "ja": "たまねぎ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "yellow onion close up",
+  "why_one_answer": "green onion/shallot と区別できる丸い玉ねぎ",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n010",
+  "kind": "noun",
+  "answer": "egg",
+  "accept": [
+   "eggs"
+  ],
+  "ja": "卵",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "white eggs in carton",
+  "why_one_answer": "ゆで卵・目玉焼き(fried egg)は避ける",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n011",
+  "kind": "noun",
+  "answer": "bread",
+  "accept": [
+   "loaf",
+   "toast"
+  ],
+  "ja": "パン",
+  "katakana_trap": "パン=食パン/菓子パン全般。英語 bread は不可算",
+  "sentence": "",
+  "photo_query": "loaf of bread sliced",
+  "why_one_answer": "トーストだと toast、ロールだと roll になる→食パン1斤で撮る",
+  "g": 0,
+  "near": [
+   "roll"
+  ],
+  "ng": [],
+  "tsukkomi": "パンは bread（数えない）"
+ },
+ {
+  "id": "n012",
+  "kind": "noun",
+  "answer": "rice",
+  "accept": [],
+  "ja": "ごはん・米",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "bowl of white rice",
+  "why_one_answer": "rice ball(おにぎり)と分ける",
+  "g": 0,
+  "near": [
+   "rice ball"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n013",
+  "kind": "noun",
+  "answer": "cake",
+  "accept": [],
+  "ja": "ケーキ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "birthday cake with candles",
+  "why_one_answer": "種類名(cheesecake等)も○扱い",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n014",
+  "kind": "noun",
+  "answer": "pizza",
+  "accept": [],
+  "ja": "ピザ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "whole pizza top view",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n015",
+  "kind": "noun",
+  "answer": "sandwich",
+  "accept": [
+   "sandwiches"
+  ],
+  "ja": "サンドイッチ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "sandwich on plate",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n016",
+  "kind": "noun",
+  "answer": "hamburger",
+  "accept": [
+   "burger",
+   "cheeseburger"
+  ],
+  "ja": "ハンバーガー",
+  "katakana_trap": "ハンバーグ(肉だけ)は hamburger steak / Salisbury steak",
+  "sentence": "",
+  "photo_query": "hamburger with bun",
+  "why_one_answer": "バンズ付き必須。肉だけの写真はハンバーグになり×",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "ハンバーグ（肉だけ）は hamburger steak。パンにはさんで hamburger"
+ },
+ {
+  "id": "n017",
+  "kind": "noun",
+  "answer": "milk",
+  "accept": [],
+  "ja": "牛乳",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "glass of milk",
+  "why_one_answer": "glass と答えられやすい→「何の飲み物?」と問う",
+  "g": 0,
+  "near": [
+   "glass",
+   "drink"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n018",
+  "kind": "noun",
+  "answer": "coffee",
+  "accept": [],
+  "ja": "コーヒー",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "cup of black coffee",
+  "why_one_answer": "cup/mug 回答が出やすい→問いを What is she drinking? 型に",
+  "g": 0,
+  "near": [
+   "cup",
+   "mug",
+   "drink"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n019",
+  "kind": "noun",
+  "answer": "tea",
+  "accept": [
+   "green tea"
+  ],
+  "ja": "お茶・紅茶",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "cup of tea with teabag",
+  "why_one_answer": "紅茶/緑茶とも tea で○",
+  "g": 0,
+  "near": [
+   "cup",
+   "drink"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n020",
+  "kind": "noun",
+  "answer": "ice cream",
+  "accept": [
+   "icecream"
+  ],
+  "ja": "アイスクリーム",
+  "katakana_trap": "「アイス」だけは ice（氷）になる",
+  "sentence": "",
+  "photo_query": "ice cream scoop cone",
+  "why_one_answer": "ソフトクリーム型は tricky 側へ",
+  "g": 4,
+  "near": [
+   "ice"
+  ],
+  "ng": [],
+  "tsukkomi": "「アイス」だけだと ice（氷）"
+ },
+ {
+  "id": "n021",
+  "kind": "noun",
+  "answer": "dog",
+  "accept": [
+   "puppy"
+  ],
+  "ja": "犬",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "dog sitting portrait",
+  "why_one_answer": "子犬なら puppy も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n022",
+  "kind": "noun",
+  "answer": "cat",
+  "accept": [
+   "kitten"
+  ],
+  "ja": "ねこ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "cat portrait",
+  "why_one_answer": "子猫なら kitten も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n023",
+  "kind": "noun",
+  "answer": "bird",
+  "accept": [],
+  "ja": "鳥",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "small bird on branch",
+  "why_one_answer": "種名(sparrow等)も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n024",
+  "kind": "noun",
+  "answer": "fish",
+  "accept": [],
+  "ja": "魚",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "fish swimming aquarium",
+  "why_one_answer": "goldfish 等の種名も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n025",
+  "kind": "noun",
+  "answer": "horse",
+  "accept": [
+   "pony"
+  ],
+  "ja": "馬",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "horse in field",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n026",
+  "kind": "noun",
+  "answer": "cow",
+  "accept": [
+   "cattle"
+  ],
+  "ja": "牛",
+  "katakana_trap": "beef は肉",
+  "sentence": "",
+  "photo_query": "dairy cow grass",
+  "why_one_answer": "bull は○にしない(性別)→まだら模様の乳牛で",
+  "g": 0,
+  "near": [
+   "bull",
+   "ox"
+  ],
+  "ng": [],
+  "tsukkomi": "牛は cow、牛肉は beef"
+ },
+ {
+  "id": "n027",
+  "kind": "noun",
+  "answer": "pig",
+  "accept": [
+   "piglet"
+  ],
+  "ja": "ぶた",
+  "katakana_trap": "pork は肉",
+  "sentence": "",
+  "photo_query": "pig farm close up",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "豚は pig、豚肉は pork"
+ },
+ {
+  "id": "n028",
+  "kind": "noun",
+  "answer": "sheep",
+  "accept": [
+   "lamb"
+  ],
+  "ja": "羊",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "sheep in meadow",
+  "why_one_answer": "子羊なら lamb も○。goat と見分けやすい白い羊",
+  "g": 0,
+  "near": [
+   "goat"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n029",
+  "kind": "noun",
+  "answer": "rabbit",
+  "accept": [
+   "bunny"
+  ],
+  "ja": "うさぎ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "rabbit grass",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n030",
+  "kind": "noun",
+  "answer": "monkey",
+  "accept": [],
+  "ja": "さる",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "monkey sitting",
+  "why_one_answer": "gorilla/chimp は別語→ニホンザル等で",
+  "g": 0,
+  "near": [
+   "ape",
+   "gorilla"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n031",
+  "kind": "noun",
+  "answer": "elephant",
+  "accept": [],
+  "ja": "ゾウ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "elephant savanna",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n032",
+  "kind": "noun",
+  "answer": "lion",
+  "accept": [],
+  "ja": "ライオン",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "male lion portrait",
+  "why_one_answer": "たてがみで tiger 等と混同なし",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n033",
+  "kind": "noun",
+  "answer": "tiger",
+  "accept": [],
+  "ja": "トラ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "tiger close up",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n034",
+  "kind": "noun",
+  "answer": "bear",
+  "accept": [],
+  "ja": "クマ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "brown bear",
+  "why_one_answer": "panda/polar bear は別問題に",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n035",
+  "kind": "noun",
+  "answer": "panda",
+  "accept": [],
+  "ja": "パンダ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "giant panda eating bamboo",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n036",
+  "kind": "noun",
+  "answer": "penguin",
+  "accept": [],
+  "ja": "ペンギン",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "penguins on ice",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n037",
+  "kind": "noun",
+  "answer": "duck",
+  "accept": [],
+  "ja": "アヒル・カモ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "duck on pond",
+  "why_one_answer": "アヒルもカモも duck",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n038",
+  "kind": "noun",
+  "answer": "frog",
+  "accept": [],
+  "ja": "カエル",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "green frog leaf",
+  "why_one_answer": "toad(ヒキガエル)の写真は避ける",
+  "g": 0,
+  "near": [
+   "toad"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n039",
+  "kind": "noun",
+  "answer": "snake",
+  "accept": [],
+  "ja": "ヘビ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "snake close up",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n040",
+  "kind": "noun",
+  "answer": "chicken",
+  "accept": [
+   "hen",
+   "rooster"
+  ],
+  "ja": "ニワトリ",
+  "katakana_trap": "chicken は鶏肉の意味も",
+  "sentence": "",
+  "photo_query": "chicken farm hen",
+  "why_one_answer": "雌鳥なら hen も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "ニワトリも鶏肉も chicken"
+ },
+ {
+  "id": "n041",
+  "kind": "noun",
+  "answer": "tree",
+  "accept": [],
+  "ja": "木",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "single tree field",
+  "why_one_answer": "forest/woods にならない1本",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n042",
+  "kind": "noun",
+  "answer": "flower",
+  "accept": [
+   "flowers"
+  ],
+  "ja": "花",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "colorful flowers",
+  "why_one_answer": "種名(tulip等)も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n043",
+  "kind": "noun",
+  "answer": "rose",
+  "accept": [
+   "roses"
+  ],
+  "ja": "バラ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "red rose close up",
+  "why_one_answer": "flower は上位語で○（ただし「もっと詳しく」表示）",
+  "g": 1,
+  "near": [
+   "flower"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n044",
+  "kind": "noun",
+  "answer": "mountain",
+  "accept": [
+   "mountains",
+   "Mt. Fuji",
+   "Mount Fuji"
+  ],
+  "ja": "山",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "snowy mountain peak",
+  "why_one_answer": "hill と言わせない高い山",
+  "g": 0,
+  "near": [
+   "hill"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n045",
+  "kind": "noun",
+  "answer": "river",
+  "accept": [],
+  "ja": "川",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "river forest",
+  "why_one_answer": "stream も○にしてよい",
+  "g": 0,
+  "near": [
+   "stream"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n046",
+  "kind": "noun",
+  "answer": "sea",
+  "accept": [
+   "ocean"
+  ],
+  "ja": "海",
+  "katakana_trap": "sea/ocean は写真で区別不能",
+  "sentence": "",
+  "photo_query": "ocean waves horizon",
+  "why_one_answer": "両方○必須",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "海は sea でも ocean でもOK"
+ },
+ {
+  "id": "n047",
+  "kind": "noun",
+  "answer": "beach",
+  "accept": [],
+  "ja": "浜辺",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "sandy beach",
+  "why_one_answer": "sea/ocean と答えやすい→砂浜を主役に",
+  "g": 0,
+  "near": [
+   "sea",
+   "ocean",
+   "sand"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n048",
+  "kind": "noun",
+  "answer": "lake",
+  "accept": [
+   "pond"
+  ],
+  "ja": "湖",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "calm lake mountains",
+  "why_one_answer": "池と区別しづらい→大きな湖",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n049",
+  "kind": "noun",
+  "answer": "moon",
+  "accept": [
+   "full moon"
+  ],
+  "ja": "月",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "full moon night sky",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n050",
+  "kind": "noun",
+  "answer": "sun",
+  "accept": [
+   "sunset",
+   "sunrise"
+  ],
+  "ja": "太陽",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "sun in sky",
+  "why_one_answer": "夕日なら sunset も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n051",
+  "kind": "noun",
+  "answer": "star",
+  "accept": [
+   "stars"
+  ],
+  "ja": "星",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "starry night sky",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n052",
+  "kind": "noun",
+  "answer": "rainbow",
+  "accept": [],
+  "ja": "虹",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "rainbow over field",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n053",
+  "kind": "noun",
+  "answer": "snow",
+  "accept": [],
+  "ja": "雪",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "snowy street",
+  "why_one_answer": "snowman 等を入れない",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n054",
+  "kind": "noun",
+  "answer": "rain",
+  "accept": [],
+  "ja": "雨",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "rain drops window",
+  "why_one_answer": "umbrella を写さない",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n055",
+  "kind": "noun",
+  "answer": "cloud",
+  "accept": [
+   "clouds"
+  ],
+  "ja": "雲",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "white clouds blue sky",
+  "why_one_answer": "sky と答えやすい→雲を大きく",
+  "g": 1,
+  "near": [
+   "sky"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n056",
+  "kind": "noun",
+  "answer": "car",
+  "accept": [],
+  "ja": "車",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "red car side view",
+  "why_one_answer": "taxi/bus に見えないもの",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n057",
+  "kind": "noun",
+  "answer": "bus",
+  "accept": [],
+  "ja": "バス",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "city bus",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n058",
+  "kind": "noun",
+  "answer": "train",
+  "accept": [],
+  "ja": "電車",
+  "katakana_trap": "電車も汽車も train",
+  "sentence": "",
+  "photo_query": "train station platform",
+  "why_one_answer": "subway も○にしてよい",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "電車は train"
+ },
+ {
+  "id": "n059",
+  "kind": "noun",
+  "answer": "bike",
+  "accept": [
+   "bicycle",
+   "bikes"
+  ],
+  "ja": "自転車",
+  "katakana_trap": "バイク(オートバイ)は motorcycle",
+  "sentence": "",
+  "photo_query": "bicycle parked",
+  "why_one_answer": "bike/bicycle 両方○。バイク問題と並べない",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "自転車は bike。オートバイは motorcycle"
+ },
+ {
+  "id": "n060",
+  "kind": "noun",
+  "answer": "airplane",
+  "accept": [
+   "plane",
+   "aeroplane",
+   "aircraft",
+   "jet"
+  ],
+  "ja": "飛行機",
+  "katakana_trap": "英 aeroplane",
+  "sentence": "",
+  "photo_query": "airplane flying sky",
+  "why_one_answer": "別解が多い→全部○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n061",
+  "kind": "noun",
+  "answer": "ship",
+  "accept": [
+   "boat"
+  ],
+  "ja": "船",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "large ship sea",
+  "why_one_answer": "大型=ship、小型=boat。写真次第で両方○",
+  "g": 1,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n062",
+  "kind": "noun",
+  "answer": "taxi",
+  "accept": [
+   "cab"
+  ],
+  "ja": "タクシー",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "yellow taxi",
+  "why_one_answer": "米 cab も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n063",
+  "kind": "noun",
+  "answer": "house",
+  "accept": [
+   "home"
+  ],
+  "ja": "家",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "house exterior",
+  "why_one_answer": "建物の写真で home も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n064",
+  "kind": "noun",
+  "answer": "school",
+  "accept": [],
+  "ja": "学校",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "school building",
+  "why_one_answer": "校舎だけだと building も出る→校庭や時計を入れる",
+  "g": 0,
+  "near": [
+   "building"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n065",
+  "kind": "noun",
+  "answer": "hospital",
+  "accept": [],
+  "ja": "病院",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "hospital building sign",
+  "why_one_answer": "看板の文字で答えが見えない写真に",
+  "g": 0,
+  "near": [
+   "building"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n066",
+  "kind": "noun",
+  "answer": "station",
+  "accept": [
+   "train station"
+  ],
+  "ja": "駅",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "train station platform",
+  "why_one_answer": "train と答えがち→ホーム全体",
+  "g": 0,
+  "near": [
+   "train"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n067",
+  "kind": "noun",
+  "answer": "bridge",
+  "accept": [],
+  "ja": "橋",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "bridge over river",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 2,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n068",
+  "kind": "noun",
+  "answer": "park",
+  "accept": [],
+  "ja": "公園",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "park benches trees",
+  "why_one_answer": "playground との区別に注意",
+  "g": 0,
+  "near": [
+   "playground"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n069",
+  "kind": "noun",
+  "answer": "church",
+  "accept": [],
+  "ja": "教会",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "church building",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 1,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n070",
+  "kind": "noun",
+  "answer": "tower",
+  "accept": [
+   "Tokyo Tower"
+  ],
+  "ja": "塔",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "Tokyo Tower",
+  "why_one_answer": "固有名も○",
+  "g": 1,
+  "near": [
+   "building"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n071",
+  "kind": "noun",
+  "answer": "door",
+  "accept": [],
+  "ja": "ドア",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "wooden door closed",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n072",
+  "kind": "noun",
+  "answer": "window",
+  "accept": [],
+  "ja": "窓",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "window with curtains",
+  "why_one_answer": "curtain が主役にならないように",
+  "g": 1,
+  "near": [
+   "curtain"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n073",
+  "kind": "noun",
+  "answer": "desk",
+  "accept": [
+   "table"
+  ],
+  "ja": "机",
+  "katakana_trap": "desk/table は写真で迷う",
+  "sentence": "",
+  "photo_query": "school desk classroom",
+  "why_one_answer": "勉強机なら desk、食卓なら table。両方○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "勉強机は desk、食卓は table"
+ },
+ {
+  "id": "n074",
+  "kind": "noun",
+  "answer": "chair",
+  "accept": [
+   "seat"
+  ],
+  "ja": "いす",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "wooden chair isolated",
+  "why_one_answer": "sofa/stool と区別",
+  "g": 0,
+  "near": [
+   "sofa",
+   "stool"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n075",
+  "kind": "noun",
+  "answer": "bed",
+  "accept": [],
+  "ja": "ベッド",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "bed bedroom",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n076",
+  "kind": "noun",
+  "answer": "table",
+  "accept": [
+   "desk",
+   "dining table"
+  ],
+  "ja": "テーブル",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "dining table chairs",
+  "why_one_answer": "desk も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n077",
+  "kind": "noun",
+  "answer": "clock",
+  "accept": [
+   "wall clock"
+  ],
+  "ja": "時計（置き・掛け）",
+  "katakana_trap": "時計＝clock/watch の区別が日本語にない",
+  "sentence": "",
+  "photo_query": "wall clock",
+  "why_one_answer": "腕時計と区別。watch は×だが「おしい：腕時計なら watch」",
+  "g": 0,
+  "near": [
+   "watch"
+  ],
+  "ng": [],
+  "tsukkomi": "置き時計・掛け時計は clock、腕時計は watch"
+ },
+ {
+  "id": "n078",
+  "kind": "noun",
+  "answer": "watch",
+  "accept": [
+   "wristwatch"
+  ],
+  "ja": "腕時計",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "wristwatch on wrist",
+  "why_one_answer": "clock は×（説明つき）",
+  "g": 0,
+  "near": [
+   "clock"
+  ],
+  "ng": [],
+  "tsukkomi": "腕時計は watch、掛け時計は clock"
+ },
+ {
+  "id": "n079",
+  "kind": "noun",
+  "answer": "cup",
+  "accept": [
+   "mug"
+  ],
+  "ja": "カップ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "cup and saucer",
+  "why_one_answer": "取っ手付き大きめは mug も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n080",
+  "kind": "noun",
+  "answer": "umbrella",
+  "accept": [],
+  "ja": "かさ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "open umbrella",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n081",
+  "kind": "noun",
+  "answer": "bag",
+  "accept": [
+   "handbag",
+   "backpack"
+  ],
+  "ja": "かばん",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "handbag",
+  "why_one_answer": "種類別名も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n082",
+  "kind": "noun",
+  "answer": "box",
+  "accept": [],
+  "ja": "箱",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "cardboard box",
+  "why_one_answer": "段ボールは tricky 側",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n083",
+  "kind": "noun",
+  "answer": "key",
+  "accept": [
+   "keys"
+  ],
+  "ja": "かぎ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "house key",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n084",
+  "kind": "noun",
+  "answer": "book",
+  "accept": [
+   "books"
+  ],
+  "ja": "本",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "open book",
+  "why_one_answer": "notebook と区別できる印刷ページ",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n085",
+  "kind": "noun",
+  "answer": "pen",
+  "accept": [
+   "ballpoint pen"
+  ],
+  "ja": "ペン",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "pen on paper",
+  "why_one_answer": "pencil と区別できる写真",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n086",
+  "kind": "noun",
+  "answer": "pencil",
+  "accept": [
+   "pencils"
+  ],
+  "ja": "鉛筆",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "yellow pencil",
+  "why_one_answer": "シャーペンでなく木の鉛筆",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n087",
+  "kind": "noun",
+  "answer": "notebook",
+  "accept": [
+   "notebooks"
+  ],
+  "ja": "ノート",
+  "katakana_trap": "ノートパソコンは laptop",
+  "sentence": "",
+  "photo_query": "spiral notebook",
+  "why_one_answer": "note は「メモ」→ notebook が正解",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "ノートは notebook。note は「メモ」"
+ },
+ {
+  "id": "n088",
+  "kind": "noun",
+  "answer": "dictionary",
+  "accept": [],
+  "ja": "辞書",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "dictionary pages",
+  "why_one_answer": "book も○だが『もっと詳しく』",
+  "g": 1,
+  "near": [
+   "book"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n089",
+  "kind": "noun",
+  "answer": "map",
+  "accept": [],
+  "ja": "地図",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "paper map",
+  "why_one_answer": "globe と区別",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n090",
+  "kind": "noun",
+  "answer": "camera",
+  "accept": [],
+  "ja": "カメラ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "camera isolated",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n091",
+  "kind": "noun",
+  "answer": "computer",
+  "accept": [
+   "PC",
+   "desktop",
+   "laptop"
+  ],
+  "ja": "コンピューター",
+  "katakana_trap": "パソコン=PC/computer",
+  "sentence": "",
+  "photo_query": "desktop computer monitor",
+  "why_one_answer": "laptop も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "パソコンは computer / PC"
+ },
+ {
+  "id": "n092",
+  "kind": "noun",
+  "answer": "phone",
+  "accept": [
+   "smartphone",
+   "cell phone",
+   "cellphone",
+   "mobile phone",
+   "iPhone",
+   "mobile"
+  ],
+  "ja": "電話・スマホ",
+  "katakana_trap": "スマホ=smartphone、携帯=cell phone(米)/mobile(英)",
+  "sentence": "",
+  "photo_query": "smartphone in hand",
+  "why_one_answer": "別名が多い→全部○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "スマホは smartphone / phone"
+ },
+ {
+  "id": "n093",
+  "kind": "noun",
+  "answer": "piano",
+  "accept": [
+   "keyboard"
+  ],
+  "ja": "ピアノ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "grand piano",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n094",
+  "kind": "noun",
+  "answer": "guitar",
+  "accept": [],
+  "ja": "ギター",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "acoustic guitar",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n095",
+  "kind": "noun",
+  "answer": "ball",
+  "accept": [
+   "soccer ball",
+   "basketball"
+  ],
+  "ja": "ボール",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "soccer ball grass",
+  "why_one_answer": "種名も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n096",
+  "kind": "noun",
+  "answer": "hat",
+  "accept": [
+   "cap"
+  ],
+  "ja": "帽子",
+  "katakana_trap": "帽子=hat(つば全周)/cap(前だけ)",
+  "sentence": "",
+  "photo_query": "straw hat",
+  "why_one_answer": "cap も○（おしい表示）",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "つばが一周は hat、前だけは cap"
+ },
+ {
+  "id": "n097",
+  "kind": "noun",
+  "answer": "shoes",
+  "accept": [
+   "shoe",
+   "sneakers"
+  ],
+  "ja": "くつ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "pair of shoes",
+  "why_one_answer": "sneakers も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n098",
+  "kind": "noun",
+  "answer": "shirt",
+  "accept": [
+   "T-shirt",
+   "t shirt",
+   "tshirt"
+  ],
+  "ja": "シャツ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "t-shirt folded",
+  "why_one_answer": "Tシャツ写真なら T-shirt も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n099",
+  "kind": "noun",
+  "answer": "jacket",
+  "accept": [
+   "coat"
+  ],
+  "ja": "上着",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "jacket on hanger",
+  "why_one_answer": "coat も○",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n100",
+  "kind": "noun",
+  "answer": "glasses",
+  "accept": [
+   "eyeglasses",
+   "spectacles"
+  ],
+  "ja": "めがね",
+  "katakana_trap": "glass(単数)はガラス・コップ",
+  "sentence": "",
+  "photo_query": "eyeglasses isolated",
+  "why_one_answer": "glass は「おしい」",
+  "g": 1,
+  "near": [
+   "glass"
+  ],
+  "ng": [],
+  "tsukkomi": "めがねは glasses。glass は「ガラス・コップ」"
+ },
+ {
+  "id": "n101",
+  "kind": "noun",
+  "answer": "doctor",
+  "accept": [],
+  "ja": "医者",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "doctor stethoscope",
+  "why_one_answer": "nurse と迷う→白衣＋聴診器",
+  "g": 0,
+  "near": [
+   "nurse"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n102",
+  "kind": "noun",
+  "answer": "nurse",
+  "accept": [],
+  "ja": "看護師",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "nurse hospital",
+  "why_one_answer": "doctor とも見える→要確認写真",
+  "g": 0,
+  "near": [
+   "doctor"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n103",
+  "kind": "noun",
+  "answer": "baby",
+  "accept": [],
+  "ja": "赤ちゃん",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "baby sleeping",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n104",
+  "kind": "noun",
+  "answer": "kitchen",
+  "accept": [],
+  "ja": "台所",
+  "katakana_trap": "キッチン",
+  "sentence": "",
+  "photo_query": "kitchen interior",
+  "why_one_answer": "1つの物を白背景・単体で写せば1語に決まる",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "n105",
+  "kind": "noun",
+  "answer": "restaurant",
+  "accept": [],
+  "ja": "レストラン",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "restaurant interior tables",
+  "why_one_answer": "cafe も○にしてよい",
+  "g": 0,
+  "near": [
+   "cafe",
+   "café"
+  ],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v001",
+  "kind": "verb",
+  "answer": "running",
+  "base": "run",
+  "accept": [
+   "jogging"
+  ],
+  "ja": "走る",
+  "katakana_trap": "",
+  "sentence": "He is ___ in the park.",
+  "photo_query": "man running park",
+  "why_one_answer": "jogging も○",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v002",
+  "kind": "verb",
+  "answer": "swimming",
+  "base": "swim",
+  "accept": [],
+  "ja": "泳ぐ",
+  "katakana_trap": "",
+  "sentence": "The boy is ___ in the pool.",
+  "photo_query": "boy swimming pool",
+  "why_one_answer": "動作がはっきり",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v003",
+  "kind": "verb",
+  "answer": "eating",
+  "base": "eat",
+  "accept": [
+   "biting"
+  ],
+  "ja": "食べる",
+  "katakana_trap": "",
+  "sentence": "She is ___ an apple.",
+  "photo_query": "woman eating apple",
+  "why_one_answer": "口に入れている瞬間",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v004",
+  "kind": "verb",
+  "answer": "drinking",
+  "base": "drink",
+  "accept": [],
+  "ja": "飲む",
+  "katakana_trap": "",
+  "sentence": "He is ___ water.",
+  "photo_query": "man drinking water bottle",
+  "why_one_answer": "目的語を文に入れて動詞だけ問う",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v005",
+  "kind": "verb",
+  "answer": "cooking",
+  "base": "cook",
+  "accept": [
+   "making"
+  ],
+  "ja": "料理する",
+  "katakana_trap": "",
+  "sentence": "My father is ___ dinner.",
+  "photo_query": "man cooking kitchen pan",
+  "why_one_answer": "making dinner も自然→○",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v006",
+  "kind": "verb",
+  "answer": "baking",
+  "base": "bake",
+  "accept": [
+   "making"
+  ],
+  "ja": "(パン・菓子を)焼く",
+  "katakana_trap": "",
+  "sentence": "She is ___ a cake.",
+  "photo_query": "woman baking cake oven",
+  "why_one_answer": "オーブン必須。making a cake も○、cooking は『おしい』",
+  "g": 1,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v007",
+  "kind": "verb",
+  "answer": "reading",
+  "base": "read",
+  "accept": [],
+  "ja": "読む",
+  "katakana_trap": "",
+  "sentence": "She is ___ a book.",
+  "photo_query": "girl reading book",
+  "why_one_answer": "looking at は『おしい』",
+  "g": 1,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v008",
+  "kind": "verb",
+  "answer": "writing",
+  "base": "write",
+  "accept": [],
+  "ja": "書く",
+  "katakana_trap": "",
+  "sentence": "He is ___ a letter.",
+  "photo_query": "hand writing letter pen",
+  "why_one_answer": "draw と区別できる文字",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v009",
+  "kind": "verb",
+  "answer": "singing",
+  "base": "sing",
+  "accept": [],
+  "ja": "歌う",
+  "katakana_trap": "",
+  "sentence": "She is ___ a song.",
+  "photo_query": "woman singing microphone",
+  "why_one_answer": "目的語 song で決まる",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v010",
+  "kind": "verb",
+  "answer": "dancing",
+  "base": "dance",
+  "accept": [],
+  "ja": "踊る",
+  "katakana_trap": "",
+  "sentence": "They are ___ together.",
+  "photo_query": "couple dancing",
+  "why_one_answer": "OK",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v011",
+  "kind": "verb",
+  "answer": "sleeping",
+  "base": "sleep",
+  "accept": [
+   "napping"
+  ],
+  "ja": "眠る",
+  "katakana_trap": "",
+  "sentence": "The baby is ___.",
+  "photo_query": "baby sleeping",
+  "why_one_answer": "lying も見えるが文脈で sleeping",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v012",
+  "kind": "verb",
+  "answer": "jumping",
+  "base": "jump",
+  "accept": [
+   "skipping"
+  ],
+  "ja": "跳ぶ",
+  "katakana_trap": "",
+  "sentence": "The girl is ___ rope.",
+  "photo_query": "girl jumping rope",
+  "why_one_answer": "英 skipping rope も○",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v013",
+  "kind": "verb",
+  "answer": "walking",
+  "base": "walk",
+  "accept": [],
+  "ja": "歩く・散歩させる",
+  "katakana_trap": "",
+  "sentence": "He is ___ his dog.",
+  "photo_query": "man walking dog",
+  "why_one_answer": "OK",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v014",
+  "kind": "verb",
+  "answer": "climbing",
+  "base": "climb",
+  "accept": [],
+  "ja": "登る",
+  "katakana_trap": "",
+  "sentence": "He is ___ a mountain.",
+  "photo_query": "man climbing rock mountain",
+  "why_one_answer": "hiking は文型が合わず『おしい』",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v015",
+  "kind": "verb",
+  "answer": "riding",
+  "base": "ride",
+  "accept": [
+   "cycling"
+  ],
+  "ja": "乗る",
+  "katakana_trap": "",
+  "sentence": "She is ___ a bike.",
+  "photo_query": "woman riding bicycle",
+  "why_one_answer": "cycling a bike は不自然だが意味は合う→おしい扱いでも可",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v016",
+  "kind": "verb",
+  "answer": "driving",
+  "base": "drive",
+  "accept": [],
+  "ja": "運転する",
+  "katakana_trap": "",
+  "sentence": "He is ___ a car.",
+  "photo_query": "man driving car steering wheel",
+  "why_one_answer": "OK",
+  "g": 1,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v017",
+  "kind": "verb",
+  "answer": "flying",
+  "base": "fly",
+  "accept": [],
+  "ja": "飛ばす",
+  "katakana_trap": "",
+  "sentence": "The boy is ___ a kite.",
+  "photo_query": "boy flying kite",
+  "why_one_answer": "OK",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v018",
+  "kind": "verb",
+  "answer": "crying",
+  "base": "cry",
+  "accept": [],
+  "ja": "泣く",
+  "katakana_trap": "",
+  "sentence": "The baby is ___.",
+  "photo_query": "baby crying",
+  "why_one_answer": "OK",
+  "g": 1,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v019",
+  "kind": "verb",
+  "answer": "laughing",
+  "base": "laugh",
+  "accept": [
+   "smiling"
+  ],
+  "ja": "笑う",
+  "katakana_trap": "",
+  "sentence": "They are ___.",
+  "photo_query": "friends laughing",
+  "why_one_answer": "声を出す笑い/微笑みは写真で曖昧→両方○",
+  "g": 2,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v020",
+  "kind": "verb",
+  "answer": "smiling",
+  "base": "smile",
+  "accept": [
+   "laughing"
+  ],
+  "ja": "ほほえむ",
+  "katakana_trap": "",
+  "sentence": "She is ___ at the camera.",
+  "photo_query": "woman smiling portrait",
+  "why_one_answer": "同上",
+  "g": 1,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v021",
+  "kind": "verb",
+  "answer": "washing",
+  "base": "wash",
+  "accept": [
+   "doing"
+  ],
+  "ja": "洗う",
+  "katakana_trap": "",
+  "sentence": "He is ___ the dishes.",
+  "photo_query": "man washing dishes sink",
+  "why_one_answer": "doing the dishes も正しい英語→○",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v022",
+  "kind": "verb",
+  "answer": "cleaning",
+  "base": "clean",
+  "accept": [
+   "vacuuming",
+   "tidying"
+  ],
+  "ja": "掃除する",
+  "katakana_trap": "",
+  "sentence": "She is ___ the room.",
+  "photo_query": "woman cleaning room vacuum",
+  "why_one_answer": "掃除機写真なら vacuuming も○",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v023",
+  "kind": "verb",
+  "answer": "playing",
+  "base": "play",
+  "accept": [],
+  "ja": "(スポーツを)する",
+  "katakana_trap": "",
+  "sentence": "The children are ___ soccer.",
+  "photo_query": "kids playing soccer",
+  "why_one_answer": "do soccer は×(説明)",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v024",
+  "kind": "verb",
+  "answer": "throwing",
+  "base": "throw",
+  "accept": [
+   "pitching"
+  ],
+  "ja": "投げる",
+  "katakana_trap": "",
+  "sentence": "He is ___ a ball.",
+  "photo_query": "man throwing ball",
+  "why_one_answer": "catch と同じ写真にならない瞬間",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v025",
+  "kind": "verb",
+  "answer": "catching",
+  "base": "catch",
+  "accept": [],
+  "ja": "捕る",
+  "katakana_trap": "",
+  "sentence": "She is ___ a ball.",
+  "photo_query": "girl catching ball",
+  "why_one_answer": "グローブに入る瞬間",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v026",
+  "kind": "verb",
+  "answer": "kicking",
+  "base": "kick",
+  "accept": [],
+  "ja": "蹴る",
+  "katakana_trap": "",
+  "sentence": "He is ___ a ball.",
+  "photo_query": "boy kicking soccer ball",
+  "why_one_answer": "OK",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v027",
+  "kind": "verb",
+  "answer": "cutting",
+  "base": "cut",
+  "accept": [
+   "chopping",
+   "slicing"
+  ],
+  "ja": "切る",
+  "katakana_trap": "",
+  "sentence": "She is ___ vegetables.",
+  "photo_query": "woman cutting vegetables knife",
+  "why_one_answer": "同義語○",
+  "g": 1,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v028",
+  "kind": "verb",
+  "answer": "painting",
+  "base": "paint",
+  "accept": [],
+  "ja": "(絵の具で)描く・塗る",
+  "katakana_trap": "",
+  "sentence": "He is ___ a wall.",
+  "photo_query": "man painting wall roller",
+  "why_one_answer": "ローラーで paint 一択",
+  "g": 1,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v029",
+  "kind": "verb",
+  "answer": "drawing",
+  "base": "draw",
+  "accept": [
+   "sketching",
+   "painting"
+  ],
+  "ja": "(線で)描く",
+  "katakana_trap": "",
+  "sentence": "The girl is ___ a picture.",
+  "photo_query": "child drawing crayons",
+  "why_one_answer": "絵の具なら painting も○。描く=draw/paint の区別は解説で",
+  "g": 1,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v030",
+  "kind": "verb",
+  "answer": "opening",
+  "base": "open",
+  "accept": [],
+  "ja": "開ける",
+  "katakana_trap": "",
+  "sentence": "He is ___ the door.",
+  "photo_query": "man opening door",
+  "why_one_answer": "close と写真で区別不能→ドアが半開き＋手前に引く動き。要注意",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v031",
+  "kind": "verb",
+  "answer": "pushing",
+  "base": "push",
+  "accept": [],
+  "ja": "押す",
+  "katakana_trap": "",
+  "sentence": "She is ___ a shopping cart.",
+  "photo_query": "woman pushing shopping cart",
+  "why_one_answer": "OK",
+  "g": 2,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v032",
+  "kind": "verb",
+  "answer": "pulling",
+  "base": "pull",
+  "accept": [],
+  "ja": "引く",
+  "katakana_trap": "",
+  "sentence": "They are ___ a rope.",
+  "photo_query": "tug of war rope",
+  "why_one_answer": "綱引き",
+  "g": 2,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v033",
+  "kind": "verb",
+  "answer": "carrying",
+  "base": "carry",
+  "accept": [
+   "holding"
+  ],
+  "ja": "運ぶ",
+  "katakana_trap": "",
+  "sentence": "He is ___ a box.",
+  "photo_query": "man carrying box",
+  "why_one_answer": "holding も写真上は正しい→○",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v034",
+  "kind": "verb",
+  "answer": "sitting",
+  "base": "sit",
+  "accept": [],
+  "ja": "座る",
+  "katakana_trap": "",
+  "sentence": "She is ___ on a bench.",
+  "photo_query": "woman sitting bench",
+  "why_one_answer": "OK",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v035",
+  "kind": "verb",
+  "answer": "waiting",
+  "base": "wait",
+  "accept": [
+   "standing"
+  ],
+  "ja": "待つ",
+  "katakana_trap": "",
+  "sentence": "He is ___ for the bus.",
+  "photo_query": "man waiting bus stop",
+  "why_one_answer": "standing ... for the bus は不自然→wait 一択だが 'for' を文に残して誘導",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v036",
+  "kind": "verb",
+  "answer": "waving",
+  "base": "wave",
+  "accept": [],
+  "ja": "手を振る",
+  "katakana_trap": "",
+  "sentence": "She is ___ her hand.",
+  "photo_query": "woman waving hand",
+  "why_one_answer": "OK",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v037",
+  "kind": "verb",
+  "answer": "brushing",
+  "base": "brush",
+  "accept": [
+   "cleaning"
+  ],
+  "ja": "みがく",
+  "katakana_trap": "",
+  "sentence": "He is ___ his teeth.",
+  "photo_query": "man brushing teeth",
+  "why_one_answer": "cleaning his teeth も○",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v038",
+  "kind": "verb",
+  "answer": "listening",
+  "base": "listen",
+  "accept": [],
+  "ja": "聞く",
+  "katakana_trap": "",
+  "sentence": "She is ___ to music.",
+  "photo_query": "woman headphones listening music",
+  "why_one_answer": "to music で一択",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v039",
+  "kind": "verb",
+  "answer": "watching",
+  "base": "watch",
+  "accept": [
+   "seeing"
+  ],
+  "ja": "見る",
+  "katakana_trap": "",
+  "sentence": "They are ___ TV.",
+  "photo_query": "family watching tv",
+  "why_one_answer": "seeing TV は誤り→『おしい：TVは watch』",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v040",
+  "kind": "verb",
+  "answer": "using",
+  "base": "use",
+  "accept": [
+   "typing on"
+  ],
+  "ja": "使う",
+  "katakana_trap": "",
+  "sentence": "He is ___ a computer.",
+  "photo_query": "man using laptop",
+  "why_one_answer": "OK",
+  "g": 1,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v041",
+  "kind": "verb",
+  "answer": "skiing",
+  "base": "ski",
+  "accept": [],
+  "ja": "スキーをする",
+  "katakana_trap": "",
+  "sentence": "They are ___ down the hill.",
+  "photo_query": "people skiing slope",
+  "why_one_answer": "snowboarding と見分けられる板2枚",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v042",
+  "kind": "verb",
+  "answer": "skating",
+  "base": "skate",
+  "accept": [
+   "ice skating",
+   "ice-skating"
+  ],
+  "ja": "スケートをする",
+  "katakana_trap": "",
+  "sentence": "She is ___ on the ice.",
+  "photo_query": "woman ice skating",
+  "why_one_answer": "OK",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v043",
+  "kind": "verb",
+  "answer": "taking",
+  "base": "take",
+  "accept": [
+   "snapping"
+  ],
+  "ja": "(写真を)とる",
+  "katakana_trap": "",
+  "sentence": "She is ___ a picture.",
+  "photo_query": "woman taking photo camera",
+  "why_one_answer": "photo/picture どちらでも動詞は taking",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v044",
+  "kind": "verb",
+  "answer": "talking",
+  "base": "talk",
+  "accept": [
+   "speaking",
+   "chatting"
+  ],
+  "ja": "話す",
+  "katakana_trap": "",
+  "sentence": "They are ___ on the phone.",
+  "photo_query": "man talking on phone",
+  "why_one_answer": "同義語○",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "v045",
+  "kind": "verb",
+  "answer": "shopping",
+  "base": "shop",
+  "accept": [],
+  "ja": "買い物する",
+  "katakana_trap": "",
+  "sentence": "They are ___ at the mall.",
+  "photo_query": "people shopping mall bags",
+  "why_one_answer": "OK",
+  "g": 0,
+  "form_rule": "be動詞＋___ → -ing固定。原形/過去形/3単現は『形だけ違う』→意味は正解扱い、正しい形を見せて再入力",
+  "near": [],
+  "ng": [],
+  "tsukkomi": ""
+ },
+ {
+  "id": "t001",
+  "kind": "tricky",
+  "answer": "stapler",
+  "accept": [],
+  "ja": "ホッチキス",
+  "katakana_trap": "ホッチキスは商標(人名Hotchkiss)。針は staples",
+  "sentence": "",
+  "photo_query": "stapler on desk",
+  "why_one_answer": "単体で1語",
+  "g": 0,
+  "near": [
+   "staple",
+   "staples"
+  ],
+  "ng": [],
+  "tsukkomi": "ホッチキスじゃなくて stapler（ホッチキスは人名・商標）"
+ },
+ {
+  "id": "t002",
+  "kind": "tricky",
+  "answer": "mechanical pencil",
+  "accept": [
+   "propelling pencil"
+  ],
+  "ja": "シャーペン",
+  "katakana_trap": "sharp pencil は「よく削った鉛筆」。英 propelling pencil",
+  "sentence": "",
+  "photo_query": "mechanical pencil",
+  "why_one_answer": "pencil は『おしい』（もっと詳しく）",
+  "g": 4,
+  "near": [
+   "pencil"
+  ],
+  "ng": [
+   "sharp pencil"
+  ],
+  "tsukkomi": "シャーペンじゃなくて mechanical pencil。sharp pencil は「とがった鉛筆」"
+ },
+ {
+  "id": "t003",
+  "kind": "tricky",
+  "answer": "eraser",
+  "accept": [
+   "rubber"
+  ],
+  "ja": "消しゴム",
+  "katakana_trap": "英 rubber（米では別の俗語なので米式推奨）",
+  "sentence": "",
+  "photo_query": "pencil eraser",
+  "why_one_answer": "黒板消しも eraser→白い消しゴム単体",
+  "g": 0,
+  "near": [
+   "eraser rubber"
+  ],
+  "ng": [],
+  "tsukkomi": "消しゴムは eraser。イギリスでは rubber"
+ },
+ {
+  "id": "t004",
+  "kind": "tricky",
+  "answer": "correction tape",
+  "accept": [
+   "white-out tape"
+  ],
+  "ja": "修正テープ",
+  "katakana_trap": "「ホワイト」「修正液」は correction fluid / Wite-Out",
+  "sentence": "",
+  "photo_query": "correction tape dispenser",
+  "why_one_answer": "修正液と別写真",
+  "g": 4,
+  "near": [
+   "correction fluid",
+   "tape",
+   "white"
+  ],
+  "ng": [],
+  "tsukkomi": "「ホワイト」じゃなくて correction tape"
+ },
+ {
+  "id": "t005",
+  "kind": "tricky",
+  "answer": "highlighter",
+  "accept": [
+   "highlighter pen"
+  ],
+  "ja": "蛍光ペン",
+  "katakana_trap": "「マーカー」は太い油性ペン(marker)",
+  "sentence": "",
+  "photo_query": "highlighter pens",
+  "why_one_answer": "marker は『おしい』",
+  "g": 4,
+  "near": [
+   "marker",
+   "pen"
+  ],
+  "ng": [],
+  "tsukkomi": "蛍光ペンは highlighter。marker は太い油性ペン"
+ },
+ {
+  "id": "t006",
+  "kind": "tricky",
+  "answer": "marker",
+  "accept": [
+   "felt-tip pen",
+   "Sharpie"
+  ],
+  "ja": "マジック・油性ペン",
+  "katakana_trap": "マジック(Magic Ink)は商標",
+  "sentence": "",
+  "photo_query": "permanent marker",
+  "why_one_answer": "pen は『おしい』",
+  "g": 1,
+  "near": [
+   "pen",
+   "magic marker"
+  ],
+  "ng": [],
+  "tsukkomi": "マジックじゃなくて marker（マジックは商標）"
+ },
+ {
+  "id": "t007",
+  "kind": "tricky",
+  "answer": "ballpoint pen",
+  "accept": [
+   "pen",
+   "ballpoint",
+   "biro"
+  ],
+  "ja": "ボールペン",
+  "katakana_trap": "ball pen は和製寄り。英口語 biro",
+  "sentence": "",
+  "photo_query": "ballpoint pen",
+  "why_one_answer": "pen も○",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "ball pen"
+  ],
+  "tsukkomi": "ボールペンは ballpoint pen（ふだんは pen でOK）"
+ },
+ {
+  "id": "t008",
+  "kind": "tricky",
+  "answer": "tape",
+  "accept": [
+   "Scotch tape",
+   "sticky tape",
+   "Sellotape",
+   "adhesive tape"
+  ],
+  "ja": "セロハンテープ",
+  "katakana_trap": "セロテープは商標。米 Scotch tape／英 Sellotape",
+  "sentence": "",
+  "photo_query": "clear tape dispenser",
+  "why_one_answer": "商標名も○",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "cellophane tape",
+   "cello tape"
+  ],
+  "tsukkomi": "セロテープじゃなくて tape（米 Scotch tape／英 Sellotape）"
+ },
+ {
+  "id": "t009",
+  "kind": "tricky",
+  "answer": "sticky note",
+  "accept": [
+   "sticky notes",
+   "Post-it",
+   "Post-it note"
+  ],
+  "ja": "付せん",
+  "katakana_trap": "ポストイットは商標",
+  "sentence": "",
+  "photo_query": "sticky notes yellow",
+  "why_one_answer": "商標も○",
+  "g": 4,
+  "near": [
+   "note",
+   "memo"
+  ],
+  "ng": [],
+  "tsukkomi": "ふせんは sticky note（Post-it は商標）"
+ },
+ {
+  "id": "t010",
+  "kind": "tricky",
+  "answer": "thumbtack",
+  "accept": [
+   "pushpin",
+   "drawing pin",
+   "tack"
+  ],
+  "ja": "画びょう",
+  "katakana_trap": "英 drawing pin",
+  "sentence": "",
+  "photo_query": "thumbtacks cork board",
+  "why_one_answer": "別名すべて○",
+  "g": 4,
+  "near": [
+   "pin"
+  ],
+  "ng": [],
+  "tsukkomi": "画びょうは thumbtack（英 drawing pin）"
+ },
+ {
+  "id": "t011",
+  "kind": "tricky",
+  "answer": "paper clip",
+  "accept": [
+   "paperclip"
+  ],
+  "ja": "クリップ",
+  "katakana_trap": "clip だけだと髪留め等も含む",
+  "sentence": "",
+  "photo_query": "paper clips",
+  "why_one_answer": "clip は『おしい』",
+  "g": 4,
+  "near": [
+   "clip"
+  ],
+  "ng": [],
+  "tsukkomi": "クリップは paper clip"
+ },
+ {
+  "id": "t012",
+  "kind": "tricky",
+  "answer": "glue stick",
+  "accept": [
+   "glue"
+  ],
+  "ja": "スティックのり",
+  "katakana_trap": "「のり」は glue（海苔は seaweed）",
+  "sentence": "",
+  "photo_query": "glue stick",
+  "why_one_answer": "glue も○",
+  "g": 4,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "スティックのりは glue stick。海苔は seaweed"
+ },
+ {
+  "id": "t013",
+  "kind": "tricky",
+  "answer": "pencil case",
+  "accept": [
+   "pencil pouch",
+   "pencil box"
+  ],
+  "ja": "筆箱・ペンケース",
+  "katakana_trap": "pen case も通じるが pencil case が普通",
+  "sentence": "",
+  "photo_query": "pencil case school",
+  "why_one_answer": "pen case は『おしい』",
+  "g": 4,
+  "near": [
+   "case"
+  ],
+  "ng": [
+   "pen case"
+  ],
+  "tsukkomi": "筆箱は pencil case"
+ },
+ {
+  "id": "t014",
+  "kind": "tricky",
+  "answer": "ruler",
+  "accept": [],
+  "ja": "定規",
+  "katakana_trap": "「スケール」は物差し/秤の意味で別",
+  "sentence": "",
+  "photo_query": "plastic ruler",
+  "why_one_answer": "OK",
+  "g": 0,
+  "near": [],
+  "ng": [
+   "scale"
+  ],
+  "tsukkomi": "定規は ruler。scale は「目盛り・はかり」"
+ },
+ {
+  "id": "t015",
+  "kind": "tricky",
+  "answer": "air conditioner",
+  "accept": [
+   "AC",
+   "A/C",
+   "aircon"
+  ],
+  "ja": "エアコン",
+  "katakana_trap": "aircon は英連邦口語。米 AC",
+  "sentence": "",
+  "photo_query": "wall air conditioner unit",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "air con",
+   "conditioner"
+  ],
+  "ng": [],
+  "tsukkomi": "エアコンは air conditioner（略して AC）"
+ },
+ {
+  "id": "t016",
+  "kind": "tricky",
+  "answer": "remote",
+  "accept": [
+   "remote control",
+   "controller",
+   "clicker"
+  ],
+  "ja": "リモコン",
+  "katakana_trap": "rimokon は和製略語",
+  "sentence": "",
+  "photo_query": "tv remote control",
+  "why_one_answer": "OK",
+  "g": 3,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "リモコンは remote"
+ },
+ {
+  "id": "t017",
+  "kind": "tricky",
+  "answer": "outlet",
+  "accept": [
+   "socket",
+   "power outlet",
+   "wall socket",
+   "electrical outlet",
+   "power point"
+  ],
+  "ja": "コンセント",
+  "katakana_trap": "consent は「同意」。英 socket",
+  "sentence": "",
+  "photo_query": "electrical outlet wall",
+  "why_one_answer": "プラグ(plug)を写さない／米式と英式で形が違う",
+  "g": 0,
+  "near": [
+   "plug"
+  ],
+  "ng": [
+   "concent",
+   "consent"
+  ],
+  "tsukkomi": "コンセントじゃなくて outlet。consent は「同意」！"
+ },
+ {
+  "id": "t018",
+  "kind": "tricky",
+  "answer": "power strip",
+  "accept": [
+   "extension cord",
+   "extension lead",
+   "power bar"
+  ],
+  "ja": "テーブルタップ・延長コード",
+  "katakana_trap": "「タップ」は蛇口(英 tap)の意味にも",
+  "sentence": "",
+  "photo_query": "power strip sockets",
+  "why_one_answer": "outlet も『おしい』",
+  "g": 4,
+  "near": [
+   "outlet",
+   "tap"
+  ],
+  "ng": [],
+  "tsukkomi": "テーブルタップじゃなくて power strip。tap は「蛇口」"
+ },
+ {
+  "id": "t019",
+  "kind": "tricky",
+  "answer": "plug",
+  "accept": [],
+  "ja": "(電気の)プラグ",
+  "katakana_trap": "コンセントと混同注意",
+  "sentence": "",
+  "photo_query": "electric plug",
+  "why_one_answer": "outlet と並べて対比",
+  "g": 4,
+  "near": [
+   "outlet"
+  ],
+  "ng": [],
+  "tsukkomi": "プラグは plug、差し込み口は outlet"
+ },
+ {
+  "id": "t020",
+  "kind": "tricky",
+  "answer": "refrigerator",
+  "accept": [
+   "fridge"
+  ],
+  "ja": "冷蔵庫",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "refrigerator kitchen",
+  "why_one_answer": "OK",
+  "g": 2,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "冷蔵庫は refrigerator（ふだんは fridge）"
+ },
+ {
+  "id": "t021",
+  "kind": "tricky",
+  "answer": "microwave",
+  "accept": [
+   "microwave oven"
+  ],
+  "ja": "電子レンジ",
+  "katakana_trap": "range は米で「コンロ」",
+  "sentence": "",
+  "photo_query": "microwave oven",
+  "why_one_answer": "oven は『おしい』",
+  "g": 2,
+  "near": [
+   "oven",
+   "range"
+  ],
+  "ng": [],
+  "tsukkomi": "電子レンジは microwave。range は「コンロ」"
+ },
+ {
+  "id": "t022",
+  "kind": "tricky",
+  "answer": "stove",
+  "accept": [
+   "cooktop",
+   "stovetop",
+   "hob",
+   "gas stove"
+  ],
+  "ja": "コンロ",
+  "katakana_trap": "英 hob",
+  "sentence": "",
+  "photo_query": "gas stove burner",
+  "why_one_answer": "OK",
+  "g": 2,
+  "near": [
+   "range",
+   "oven",
+   "burner"
+  ],
+  "ng": [],
+  "tsukkomi": "コンロは stove（英 hob）"
+ },
+ {
+  "id": "t023",
+  "kind": "tricky",
+  "answer": "vacuum cleaner",
+  "accept": [
+   "vacuum",
+   "hoover"
+  ],
+  "ja": "掃除機",
+  "katakana_trap": "英 hoover(商標)",
+  "sentence": "",
+  "photo_query": "vacuum cleaner",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "cleaner"
+  ],
+  "ng": [],
+  "tsukkomi": "掃除機は vacuum cleaner（英 hoover）"
+ },
+ {
+  "id": "t024",
+  "kind": "tricky",
+  "answer": "faucet",
+  "accept": [
+   "tap"
+  ],
+  "ja": "蛇口",
+  "katakana_trap": "米 faucet／英 tap",
+  "sentence": "",
+  "photo_query": "kitchen faucet",
+  "why_one_answer": "両方○",
+  "g": 4,
+  "near": [
+   "sink"
+  ],
+  "ng": [],
+  "tsukkomi": "蛇口は faucet（英 tap）"
+ },
+ {
+  "id": "t025",
+  "kind": "tricky",
+  "answer": "tissue",
+  "accept": [
+   "tissues",
+   "Kleenex",
+   "tissue paper"
+  ],
+  "ja": "ティッシュ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "tissue box",
+  "why_one_answer": "箱だけだと box→ティッシュが出た箱",
+  "g": 2,
+  "near": [
+   "paper",
+   "box"
+  ],
+  "ng": [],
+  "tsukkomi": "ティッシュは tissue"
+ },
+ {
+  "id": "t026",
+  "kind": "tricky",
+  "answer": "plastic wrap",
+  "accept": [
+   "cling film",
+   "Saran wrap",
+   "cling wrap",
+   "food wrap"
+  ],
+  "ja": "ラップ",
+  "katakana_trap": "wrap だけではラップサンド等も",
+  "sentence": "",
+  "photo_query": "plastic wrap roll",
+  "why_one_answer": "wrap は『おしい』",
+  "g": 4,
+  "near": [
+   "wrap",
+   "rap"
+  ],
+  "ng": [],
+  "tsukkomi": "ラップは plastic wrap（英 cling film）。wrap だけだと巻いた料理"
+ },
+ {
+  "id": "t027",
+  "kind": "tricky",
+  "answer": "aluminum foil",
+  "accept": [
+   "aluminium foil",
+   "tin foil",
+   "foil"
+  ],
+  "ja": "アルミホイル",
+  "katakana_trap": "「ホイル」は英語で foil(フォイル)。英 aluminium",
+  "sentence": "",
+  "photo_query": "aluminum foil roll",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "foil paper"
+  ],
+  "ng": [
+   "hoil"
+  ],
+  "tsukkomi": "アルミホイルは aluminum foil。発音は「フォイル」"
+ },
+ {
+  "id": "t028",
+  "kind": "tricky",
+  "answer": "frying pan",
+  "accept": [
+   "pan",
+   "skillet",
+   "fry pan"
+  ],
+  "ja": "フライパン",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "frying pan",
+  "why_one_answer": "pot と区別",
+  "g": 4,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "フライパンは frying pan"
+ },
+ {
+  "id": "t029",
+  "kind": "tricky",
+  "answer": "pot",
+  "accept": [
+   "saucepan",
+   "cooking pot"
+  ],
+  "ja": "なべ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "cooking pot stove",
+  "why_one_answer": "pan は『おしい』",
+  "g": 2,
+  "near": [
+   "pan"
+  ],
+  "ng": [],
+  "tsukkomi": "なべは pot。ポットじゃないよ"
+ },
+ {
+  "id": "t030",
+  "kind": "tricky",
+  "answer": "kettle",
+  "accept": [
+   "electric kettle"
+  ],
+  "ja": "やかん・電気ケトル",
+  "katakana_trap": "「ポット」は保温ポット(thermos/flask)",
+  "sentence": "",
+  "photo_query": "electric kettle",
+  "why_one_answer": "pot は×（ポットの誤解の典型）",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "pot"
+  ],
+  "tsukkomi": "ポットじゃなくて kettle。pot は「なべ」"
+ },
+ {
+  "id": "t031",
+  "kind": "tricky",
+  "answer": "thermos",
+  "accept": [
+   "flask",
+   "water bottle",
+   "vacuum flask"
+  ],
+  "ja": "水筒・魔法瓶",
+  "katakana_trap": "Thermos は商標",
+  "sentence": "",
+  "photo_query": "stainless thermos bottle",
+  "why_one_answer": "water bottle も○",
+  "g": 4,
+  "near": [
+   "bottle"
+  ],
+  "ng": [],
+  "tsukkomi": "水筒・魔法瓶は thermos（英 flask）"
+ },
+ {
+  "id": "t032",
+  "kind": "tricky",
+  "answer": "plastic bottle",
+  "accept": [
+   "PET bottle",
+   "bottle",
+   "water bottle"
+  ],
+  "ja": "ペットボトル",
+  "katakana_trap": "pet bottle は和製（pet=ペット動物）",
+  "sentence": "",
+  "photo_query": "plastic water bottle",
+  "why_one_answer": "bottle も○",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "pet bottle"
+  ],
+  "tsukkomi": "ペットボトルじゃなくて plastic bottle。pet は動物のペット"
+ },
+ {
+  "id": "t033",
+  "kind": "tricky",
+  "answer": "plastic bag",
+  "accept": [
+   "shopping bag",
+   "carrier bag"
+  ],
+  "ja": "ビニール袋・レジ袋",
+  "katakana_trap": "vinyl bag は和製",
+  "sentence": "",
+  "photo_query": "plastic bag",
+  "why_one_answer": "bag は『おしい』",
+  "g": 4,
+  "near": [
+   "bag"
+  ],
+  "ng": [
+   "vinyl bag"
+  ],
+  "tsukkomi": "ビニール袋は plastic bag。vinyl bag とは言わない"
+ },
+ {
+  "id": "t034",
+  "kind": "tricky",
+  "answer": "cardboard box",
+  "accept": [
+   "box",
+   "carton"
+  ],
+  "ja": "段ボール箱",
+  "katakana_trap": "「段ボール」は corrugated cardboard",
+  "sentence": "",
+  "photo_query": "cardboard box",
+  "why_one_answer": "box も○",
+  "g": 4,
+  "near": [
+   "cardboard"
+  ],
+  "ng": [],
+  "tsukkomi": "段ボール箱は cardboard box"
+ },
+ {
+  "id": "t035",
+  "kind": "tricky",
+  "answer": "couch",
+  "accept": [
+   "sofa",
+   "settee"
+  ],
+  "ja": "ソファ",
+  "katakana_trap": "sofa/couch は同義",
+  "sentence": "",
+  "photo_query": "sofa living room",
+  "why_one_answer": "両方○必須",
+  "g": 4,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "ソファは sofa でも couch でもOK"
+ },
+ {
+  "id": "t036",
+  "kind": "tricky",
+  "answer": "hair dryer",
+  "accept": [
+   "hairdryer",
+   "blow dryer",
+   "dryer"
+  ],
+  "ja": "ドライヤー",
+  "katakana_trap": "dryer だけは乾燥機も指す",
+  "sentence": "",
+  "photo_query": "hair dryer",
+  "why_one_answer": "dryer は○だが『もっと詳しく』",
+  "g": 4,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "ドライヤーは hair dryer。dryer だけだと「乾燥機」"
+ },
+ {
+  "id": "t037",
+  "kind": "tricky",
+  "answer": "flashlight",
+  "accept": [
+   "torch"
+  ],
+  "ja": "懐中電灯",
+  "katakana_trap": "英 torch（米では松明）",
+  "sentence": "",
+  "photo_query": "flashlight",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "light"
+  ],
+  "ng": [],
+  "tsukkomi": "懐中電灯は flashlight（英 torch）"
+ },
+ {
+  "id": "t038",
+  "kind": "tricky",
+  "answer": "light bulb",
+  "accept": [
+   "lightbulb",
+   "bulb"
+  ],
+  "ja": "電球",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "light bulb",
+  "why_one_answer": "lamp は『おしい』",
+  "g": 4,
+  "near": [
+   "lamp",
+   "light"
+  ],
+  "ng": [],
+  "tsukkomi": "電球は light bulb"
+ },
+ {
+  "id": "t039",
+  "kind": "tricky",
+  "answer": "intercom",
+  "accept": [
+   "doorbell",
+   "entry phone"
+  ],
+  "ja": "インターホン",
+  "katakana_trap": "interphone は和製",
+  "sentence": "",
+  "photo_query": "intercom panel door",
+  "why_one_answer": "doorbell も○",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "interphone"
+  ],
+  "tsukkomi": "インターホンじゃなくて intercom"
+ },
+ {
+  "id": "t040",
+  "kind": "tricky",
+  "answer": "apartment",
+  "accept": [
+   "flat",
+   "apartment building",
+   "condo"
+  ],
+  "ja": "マンション・アパート",
+  "katakana_trap": "mansion は「大邸宅」。英 flat",
+  "sentence": "",
+  "photo_query": "apartment building",
+  "why_one_answer": "OK",
+  "g": 2,
+  "near": [],
+  "ng": [
+   "mansion"
+  ],
+  "tsukkomi": "マンションじゃなくて apartment。mansion は「大邸宅」"
+ },
+ {
+  "id": "t041",
+  "kind": "tricky",
+  "answer": "mug",
+  "accept": [
+   "cup",
+   "coffee mug"
+  ],
+  "ja": "マグカップ",
+  "katakana_trap": "mug cup は和製",
+  "sentence": "",
+  "photo_query": "coffee mug",
+  "why_one_answer": "cup も○",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "mug cup"
+  ],
+  "tsukkomi": "マグカップは mug。mug cup とは言わない"
+ },
+ {
+  "id": "t042",
+  "kind": "tricky",
+  "answer": "toothbrush",
+  "accept": [],
+  "ja": "歯ブラシ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "toothbrush",
+  "why_one_answer": "OK",
+  "g": 1,
+  "near": [
+   "brush"
+  ],
+  "ng": [],
+  "tsukkomi": "歯ブラシは toothbrush"
+ },
+ {
+  "id": "t043",
+  "kind": "tricky",
+  "answer": "french fries",
+  "accept": [
+   "fries",
+   "chips"
+  ],
+  "ja": "フライドポテト",
+  "katakana_trap": "fried potato は和製。英 chips",
+  "sentence": "",
+  "photo_query": "french fries",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "potato"
+  ],
+  "ng": [
+   "fried potato",
+   "fried potatoes"
+  ],
+  "tsukkomi": "フライドポテトじゃなくて French fries（英 chips）"
+ },
+ {
+  "id": "t044",
+  "kind": "tricky",
+  "answer": "potato chips",
+  "accept": [
+   "chips",
+   "crisps"
+  ],
+  "ja": "ポテトチップス",
+  "katakana_trap": "英 crisps（英 chips はフライドポテト）",
+  "sentence": "",
+  "photo_query": "potato chips bowl",
+  "why_one_answer": "米英で chips の指す物が逆",
+  "g": 4,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "ポテチはアメリカで chips、イギリスでは crisps"
+ },
+ {
+  "id": "t045",
+  "kind": "tricky",
+  "answer": "soda",
+  "accept": [
+   "pop",
+   "soft drink",
+   "soda pop",
+   "fizzy drink"
+  ],
+  "ja": "ソーダ・サイダー",
+  "katakana_trap": "cider は英でりんご酒",
+  "sentence": "",
+  "photo_query": "soda can glass ice",
+  "why_one_answer": "OK",
+  "g": 0,
+  "near": [
+   "juice"
+  ],
+  "ng": [
+   "cider"
+  ],
+  "tsukkomi": "サイダーじゃなくて soda。cider はりんごのお酒(英)"
+ },
+ {
+  "id": "t046",
+  "kind": "tricky",
+  "answer": "cream puff",
+  "accept": [
+   "profiterole",
+   "choux"
+  ],
+  "ja": "シュークリーム",
+  "katakana_trap": "shoe cream と聞こえる。chou à la crème(仏)",
+  "sentence": "",
+  "photo_query": "cream puff",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "cream"
+  ],
+  "ng": [
+   "shoe cream"
+  ],
+  "tsukkomi": "シュークリームじゃなくて cream puff。shoe cream は「靴クリーム」"
+ },
+ {
+  "id": "t047",
+  "kind": "tricky",
+  "answer": "soft serve",
+  "accept": [
+   "soft-serve",
+   "soft serve ice cream",
+   "ice cream",
+   "ice cream cone"
+  ],
+  "ja": "ソフトクリーム",
+  "katakana_trap": "soft cream は和製",
+  "sentence": "",
+  "photo_query": "soft serve ice cream cone",
+  "why_one_answer": "ice cream も○",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "soft cream"
+  ],
+  "tsukkomi": "ソフトクリームじゃなくて soft serve"
+ },
+ {
+  "id": "t048",
+  "kind": "tricky",
+  "answer": "pudding",
+  "accept": [
+   "custard pudding",
+   "flan",
+   "creme caramel",
+   "crème caramel"
+  ],
+  "ja": "プリン",
+  "katakana_trap": "英 pudding はデザート全般。米では flan が近い",
+  "sentence": "",
+  "photo_query": "custard pudding caramel",
+  "why_one_answer": "別名多数○",
+  "g": 0,
+  "near": [],
+  "ng": [
+   "purin"
+  ],
+  "tsukkomi": "プリンは pudding（アメリカでは flan とも）"
+ },
+ {
+  "id": "t049",
+  "kind": "tricky",
+  "answer": "pancake",
+  "accept": [
+   "pancakes",
+   "hotcake",
+   "hotcakes"
+  ],
+  "ja": "ホットケーキ",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "stack of pancakes",
+  "why_one_answer": "OK",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "ホットケーキは pancake"
+ },
+ {
+  "id": "t050",
+  "kind": "tricky",
+  "answer": "cookie",
+  "accept": [
+   "cookies",
+   "biscuit",
+   "biscuits"
+  ],
+  "ja": "クッキー",
+  "katakana_trap": "英 biscuit。米 biscuit は別のパン",
+  "sentence": "",
+  "photo_query": "chocolate chip cookies",
+  "why_one_answer": "両方○",
+  "g": 1,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "クッキーは cookie（英 biscuit）"
+ },
+ {
+  "id": "t051",
+  "kind": "tricky",
+  "answer": "red velvet cake",
+  "accept": [
+   "red velvet"
+  ],
+  "ja": "レッドベルベットケーキ",
+  "katakana_trap": "日本で馴染み薄い",
+  "sentence": "",
+  "photo_query": "red velvet cake slice",
+  "why_one_answer": "cake は『おしい』",
+  "g": 4,
+  "near": [
+   "cake",
+   "chocolate cake"
+  ],
+  "ng": [],
+  "tsukkomi": "赤いスポンジのケーキは red velvet cake"
+ },
+ {
+  "id": "t052",
+  "kind": "tricky",
+  "answer": "eggplant",
+  "accept": [
+   "aubergine"
+  ],
+  "ja": "ナス",
+  "katakana_trap": "英 aubergine",
+  "sentence": "",
+  "photo_query": "eggplant",
+  "why_one_answer": "OK",
+  "g": 1,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "ナスは eggplant（英 aubergine）"
+ },
+ {
+  "id": "t053",
+  "kind": "tricky",
+  "answer": "bell pepper",
+  "accept": [
+   "green pepper",
+   "pepper",
+   "capsicum",
+   "sweet pepper"
+  ],
+  "ja": "ピーマン",
+  "katakana_trap": "piment(仏語)由来",
+  "sentence": "",
+  "photo_query": "green bell pepper",
+  "why_one_answer": "別名すべて○",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "piman"
+  ],
+  "tsukkomi": "ピーマンじゃなくて bell pepper（ピーマンはフランス語から）"
+ },
+ {
+  "id": "t054",
+  "kind": "tricky",
+  "answer": "zucchini",
+  "accept": [
+   "courgette"
+  ],
+  "ja": "ズッキーニ",
+  "katakana_trap": "英 courgette",
+  "sentence": "",
+  "photo_query": "zucchini",
+  "why_one_answer": "cucumber と見間違い注意→切り口も写す",
+  "g": 4,
+  "near": [
+   "cucumber"
+  ],
+  "ng": [],
+  "tsukkomi": "ズッキーニは zucchini（英 courgette）"
+ },
+ {
+  "id": "t055",
+  "kind": "tricky",
+  "answer": "corn",
+  "accept": [
+   "sweetcorn",
+   "maize",
+   "corn on the cob"
+  ],
+  "ja": "トウモロコシ",
+  "katakana_trap": "英 sweetcorn／maize",
+  "sentence": "",
+  "photo_query": "corn on the cob",
+  "why_one_answer": "OK",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "トウモロコシは corn"
+ },
+ {
+  "id": "t056",
+  "kind": "tricky",
+  "answer": "bean sprouts",
+  "accept": [
+   "sprouts"
+  ],
+  "ja": "もやし",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "bean sprouts",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "もやしは bean sprouts"
+ },
+ {
+  "id": "t057",
+  "kind": "tricky",
+  "answer": "tangerine",
+  "accept": [
+   "mandarin",
+   "mandarin orange",
+   "satsuma",
+   "clementine",
+   "orange"
+  ],
+  "ja": "みかん",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "mandarin oranges",
+  "why_one_answer": "orange も○（おしい表示なし）",
+  "g": 4,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "みかんは tangerine / mandarin"
+ },
+ {
+  "id": "t058",
+  "kind": "tricky",
+  "answer": "cotton candy",
+  "accept": [
+   "candy floss",
+   "fairy floss"
+  ],
+  "ja": "綿あめ",
+  "katakana_trap": "英 candy floss",
+  "sentence": "",
+  "photo_query": "cotton candy",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "綿あめは cotton candy（英 candy floss）"
+ },
+ {
+  "id": "t059",
+  "kind": "tricky",
+  "answer": "popsicle",
+  "accept": [
+   "ice pop",
+   "ice lolly",
+   "ice candy"
+  ],
+  "ja": "アイスキャンディー",
+  "katakana_trap": "ice candy は和製寄り。英 ice lolly",
+  "sentence": "",
+  "photo_query": "popsicle",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "ice",
+   "ice cream"
+  ],
+  "ng": [],
+  "tsukkomi": "アイスキャンディーは popsicle（英 ice lolly）"
+ },
+ {
+  "id": "t060",
+  "kind": "tricky",
+  "answer": "whipped cream",
+  "accept": [
+   "cream"
+  ],
+  "ja": "ホイップ・生クリーム",
+  "katakana_trap": "nama cream は通じない",
+  "sentence": "",
+  "photo_query": "whipped cream",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "fresh cream"
+  ],
+  "tsukkomi": "生クリームは whipped cream"
+ },
+ {
+  "id": "t061",
+  "kind": "tricky",
+  "answer": "dress shirt",
+  "accept": [
+   "shirt",
+   "button-down shirt",
+   "button-up shirt"
+  ],
+  "ja": "ワイシャツ",
+  "katakana_trap": "white shirt の訛り。Y-shirt は和製",
+  "sentence": "",
+  "photo_query": "white dress shirt",
+  "why_one_answer": "shirt も○",
+  "g": 4,
+  "near": [
+   "white shirt"
+  ],
+  "ng": [
+   "y-shirt",
+   "y shirt"
+  ],
+  "tsukkomi": "ワイシャツじゃなくて dress shirt（white shirt の聞き違いから）"
+ },
+ {
+  "id": "t062",
+  "kind": "tricky",
+  "answer": "sweatshirt",
+  "accept": [
+   "sweater",
+   "jumper"
+  ],
+  "ja": "トレーナー",
+  "katakana_trap": "trainer は人(トレーナー)/英で運動靴",
+  "sentence": "",
+  "photo_query": "crewneck sweatshirt",
+  "why_one_answer": "hoodie と区別できるフードなし",
+  "g": 4,
+  "near": [
+   "hoodie"
+  ],
+  "ng": [
+   "trainer"
+  ],
+  "tsukkomi": "トレーナーじゃなくて sweatshirt。trainer は「コーチ」や英の運動靴"
+ },
+ {
+  "id": "t063",
+  "kind": "tricky",
+  "answer": "hoodie",
+  "accept": [
+   "hooded sweatshirt",
+   "hoody"
+  ],
+  "ja": "パーカー",
+  "katakana_trap": "parka は防寒コート",
+  "sentence": "",
+  "photo_query": "hoodie",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "sweatshirt"
+  ],
+  "ng": [
+   "parka"
+  ],
+  "tsukkomi": "パーカーじゃなくて hoodie。parka は防寒コート"
+ },
+ {
+  "id": "t064",
+  "kind": "tricky",
+  "answer": "sneakers",
+  "accept": [
+   "trainers",
+   "running shoes",
+   "sneaker",
+   "shoes"
+  ],
+  "ja": "スニーカー・運動靴",
+  "katakana_trap": "英 trainers",
+  "sentence": "",
+  "photo_query": "sneakers pair",
+  "why_one_answer": "shoes も○",
+  "g": 1,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "スニーカーは sneakers（英 trainers）"
+ },
+ {
+  "id": "t065",
+  "kind": "tricky",
+  "answer": "pants",
+  "accept": [
+   "trousers",
+   "slacks"
+  ],
+  "ja": "ズボン",
+  "katakana_trap": "英 pants は下着。英 trousers",
+  "sentence": "",
+  "photo_query": "pants trousers folded",
+  "why_one_answer": "jeans と区別できる布のズボン",
+  "g": 0,
+  "near": [
+   "jeans"
+  ],
+  "ng": [],
+  "tsukkomi": "ズボンは pants。イギリスで pants は「下着」！"
+ },
+ {
+  "id": "t066",
+  "kind": "tricky",
+  "answer": "jeans",
+  "accept": [
+   "denim",
+   "denims"
+  ],
+  "ja": "ジーパン・ジーンズ",
+  "katakana_trap": "G-pan は和製",
+  "sentence": "",
+  "photo_query": "blue jeans",
+  "why_one_answer": "pants も○",
+  "g": 1,
+  "near": [],
+  "ng": [
+   "jeepan",
+   "g-pan"
+  ],
+  "tsukkomi": "ジーパンじゃなくて jeans"
+ },
+ {
+  "id": "t067",
+  "kind": "tricky",
+  "answer": "vest",
+  "accept": [
+   "waistcoat"
+  ],
+  "ja": "ベスト",
+  "katakana_trap": "英 vest は肌着(米 tank top)",
+  "sentence": "",
+  "photo_query": "suit vest",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "best"
+  ],
+  "tsukkomi": "ベストは vest。イギリスで vest は肌着"
+ },
+ {
+  "id": "t068",
+  "kind": "tricky",
+  "answer": "tank top",
+  "accept": [
+   "vest",
+   "sleeveless shirt"
+  ],
+  "ja": "タンクトップ",
+  "katakana_trap": "英 vest",
+  "sentence": "",
+  "photo_query": "tank top",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "shirt"
+  ],
+  "ng": [],
+  "tsukkomi": "タンクトップは tank top（英 vest）"
+ },
+ {
+  "id": "t069",
+  "kind": "tricky",
+  "answer": "backpack",
+  "accept": [
+   "rucksack",
+   "bag",
+   "knapsack"
+  ],
+  "ja": "リュック",
+  "katakana_trap": "Rucksack(独)由来",
+  "sentence": "",
+  "photo_query": "backpack",
+  "why_one_answer": "bag は『おしい』",
+  "g": 1,
+  "near": [
+   "ruck",
+   "rucksac"
+  ],
+  "ng": [],
+  "tsukkomi": "リュックは backpack（英 rucksack）"
+ },
+ {
+  "id": "t070",
+  "kind": "tricky",
+  "answer": "wallet",
+  "accept": [
+   "purse"
+  ],
+  "ja": "財布",
+  "katakana_trap": "英 purse は小銭入れ/米 purse はハンドバッグ",
+  "sentence": "",
+  "photo_query": "leather wallet",
+  "why_one_answer": "OK",
+  "g": 2,
+  "near": [
+   "bag"
+  ],
+  "ng": [],
+  "tsukkomi": "財布は wallet。purse は小銭入れ・ハンドバッグ"
+ },
+ {
+  "id": "t071",
+  "kind": "tricky",
+  "answer": "scarf",
+  "accept": [
+   "muffler"
+  ],
+  "ja": "マフラー",
+  "katakana_trap": "muffler は米で車の消音器",
+  "sentence": "",
+  "photo_query": "winter scarf",
+  "why_one_answer": "muffler は古い用法として○",
+  "g": 1,
+  "near": [],
+  "ng": [
+   "muffler"
+  ],
+  "tsukkomi": "マフラーじゃなくて scarf。muffler は車の部品"
+ },
+ {
+  "id": "t072",
+  "kind": "tricky",
+  "answer": "slippers",
+  "accept": [
+   "slipper"
+  ],
+  "ja": "スリッパ",
+  "katakana_trap": "日本のスリッパは英では house shoes とも",
+  "sentence": "",
+  "photo_query": "house slippers",
+  "why_one_answer": "OK",
+  "g": 1,
+  "near": [
+   "shoes"
+  ],
+  "ng": [],
+  "tsukkomi": "スリッパは slippers（2つで1組）"
+ },
+ {
+  "id": "t073",
+  "kind": "tricky",
+  "answer": "flip-flops",
+  "accept": [
+   "flip flops",
+   "sandals",
+   "thongs"
+  ],
+  "ja": "ビーチサンダル",
+  "katakana_trap": "豪 thongs",
+  "sentence": "",
+  "photo_query": "flip flops beach",
+  "why_one_answer": "sandals も○",
+  "g": 4,
+  "near": [
+   "beach sandals"
+  ],
+  "ng": [],
+  "tsukkomi": "ビーサンは flip-flops"
+ },
+ {
+  "id": "t074",
+  "kind": "tricky",
+  "answer": "contact lenses",
+  "accept": [
+   "contacts",
+   "contact lens"
+  ],
+  "ja": "コンタクト",
+  "katakana_trap": "contact だけは「連絡」",
+  "sentence": "",
+  "photo_query": "contact lens case",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "contact",
+   "lens"
+  ],
+  "ng": [],
+  "tsukkomi": "コンタクトは contacts。contact だけだと「連絡」"
+ },
+ {
+  "id": "t075",
+  "kind": "tricky",
+  "answer": "steering wheel",
+  "accept": [
+   "wheel"
+  ],
+  "ja": "ハンドル",
+  "katakana_trap": "handle は取っ手",
+  "sentence": "",
+  "photo_query": "car steering wheel",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "handle"
+  ],
+  "tsukkomi": "ハンドルじゃなくて steering wheel。handle は「取っ手」"
+ },
+ {
+  "id": "t076",
+  "kind": "tricky",
+  "answer": "windshield",
+  "accept": [
+   "windscreen"
+  ],
+  "ja": "フロントガラス",
+  "katakana_trap": "front glass は和製。英 windscreen",
+  "sentence": "",
+  "photo_query": "car windshield",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "window",
+   "glass"
+  ],
+  "ng": [
+   "front glass"
+  ],
+  "tsukkomi": "フロントガラスじゃなくて windshield（英 windscreen）"
+ },
+ {
+  "id": "t077",
+  "kind": "tricky",
+  "answer": "license plate",
+  "accept": [
+   "number plate",
+   "licence plate",
+   "plate"
+  ],
+  "ja": "ナンバープレート",
+  "katakana_trap": "英 number plate",
+  "sentence": "",
+  "photo_query": "car license plate",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "ナンバープレートは license plate（英 number plate）"
+ },
+ {
+  "id": "t078",
+  "kind": "tricky",
+  "answer": "motorcycle",
+  "accept": [
+   "motorbike",
+   "bike",
+   "scooter"
+  ],
+  "ja": "バイク",
+  "katakana_trap": "bike は自転車も指す",
+  "sentence": "",
+  "photo_query": "motorcycle parked",
+  "why_one_answer": "bike も○（あいまい注意）",
+  "g": 2,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "バイクは motorcycle。bike だと自転車のことも"
+ },
+ {
+  "id": "t079",
+  "kind": "tricky",
+  "answer": "crosswalk",
+  "accept": [
+   "zebra crossing",
+   "pedestrian crossing"
+  ],
+  "ja": "横断歩道",
+  "katakana_trap": "英 zebra crossing",
+  "sentence": "",
+  "photo_query": "pedestrian crosswalk",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "road",
+   "street"
+  ],
+  "ng": [],
+  "tsukkomi": "横断歩道は crosswalk（英 zebra crossing）"
+ },
+ {
+  "id": "t080",
+  "kind": "tricky",
+  "answer": "convenience store",
+  "accept": [
+   "convenience shop",
+   "corner shop"
+  ],
+  "ja": "コンビニ",
+  "katakana_trap": "konbini は略語",
+  "sentence": "",
+  "photo_query": "convenience store exterior",
+  "why_one_answer": "店名ロゴを写さない",
+  "g": 4,
+  "near": [
+   "store",
+   "shop"
+  ],
+  "ng": [
+   "konbini",
+   "conbini"
+  ],
+  "tsukkomi": "コンビニは convenience store"
+ },
+ {
+  "id": "t081",
+  "kind": "tricky",
+  "answer": "vending machine",
+  "accept": [],
+  "ja": "自販機",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "vending machine drinks",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "machine"
+  ],
+  "ng": [],
+  "tsukkomi": "自販機は vending machine"
+ },
+ {
+  "id": "t082",
+  "kind": "tricky",
+  "answer": "elevator",
+  "accept": [
+   "lift"
+  ],
+  "ja": "エレベーター",
+  "katakana_trap": "英 lift",
+  "sentence": "",
+  "photo_query": "elevator doors",
+  "why_one_answer": "OK",
+  "g": 0,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "エレベーターは elevator（英 lift）"
+ },
+ {
+  "id": "t083",
+  "kind": "tricky",
+  "answer": "parking lot",
+  "accept": [
+   "car park"
+  ],
+  "ja": "駐車場",
+  "katakana_trap": "英 car park",
+  "sentence": "",
+  "photo_query": "parking lot cars",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "parking"
+  ],
+  "ng": [],
+  "tsukkomi": "駐車場は parking lot（英 car park）"
+ },
+ {
+  "id": "t084",
+  "kind": "tricky",
+  "answer": "sidewalk",
+  "accept": [
+   "pavement",
+   "footpath"
+  ],
+  "ja": "歩道",
+  "katakana_trap": "英 pavement",
+  "sentence": "",
+  "photo_query": "city sidewalk",
+  "why_one_answer": "street は『おしい』",
+  "g": 0,
+  "near": [
+   "street",
+   "road"
+  ],
+  "ng": [],
+  "tsukkomi": "歩道は sidewalk（英 pavement）"
+ },
+ {
+  "id": "t085",
+  "kind": "tricky",
+  "answer": "trash can",
+  "accept": [
+   "garbage can",
+   "bin",
+   "rubbish bin",
+   "trash bin",
+   "waste basket",
+   "wastebasket"
+  ],
+  "ja": "ゴミ箱",
+  "katakana_trap": "英 bin",
+  "sentence": "",
+  "photo_query": "trash can",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "box"
+  ],
+  "ng": [
+   "dust box"
+  ],
+  "tsukkomi": "ゴミ箱は trash can（英 bin）。dust box とは言わない"
+ },
+ {
+  "id": "t086",
+  "kind": "tricky",
+  "answer": "mailbox",
+  "accept": [
+   "postbox",
+   "letterbox",
+   "post box",
+   "mail box"
+  ],
+  "ja": "郵便ポスト",
+  "katakana_trap": "post は英で郵便物",
+  "sentence": "",
+  "photo_query": "red mailbox",
+  "why_one_answer": "米(青)英(赤)で形が違う→両方○",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "post"
+  ],
+  "tsukkomi": "ポストじゃなくて mailbox。post は英で「郵便物」"
+ },
+ {
+  "id": "t087",
+  "kind": "tricky",
+  "answer": "gas station",
+  "accept": [
+   "petrol station",
+   "filling station",
+   "service station"
+  ],
+  "ja": "ガソリンスタンド",
+  "katakana_trap": "gasoline stand は和製",
+  "sentence": "",
+  "photo_query": "gas station pumps",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "gasoline stand",
+   "gas stand"
+  ],
+  "tsukkomi": "ガソリンスタンドじゃなくて gas station（英 petrol station）"
+ },
+ {
+  "id": "t088",
+  "kind": "tricky",
+  "answer": "ferris wheel",
+  "accept": [
+   "big wheel"
+  ],
+  "ja": "観覧車",
+  "katakana_trap": "",
+  "sentence": "",
+  "photo_query": "ferris wheel",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "wheel"
+  ],
+  "ng": [],
+  "tsukkomi": "観覧車は Ferris wheel"
+ },
+ {
+  "id": "t089",
+  "kind": "tricky",
+  "answer": "roller coaster",
+  "accept": [
+   "rollercoaster",
+   "coaster"
+  ],
+  "ja": "ジェットコースター",
+  "katakana_trap": "jet coaster は和製",
+  "sentence": "",
+  "photo_query": "roller coaster",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "jet coaster"
+  ],
+  "tsukkomi": "ジェットコースターじゃなくて roller coaster"
+ },
+ {
+  "id": "t090",
+  "kind": "tricky",
+  "answer": "stroller",
+  "accept": [
+   "pushchair",
+   "pram",
+   "buggy",
+   "baby carriage"
+  ],
+  "ja": "ベビーカー",
+  "katakana_trap": "baby car は和製",
+  "sentence": "",
+  "photo_query": "baby stroller",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [],
+  "ng": [
+   "baby car"
+  ],
+  "tsukkomi": "ベビーカーじゃなくて stroller。baby car は通じない"
+ },
+ {
+  "id": "t091",
+  "kind": "tricky",
+  "answer": "cash register",
+  "accept": [
+   "register",
+   "checkout",
+   "till"
+  ],
+  "ja": "レジ",
+  "katakana_trap": "register の略",
+  "sentence": "",
+  "photo_query": "cash register store",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "cashier"
+  ],
+  "ng": [
+   "regi",
+   "reji"
+  ],
+  "tsukkomi": "レジは cash register。会計の人は cashier"
+ },
+ {
+  "id": "t092",
+  "kind": "tricky",
+  "answer": "laptop",
+  "accept": [
+   "laptop computer",
+   "notebook computer",
+   "notebook"
+  ],
+  "ja": "ノートパソコン",
+  "katakana_trap": "note PC は和製。notebook だけは紙のノート優先",
+  "sentence": "",
+  "photo_query": "laptop on desk",
+  "why_one_answer": "computer は『おしい』",
+  "g": 2,
+  "near": [
+   "computer",
+   "pc"
+  ],
+  "ng": [
+   "note pc"
+  ],
+  "tsukkomi": "ノートパソコンじゃなくて laptop。notebook は紙のノート"
+ },
+ {
+  "id": "t093",
+  "kind": "tricky",
+  "answer": "cell phone",
+  "accept": [
+   "cellphone",
+   "mobile phone",
+   "mobile",
+   "phone",
+   "smartphone"
+  ],
+  "ja": "携帯電話",
+  "katakana_trap": "keitai は略",
+  "sentence": "",
+  "photo_query": "flip phone",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "携帯は cell phone（英 mobile）"
+ },
+ {
+  "id": "t094",
+  "kind": "tricky",
+  "answer": "bandage",
+  "accept": [
+   "Band-Aid",
+   "adhesive bandage",
+   "plaster",
+   "sticking plaster"
+  ],
+  "ja": "ばんそうこう",
+  "katakana_trap": "英 plaster",
+  "sentence": "",
+  "photo_query": "adhesive bandage",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [
+   "band"
+  ],
+  "ng": [],
+  "tsukkomi": "ばんそうこうは bandage（Band-Aid は商標、英 plaster）"
+ },
+ {
+  "id": "t095",
+  "kind": "tricky",
+  "answer": "ATM",
+  "accept": [
+   "cash machine",
+   "cashpoint"
+  ],
+  "ja": "ATM",
+  "katakana_trap": "英 cashpoint",
+  "sentence": "",
+  "photo_query": "atm machine",
+  "why_one_answer": "OK",
+  "g": 4,
+  "near": [],
+  "ng": [],
+  "tsukkomi": "ATM は英語でも ATM（英 cashpoint）"
+ }
+]

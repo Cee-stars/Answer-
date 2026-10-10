@@ -1,0 +1,1512 @@
+{
+ "meta": {
+  "count": 110,
+  "rel": {
+   "syn": 41,
+   "ant": 24,
+   "para": 18,
+   "usuk": 8,
+   "trap": 19
+  },
+  "swap": {
+   "yes": 14,
+   "part": 53,
+   "no": 43
+  },
+  "legend": {
+   "rel": "syn=類義 ant=対義 para=言い換え usuk=米英差 trap=日本語訳が同じ/似ているが英語では別物",
+   "swap": "yes=ほぼ置換可 part=文脈しだい（ok/ngの例で判定）no=置換不可",
+   "in_app": "アプリのWORDS/W2/CULTURE/KOUGOに含まれる側"
+  },
+  "chains_example": [
+   [
+    "big",
+    "large",
+    "huge",
+    "↔",
+    "tiny"
+   ],
+   [
+    "hungry",
+    "starving",
+    "↔",
+    "full"
+   ],
+   [
+    "tired",
+    "exhausted"
+   ],
+   [
+    "Hold on.",
+    "Hang on.",
+    "(= wait)"
+   ],
+   [
+    "begin",
+    "start",
+    "↔",
+    "finish",
+    "≒",
+    "end"
+   ]
+  ]
+ },
+ "pairs": [
+  {
+   "id": "p001",
+   "a": "big",
+   "b": "large",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "large は大きさ・数量の客観表現（a large amount）。big は口語で「重大さ」も（a big mistake ○ / a large mistake △）",
+   "ok": "a big/large house",
+   "ng": "my big brother → ×my large brother（兄の意味が消える）",
+   "in_app": []
+  },
+  {
+   "id": "p002",
+   "a": "large",
+   "b": "huge",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "huge は「ものすごく大きい」。程度が上で驚きを含む。very huge とは言わない",
+   "ok": "a huge/large crowd",
+   "ng": "×very huge（huge 自体が強い）",
+   "in_app": []
+  },
+  {
+   "id": "p003",
+   "a": "huge",
+   "b": "tiny",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "大小の両極。tiny は small より小さく「ちっちゃい」感じ",
+   "ok": "a tiny / huge dog",
+   "ng": "",
+   "in_app": []
+  },
+  {
+   "id": "p004",
+   "a": "begin",
+   "b": "start",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "ほぼ同じ。start が口語的。機械・車を動かすのは start だけ",
+   "ok": "School begins/starts at 8.",
+   "ng": "×begin the car → start the car",
+   "in_app": [
+    "begin"
+   ]
+  },
+  {
+   "id": "p005",
+   "a": "finish",
+   "b": "end",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "finish は人が何かを終える（finish homework）。end は出来事が終わる（The movie ends at 9）",
+   "ok": "The game ended/finished at 5.",
+   "ng": "×I ended my homework.（不自然）",
+   "in_app": [
+    "finish"
+   ]
+  },
+  {
+   "id": "p006",
+   "a": "finish",
+   "b": "begin",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "終える↔始める。どちらも -ing を目的語にとれる（finish eating）",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "finish",
+    "begin"
+   ]
+  },
+  {
+   "id": "p007",
+   "a": "buy",
+   "b": "sell",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "お金の流れが逆。店員は sell、客は buy",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "buy",
+    "sell"
+   ]
+  },
+  {
+   "id": "p008",
+   "a": "borrow",
+   "b": "lend",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "日本語の「借りる／貸す」と同じく方向が逆。borrow A from B / lend B A",
+   "ok": "Can I borrow your pen? = Can you lend me your pen?",
+   "ng": "×Can you borrow me your pen?",
+   "in_app": [
+    "borrow",
+    "lend"
+   ]
+  },
+  {
+   "id": "p009",
+   "a": "borrow",
+   "b": "use",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "トイレや電話など持ち帰らない物は use（Can I use the bathroom?）。borrow は持っていって返す物",
+   "ok": "Can I borrow/use your pen?",
+   "ng": "×Can I borrow your bathroom?",
+   "in_app": [
+    "borrow"
+   ]
+  },
+  {
+   "id": "p010",
+   "a": "arrive",
+   "b": "get to",
+   "rel": "para",
+   "swap": "yes",
+   "nuance": "arrive at/in は少しかため、get to は会話で普通。arrive は at/in が必要",
+   "ok": "arrive at the station = get to the station",
+   "ng": "×arrive the station",
+   "in_app": [
+    "arrive"
+   ]
+  },
+  {
+   "id": "p011",
+   "a": "arrive",
+   "b": "leave",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "着く↔出る。leave は直接目的語（leave Tokyo）、arrive は前置詞が必要",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "arrive",
+    "leave"
+   ]
+  },
+  {
+   "id": "p012",
+   "a": "leave",
+   "b": "depart",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "depart は掲示・アナウンス用のかたい語。会話は leave",
+   "ok": "The flight departs/leaves at 3.",
+   "ng": "会話で ×I'll depart now.（大げさ）",
+   "in_app": [
+    "leave",
+    "depart"
+   ]
+  },
+  {
+   "id": "p013",
+   "a": "remember",
+   "b": "forget",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "思い出す/覚えている↔忘れる。Don't forget to ~ = Remember to ~ は言い換え可",
+   "ok": "Don't forget your key. = Remember your key.",
+   "ng": "",
+   "in_app": [
+    "remember",
+    "forget"
+   ]
+  },
+  {
+   "id": "p014",
+   "a": "choose",
+   "b": "decide",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "choose は選択肢から選ぶ（目的語が物）。decide は「決心する」（decide to go）。どちらも「決める」と訳せるが文型が違う",
+   "ok": "I chose the red one. / I decided to buy the red one.",
+   "ng": "×I decided the red one.（decide on なら可）",
+   "in_app": [
+    "choose",
+    "decide"
+   ]
+  },
+  {
+   "id": "p015",
+   "a": "choose",
+   "b": "pick",
+   "rel": "syn",
+   "swap": "yes",
+   "nuance": "pick は口語。pick out も同じ。意味はほぼ同じ",
+   "ok": "Pick/Choose a card.",
+   "ng": "",
+   "in_app": [
+    "choose"
+   ]
+  },
+  {
+   "id": "p016",
+   "a": "understand",
+   "b": "get it",
+   "rel": "para",
+   "swap": "yes",
+   "nuance": "I got it. は会話で「わかった」。テストや正式な場では understand",
+   "ok": "I understand. ≒ I got it.",
+   "ng": "",
+   "in_app": [
+    "understand"
+   ]
+  },
+  {
+   "id": "p017",
+   "a": "happy",
+   "b": "glad",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "glad は名詞の前に置けない（×a glad boy）。知らせへの反応（I'm glad to hear that）に使う",
+   "ok": "I'm glad/happy you came.",
+   "ng": "×a glad day → a happy day",
+   "in_app": [
+    "happy"
+   ]
+  },
+  {
+   "id": "p018",
+   "a": "angry",
+   "b": "mad",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "米口語で mad = angry（mad at me）。英国では mad =「狂った」に寄る",
+   "ok": "She's mad/angry at me.",
+   "ng": "",
+   "in_app": [
+    "angry"
+   ]
+  },
+  {
+   "id": "p019",
+   "a": "angry",
+   "b": "upset",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "upset は怒り＋悲しみ・動揺。angry よりやわらかく、相手を責める感じが弱い",
+   "ok": "He was upset/angry about the test.",
+   "ng": "",
+   "in_app": [
+    "angry"
+   ]
+  },
+  {
+   "id": "p020",
+   "a": "tired",
+   "b": "sleepy",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "tired =疲れた、sleepy =眠い。日本語の「疲れて眠い」で混ざりやすい。徹夜明けは両方",
+   "ok": "I'm sleepy. Let's go to bed.",
+   "ng": "運動後 ×I'm sleepy.（疲れた なら tired）",
+   "in_app": [
+    "tired",
+    "sleepy"
+   ]
+  },
+  {
+   "id": "p021",
+   "a": "tired",
+   "b": "exhausted",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "exhausted は「へとへと」で程度が上。very exhausted とは普通言わない",
+   "ok": "I'm so tired. → I'm exhausted.",
+   "ng": "",
+   "in_app": [
+    "tired"
+   ]
+  },
+  {
+   "id": "p022",
+   "a": "afraid",
+   "b": "scared",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "scared は口語。afraid は名詞の前に置けない（×an afraid child）。I'm afraid ~ は「残念ながら」の丁寧表現にもなる",
+   "ok": "I'm afraid/scared of snakes.",
+   "ng": "I'm afraid we're closed.（×scared）",
+   "in_app": [
+    "afraid"
+   ]
+  },
+  {
+   "id": "p023",
+   "a": "surprised",
+   "b": "shocked",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "shocked は悪いことに強く驚く。うれしい驚きは surprised",
+   "ok": "I was surprised by the gift.",
+   "ng": "×I was shocked by the nice gift.（悪い意味になる）",
+   "in_app": [
+    "surprised"
+   ]
+  },
+  {
+   "id": "p024",
+   "a": "excited",
+   "b": "exciting",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "-ed は人の気持ち、-ing は物事の性質。I'm exciting は「私は人をわくわくさせる人」",
+   "ok": "I'm excited. The game is exciting.",
+   "ng": "×I'm exciting.",
+   "in_app": [
+    "excited"
+   ]
+  },
+  {
+   "id": "p025",
+   "a": "bored",
+   "b": "boring",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "excited/exciting と同じ。I'm boring =「私はつまらない人間です」",
+   "ok": "I'm bored. This movie is boring.",
+   "ng": "×I'm boring.（自虐になる）",
+   "in_app": [
+    "bored"
+   ]
+  },
+  {
+   "id": "p026",
+   "a": "nervous",
+   "b": "worried",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "nervous は本番前のどきどき。worried は問題を心配し続ける",
+   "ok": "I'm nervous about the test tomorrow.",
+   "ng": "×I'm nervous about my sick dog.（worried が自然）",
+   "in_app": [
+    "nervous"
+   ]
+  },
+  {
+   "id": "p027",
+   "a": "kind",
+   "b": "nice",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "nice は人・天気・食べ物など何にでも。kind は人の思いやりだけ",
+   "ok": "She's kind/nice.",
+   "ng": "×The weather is kind.",
+   "in_app": [
+    "kind"
+   ]
+  },
+  {
+   "id": "p028",
+   "a": "busy",
+   "b": "free",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "時間がふさがっている↔空いている。free は「無料」の意味もあるので文脈で判断",
+   "ok": "Are you free tonight? — No, I'm busy.",
+   "ng": "",
+   "in_app": [
+    "busy"
+   ]
+  },
+  {
+   "id": "p029",
+   "a": "quiet",
+   "b": "loud",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "静か↔うるさい。loud は音、noisy は場所や人の騒がしさ",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "quiet",
+    "loud"
+   ]
+  },
+  {
+   "id": "p030",
+   "a": "quiet",
+   "b": "silent",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "silent は「まったく音がない／黙っている」。quiet は「静か・音が小さい」",
+   "ok": "a quiet street",
+   "ng": "×Please be silent.（図書館以外では強すぎる）",
+   "in_app": [
+    "quiet"
+   ]
+  },
+  {
+   "id": "p031",
+   "a": "dangerous",
+   "b": "safe",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "危険↔安全。safe は名詞の前でも後でも使える",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "dangerous"
+   ]
+  },
+  {
+   "id": "p032",
+   "a": "important",
+   "b": "a big deal",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "It's a big deal. は口語で「重大なこと」。No big deal. は「大したことない」",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "important"
+   ]
+  },
+  {
+   "id": "p033",
+   "a": "famous",
+   "b": "well-known",
+   "rel": "syn",
+   "swap": "yes",
+   "nuance": "ほぼ置換可。famous のほうが「有名度」が強い",
+   "ok": "a famous/well-known singer",
+   "ng": "",
+   "in_app": [
+    "famous"
+   ]
+  },
+  {
+   "id": "p034",
+   "a": "famous",
+   "b": "popular",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "famous =よく知られている、popular =好かれている。有名でも人気とは限らない。前置詞も famous for / popular with",
+   "ok": "famous for its pizza / popular with kids",
+   "ng": "×popular for its pizza",
+   "in_app": [
+    "famous",
+    "popular"
+   ]
+  },
+  {
+   "id": "p035",
+   "a": "expensive",
+   "b": "cheap",
+   "rel": "ant",
+   "swap": "part",
+   "nuance": "cheap は「安っぽい」の悪い意味も。中立に言うなら inexpensive / affordable",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "expensive",
+    "cheap"
+   ]
+  },
+  {
+   "id": "p036",
+   "a": "expensive",
+   "b": "high",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "price 自体は expensive と言わず high。物が expensive、値段が high",
+   "ok": "The price is high. / This bag is expensive.",
+   "ng": "×The price is expensive.",
+   "in_app": [
+    "expensive"
+   ]
+  },
+  {
+   "id": "p037",
+   "a": "difficult",
+   "b": "hard",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "ほぼ置換可。hard は口語的で「固い」「熱心に」の意味もある",
+   "ok": "a hard/difficult test",
+   "ng": "×a difficult chair（固い椅子は hard）",
+   "in_app": [
+    "difficult"
+   ]
+  },
+  {
+   "id": "p038",
+   "a": "easy",
+   "b": "simple",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "easy =やりやすい、simple =複雑でない・飾りがない",
+   "ok": "an easy/simple question",
+   "ng": "×an easy design → a simple design",
+   "in_app": [
+    "easy"
+   ]
+  },
+  {
+   "id": "p039",
+   "a": "easy",
+   "b": "piece of cake",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "Piece of cake. は口語の「朝飯前」。正式な文では easy",
+   "ok": "The test was a piece of cake.",
+   "ng": "",
+   "in_app": [
+    "easy"
+   ]
+  },
+  {
+   "id": "p040",
+   "a": "different",
+   "b": "same",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "the same は the が必要。different from ~ / the same as ~",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "different"
+   ]
+  },
+  {
+   "id": "p041",
+   "a": "strange",
+   "b": "weird",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "weird は口語で「変な・キモい」寄り。strange は中立に「見慣れない」も",
+   "ok": "a strange/weird sound",
+   "ng": "",
+   "in_app": [
+    "strange"
+   ]
+  },
+  {
+   "id": "p042",
+   "a": "useful",
+   "b": "helpful",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "helpful は人・助言に（a helpful person）、useful は道具・情報に",
+   "ok": "useful/helpful information",
+   "ng": "×a useful person（人を道具扱いに聞こえる）",
+   "in_app": [
+    "useful"
+   ]
+  },
+  {
+   "id": "p043",
+   "a": "delicious",
+   "b": "good",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "delicious は強い褒め言葉。疑問文・否定文では good を使う（Is it good?）",
+   "ok": "This is delicious!",
+   "ng": "×Is it delicious? / ×It's not delicious.（不自然）",
+   "in_app": [
+    "delicious"
+   ]
+  },
+  {
+   "id": "p044",
+   "a": "heavy",
+   "b": "light",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "重い↔軽い。light は「明るい」もあるので文脈で",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "heavy"
+   ]
+  },
+  {
+   "id": "p045",
+   "a": "empty",
+   "b": "full",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "空↔満杯。I'm full. は「お腹いっぱい」。I'm empty. とは言わない",
+   "ok": "",
+   "ng": "×I'm empty.（お腹が空いた → I'm hungry）",
+   "in_app": [
+    "empty"
+   ]
+  },
+  {
+   "id": "p046",
+   "a": "hungry",
+   "b": "starving",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "starving は「腹ぺこ」の誇張。very starving とは言わない",
+   "ok": "I'm hungry. → I'm starving!",
+   "ng": "",
+   "in_app": [
+    "hungry"
+   ]
+  },
+  {
+   "id": "p047",
+   "a": "careful",
+   "b": "Watch out!",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "Be careful. は一般的な注意、Watch out! は今すぐの危険に",
+   "ok": "Watch out! A car!",
+   "ng": "危険が迫っている時に Be careful. はやや遅い",
+   "in_app": [
+    "careful",
+    "Watch out!"
+   ]
+  },
+  {
+   "id": "p048",
+   "a": "lucky",
+   "b": "fortunate",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "fortunate はかため。会話では lucky",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "lucky"
+   ]
+  },
+  {
+   "id": "p049",
+   "a": "favorite",
+   "b": "like best",
+   "rel": "para",
+   "swap": "yes",
+   "nuance": "my favorite food = the food I like best",
+   "ok": "Pizza is my favorite. = I like pizza best.",
+   "ng": "",
+   "in_app": [
+    "favorite"
+   ]
+  },
+  {
+   "id": "p050",
+   "a": "hope",
+   "b": "wish",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "hope は実現可能な未来、wish は実現しない願い（I wish I could fly）。どちらも「〜だといいな」と訳されがち",
+   "ok": "I hope it's sunny tomorrow.",
+   "ng": "×I wish it's sunny tomorrow.",
+   "in_app": [
+    "hope"
+   ]
+  },
+  {
+   "id": "p051",
+   "a": "agree",
+   "b": "disagree",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "agree with 人 / agree to 提案。disagree も with",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "agree"
+   ]
+  },
+  {
+   "id": "p052",
+   "a": "visit",
+   "b": "go to",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "visit は「訪ねて過ごす」。名詞の visit は to が必要（a visit to Kyoto）。動詞に to は付けない",
+   "ok": "I visited Kyoto. = I went to Kyoto.",
+   "ng": "×I visited to Kyoto.",
+   "in_app": [
+    "visit"
+   ]
+  },
+  {
+   "id": "p053",
+   "a": "answer",
+   "b": "reply",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "answer は他動詞（answer the question / the phone）、reply は to が必要（reply to a message）",
+   "ok": "answer an email = reply to an email",
+   "ng": "×reply the email",
+   "in_app": [
+    "answer"
+   ]
+  },
+  {
+   "id": "p054",
+   "a": "spend",
+   "b": "save",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "お金・時間を使う↔ためる。spend 時間 -ing（spend two hours reading）",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "spend",
+    "save"
+   ]
+  },
+  {
+   "id": "p055",
+   "a": "explain",
+   "b": "tell",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "explain は「説明する」で人を直接目的語にとれない（explain it to me）。tell は tell me",
+   "ok": "Explain it to me. / Tell me about it.",
+   "ng": "×Explain me.",
+   "in_app": [
+    "explain"
+   ]
+  },
+  {
+   "id": "p056",
+   "a": "believe",
+   "b": "trust",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "believe は話・言葉を信じる、trust は人を長く信頼する",
+   "ok": "I believe you.（今の話を）/ I trust you.（あなたを）",
+   "ng": "",
+   "in_app": [
+    "believe"
+   ]
+  },
+  {
+   "id": "p057",
+   "a": "learn",
+   "b": "study",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "study は勉強する（努力）、learn は身につける（結果）。「勉強した」と「覚えた」の差",
+   "ok": "I studied hard and learned a lot.",
+   "ng": "×I learned hard.",
+   "in_app": [
+    "learn"
+   ]
+  },
+  {
+   "id": "p058",
+   "a": "listen",
+   "b": "hear",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "listen は意識して聴く（listen to）、hear は自然に聞こえる",
+   "ok": "Listen! Can you hear that?",
+   "ng": "×I listened a strange sound.",
+   "in_app": [
+    "listen"
+   ]
+  },
+  {
+   "id": "p059",
+   "a": "carry",
+   "b": "bring",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "carry は持って運ぶ（方向なし）、bring は話し手の方へ持って来る、take は持って行く",
+   "ok": "Bring your lunch tomorrow.",
+   "ng": "×Carry me some water.（持って来て → bring）",
+   "in_app": [
+    "carry"
+   ]
+  },
+  {
+   "id": "p060",
+   "a": "catch",
+   "b": "throw",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "捕る↔投げる。catch a cold / catch a bus など「捕まえる」系の意味も",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "catch",
+    "throw"
+   ]
+  },
+  {
+   "id": "p061",
+   "a": "win",
+   "b": "lose",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "勝つ↔負ける。win の目的語は試合・賞。相手に勝つは beat",
+   "ok": "We won the game. / We beat the Tigers.",
+   "ng": "×We won the Tigers.",
+   "in_app": [
+    "win",
+    "lose"
+   ]
+  },
+  {
+   "id": "p062",
+   "a": "hot",
+   "b": "spicy",
+   "rel": "trap",
+   "swap": "part",
+   "nuance": "hot は「暑い・熱い」と「辛い」の両方。誤解を避けるなら spicy",
+   "ok": "This curry is spicy/hot.",
+   "ng": "スープに hot だけだと「熱い」か「辛い」か不明",
+   "in_app": [
+    "hot",
+    "spicy"
+   ]
+  },
+  {
+   "id": "p063",
+   "a": "spicy",
+   "b": "mild",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "辛い↔ひかえめな（辛さ）。メキシコ料理店で mild or hot? と聞かれる",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "spicy",
+    "mild"
+   ]
+  },
+  {
+   "id": "p064",
+   "a": "warm",
+   "b": "cool",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "暖かい↔涼しい。どちらも快適寄り。hot/cold は不快寄り",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "warm",
+    "cool"
+   ]
+  },
+  {
+   "id": "p065",
+   "a": "wet",
+   "b": "dry",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "ぬれた↔乾いた。天気にも使う（a dry day）",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "wet",
+    "dry"
+   ]
+  },
+  {
+   "id": "p066",
+   "a": "near",
+   "b": "close to",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "near は前置詞として名詞を直接とる（near the station）。close は to が必要",
+   "ok": "near the station = close to the station",
+   "ng": "×close the station（=駅を閉める）",
+   "in_app": [
+    "near"
+   ]
+  },
+  {
+   "id": "p067",
+   "a": "near",
+   "b": "far",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "far は肯定文で単独だとかたい。会話は a long way / far away が自然",
+   "ok": "Is it far? — No, it's near.",
+   "ng": "×The station is far.（△ It's far away. が自然）",
+   "in_app": [
+    "near",
+    "far"
+   ]
+  },
+  {
+   "id": "p068",
+   "a": "open",
+   "b": "closed",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "店の状態は closed（形容詞）。close は動詞「閉める」",
+   "ok": "The store is closed.",
+   "ng": "×The store is close.（=近い になる）",
+   "in_app": [
+    "open",
+    "closed"
+   ]
+  },
+  {
+   "id": "p069",
+   "a": "fast",
+   "b": "quick",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "fast は速度、quick は時間が短い",
+   "ok": "a fast car / a quick lunch",
+   "ng": "×a fast lunch（△）",
+   "in_app": [
+    "fast"
+   ]
+  },
+  {
+   "id": "p070",
+   "a": "fast",
+   "b": "early",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "「はやい」と訳せるが、fast は速度、early は時刻",
+   "ok": "I got up early.",
+   "ng": "×I got up fast.（=急いで起きた）",
+   "in_app": [
+    "fast"
+   ]
+  },
+  {
+   "id": "p071",
+   "a": "strong",
+   "b": "weak",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "強い↔弱い。濃いコーヒーも strong coffee",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "strong"
+   ]
+  },
+  {
+   "id": "p072",
+   "a": "sick",
+   "b": "ill",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "米会話は sick。ill はかため・英。feel sick は「吐き気がする」",
+   "ok": "I'm sick. / She's ill.",
+   "ng": "",
+   "in_app": [
+    "sick"
+   ]
+  },
+  {
+   "id": "p073",
+   "a": "healthy",
+   "b": "sick",
+   "rel": "ant",
+   "swap": "no",
+   "nuance": "healthy は人にも食べ物にも（healthy food）",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "healthy",
+    "sick"
+   ]
+  },
+  {
+   "id": "p074",
+   "a": "delay",
+   "b": "late",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "The flight is delayed. ≒ The flight is late. delay は名詞・動詞、late は形容詞",
+   "ok": "There's a delay. = The flight is late.",
+   "ng": "×The flight is delay.",
+   "in_app": [
+    "delay"
+   ]
+  },
+  {
+   "id": "p075",
+   "a": "crowded",
+   "b": "busy",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "crowded は人がぎっしり。busy は場所が「にぎわう」、道路が「混む」",
+   "ok": "The station is crowded/busy.",
+   "ng": "×I'm crowded.（自分が忙しい → busy）",
+   "in_app": [
+    "crowded",
+    "busy"
+   ]
+  },
+  {
+   "id": "p076",
+   "a": "luggage",
+   "b": "baggage",
+   "rel": "syn",
+   "swap": "yes",
+   "nuance": "どちらも数えられない（×luggages）。1個は a piece of luggage / a bag",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "luggage"
+   ]
+  },
+  {
+   "id": "p077",
+   "a": "restroom",
+   "b": "toilet",
+   "rel": "usuk",
+   "swap": "no",
+   "nuance": "米国で toilet は便器そのもの。店で聞くなら restroom / bathroom",
+   "ok": "Where's the restroom?",
+   "ng": "△Where's the toilet?（米では直接的）",
+   "in_app": []
+  },
+  {
+   "id": "p078",
+   "a": "first floor",
+   "b": "ground floor",
+   "rel": "usuk",
+   "swap": "part",
+   "nuance": "米国の first floor は1階、英国では2階。英国の1階は ground floor",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "first floor"
+   ]
+  },
+  {
+   "id": "p079",
+   "a": "fries",
+   "b": "chips",
+   "rel": "usuk",
+   "swap": "no",
+   "nuance": "米で chips はポテトチップス、フライドポテトは fries。英国は逆に chips = fries",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "fries",
+    "chips"
+   ]
+  },
+  {
+   "id": "p080",
+   "a": "sidewalk",
+   "b": "pavement",
+   "rel": "usuk",
+   "swap": "yes",
+   "nuance": "米 sidewalk、英 pavement。米国の pavement は舗装路面",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "sidewalk"
+   ]
+  },
+  {
+   "id": "p081",
+   "a": "subway",
+   "b": "underground",
+   "rel": "usuk",
+   "swap": "yes",
+   "nuance": "米 subway、英 the Underground（the Tube）。英国の subway は地下道",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "subway"
+   ]
+  },
+  {
+   "id": "p082",
+   "a": "holiday",
+   "b": "vacation",
+   "rel": "usuk",
+   "swap": "part",
+   "nuance": "米国では vacation =休暇、holiday =祝日。英国は休暇も holiday",
+   "ok": "summer vacation（米）",
+   "ng": "",
+   "in_app": [
+    "holiday"
+   ]
+  },
+  {
+   "id": "p083",
+   "a": "check",
+   "b": "bill",
+   "rel": "usuk",
+   "swap": "yes",
+   "nuance": "レストランの会計：米 check、英 bill",
+   "ok": "Check, please.",
+   "ng": "",
+   "in_app": []
+  },
+  {
+   "id": "p084",
+   "a": "movie",
+   "b": "film",
+   "rel": "usuk",
+   "swap": "part",
+   "nuance": "会話は米 movie。film は英・芸術寄り・フィルム",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "movie"
+   ]
+  },
+  {
+   "id": "p085",
+   "a": "receipt",
+   "b": "check",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "receipt は支払い後のレシート、check は支払う前の伝票",
+   "ok": "Can I have the check? → 払う → Here's your receipt.",
+   "ng": "",
+   "in_app": [
+    "receipt"
+   ]
+  },
+  {
+   "id": "p086",
+   "a": "souvenir",
+   "b": "gift",
+   "rel": "trap",
+   "swap": "part",
+   "nuance": "souvenir は旅の記念品（自分用も可）。人への「お土産」は a gift (from Hawaii) が自然",
+   "ok": "I bought a souvenir for myself.",
+   "ng": "",
+   "in_app": [
+    "souvenir"
+   ]
+  },
+  {
+   "id": "p087",
+   "a": "present",
+   "b": "gift",
+   "rel": "syn",
+   "swap": "yes",
+   "nuance": "ほぼ同じ。gift はやや改まる・店名に多い（gift shop）",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "present"
+   ]
+  },
+  {
+   "id": "p088",
+   "a": "ocean",
+   "b": "sea",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "米国は海全般を ocean と言いがち。sea は英・特定の海名",
+   "ok": "go to the ocean（米）",
+   "ng": "",
+   "in_app": [
+    "ocean"
+   ]
+  },
+  {
+   "id": "p089",
+   "a": "coast",
+   "b": "beach",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "coast は国や地域の海岸線、beach は砂浜",
+   "ok": "the West Coast / a sandy beach",
+   "ng": "×Let's swim at the coast.",
+   "in_app": [
+    "coast",
+    "beach"
+   ]
+  },
+  {
+   "id": "p090",
+   "a": "rock",
+   "b": "stone",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "rock は大きい岩・岩盤（米では小石も rock）、stone は石という素材",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "rock"
+   ]
+  },
+  {
+   "id": "p091",
+   "a": "view",
+   "b": "scenery",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "view は特定の場所から見える眺め（数えられる）、scenery は風景全体（数えられない）",
+   "ok": "a nice view from my room",
+   "ng": "×a nice scenery",
+   "in_app": [
+    "view"
+   ]
+  },
+  {
+   "id": "p092",
+   "a": "awesome",
+   "b": "great",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "awesome は米口語で「最高」。目上の正式な場は great",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "awesome"
+   ]
+  },
+  {
+   "id": "p093",
+   "a": "sunburn",
+   "b": "suntan",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "sunburn はひりひり痛い日焼け、suntan はこんがり小麦色",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "sunburn"
+   ]
+  },
+  {
+   "id": "p094",
+   "a": "sale",
+   "b": "discount",
+   "rel": "syn",
+   "swap": "part",
+   "nuance": "sale は特売期間・行事、discount は値引きそのもの（a 20% discount）",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "sale",
+    "discount"
+   ]
+  },
+  {
+   "id": "p095",
+   "a": "Of course.",
+   "b": "Sure.",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "Of course. は「当然」の響き。頼みへの返事では Sure. が無難",
+   "ok": "Can you help me? — Sure.",
+   "ng": "「わかりきってるでしょ」に聞こえる場面あり",
+   "in_app": [
+    "Of course."
+   ]
+  },
+  {
+   "id": "p096",
+   "a": "Of course.",
+   "b": "You bet.",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "You bet. は親しい間のくだけた「もちろん」",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "Of course.",
+    "You bet."
+   ]
+  },
+  {
+   "id": "p097",
+   "a": "No problem.",
+   "b": "You're welcome.",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "お礼への返事。No problem. はくだけた言い方",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "No problem.",
+    "You're welcome."
+   ]
+  },
+  {
+   "id": "p098",
+   "a": "Hold on.",
+   "b": "Hang on.",
+   "rel": "syn",
+   "swap": "yes",
+   "nuance": "どちらも「ちょっと待って」。電話でもよく使う",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "Hold on.",
+    "Hang on."
+   ]
+  },
+  {
+   "id": "p099",
+   "a": "See you later.",
+   "b": "Catch you later.",
+   "rel": "syn",
+   "swap": "yes",
+   "nuance": "Catch you later. はよりくだけた言い方",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "See you later.",
+    "Catch you later."
+   ]
+  },
+  {
+   "id": "p100",
+   "a": "Me too.",
+   "b": "Same here.",
+   "rel": "syn",
+   "swap": "yes",
+   "nuance": "ただし否定文への同意は Me neither.",
+   "ok": "I'm hungry. — Me too.",
+   "ng": "I'm not hungry. — ×Me too. → Me neither.",
+   "in_app": [
+    "Me too.",
+    "Same here."
+   ]
+  },
+  {
+   "id": "p101",
+   "a": "Calm down.",
+   "b": "Take it easy.",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "怒っている人に Calm down. は逆効果になりやすい。Chill out. はさらにくだけて失礼に響くことも",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "Calm down.",
+    "Take it easy."
+   ]
+  },
+  {
+   "id": "p102",
+   "a": "Cheer up!",
+   "b": "Keep it up!",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "Cheer up! は落ち込んだ人に「元気出して」。Keep it up! はうまくいっている人に「その調子」",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "Cheer up!"
+   ]
+  },
+  {
+   "id": "p103",
+   "a": "Just kidding.",
+   "b": "No kidding!",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "Just kidding. =冗談だよ、No kidding! =まさか／本当だよね",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "Just kidding.",
+    "No kidding!"
+   ]
+  },
+  {
+   "id": "p104",
+   "a": "Help yourself.",
+   "b": "Suit yourself.",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "Help yourself. =ご自由にどうぞ（親切）、Suit yourself. =勝手にすれば（冷たい）",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "Help yourself.",
+    "Suit yourself."
+   ]
+  },
+  {
+   "id": "p105",
+   "a": "It's up to you.",
+   "b": "Whatever.",
+   "rel": "para",
+   "swap": "no",
+   "nuance": "It's up to you. =あなたが決めて（ていねい）、Whatever. =どうでもいい（投げやり）",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "It's up to you.",
+    "Whatever."
+   ]
+  },
+  {
+   "id": "p106",
+   "a": "I'm not sure.",
+   "b": "I don't know.",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "I'm not sure. のほうがやわらかい。I don't know. は言い切り",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "I'm not sure."
+   ]
+  },
+  {
+   "id": "p107",
+   "a": "Excuse me.",
+   "b": "I'm sorry.",
+   "rel": "trap",
+   "swap": "no",
+   "nuance": "Excuse me. は前置き（話しかける・通る）、I'm sorry. は謝罪。ぶつかった後は Sorry.",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "Excuse me."
+   ]
+  },
+  {
+   "id": "p108",
+   "a": "Long time no see.",
+   "b": "It's been a while.",
+   "rel": "para",
+   "swap": "yes",
+   "nuance": "Long time no see. は親しい人に。It's been a while. のほうが誰にでも使える",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "Long time no see."
+   ]
+  },
+  {
+   "id": "p109",
+   "a": "Good luck!",
+   "b": "Go for it!",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "Good luck! は運を祈る、Go for it! は背中を押す",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "Good luck!"
+   ]
+  },
+  {
+   "id": "p110",
+   "a": "Watch out!",
+   "b": "Heads up!",
+   "rel": "para",
+   "swap": "part",
+   "nuance": "Watch out! は今すぐ危ない。Heads up! は「先に知らせておくね」の意味も",
+   "ok": "",
+   "ng": "",
+   "in_app": [
+    "Watch out!",
+    "Heads up!"
+   ]
+  }
+ ]
+}

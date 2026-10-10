@@ -1,0 +1,326 @@
+{
+ "rules": [
+  [
+   "[‘’ʼ`]",
+   "'"
+  ],
+  [
+   "[！-～]",
+   ""
+  ],
+  [
+   "[?.,!;:\\\"()、。]",
+   " "
+  ],
+  [
+   "\\bwi ?-? ?fi\\b",
+   "wifi"
+  ],
+  [
+   "\\bcheck ?-? ?(out|in)\\b",
+   "check$1"
+  ],
+  [
+   "\\bo\\.? ?k\\.?\\b|\\bokay\\b",
+   "ok"
+  ],
+  [
+   "\\ball ?right\\b|\\balright\\b",
+   "ok"
+  ],
+  [
+   "\\be ?-? ?mail\\b",
+   "email"
+  ],
+  [
+   "\\bunion square\\b",
+   "unionsquare"
+  ],
+  [
+   "-",
+   " "
+  ],
+  [
+   "\\bwanna\\b",
+   "want to"
+  ],
+  [
+   "\\bgonna\\b",
+   "going to"
+  ],
+  [
+   "\\bgotta\\b",
+   "got to"
+  ],
+  [
+   "\\bgimme\\b",
+   "give me"
+  ],
+  [
+   "\\blemme\\b",
+   "let me"
+  ],
+  [
+   "\\bya\\b",
+   "you"
+  ],
+  [
+   "\\bwhatcha\\b",
+   "what are you"
+  ],
+  [
+   "\\b(what|where|when|who|how|it|that|there|here)'?s\\b",
+   "$1 is"
+  ],
+  [
+   "\\bi'?m\\b",
+   "i am"
+  ],
+  [
+   "\\b(you|we|they)'re\\b",
+   "$1 are"
+  ],
+  [
+   "\\byoure\\b",
+   "you are"
+  ],
+  [
+   "\\b(is|are|was|were|do|does|did|have|has|should|would|could)n'?t\\b",
+   "$1 not"
+  ],
+  [
+   "\\bcan'?t\\b",
+   "cannot"
+  ],
+  [
+   "\\bwon'?t\\b",
+   "will not"
+  ],
+  [
+   "\\b(i|you|it|we|they)'ll\\b",
+   "$1 will"
+  ],
+  [
+   "\\b(i|you|we|they)'ve\\b",
+   "$1 have"
+  ],
+  [
+   "\\b(i|you|we|they)'d\\b",
+   "$1 would"
+  ],
+  [
+   "\\b(um+|uh+|er+|erm|hmm+|ah+)\\b",
+   " "
+  ],
+  [
+   "^\\s*(sorry|excuse me|oh|so|hey|well|and|ok)\\s+",
+   ""
+  ],
+  [
+   "\\s+(please|then|again)\\s*$",
+   ""
+  ],
+  [
+   "^\\s*please\\s+",
+   ""
+  ],
+  [
+   "\\s+",
+   " "
+  ],
+  [
+   "\\b(\\w+)( \\1\\b)+",
+   "$1"
+  ]
+ ],
+ "numbers": {
+  "0": "zero",
+  "1": "one",
+  "2": "two",
+  "3": "three",
+  "4": "four",
+  "5": "five",
+  "6": "six",
+  "7": "seven",
+  "8": "eight",
+  "9": "nine",
+  "10": "ten",
+  "11": "eleven",
+  "12": "twelve",
+  "13": "thirteen",
+  "14": "fourteen",
+  "15": "fifteen",
+  "16": "sixteen",
+  "17": "seventeen",
+  "18": "eighteen",
+  "19": "nineteen",
+  "20": "twenty",
+  "30": "thirty",
+  "40": "forty",
+  "50": "fifty",
+  "60": "sixty",
+  "70": "seventy",
+  "80": "eighty",
+  "90": "ninety",
+  "100": "a hundred"
+ },
+ "synonyms": [
+  [
+   "check",
+   "bill"
+  ],
+  [
+   "cab",
+   "taxi"
+  ],
+  [
+   "restroom",
+   "bathroom",
+   "toilet"
+  ],
+  [
+   "store",
+   "shop"
+  ],
+  [
+   "picture",
+   "photo"
+  ],
+  [
+   "drugstore",
+   "pharmacy"
+  ],
+  [
+   "bags",
+   "luggage",
+   "baggage"
+  ],
+  [
+   "minute",
+   "second"
+  ],
+  [
+   "anything",
+   "something"
+  ]
+ ],
+ "homophones_asr_only": [
+  [
+   "for",
+   "four",
+   "fore"
+  ],
+  [
+   "to",
+   "too",
+   "two"
+  ],
+  [
+   "write",
+   "right"
+  ],
+  [
+   "i",
+   "eye"
+  ],
+  [
+   "there",
+   "their",
+   "they're"
+  ],
+  [
+   "your",
+   "you're"
+  ],
+  [
+   "whose",
+   "who's"
+  ],
+  [
+   "meat",
+   "meet"
+  ],
+  [
+   "eight",
+   "ate"
+  ],
+  [
+   "by",
+   "buy",
+   "bye"
+  ],
+  [
+   "see",
+   "sea"
+  ],
+  [
+   "know",
+   "no"
+  ],
+  [
+   "some",
+   "sum"
+  ],
+  [
+   "wait",
+   "weight"
+  ],
+  [
+   "here",
+   "hear"
+  ],
+  [
+   "would",
+   "wood"
+  ],
+  [
+   "one",
+   "won"
+  ],
+  [
+   "new",
+   "knew"
+  ],
+  [
+   "check",
+   "czech"
+  ],
+  [
+   "way",
+   "weigh"
+  ],
+  [
+   "break",
+   "brake"
+  ],
+  [
+   "mind",
+   "mine"
+  ],
+  [
+   "cold",
+   "called"
+  ]
+ ],
+ "modal_free_regex": "^(can|could|may) (i|we)\\b|^(can|could|would) you\\b",
+ "articles": [
+  "a",
+  "an",
+  "some",
+  "the"
+ ],
+ "order": [
+  "小文字化",
+  "RULESを順に適用（JS: s.replace(new RegExp(p,'g'),r)）",
+  "数字→英単語（3:15→three fifteen）",
+  "同義語を先頭語に統一",
+  "modal_free の問題だけ文頭 Can/Could/May I・Can/Could/Would you を統一",
+  "ASRのみ: 正解文にある語へ同音語を寄せる",
+  "正解/accept と一致→◎",
+  "冠詞だけ違う→入力は◎+注意, ASRは◎",
+  "near_miss と一致→◯通じる→型ヒントで言い直し",
+  "1語だけ綴りが近い→本人確認（×にしない）",
+  "それ以外→×（note の解説）",
+  "ASRは maxAlternatives=5 の全候補で判定し最良を採用。ASR単独で×・★−2にしない（不一致は文字起こしと正解を並べて本人が合ってた/違ったを選ぶ）"
+ ]
+}
