@@ -132,11 +132,11 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .profile .bar{grid-column:2/-1}
 .profile .label{grid-column:1/-1}
 .stat-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.tile{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);padding:12px}
-.tile .num{font-size:24px;font-weight:900;line-height:1.2}
+.stat-tile{background:var(--surface);border-radius:20px;box-shadow:var(--shadow);padding:12px}
+.stat-tile .num{font-size:24px;font-weight:900;line-height:1.2}
 .tile .of{font-size:13px;color:var(--muted);font-weight:700}
-.tile.t-gold .num{color:var(--gold)}
-.tile.t-sky .num{color:var(--sky)}
+.stat-tile.t-gold .num{color:var(--gold)}
+.stat-tile.t-sky .num{color:var(--sky)}
 .my-panel{display:grid;grid-template-columns:56px 1fr;gap:10px 12px;align-items:center}
 .my-panel canvas{height:50px;margin:0 auto}
 .my-actions{grid-column:1/-1;display:flex;gap:10px}
@@ -191,7 +191,11 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .facts small,.fact small,.clear-box small{color:var(--muted)}
 .stamp-mini,.stamp,.clear-stamp{flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-en);font-weight:900;font-size:15px;color:var(--muted);border:2px dashed var(--line)}
 .stamp-mini.got,.stamp-card.got .stamp,.clear-stamp{border:0;color:#fff;background:linear-gradient(135deg,var(--brand),var(--gold));transform:rotate(-10deg);box-shadow:0 6px 14px rgba(255,90,60,.3)}
-.stamps{display:flex;flex-direction:column;gap:10px}
+.stamps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stamp-cell{border:0;font:inherit;color:inherit;display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;min-height:96px;cursor:pointer}
+.stamp-cell:disabled{cursor:default;opacity:.75}
+.stamp-cell .sname{font-size:13px}
+.stamp-facts{grid-column:1/-1}
 .stamp-card{display:flex;gap:14px;align-items:flex-start}
 .clear-box{display:flex;gap:14px;align-items:flex-start;margin-top:14px;padding:14px;border-radius:16px;background:var(--surface-2)}
 .clear-box b{color:var(--brand)}
@@ -474,6 +478,19 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .dr-word b{color:var(--brand)}
 .dr-opt.yes{background:rgba(31,191,115,.12)}
 .tip-card{background:linear-gradient(135deg,rgba(255,90,60,.10),rgba(255,138,61,.10))}
+
+/* UI re-check fixes */
+#s-battle .scene{height:clamp(140px,22vh,200px)}
+#s-battle .scene:has(canvas.photo){height:clamp(180px,30vh,280px)}
+.hscroll{margin:-4px -16px -12px;padding:4px 16px 12px;scroll-padding-inline:16px}
+.st{pointer-events:none}
+.seg-b{min-height:44px}
+.my-bulk summary{min-height:44px;display:flex;align-items:center}
+.say{width:44px;height:44px}
+#s-special .state-panel,#s-journey .stage-list{background:none;box-shadow:none;padding:0}
+.sec-head{margin-top:0}
+.big-btn,.stage,.stage .sp{border-radius:12px}
+#resetBtn{background:transparent;color:var(--bad);margin-top:12px}
 </style>
 
 <div class="app" id="app">
@@ -625,7 +642,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
       <ul class="wlist" id="rList"></ul>
     </div>
     <div class="btn-row">
-      <button class="btn primary" id="againBtn">もう一度たたかう</button>
+      <button class="btn primary" id="againBtn">もう一度</button>
       <button class="btn" id="toMapBtn">ホームへ</button>
     </div>
   </section>
@@ -664,7 +681,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
       <textarea id="myBulk" rows="5" placeholder="awesome = すごい&#10;exhausted = くたくたの&#10;Take it easy. = 気楽にね。"></textarea>
       <button class="btn" id="myBulkAdd" type="button">まとめて追加</button>
     </details>
-    <button class="btn primary" id="memoBtn" type="button">マイたんごでバトル</button>
+    <button class="btn" id="memoBtn" type="button">マイたんごでバトル</button>
     <button class="btn" id="myMix" type="button"></button>
     <p class="note" id="mySync"></p>
     <div class="win"><ul class="wlist my-list" id="myList"></ul></div>
@@ -674,13 +691,12 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
   <section class="screen" id="s-pass" hidden>
     <div class="row spread">
       <div class="screen-title">きろく</div>
-      <span class="chip num" id="passCount"></span>
       <button class="btn small" id="passBack" hidden>もどる</button>
     </div>
     <div class="stat-tiles">
-      <div class="tile"><div class="label">マスター</div><div class="num"><span id="mapMastered">0</span><span class="of"> / <span id="mapTotal">0</span></span></div></div>
-      <div class="tile t-gold"><div class="label">スタンプ</div><div class="num"><span id="mapStamps">0</span><span class="of"> / 12</span></div></div>
-      <div class="tile t-sky"><div class="label">復習まち</div><div class="num" id="mapDue">0</div></div>
+      <div class="stat-tile"><div class="label">マスター</div><div class="num"><span id="mapMastered">0</span><span class="of"> / <span id="mapTotal">0</span></span></div></div>
+      <div class="stat-tile t-gold"><div class="label">スタンプ</div><div class="num"><span id="mapStamps">0</span><span class="of"> / 12</span></div></div>
+      <div class="stat-tile t-sky"><div class="label">復習まち</div><div class="num" id="mapDue">0</div></div>
     </div>
     <div class="win"><div class="row spread"><span class="label">レベル</span><span class="label" id="mapExpText"></span></div><div class="bar gold"><i id="mapExp"></i></div></div>
     <div class="label">パスポート（州をクリアするとスタンプ）</div>
@@ -689,7 +705,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 
   <!-- SETTINGS -->
   <section class="screen" id="s-setting" hidden>
-    <div class="screen-title">設定</div>
+    <div class="row spread"><div class="screen-title">設定</div><button class="btn small" id="settingBack">もどる</button></div>
     <div class="win settings">
       <div class="field">
         <label class="label" for="nameInput2">プレイヤー名</label>
@@ -710,7 +726,6 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
     </div>
     <p class="note">レベルと★の記録はこの端末のブラウザに保存されます。</p>
     <p class="note">タイトル画面と会話モードの動画：Pexels（無料ライセンス）</p>
-    <button class="btn" id="settingBack">もどる</button>
   </section>
 
   <!-- DRILL MODES (paraphrase / example / speed / shiritori / level check) -->
@@ -2792,7 +2807,7 @@ function renderSpecials(){
     const b = document.createElement('button');
     b.className = 'btn stage';
     b.innerHTML = `<div class="sp"></div>
-      <div class="grow"><div class="sname">${esc(m.name)} ${IMAGES[id] ? '<span class="chip">あなたのモンスター</span>' : '<span class="chip">口語フレーズ特訓</span>'}</div>
+      <div class="grow"><div class="sname">${esc(m.name)}</div>
       <div class="smeta">${m.cat === 'all' ? 'すべての単語から出題' : esc(CATS[m.cat].name + '：' + CATS[m.cat].desc)}・HP ${m.hp}</div></div>
       <div class="swins">${S.wins[id] ? '討伐 ' + S.wins[id] : ''}</div>`;
     b.querySelector('.sp').appendChild(spriteEl(id));
@@ -2814,7 +2829,6 @@ function drawUSMap(){
     if(st) cls = stateCleared(st) ? 'st-clear' : stateOpen(st) ? 'st-open' : 'st-lock';
     if(code === selState) cls += ' st-sel';
     const path = el('path', {d, class:'st ' + cls});
-    if(st) path.addEventListener('click', () => selectState(code));
     svg.appendChild(path);
   });
   STATES.forEach(st => st.next.forEach(n => {
@@ -2825,8 +2839,10 @@ function drawUSMap(){
     const [x,y] = US_CENTERS[st.code];
     const g = el('g', {class:'pin' + (st.code === selState ? ' sel' : ''), tabindex:'0', role:'button', 'aria-label':st.ja});
     const status = stateCleared(st) ? 'clear' : stateOpen(st) ? 'open' : 'lock';
+    g.appendChild(el('circle', {cx:x, cy:y, r:72, fill:'transparent', class:'hit'}));  // about 45pt on a phone-width map
     g.appendChild(el('circle', {cx:x, cy:y, r:st.code === selState ? 15 : 11, class:'dot ' + status}));
-    const t = el('text', {x, y:y - 20, class:'plabel'});
+    const off = {CA:[-34, 44], HI:[56, 8]}[st.code] || [0, -20];  // keep crowded labels apart
+    const t = el('text', {x: x + off[0], y: y + off[1], class:'plabel'});
     t.textContent = st.ja.replace('州','');
     g.appendChild(t);
     g.addEventListener('click', () => selectState(st.code));
@@ -2889,14 +2905,16 @@ function renderStatePanel(){
 }
 function renderPass(){
   const got = STATES.filter(stateCleared).length;
-  $('#passCount').textContent = `スタンプ ${got} / ${STATES.length}`;
   $('#stampList').innerHTML = STATES.map(st => {
     const c = stateCleared(st);
-    return `<div class="win stamp-card ${c ? 'got' : ''}">
-      <div class="stamp">${c ? st.code : '？'}</div>
-      <div class="grow"><div class="sname">${esc(st.ja)}</div><div class="smeta">${c ? esc(st.nick) : 'まだクリアしていない'}</div>
-      ${c ? st.facts.map(([e,j]) => `<p class="fact"><span>${esc(e)}</span><br><small>${esc(j)}</small></p>`).join('') : ''}</div></div>`;
-  }).join('');
+    return `<button type="button" class="win stamp-cell ${c ? 'got' : ''}" data-code="${st.code}" ${c ? '' : 'disabled'}>
+      <span class="stamp">${c ? st.code : '？'}</span><span class="sname">${esc(st.ja.replace('州', ''))}</span></button>`;
+  }).join('') + '<div class="win stamp-facts" id="stampFacts" hidden></div>';
+  $('#stampList').querySelectorAll('.stamp-cell.got').forEach(b => b.addEventListener('click', () => {
+    const st = stateOf(b.dataset.code), box = $('#stampFacts');
+    box.innerHTML = `<div class="sname">${esc(st.ja)} ・ ${esc(st.nick)}</div>` + st.facts.map(([e,j]) => `<p class="fact"><span>${esc(e)}</span><br><small>${esc(j)}</small></p>`).join('');
+    box.hidden = false; box.scrollIntoView({block:'nearest', behavior:'smooth'});
+  }));
 }
 $('#navHome').addEventListener('click', () => { renderMap(); show('map'); });
 $('#navPlay').addEventListener('click', () => { play('select'); renderPlay(); show('play'); });
@@ -3491,7 +3509,7 @@ function renderMy(){
     : 'マイたんごはこの端末のブラウザに保存されます。';
   $('#myMix').textContent = '旅のバトルにもまぜる：' + (S.mixMy === false ? 'オフ' : 'オン');
   $('#myCount').textContent = `${MY.length} 語`;
-  $('#memoBtn').disabled = MYWORDS.length === 0;
+  $('#memoBtn').hidden = MYWORDS.length === 0;
   const list = $('#myList'); list.innerHTML = '';
   if(!MY.length){
     list.innerHTML = '<li class="empty">まだありません。上のフォームから最近覚えた単語を追加しよう。</li>';
