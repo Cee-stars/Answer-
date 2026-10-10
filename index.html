@@ -724,7 +724,7 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
         </div>
       </div>
     </div>
-    <p class="note">レベルと★の記録はこの端末のブラウザに保存されます。</p>
+    <p class="note" id="syncInfo">自動同期：準備中…</p>
     <p class="note">タイトル画面と会話モードの動画：Pexels（無料ライセンス）</p>
   </section>
 
@@ -2526,7 +2526,11 @@ function loadSave(){
   }catch(e){}
   return defaultSave();
 }
-function persist(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify(S)); }catch(e){} }
+function persist(){
+  S.savedAt = Date.now();
+  try{ localStorage.setItem(SAVE_KEY, JSON.stringify(S)); }catch(e){}
+  if(typeof syncSoon === 'function') syncSoon();
+}
 let S = loadSave();
 
 /* ===================== HELPERS ===================== */
@@ -3407,6 +3411,7 @@ function renderSetting(){
   $('#soundBtn').textContent = '効果音：' + (S.sound ? 'オン' : 'オフ');
   $('#artBtn').textContent = '絵のタイプ：' + (S.art === 'pixel' ? 'ドット絵' : 'イラスト');
   $('#resetConfirm').hidden = true;
+  if(typeof syncSyncLabel === 'function') syncSyncLabel();
 }
 $('#easyBtn').addEventListener('click', () => { S.easy = !S.easy; persist(); renderSetting(); });
 $('#voiceBtn').addEventListener('click', () => { S.voice = S.voice === false; persist(); renderSetting(); });
@@ -3415,7 +3420,7 @@ $('#resetBtn').addEventListener('click', () => { $('#resetConfirm').hidden = fal
 $('#resetNo').addEventListener('click', () => { $('#resetConfirm').hidden = true; });
 $('#resetYes').addEventListener('click', () => {
   const name = S.name, sound = S.sound;
-  S = defaultSave(); S.name = name; S.sound = sound;
+  S = defaultSave(); S.name = name; S.sound = sound; S.epoch = Date.now();  // a reset wins over older saves on other devices
   persist(); renderSetting();
 });
 $('#settingBack').addEventListener('click', () => {
@@ -5529,6 +5534,103 @@ function plFinish(){
 }
 window.startPlace = () => drStart(PLACE_MODE);
 
+
+/* ===================== AUTO SYNC ===================== */
+// Progress is kept in the artifact's database (doc save/main, readable and writable only by the
+// owner), so the phone and the PC share one record. Writes go out 2 s after the last change;
+// changes from the other device are merged, and wait until you are back on a menu screen.
+const DEV = (() => { try{ let d = localStorage.getItem('answerquest.dev'); if(!d){ d = Math.random().toString(36).slice(2, 10); localStorage.setItem('answerquest.dev', d); } return d; }catch(e){ return 'x'; } })();
+let syncDoc = null, syncTimer = 0, syncBusy = false, syncAgain = false, syncPending = null;
+let syncState = {on:false, at:0, err:''};
+// Combine two saves without losing practice from either device.
+function mergeSave(a, b){
+  if((a.epoch || 0) !== (b.epoch || 0)) return (a.epoch || 0) > (b.epoch || 0) ? a : b;
+  const newer = (a.savedAt || 0) >= (b.savedAt || 0) ? a : b, older = newer === a ? b : a;
+  const m = JSON.parse(JSON.stringify(newer));
+  m.words = Object.assign({}, older.words || {});
+  Object.entries(newer.words || {}).forEach(([k, p]) => {
+    const q = m.words[k];
+    if(!q || (p.n || 0) > (q.n || 0) || ((p.n || 0) === (q.n || 0) && (p.due || 0) >= (q.due || 0))) m.words[k] = p;
+  });
+  m.wins = Object.assign({}, older.wins || {});
+  Object.entries(newer.wins || {}).forEach(([k, v]) => { m.wins[k] = Math.max(v, m.wins[k] || 0); });
+  if((older.lv || 1) > (m.lv || 1) || ((older.lv || 1) === (m.lv || 1) && (older.exp || 0) > (m.exp || 0))){ m.lv = older.lv; m.exp = older.exp; }
+  if(older.daily && m.daily && older.daily.d === m.daily.d)
+    Object.keys(older.daily).forEach(k => { if(typeof older.daily[k] === 'number') m.daily[k] = Math.max(older.daily[k], m.daily[k] || 0); });
+  if(older.talk && m.talk){
+    m.talk.sets = Math.max(older.talk.sets || 0, m.talk.sets || 0);
+    Object.entries(older.talk.stamps || {}).forEach(([g, n]) => { m.talk.stamps[g] = Math.max(n, m.talk.stamps[g] || 0); });
+  }
+  if(!m.place && older.place) m.place = older.place;
+  m.savedAt = Math.max(a.savedAt || 0, b.savedAt || 0);
+  return m;
+}
+const BUSY_SCREENS = ['battle','talk','drill','result'];
+function syncApply(remote){
+  if(BUSY_SCREENS.some(n => !$('#s-' + n).hidden)){ syncPending = remote; return; }
+  syncPending = null;
+  const merged = mergeSave(S, remote);
+  if(merged === S){ syncSoon(); return; }  // this device is ahead (e.g. it was just reset)
+  S = Object.assign(defaultSave(), merged);
+  try{ localStorage.setItem(SAVE_KEY, JSON.stringify(S)); }catch(e){}
+  if(!$('#s-map').hidden) renderMap();
+  if(!$('#s-pass').hidden){ renderRecord(); renderPass(); }
+  if(!$('#s-dex').hidden) renderDex();
+  if(!$('#s-play').hidden) renderPlay();
+  if(!$('#s-title').hidden) renderTitle();
+  // the merge may hold progress the cloud doesn't have yet
+  if(JSON.stringify(merged.words) !== JSON.stringify(remote.words) || merged.lv !== remote.lv || merged.exp !== remote.exp) syncSoon();
+}
+function syncSoon(){
+  if(!syncDoc) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(syncPush, 2000);
+}
+async function syncPush(){
+  if(!syncDoc) return;
+  if(syncBusy){ syncAgain = true; return; }  // one write at a time
+  syncBusy = true;
+  try{
+    await syncDoc.set({json: JSON.stringify(S), at: S.savedAt || Date.now(), dev: DEV});
+    syncState = {on:true, at:Date.now(), err:''};
+  }catch(e){ syncState.err = (e && e.code) || 'error'; }
+  syncBusy = false;
+  syncSyncLabel();
+  if(syncAgain){ syncAgain = false; syncSoon(); }
+}
+function syncSyncLabel(){
+  const el = $('#syncInfo'); if(!el) return;
+  if(!syncDoc){ el.textContent = '自動同期：この端末だけに保存中（同期できない環境です）'; return; }
+  const t = syncState.at ? new Date(syncState.at).toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'}) : '—';
+  el.textContent = syncState.err ? `自動同期：うまく保存できませんでした（${syncState.err}）。この端末には保存されています` : `自動同期：オン（スマホとPCで同じ記録）・最後の同期 ${t}`;
+}
+async function initSync(){
+  let db = null;
+  try{ db = window.claude && window.claude.use ? await window.claude.use('db') : null; }catch(e){}
+  if(!db){ syncSyncLabel(); return; }
+  const doc = db.doc('save/main');
+  try{
+    const snap = await doc.get();
+    syncDoc = doc;
+    syncState.on = true;
+    if(snap.exists){
+      const d = snap.data();
+      try{ syncApply(Object.assign(defaultSave(), JSON.parse(d.json))); }catch(e){}
+      syncState.at = Date.now();
+      if((S.savedAt || 0) > (d.at || 0)) syncSoon();
+    }else if(Object.keys(S.words).length || S.lv > 1) syncSoon();  // first device: upload what is here
+    doc.onSnapshot(sn => {
+      if(!sn.exists || sn.metadata.hasPendingWrites) return;
+      const d = sn.data();
+      if(d.dev === DEV) return;
+      try{ syncApply(Object.assign(defaultSave(), JSON.parse(d.json))); syncState.at = Date.now(); syncSyncLabel(); }catch(e){}
+    }, () => {});
+  }catch(e){ syncDoc = null; }
+  syncSyncLabel();
+}
+// apply a change that arrived mid-battle once you are back on a menu
+const _applyShowSync = applyShow;
+applyShow = function(name){ _applyShowSync(name); if(syncPending && !BUSY_SCREENS.includes(name)) syncApply(syncPending); };
 /* ===================== BOOT ===================== */
 if(!S.v2){
   Object.values(S.words).forEach(p => { p.s = Math.max(0, (p.s || 0) - 1); });
@@ -5538,4 +5640,5 @@ renderTitle();
 renderCityHero();
 show('title');
 initMy();
+initSync();
 </script>
