@@ -1,0 +1,636 @@
+{
+ "rules": [
+  "空欄は1語・-ing形に統一（現在進行形）",
+  "目的語・道具・場面語で動詞を1つに絞る",
+  "accept=正しい別解（米英含む）は○",
+  "near_oshii=意味は近いが文に合わない語→「おしい・もっと詳しく」",
+  "原形・過去形・3単現→「形だけ違う」→-ingを見せて再入力",
+  "文字の写った写真は使わない",
+  "g=0 は中学範囲外"
+ ],
+ "items": [
+  {
+   "verb": "blow",
+   "answer": "blowing",
+   "accept": [
+    "blowing"
+   ],
+   "sentence_with_blank": "She is ___ out the candles on her birthday cake.",
+   "ja": "彼女は誕生日ケーキのろうそくを吹き消している。",
+   "photo_query": "girl blowing out birthday candles",
+   "collocation_note": "blow out the candles（put out は火事・タバコ向き）",
+   "g": 1,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "brush",
+   "answer": "brushing",
+   "accept": [
+    "brushing"
+   ],
+   "sentence_with_blank": "He is ___ his teeth after breakfast.",
+   "ja": "彼は朝食後に歯をみがいている。",
+   "photo_query": "man brushing teeth mirror",
+   "collocation_note": "brush one's teeth（polish/wash は不自然）",
+   "g": 1,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "ride",
+   "answer": "riding",
+   "accept": [
+    "riding"
+   ],
+   "sentence_with_blank": "She is ___ her bike to school.",
+   "ja": "彼女は自転車で通学している。",
+   "photo_query": "student riding bicycle to school",
+   "collocation_note": "ride a bike（drive は車）",
+   "g": 1,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "tie",
+   "answer": "tying",
+   "accept": [
+    "tying"
+   ],
+   "sentence_with_blank": "He is ___ his shoelaces.",
+   "ja": "彼は靴ひもを結んでいる。",
+   "photo_query": "tying shoelaces close up",
+   "collocation_note": "tie one's shoelaces（BrE: do up one's laces）",
+   "g": 2,
+   "near_oshii": [
+    "doing"
+   ],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "wash",
+   "answer": "washing",
+   "accept": [
+    "washing"
+   ],
+   "sentence_with_blank": "She is ___ her hands with soap.",
+   "ja": "彼女は石けんで手を洗っている。",
+   "photo_query": "washing hands with soap",
+   "collocation_note": "wash one's hands（「手を洗う」=wash, not clean）",
+   "g": 1,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "climb",
+   "answer": "climbing",
+   "accept": [
+    "climbing",
+    "hiking"
+   ],
+   "sentence_with_blank": "They are ___ a mountain.",
+   "ja": "彼らは山に登っている。",
+   "photo_query": "hikers climbing mountain",
+   "collocation_note": "climb a mountain（AmE: hike a mountain も可）",
+   "g": 2,
+   "near_oshii": [
+    "hiking",
+    "going"
+   ],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "fly",
+   "answer": "flying",
+   "accept": [
+    "flying"
+   ],
+   "sentence_with_blank": "The boy is ___ a kite on the beach.",
+   "ja": "男の子が浜辺で凧をあげている。",
+   "photo_query": "boy flying kite beach",
+   "collocation_note": "fly a kite（「あげる」を raise にしない）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "take",
+   "answer": "taking",
+   "accept": [
+    "taking"
+   ],
+   "sentence_with_blank": "He is ___ a photo of the sunset.",
+   "ja": "彼は夕日の写真を撮っている。",
+   "photo_query": "man taking photo of sunset with phone",
+   "collocation_note": "take a photo（BrE は take が標準。shoot は専門的）",
+   "g": 1,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "catch",
+   "answer": "catching",
+   "accept": [
+    "catching"
+   ],
+   "sentence_with_blank": "The boy is ___ a ball with both hands.",
+   "ja": "男の子が両手でボールをとっている。",
+   "photo_query": "boy catching ball both hands",
+   "collocation_note": "catch a ball（take は×。catch a train も同じ動詞）",
+   "g": 1,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "feed",
+   "answer": "feeding",
+   "accept": [
+    "feeding"
+   ],
+   "sentence_with_blank": "The girl is ___ the ducks at the pond.",
+   "ja": "女の子が池でカモにえさをやっている。",
+   "photo_query": "child feeding ducks pond",
+   "collocation_note": "feed the ducks（give food to も可だが1語なら feed）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "pour",
+   "answer": "pouring",
+   "accept": [
+    "pouring"
+   ],
+   "sentence_with_blank": "He is ___ milk into a glass.",
+   "ja": "彼はコップに牛乳を注いでいる。",
+   "photo_query": "pouring milk into glass",
+   "collocation_note": "pour A into B",
+   "g": 0,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "boil",
+   "answer": "boiling",
+   "accept": [
+    "boiling"
+   ],
+   "sentence_with_blank": "Look, the water is ___. Add the pasta now.",
+   "ja": "ほら、お湯がわいている。パスタを入れて。",
+   "photo_query": "pot of boiling water bubbles",
+   "collocation_note": "the water is boiling（「お湯がわく」）",
+   "g": 0,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "knock",
+   "answer": "knocking",
+   "accept": [
+    "knocking"
+   ],
+   "sentence_with_blank": "Someone is ___ on the door.",
+   "ja": "だれかがドアをノックしている。",
+   "photo_query": "hand knocking on door",
+   "collocation_note": "knock on/at the door",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "set",
+   "answer": "setting",
+   "accept": [
+    "setting",
+    "laying"
+   ],
+   "sentence_with_blank": "He is ___ the table for dinner.",
+   "ja": "彼は夕食のために食卓の準備をしている。",
+   "photo_query": "setting the table plates forks",
+   "collocation_note": "set the table（BrE: lay the table も正解）",
+   "g": 0,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "make",
+   "answer": "making",
+   "accept": [
+    "making"
+   ],
+   "sentence_with_blank": "She is ___ her bed before school.",
+   "ja": "彼女は登校前にベッドを整えている。",
+   "photo_query": "making the bed",
+   "collocation_note": "make one's bed（「ベッドを整える」= make）",
+   "g": 1,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "do",
+   "answer": "doing",
+   "accept": [
+    "doing"
+   ],
+   "sentence_with_blank": "He is ___ his homework at the kitchen table.",
+   "ja": "彼は台所のテーブルで宿題をしている。",
+   "photo_query": "boy doing homework kitchen table",
+   "collocation_note": "do one's homework（make は×）",
+   "g": 1,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "take",
+   "answer": "taking",
+   "accept": [
+    "taking",
+    "having"
+   ],
+   "sentence_with_blank": "He is ___ a shower after soccer practice.",
+   "ja": "彼はサッカーの練習後にシャワーを浴びている。",
+   "photo_query": "shower head water",
+   "collocation_note": "take a shower（BrE: have a shower も正解）",
+   "g": 1,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "cross",
+   "answer": "crossing",
+   "accept": [
+    "crossing"
+   ],
+   "sentence_with_blank": "The children are ___ the street at the crosswalk.",
+   "ja": "子どもたちが横断歩道で道を渡っている。",
+   "photo_query": "children crossing street crosswalk",
+   "collocation_note": "cross the street（walk across も可だが1語なら cross）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "wait",
+   "answer": "waiting",
+   "accept": [
+    "waiting"
+   ],
+   "sentence_with_blank": "They are ___ for the bus in the rain.",
+   "ja": "彼らは雨の中バスを待っている。",
+   "photo_query": "people waiting at bus stop rain",
+   "collocation_note": "wait for ~（for を忘れない）",
+   "g": 1,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "pay",
+   "answer": "paying",
+   "accept": [
+    "paying"
+   ],
+   "sentence_with_blank": "She is ___ by card at the register.",
+   "ja": "彼女はレジでカードで支払っている。",
+   "photo_query": "paying by card terminal",
+   "collocation_note": "pay by card / pay in cash（前置詞の違い）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "hang",
+   "answer": "hanging",
+   "accept": [
+    "hanging"
+   ],
+   "sentence_with_blank": "Mom is ___ the laundry out to dry.",
+   "ja": "母が洗濯物を外に干している。",
+   "photo_query": "hanging laundry outside clothesline",
+   "collocation_note": "hang out the laundry（「干す」= hang out）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "water",
+   "answer": "watering",
+   "accept": [
+    "watering"
+   ],
+   "sentence_with_blank": "Grandpa is ___ the plants in the garden.",
+   "ja": "祖父が庭の植物に水をやっている。",
+   "photo_query": "man watering plants garden",
+   "collocation_note": "water the plants（water は動詞にもなる）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "walk",
+   "answer": "walking",
+   "accept": [
+    "walking"
+   ],
+   "sentence_with_blank": "She is ___ her dog in the park.",
+   "ja": "彼女は公園で犬を散歩させている。",
+   "photo_query": "woman walking dog park",
+   "collocation_note": "walk the dog（take the dog for a walk も同義）",
+   "g": 1,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "shake",
+   "answer": "shaking",
+   "accept": [
+    "shaking"
+   ],
+   "sentence_with_blank": "The two players are ___ hands after the game.",
+   "ja": "2人の選手が試合後に握手している。",
+   "photo_query": "athletes shaking hands",
+   "collocation_note": "shake hands（hands は複数形）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "raise",
+   "answer": "raising",
+   "accept": [
+    "raising"
+   ],
+   "sentence_with_blank": "A student is ___ her hand to answer.",
+   "ja": "生徒が答えようと手をあげている。",
+   "photo_query": "student raising hand classroom",
+   "collocation_note": "raise one's hand（put one's hand up は up が要るので空欄1語には入らない）",
+   "g": 3,
+   "near_oshii": [
+    "putting"
+   ],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "turn",
+   "answer": "turning",
+   "accept": [
+    "turning",
+    "switching"
+   ],
+   "sentence_with_blank": "He is ___ off the light before bed.",
+   "ja": "彼は寝る前に電気を消している。",
+   "photo_query": "hand turning off light switch",
+   "collocation_note": "turn off / switch off the light（「消す」を erase にしない）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "pick",
+   "answer": "picking",
+   "accept": [
+    "picking"
+   ],
+   "sentence_with_blank": "We are ___ strawberries on the farm.",
+   "ja": "私たちは農園でいちごを摘んでいる。",
+   "photo_query": "picking strawberries farm",
+   "collocation_note": "pick strawberries/fruit",
+   "g": 3,
+   "near_oshii": [
+    "collecting",
+    "picking up"
+   ],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "sweep",
+   "answer": "sweeping",
+   "accept": [
+    "sweeping"
+   ],
+   "sentence_with_blank": "She is ___ the floor with a broom.",
+   "ja": "彼女はほうきで床をはいている。",
+   "photo_query": "woman sweeping floor broom",
+   "collocation_note": "sweep the floor（with a broom で mop/clean を排除）",
+   "g": 0,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "peel",
+   "answer": "peeling",
+   "accept": [
+    "peeling"
+   ],
+   "sentence_with_blank": "He is ___ an orange with his fingers.",
+   "ja": "彼は指でみかんの皮をむいている。",
+   "photo_query": "hands peeling orange",
+   "collocation_note": "peel an orange（「皮をむく」= peel 1語）",
+   "g": 0,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "wrap",
+   "answer": "wrapping",
+   "accept": [
+    "wrapping"
+   ],
+   "sentence_with_blank": "She is ___ a present for her friend.",
+   "ja": "彼女は友だちへのプレゼントを包んでいる。",
+   "photo_query": "wrapping a gift paper ribbon",
+   "collocation_note": "wrap a present（-pp- なし: wrapping）",
+   "g": 0,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "dry",
+   "answer": "drying",
+   "accept": [
+    "drying"
+   ],
+   "sentence_with_blank": "She is ___ her hair with a towel.",
+   "ja": "彼女はタオルで髪をふいている。",
+   "photo_query": "woman drying hair towel",
+   "collocation_note": "dry one's hair（wipe は表面をふく）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "fold",
+   "answer": "folding",
+   "accept": [
+    "folding"
+   ],
+   "sentence_with_blank": "He is ___ his shirts neatly.",
+   "ja": "彼はシャツをきちんとたたんでいる。",
+   "photo_query": "folding shirts neatly",
+   "collocation_note": "fold clothes（neatly と相性がよい）",
+   "g": 0,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "yawn",
+   "answer": "yawning",
+   "accept": [
+    "yawning"
+   ],
+   "sentence_with_blank": "She is ___ with her mouth wide open because she's sleepy.",
+   "ja": "彼女は眠くて大きなあくびをしている。",
+   "photo_query": "woman yawning",
+   "collocation_note": "yawn（sneeze は coughing と写真で区別しにくいので差し替え）",
+   "g": 0,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "skate",
+   "answer": "skating",
+   "accept": [
+    "skating",
+    "ice-skating",
+    "iceskating"
+   ],
+   "sentence_with_blank": "They are ___ on the frozen lake.",
+   "ja": "彼らは凍った湖でスケートをしている。",
+   "photo_query": "people ice skating frozen lake",
+   "collocation_note": "skate / go skating（lock は locking/unlocking が写真で決まらないので差し替え）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "park",
+   "answer": "parking",
+   "accept": [
+    "parking"
+   ],
+   "sentence_with_blank": "She is ___ her car in the garage.",
+   "ja": "彼女はガレージに車をとめている。",
+   "photo_query": "woman parking car garage",
+   "collocation_note": "park a car（「とめる」を stop にしない：stop は一時停止）",
+   "g": 3,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "line",
+   "answer": "lining",
+   "accept": [
+    "lining",
+    "queuing",
+    "queueing"
+   ],
+   "sentence_with_blank": "People are ___ up outside the ramen shop.",
+   "ja": "ラーメン屋の外に人が並んでいる。",
+   "photo_query": "hotel reception guest handing passport",
+   "collocation_note": "line up（AmE）/ queue (up)（BrE）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "check",
+   "answer": "checking",
+   "accept": [
+    "checking"
+   ],
+   "sentence_with_blank": "We are ___ in at the hotel front desk.",
+   "ja": "私たちはホテルのフロントでチェックインしている。",
+   "photo_query": "hotel check in front desk",
+   "collocation_note": "check in / check out（旅行の必須表現）",
+   "g": 0,
+   "near_oshii": [],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "try",
+   "answer": "trying",
+   "accept": [
+    "trying"
+   ],
+   "sentence_with_blank": "She is ___ on a jacket in the fitting room.",
+   "ja": "彼女は試着室でジャケットを試着している。",
+   "photo_query": "woman trying on jacket mirror clothing store",
+   "collocation_note": "try on（試着）。put on は「着る」動作",
+   "g": 1,
+   "near_oshii": [
+    "putting"
+   ],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "order",
+   "answer": "ordering",
+   "accept": [
+    "ordering"
+   ],
+   "sentence_with_blank": "He is ___ a pizza for delivery on his phone.",
+   "ja": "彼はスマホで宅配ピザを注文している。",
+   "photo_query": "man ordering food on smartphone pizza",
+   "collocation_note": "order food / order a pizza（店では I'll have ~）",
+   "g": 2,
+   "near_oshii": [
+    "buying"
+   ],
+   "blank_form": "ing"
+  },
+  {
+   "verb": "get",
+   "answer": "getting",
+   "accept": [
+    "getting",
+    "stepping"
+   ],
+   "sentence_with_blank": "She is ___ off the train at Shibuya.",
+   "ja": "彼女は渋谷で電車を降りている。",
+   "photo_query": "woman stepping off train platform",
+   "collocation_note": "get off the train（⇔ get on）",
+   "g": 2,
+   "near_oshii": [],
+   "blank_form": "ing"
+  }
+ ],
+ "bad_examples": [
+  {
+   "sentence_with_blank": "She is ___ a cake.",
+   "why_bad": "baking / making / decorating / cutting / eating / icing — 写真があっても複数正解。→「___ out the candles」や「___ a cake in the oven (baking)」など目的語・副詞で絞る",
+   "good": false
+  },
+  {
+   "sentence_with_blank": "He is ___ the floor.",
+   "why_bad": "sweeping / mopping / cleaning / vacuuming / scrubbing — 道具（with a broom）を文に入れる",
+   "good": false
+  },
+  {
+   "sentence_with_blank": "They are ___ in the park.",
+   "why_bad": "playing / walking / running / talking / sitting — 自動詞+場所だけでは決まらない",
+   "good": false
+  },
+  {
+   "sentence_with_blank": "He is ___ a book.",
+   "why_bad": "reading / writing / holding / carrying / buying — 写真の解釈に依存",
+   "good": false
+  },
+  {
+   "sentence_with_blank": "She is ___ her phone.",
+   "why_bad": "using / checking / looking at / charging — 句動詞が混ざり1語にならない",
+   "good": false
+  }
+ ],
+ "changes_from_v1": [
+  "brushes→brushing",
+  "catch the last train→catching a ball",
+  "sneezed→yawning(coughingと写真で区別不可)",
+  "lock→skating(locking/unlocking不定)",
+  "park→parking",
+  "try on→trying(near: putting)",
+  "order→ordering(near: buying)",
+  "raise: accept から putting 削除",
+  "climb: hiking を追加",
+  "get off: stepping を追加",
+  "check in の写真語を看板なしに"
+ ]
+}

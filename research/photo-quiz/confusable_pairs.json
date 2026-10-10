@@ -1,0 +1,297 @@
+{
+ "rule": "同じ回（10問）に両方を出さない。片方を出したら次の回まで間を空ける",
+ "pairs": [
+  [
+   "airplane",
+   "ship"
+  ],
+  [
+   "aluminum foil",
+   "plastic wrap"
+  ],
+  [
+   "backpack",
+   "bag"
+  ],
+  [
+   "bag",
+   "plastic bag"
+  ],
+  [
+   "bag",
+   "wallet"
+  ],
+  [
+   "baking",
+   "cooking"
+  ],
+  [
+   "ballpoint pen",
+   "pen"
+  ],
+  [
+   "beach",
+   "sea"
+  ],
+  [
+   "bear",
+   "panda"
+  ],
+  [
+   "bike",
+   "motorcycle"
+  ],
+  [
+   "book",
+   "dictionary"
+  ],
+  [
+   "book",
+   "notebook"
+  ],
+  [
+   "box",
+   "cardboard box"
+  ],
+  [
+   "box",
+   "tissue"
+  ],
+  [
+   "box",
+   "trash can"
+  ],
+  [
+   "brushing",
+   "cleaning"
+  ],
+  [
+   "cake",
+   "cream puff"
+  ],
+  [
+   "cake",
+   "pudding"
+  ],
+  [
+   "cake",
+   "red velvet cake"
+  ],
+  [
+   "car",
+   "taxi"
+  ],
+  [
+   "carrying",
+   "pushing"
+  ],
+  [
+   "catching",
+   "throwing"
+  ],
+  [
+   "cell phone",
+   "phone"
+  ],
+  [
+   "cleaning",
+   "washing"
+  ],
+  [
+   "clock",
+   "watch"
+  ],
+  [
+   "coffee",
+   "cup"
+  ],
+  [
+   "coffee",
+   "mug"
+  ],
+  [
+   "computer",
+   "laptop"
+  ],
+  [
+   "correction tape",
+   "tape"
+  ],
+  [
+   "cow",
+   "pig"
+  ],
+  [
+   "crosswalk",
+   "sidewalk"
+  ],
+  [
+   "cup",
+   "glasses"
+  ],
+  [
+   "cup",
+   "mug"
+  ],
+  [
+   "cup",
+   "tea"
+  ],
+  [
+   "desk",
+   "table"
+  ],
+  [
+   "doctor",
+   "nurse"
+  ],
+  [
+   "drawing",
+   "painting"
+  ],
+  [
+   "dress shirt",
+   "shirt"
+  ],
+  [
+   "eggplant",
+   "zucchini"
+  ],
+  [
+   "flip-flops",
+   "slippers"
+  ],
+  [
+   "flower",
+   "rose"
+  ],
+  [
+   "french fries",
+   "potato"
+  ],
+  [
+   "french fries",
+   "potato chips"
+  ],
+  [
+   "frying pan",
+   "pot"
+  ],
+  [
+   "hat",
+   "shoes"
+  ],
+  [
+   "highlighter",
+   "marker"
+  ],
+  [
+   "highlighter",
+   "pen"
+  ],
+  [
+   "hoodie",
+   "sweatshirt"
+  ],
+  [
+   "ice cream",
+   "popsicle"
+  ],
+  [
+   "ice cream",
+   "soft serve"
+  ],
+  [
+   "jeans",
+   "pants"
+  ],
+  [
+   "kettle",
+   "pot"
+  ],
+  [
+   "lake",
+   "river"
+  ],
+  [
+   "laptop",
+   "notebook"
+  ],
+  [
+   "laughing",
+   "smiling"
+  ],
+  [
+   "lemon",
+   "tangerine"
+  ],
+  [
+   "marker",
+   "pen"
+  ],
+  [
+   "mechanical pencil",
+   "pencil"
+  ],
+  [
+   "outlet",
+   "plug"
+  ],
+  [
+   "outlet",
+   "power strip"
+  ],
+  [
+   "pen",
+   "pencil"
+  ],
+  [
+   "plastic bottle",
+   "thermos"
+  ],
+  [
+   "plastic wrap",
+   "tissue"
+  ],
+  [
+   "rabbit",
+   "sheep"
+  ],
+  [
+   "shirt",
+   "sweatshirt"
+  ],
+  [
+   "shirt",
+   "tank top"
+  ],
+  [
+   "shoes",
+   "slippers"
+  ],
+  [
+   "shoes",
+   "sneakers"
+  ],
+  [
+   "sitting",
+   "waiting"
+  ],
+  [
+   "station",
+   "train"
+  ],
+  [
+   "tank top",
+   "vest"
+  ],
+  [
+   "using",
+   "watching"
+  ],
+  [
+   "window",
+   "windshield"
+  ]
+ ]
+}
