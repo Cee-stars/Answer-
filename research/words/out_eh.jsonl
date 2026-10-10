@@ -1,0 +1,210 @@
+{"w": "each", "m": "それぞれの・各自", "pos": "形", "g": 1, "c": "kaiwa", "e": "Each student has a locker at school.", "j": "生徒はそれぞれ学校にロッカーを持っている。"}
+{"w": "ear", "m": "耳", "pos": "名", "g": 0, "c": "karada", "e": "My ears hurt on the plane.", "j": "飛行機で耳が痛くなった。"}
+{"w": "early", "m": "早く・早い", "pos": "副", "g": 1, "c": "kurashi", "e": "I get up early on school days.", "j": "学校がある日は早く起きる。"}
+{"w": "earthquake", "m": "地震", "pos": "名", "g": 2, "c": "shizen", "e": "We had a big earthquake last night.", "j": "昨夜大きな地震があった。"}
+{"w": "east", "m": "東", "pos": "名", "g": 2, "c": "shizen", "e": "The sun rises in the east.", "j": "太陽は東からのぼる。"}
+{"w": "eat", "m": "食べる", "pos": "動", "g": 0, "c": "taberu", "e": "Let's eat lunch in the park.", "j": "公園でお昼を食べよう。"}
+{"w": "education", "m": "教育", "pos": "名", "g": 3, "c": "gakkou", "e": "Education is important for every child.", "j": "教育はすべての子どもにとって大切だ。"}
+{"w": "effort", "m": "努力", "pos": "名", "g": 3, "c": "kaiwa", "e": "She made a great effort to win.", "j": "彼女は勝つために大変な努力をした。"}
+{"w": "egg", "m": "卵", "pos": "名", "g": 0, "c": "taberu", "e": "I had eggs and toast for breakfast.", "j": "朝食に卵とトーストを食べた。"}
+{"w": "eight", "m": "8・8の", "pos": "数", "g": 0, "c": "kaiwa", "e": "School starts at eight.", "j": "学校は8時に始まる。"}
+{"w": "eighteen", "m": "18・18の", "pos": "数", "g": 0, "c": "kaiwa", "e": "My brother is eighteen years old.", "j": "兄は18歳だ。"}
+{"w": "eighteenth", "m": "18番目の・18日", "pos": "数", "g": 1, "c": "kurashi", "e": "My birthday is May eighteenth.", "j": "私の誕生日は5月18日だ。"}
+{"w": "eighth", "m": "8番目の・8日", "pos": "数", "g": 1, "c": "kurashi", "e": "Our class is on the eighth floor.", "j": "私たちの教室は8階にある。"}
+{"w": "eighty", "m": "80・80の", "pos": "数", "g": 0, "c": "kaiwa", "e": "My grandfather is eighty years old.", "j": "祖父は80歳だ。"}
+{"w": "either", "m": "どちらか・〜もまた(否定)", "pos": "副", "g": 3, "c": "kaiwa", "e": "I don't like coffee either.", "j": "私もコーヒーは好きではない。"}
+{"w": "elderly", "m": "年配の", "pos": "形", "g": 3, "c": "yousu", "e": "He helps elderly people in his town.", "j": "彼は町のお年寄りを手伝っている。"}
+{"w": "electricity", "m": "電気", "pos": "名", "g": 3, "c": "shizen", "e": "We should save electricity at home.", "j": "家で電気を節約すべきだ。"}
+{"w": "elementary", "m": "初歩の・初等の", "pos": "形", "g": 1, "c": "gakkou", "e": "My sister goes to elementary school.", "j": "妹は小学校に通っている。"}
+{"w": "eleven", "m": "11・11の", "pos": "数", "g": 0, "c": "kaiwa", "e": "The store opens at eleven.", "j": "その店は11時に開く。"}
+{"w": "eleventh", "m": "11番目の・11日", "pos": "数", "g": 1, "c": "kurashi", "e": "We met on November eleventh.", "j": "私たちは11月11日に会った。"}
+{"w": "else", "m": "ほかに", "pos": "副", "g": 2, "c": "kaiwa", "e": "Do you want anything else?", "j": "ほかに何か欲しいですか。"}
+{"w": "email", "m": "Eメール", "pos": "名", "g": 2, "c": "geinou", "e": "I sent an email to my teacher.", "j": "先生にメールを送った。"}
+{"w": "emergency", "m": "緊急事態", "pos": "名", "g": 3, "c": "kurashi", "e": "Call 911 in an emergency.", "j": "緊急時は911に電話して。"}
+{"w": "encourage", "m": "励ます", "pos": "動", "g": 3, "c": "ugoki", "e": "My coach always encourages me.", "j": "コーチはいつも私を励ましてくれる。"}
+{"w": "end", "m": "終わり・終わる", "pos": "名", "g": 2, "c": "kaiwa", "e": "We have a test at the end of May.", "j": "5月の終わりにテストがある。"}
+{"w": "energy", "m": "エネルギー", "pos": "名", "g": 2, "c": "shizen", "e": "Solar energy is clean energy.", "j": "太陽エネルギーはクリーンなエネルギーだ。"}
+{"w": "engineer", "m": "技術者", "pos": "名", "g": 2, "c": "gakkou", "e": "My father is an engineer.", "j": "父は技術者だ。"}
+{"w": "England", "m": "イングランド", "pos": "名", "g": 1, "c": "kuukou", "e": "He went to England last summer.", "j": "彼は去年の夏イングランドに行った。"}
+{"w": "English", "m": "英語・英語の", "pos": "名", "g": 0, "c": "gakkou", "e": "I study English every day.", "j": "私は毎日英語を勉強する。"}
+{"w": "enough", "m": "十分な・十分に", "pos": "形", "g": 2, "c": "kaiwa", "e": "Do we have enough time?", "j": "時間は十分にありますか。"}
+{"w": "enter", "m": "入る", "pos": "動", "g": 2, "c": "ugoki", "e": "Please enter the room quietly.", "j": "静かに部屋に入ってください。"}
+{"w": "environment", "m": "環境", "pos": "名", "g": 3, "c": "shizen", "e": "We must protect the environment.", "j": "私たちは環境を守らなければならない。"}
+{"w": "eraser", "m": "消しゴム", "pos": "名", "g": 0, "c": "gakkou", "e": "Can I borrow your eraser?", "j": "消しゴムを借りてもいい？"}
+{"w": "especially", "m": "特に", "pos": "副", "g": 2, "c": "kaiwa", "e": "I like fruit, especially apples.", "j": "果物、特にりんごが好きだ。"}
+{"w": "Europe", "m": "ヨーロッパ", "pos": "名", "g": 2, "c": "kuukou", "e": "She traveled around Europe by train.", "j": "彼女は電車でヨーロッパを旅した。"}
+{"w": "even", "m": "〜でさえ", "pos": "副", "g": 2, "c": "kaiwa", "e": "Even my little brother can swim.", "j": "弟でさえ泳げる。"}
+{"w": "evening", "m": "夕方・晩", "pos": "名", "g": 1, "c": "kurashi", "e": "We watch TV in the evening.", "j": "私たちは夕方テレビを見る。"}
+{"w": "event", "m": "行事・出来事", "pos": "名", "g": 2, "c": "asobi", "e": "The school event was a lot of fun.", "j": "学校の行事はとても楽しかった。"}
+{"w": "ever", "m": "今までに", "pos": "副", "g": 2, "c": "kaiwa", "e": "Have you ever been to New York?", "j": "ニューヨークに行ったことはありますか。"}
+{"w": "every", "m": "毎〜・すべての", "pos": "形", "g": 1, "c": "kaiwa", "e": "I walk my dog every morning.", "j": "毎朝犬の散歩をする。"}
+{"w": "everybody", "m": "みんな", "pos": "代", "g": 1, "c": "kaiwa", "e": "Good morning, everybody!", "j": "みなさん、おはよう！"}
+{"w": "everyone", "m": "みんな", "pos": "代", "g": 1, "c": "kaiwa", "e": "Everyone in my class likes music.", "j": "クラスのみんなが音楽好きだ。"}
+{"w": "everything", "m": "すべてのもの", "pos": "代", "g": 2, "c": "kaiwa", "e": "Thank you for everything.", "j": "いろいろとありがとう。"}
+{"w": "everywhere", "m": "どこでも", "pos": "副", "g": 2, "c": "kaiwa", "e": "I looked everywhere for my key.", "j": "鍵をあちこち探した。"}
+{"w": "exam", "m": "試験", "pos": "名", "g": 2, "c": "gakkou", "e": "I have a math exam tomorrow.", "j": "明日数学の試験がある。"}
+{"w": "example", "m": "例", "pos": "名", "g": 2, "c": "gakkou", "e": "Can you give me an example?", "j": "例を挙げてくれますか。"}
+{"w": "excellent", "m": "すばらしい", "pos": "形", "g": 2, "c": "yousu", "e": "Your speech was excellent!", "j": "君のスピーチはすばらしかった！"}
+{"w": "exchange", "m": "交換する・交換", "pos": "動", "g": 2, "c": "ugoki", "e": "Let's exchange email addresses.", "j": "メールアドレスを交換しよう。"}
+{"w": "excuse", "m": "許す・言い訳", "pos": "動", "g": 1, "c": "kaiwa", "e": "Excuse me, where is the station?", "j": "すみません、駅はどこですか。"}
+{"w": "exciting", "m": "わくわくする", "pos": "形", "g": 1, "c": "yousu", "e": "The baseball game was exciting.", "j": "野球の試合はわくわくした。"}
+{"w": "exercise", "m": "運動・練習問題", "pos": "名", "g": 2, "c": "karada", "e": "I get exercise every day.", "j": "毎日運動している。"}
+{"w": "experience", "m": "経験・経験する", "pos": "名", "g": 2, "c": "kaiwa", "e": "My homestay was a great experience.", "j": "ホームステイはすばらしい経験だった。"}
+{"w": "experiment", "m": "実験", "pos": "名", "g": 3, "c": "gakkou", "e": "We did an experiment in science class.", "j": "理科の授業で実験をした。"}
+{"w": "express", "m": "表現する", "pos": "動", "g": 3, "c": "ugoki", "e": "It is hard to express my feelings.", "j": "気持ちを表現するのは難しい。"}
+{"w": "expression", "m": "表現・表情", "pos": "名", "g": 3, "c": "kaiwa", "e": "Let's learn some useful expressions.", "j": "役に立つ表現を学ぼう。"}
+{"w": "eye", "m": "目", "pos": "名", "g": 0, "c": "karada", "e": "She has blue eyes.", "j": "彼女は青い目をしている。"}
+{"w": "face", "m": "顔", "pos": "名", "g": 0, "c": "karada", "e": "Wash your face before breakfast.", "j": "朝食の前に顔を洗いなさい。"}
+{"w": "fact", "m": "事実", "pos": "名", "g": 3, "c": "kaiwa", "e": "In fact, I was very nervous.", "j": "実は、とても緊張していた。"}
+{"w": "factory", "m": "工場", "pos": "名", "g": 2, "c": "machi", "e": "My uncle works at a car factory.", "j": "おじは自動車工場で働いている。"}
+{"w": "fail", "m": "失敗する", "pos": "動", "g": 3, "c": "ugoki", "e": "Don't be afraid to fail.", "j": "失敗を恐れるな。"}
+{"w": "fair", "m": "公平な", "pos": "形", "g": 3, "c": "yousu", "e": "That's not fair!", "j": "それはずるいよ！"}
+{"w": "fall", "m": "秋・落ちる", "pos": "名", "g": 1, "c": "tenki", "e": "The leaves turn red in fall.", "j": "秋には葉が赤くなる。"}
+{"w": "family", "m": "家族", "pos": "名", "g": 0, "c": "kurashi", "e": "I have four people in my family.", "j": "私の家族は4人だ。"}
+{"w": "fan", "m": "ファン・扇風機", "pos": "名", "g": 1, "c": "geinou", "e": "I'm a big fan of the Yankees.", "j": "私はヤンキースの大ファンだ。"}
+{"w": "fantastic", "m": "すばらしい", "pos": "形", "g": 1, "c": "yousu", "e": "The view from the hotel was fantastic.", "j": "ホテルからの眺めはすばらしかった。"}
+{"w": "farm", "m": "農場", "pos": "名", "g": 1, "c": "shizen", "e": "They grow corn on their farm.", "j": "彼らは農場でとうもろこしを育てている。"}
+{"w": "farmer", "m": "農家・農場主", "pos": "名", "g": 1, "c": "gakkou", "e": "The farmer gets up very early.", "j": "その農家の人はとても早く起きる。"}
+{"w": "fashion", "m": "ファッション", "pos": "名", "g": 2, "c": "kaimono", "e": "She is interested in fashion.", "j": "彼女はファッションに興味がある。"}
+{"w": "father", "m": "父", "pos": "名", "g": 0, "c": "kurashi", "e": "My father cooks dinner on Sundays.", "j": "父は日曜日に夕食を作る。"}
+{"w": "favor", "m": "親切な行い・頼み", "pos": "名", "g": 3, "c": "kaiwa", "e": "Can I ask you a favor?", "j": "お願いがあるんだけど。"}
+{"w": "February", "m": "2月", "pos": "名", "g": 0, "c": "tenki", "e": "It often snows in February.", "j": "2月にはよく雪が降る。"}
+{"w": "feel", "m": "感じる", "pos": "動", "g": 1, "c": "yousu", "e": "I feel tired today.", "j": "今日は疲れている。"}
+{"w": "feeling", "m": "気持ち・感情", "pos": "名", "g": 2, "c": "yousu", "e": "I understand your feelings.", "j": "あなたの気持ちはわかる。"}
+{"w": "fever", "m": "熱", "pos": "名", "g": 2, "c": "karada", "e": "I have a fever today.", "j": "今日は熱がある。"}
+{"w": "few", "m": "少数の", "pos": "形", "g": 2, "c": "kaiwa", "e": "I stayed in Boston for a few days.", "j": "ボストンに数日間滞在した。"}
+{"w": "field", "m": "畑・野原", "pos": "名", "g": 2, "c": "shizen", "e": "Cows are eating grass in the field.", "j": "牛が野原で草を食べている。"}
+{"w": "fifteen", "m": "15・15の", "pos": "数", "g": 0, "c": "kaiwa", "e": "I am fifteen years old.", "j": "私は15歳だ。"}
+{"w": "fifteenth", "m": "15番目の・15日", "pos": "数", "g": 1, "c": "kurashi", "e": "The festival is on August fifteenth.", "j": "祭りは8月15日だ。"}
+{"w": "fifth", "m": "5番目の・5日", "pos": "数", "g": 1, "c": "kurashi", "e": "She lives on the fifth floor.", "j": "彼女は5階に住んでいる。"}
+{"w": "fifty", "m": "50・50の", "pos": "数", "g": 0, "c": "kaiwa", "e": "There are fifty states in the U.S.", "j": "アメリカには50の州がある。"}
+{"w": "fight", "m": "戦う・けんかする", "pos": "動", "g": 2, "c": "ugoki", "e": "My brothers often fight.", "j": "兄弟はよくけんかをする。"}
+{"w": "fill", "m": "満たす", "pos": "動", "g": 3, "c": "ugoki", "e": "Please fill the glass with water.", "j": "コップに水を入れてください。"}
+{"w": "film", "m": "映画・フィルム", "pos": "名", "g": 2, "c": "geinou", "e": "We watched a film about space.", "j": "宇宙についての映画を見た。"}
+{"w": "final", "m": "最後の・決勝戦", "pos": "形", "g": 2, "c": "supotsu", "e": "Our team made it to the final game.", "j": "私たちのチームは決勝戦に進んだ。"}
+{"w": "finally", "m": "ついに・最後に", "pos": "副", "g": 2, "c": "kaiwa", "e": "We finally arrived at the hotel.", "j": "ついにホテルに着いた。"}
+{"w": "find", "m": "見つける", "pos": "動", "g": 1, "c": "ugoki", "e": "I can't find my phone.", "j": "スマホが見つからない。"}
+{"w": "fine", "m": "元気な・晴れた", "pos": "形", "g": 0, "c": "yousu", "e": "I'm fine, thank you.", "j": "元気です、ありがとう。"}
+{"w": "finger", "m": "指", "pos": "名", "g": 0, "c": "karada", "e": "I cut my finger in the kitchen.", "j": "台所で指を切った。"}
+{"w": "fire", "m": "火・火事", "pos": "名", "g": 1, "c": "kurashi", "e": "We sat around the fire at camp.", "j": "キャンプでたき火を囲んで座った。"}
+{"w": "firefighter", "m": "消防士", "pos": "名", "g": 0, "c": "gakkou", "e": "My dream is to be a firefighter.", "j": "私の夢は消防士になることだ。"}
+{"w": "fishing", "m": "釣り", "pos": "名", "g": 0, "c": "asobi", "e": "I went fishing with my dad.", "j": "父と釣りに行った。"}
+{"w": "five", "m": "5・5の", "pos": "数", "g": 0, "c": "kaiwa", "e": "I have five classes today.", "j": "今日は授業が5つある。"}
+{"w": "fix", "m": "修理する", "pos": "動", "g": 2, "c": "ugoki", "e": "Can you fix my bike?", "j": "自転車を直してくれる？"}
+{"w": "flood", "m": "洪水", "pos": "名", "g": 3, "c": "shizen", "e": "The flood damaged many houses.", "j": "洪水で多くの家が被害を受けた。"}
+{"w": "flute", "m": "フルート", "pos": "名", "g": 0, "c": "ongaku", "e": "She plays the flute in the band.", "j": "彼女は楽団でフルートを吹く。"}
+{"w": "fly", "m": "飛ぶ・飛行機で行く", "pos": "動", "g": 0, "c": "ugoki", "e": "We flew to Chicago last week.", "j": "先週シカゴへ飛行機で行った。"}
+{"w": "follow", "m": "ついて行く・従う", "pos": "動", "g": 2, "c": "ugoki", "e": "Please follow me.", "j": "私について来てください。"}
+{"w": "food", "m": "食べ物", "pos": "名", "g": 0, "c": "taberu", "e": "I love Mexican food.", "j": "メキシコ料理が大好きだ。"}
+{"w": "foot", "m": "足", "pos": "名", "g": 1, "c": "karada", "e": "I go to school on foot.", "j": "私は歩いて学校に行く。"}
+{"w": "football", "m": "フットボール", "pos": "名", "g": 1, "c": "supotsu", "e": "American football is popular in the U.S.", "j": "アメフトはアメリカで人気だ。"}
+{"w": "for", "m": "〜のために・〜の間", "pos": "前", "g": 1, "c": "kaiwa", "e": "This gift is for you.", "j": "このプレゼントはあなたにです。"}
+{"w": "foreign", "m": "外国の", "pos": "形", "g": 2, "c": "kuukou", "e": "I want to visit foreign countries.", "j": "外国を訪れたい。"}
+{"w": "fork", "m": "フォーク", "pos": "名", "g": 0, "c": "taberu", "e": "Can I have a fork, please?", "j": "フォークをもらえますか。"}
+{"w": "forty", "m": "40・40の", "pos": "数", "g": 0, "c": "kaiwa", "e": "The bus ride takes forty minutes.", "j": "バスで40分かかる。"}
+{"w": "forward", "m": "前へ", "pos": "副", "g": 3, "c": "kaiwa", "e": "I'm looking forward to the trip.", "j": "旅行を楽しみにしている。"}
+{"w": "four", "m": "4・4の", "pos": "数", "g": 0, "c": "kaiwa", "e": "I have four cats.", "j": "猫を4匹飼っている。"}
+{"w": "fourteen", "m": "14・14の", "pos": "数", "g": 0, "c": "kaiwa", "e": "My sister is fourteen.", "j": "姉は14歳だ。"}
+{"w": "fourteenth", "m": "14番目の・14日", "pos": "数", "g": 1, "c": "kurashi", "e": "Valentine's Day is February fourteenth.", "j": "バレンタインデーは2月14日だ。"}
+{"w": "fourth", "m": "4番目の・4日", "pos": "数", "g": 1, "c": "kurashi", "e": "We watch fireworks on July fourth.", "j": "7月4日に花火を見る。"}
+{"w": "France", "m": "フランス", "pos": "名", "g": 1, "c": "kuukou", "e": "I want to go to France someday.", "j": "いつかフランスに行きたい。"}
+{"w": "free", "m": "自由な・ひまな・無料の", "pos": "形", "g": 1, "c": "yousu", "e": "Are you free this afternoon?", "j": "今日の午後はひまですか。"}
+{"w": "French", "m": "フランス語・フランスの", "pos": "名", "g": 1, "c": "gakkou", "e": "She can speak French well.", "j": "彼女はフランス語を上手に話せる。"}
+{"w": "fresh", "m": "新鮮な", "pos": "形", "g": 2, "c": "taberu", "e": "These vegetables are very fresh.", "j": "これらの野菜はとても新鮮だ。"}
+{"w": "Friday", "m": "金曜日", "pos": "名", "g": 0, "c": "kurashi", "e": "We have a party on Friday.", "j": "金曜日にパーティーがある。"}
+{"w": "friend", "m": "友達", "pos": "名", "g": 0, "c": "kaiwa", "e": "He is my best friend.", "j": "彼は私の親友だ。"}
+{"w": "friendly", "m": "親しみやすい", "pos": "形", "g": 2, "c": "yousu", "e": "People in this town are friendly.", "j": "この町の人々は親切だ。"}
+{"w": "friendship", "m": "友情", "pos": "名", "g": 3, "c": "kaiwa", "e": "Our friendship is very important to me.", "j": "私たちの友情は私にとってとても大切だ。"}
+{"w": "from", "m": "〜から", "pos": "前", "g": 1, "c": "kaiwa", "e": "I'm from Japan.", "j": "私は日本出身です。"}
+{"w": "front", "m": "前・正面", "pos": "名", "g": 1, "c": "machi", "e": "Let's meet in front of the station.", "j": "駅の前で会おう。"}
+{"w": "full", "m": "いっぱいの・満腹の", "pos": "形", "g": 2, "c": "yousu", "e": "I'm full. I can't eat anymore.", "j": "おなかいっぱいでもう食べられない。"}
+{"w": "funny", "m": "おもしろい・おかしい", "pos": "形", "g": 1, "c": "yousu", "e": "That movie was really funny.", "j": "その映画は本当におもしろかった。"}
+{"w": "garbage", "m": "ごみ", "pos": "名", "g": 3, "c": "kurashi", "e": "Please take out the garbage.", "j": "ごみを出してください。"}
+{"w": "garden", "m": "庭", "pos": "名", "g": 1, "c": "kurashi", "e": "My mother grows flowers in the garden.", "j": "母は庭で花を育てている。"}
+{"w": "gather", "m": "集める・集まる", "pos": "動", "g": 3, "c": "ugoki", "e": "People gathered in the park.", "j": "人々は公園に集まった。"}
+{"w": "generation", "m": "世代", "pos": "名", "g": 3, "c": "kaiwa", "e": "We should save the earth for the next generation.", "j": "次の世代のために地球を守るべきだ。"}
+{"w": "gentle", "m": "優しい・穏やかな", "pos": "形", "g": 2, "c": "yousu", "e": "My grandmother is very gentle.", "j": "祖母はとても優しい。"}
+{"w": "German", "m": "ドイツ語・ドイツの", "pos": "名", "g": 1, "c": "gakkou", "e": "He studies German at college.", "j": "彼は大学でドイツ語を勉強している。"}
+{"w": "Germany", "m": "ドイツ", "pos": "名", "g": 1, "c": "kuukou", "e": "This car was made in Germany.", "j": "この車はドイツ製だ。"}
+{"w": "gesture", "m": "身ぶり", "pos": "名", "g": 2, "c": "kaiwa", "e": "I used gestures to talk with him.", "j": "身ぶりを使って彼と話した。"}
+{"w": "get", "m": "手に入れる・着く", "pos": "動", "g": 1, "c": "ugoki", "e": "I got a new bike for my birthday.", "j": "誕生日に新しい自転車をもらった。"}
+{"w": "gift", "m": "贈り物", "pos": "名", "g": 1, "c": "kaimono", "e": "I bought a gift for my mom.", "j": "母に贈り物を買った。"}
+{"w": "girl", "m": "女の子", "pos": "名", "g": 0, "c": "kurashi", "e": "That girl is my sister.", "j": "あの女の子は私の妹だ。"}
+{"w": "give", "m": "与える", "pos": "動", "g": 1, "c": "ugoki", "e": "Please give me some water.", "j": "水を少しください。"}
+{"w": "glad", "m": "うれしい", "pos": "形", "g": 1, "c": "yousu", "e": "I'm glad to see you.", "j": "会えてうれしい。"}
+{"w": "glass", "m": "コップ・ガラス", "pos": "名", "g": 1, "c": "taberu", "e": "Can I have a glass of water?", "j": "水を1杯もらえますか。"}
+{"w": "global", "m": "地球規模の", "pos": "形", "g": 3, "c": "shizen", "e": "Global warming is a big problem.", "j": "地球温暖化は大きな問題だ。"}
+{"w": "glove", "m": "手袋・グローブ", "pos": "名", "g": 1, "c": "supotsu", "e": "I left my baseball glove at school.", "j": "野球のグローブを学校に忘れた。"}
+{"w": "go", "m": "行く", "pos": "動", "g": 0, "c": "ugoki", "e": "Let's go to the beach.", "j": "ビーチに行こう。"}
+{"w": "good", "m": "よい・上手な", "pos": "形", "g": 0, "c": "yousu", "e": "You are a good singer.", "j": "あなたは歌が上手だ。"}
+{"w": "goodbye", "m": "さようなら", "pos": "間", "g": 0, "c": "kaiwa", "e": "I said goodbye to my host family.", "j": "ホストファミリーにさよならを言った。"}
+{"w": "gorilla", "m": "ゴリラ", "pos": "名", "g": 0, "c": "doubutsu", "e": "We saw a gorilla at the zoo.", "j": "動物園でゴリラを見た。"}
+{"w": "government", "m": "政府", "pos": "名", "g": 3, "c": "gakkou", "e": "The government made a new law.", "j": "政府は新しい法律を作った。"}
+{"w": "grade", "m": "学年・成績", "pos": "名", "g": 2, "c": "gakkou", "e": "I'm in the eighth grade.", "j": "私は8年生(中2)だ。"}
+{"w": "grandfather", "m": "祖父", "pos": "名", "g": 0, "c": "kurashi", "e": "My grandfather lives in Florida.", "j": "祖父はフロリダに住んでいる。"}
+{"w": "grandma", "m": "おばあちゃん", "pos": "名", "g": 0, "c": "kurashi", "e": "I visited my grandma last weekend.", "j": "先週末おばあちゃんを訪ねた。"}
+{"w": "grandmother", "m": "祖母", "pos": "名", "g": 0, "c": "kurashi", "e": "My grandmother makes great apple pie.", "j": "祖母はおいしいアップルパイを作る。"}
+{"w": "grandpa", "m": "おじいちゃん", "pos": "名", "g": 0, "c": "kurashi", "e": "Grandpa took me fishing.", "j": "おじいちゃんが釣りに連れて行ってくれた。"}
+{"w": "grandparent", "m": "祖父母", "pos": "名", "g": 1, "c": "kurashi", "e": "My grandparents live near us.", "j": "祖父母は近くに住んでいる。"}
+{"w": "grape", "m": "ぶどう", "pos": "名", "g": 0, "c": "taberu", "e": "I like grape juice.", "j": "ぶどうジュースが好きだ。"}
+{"w": "graph", "m": "グラフ", "pos": "名", "g": 2, "c": "gakkou", "e": "Look at this graph.", "j": "このグラフを見てください。"}
+{"w": "grass", "m": "草・芝生", "pos": "名", "g": 2, "c": "shizen", "e": "Don't walk on the grass.", "j": "芝生に入らないで。"}
+{"w": "gray", "m": "灰色(の)", "pos": "形", "g": 0, "c": "yousu", "e": "He wore a gray jacket.", "j": "彼は灰色の上着を着ていた。"}
+{"w": "great", "m": "すばらしい・偉大な", "pos": "形", "g": 0, "c": "yousu", "e": "We had a great time in Hawaii.", "j": "ハワイでとても楽しい時を過ごした。"}
+{"w": "green", "m": "緑(の)", "pos": "形", "g": 0, "c": "yousu", "e": "The trees are green in summer.", "j": "夏は木々が緑だ。"}
+{"w": "greeting", "m": "あいさつ", "pos": "名", "g": 1, "c": "kaiwa", "e": "\"Hi\" is a common greeting.", "j": "「Hi」はよくあるあいさつだ。"}
+{"w": "ground", "m": "地面・グラウンド", "pos": "名", "g": 1, "c": "gakkou", "e": "We played soccer on the school ground.", "j": "校庭でサッカーをした。"}
+{"w": "group", "m": "集団・グループ", "pos": "名", "g": 1, "c": "kaiwa", "e": "Let's work in groups.", "j": "グループで作業しよう。"}
+{"w": "guess", "m": "推測する", "pos": "動", "g": 2, "c": "ugoki", "e": "Guess what! I won the game.", "j": "聞いて！試合に勝ったよ。"}
+{"w": "guest", "m": "客", "pos": "名", "g": 2, "c": "machi", "e": "We have guests this weekend.", "j": "今週末お客さんが来る。"}
+{"w": "guide", "m": "案内する・案内人", "pos": "動", "g": 2, "c": "kuukou", "e": "She guided us around the city.", "j": "彼女は街を案内してくれた。"}
+{"w": "gym", "m": "体育館", "pos": "名", "g": 1, "c": "gakkou", "e": "We have P.E. in the gym today.", "j": "今日は体育館で体育がある。"}
+{"w": "hair", "m": "髪", "pos": "名", "g": 1, "c": "karada", "e": "She has long hair.", "j": "彼女は髪が長い。"}
+{"w": "half", "m": "半分", "pos": "名", "g": 2, "c": "kaiwa", "e": "I ate half of the pizza.", "j": "ピザの半分を食べた。"}
+{"w": "hall", "m": "ホール・会館", "pos": "名", "g": 2, "c": "machi", "e": "The concert is at the city hall.", "j": "コンサートは市民ホールで行われる。"}
+{"w": "Halloween", "m": "ハロウィーン", "pos": "名", "g": 0, "c": "asobi", "e": "Kids wear costumes on Halloween.", "j": "子どもたちはハロウィーンに仮装する。"}
+{"w": "hamburger", "m": "ハンバーガー", "pos": "名", "g": 0, "c": "taberu", "e": "I'll have a hamburger and a soda.", "j": "ハンバーガーとソーダをください。"}
+{"w": "hand", "m": "手", "pos": "名", "g": 0, "c": "karada", "e": "Wash your hands before lunch.", "j": "昼食の前に手を洗いなさい。"}
+{"w": "happen", "m": "起こる", "pos": "動", "g": 2, "c": "ugoki", "e": "What happened to you?", "j": "何があったの？"}
+{"w": "happiness", "m": "幸福", "pos": "名", "g": 3, "c": "yousu", "e": "Money can't buy happiness.", "j": "お金で幸せは買えない。"}
+{"w": "hard", "m": "難しい・熱心に", "pos": "形", "g": 1, "c": "yousu", "e": "This question is hard.", "j": "この問題は難しい。"}
+{"w": "hat", "m": "帽子", "pos": "名", "g": 0, "c": "kaimono", "e": "Wear a hat on sunny days.", "j": "晴れた日は帽子をかぶりなさい。"}
+{"w": "have", "m": "持っている・食べる", "pos": "動", "g": 0, "c": "ugoki", "e": "I have a dog.", "j": "私は犬を飼っている。"}
+{"w": "he", "m": "彼は", "pos": "代", "g": 1, "c": "kaiwa", "e": "He is my classmate.", "j": "彼は私のクラスメートだ。"}
+{"w": "headache", "m": "頭痛", "pos": "名", "g": 2, "c": "karada", "e": "I have a headache.", "j": "頭が痛い。"}
+{"w": "health", "m": "健康", "pos": "名", "g": 2, "c": "karada", "e": "Sleep is good for your health.", "j": "睡眠は健康によい。"}
+{"w": "hear", "m": "聞こえる・聞く", "pos": "動", "g": 1, "c": "ugoki", "e": "Can you hear me?", "j": "聞こえますか。"}
+{"w": "heart", "m": "心・心臓", "pos": "名", "g": 2, "c": "karada", "e": "Thank you from the bottom of my heart.", "j": "心から感謝します。"}
+{"w": "hello", "m": "こんにちは", "pos": "間", "g": 0, "c": "kaiwa", "e": "Hello, my name is Ken.", "j": "こんにちは、ケンです。"}
+{"w": "help", "m": "助ける・手伝う", "pos": "動", "g": 0, "c": "ugoki", "e": "Can you help me with my homework?", "j": "宿題を手伝ってくれる？"}
+{"w": "helpful", "m": "役に立つ", "pos": "形", "g": 2, "c": "yousu", "e": "This map is very helpful.", "j": "この地図はとても役に立つ。"}
+{"w": "her", "m": "彼女の・彼女を", "pos": "代", "g": 1, "c": "kaiwa", "e": "I like her new dress.", "j": "彼女の新しいドレスが好きだ。"}
+{"w": "here", "m": "ここに", "pos": "副", "g": 1, "c": "kaiwa", "e": "Come here, please.", "j": "ここに来てください。"}
+{"w": "hero", "m": "英雄・ヒーロー", "pos": "名", "g": 2, "c": "geinou", "e": "My father is my hero.", "j": "父は私のヒーローだ。"}
+{"w": "hers", "m": "彼女のもの", "pos": "代", "g": 1, "c": "kaiwa", "e": "This bag is hers.", "j": "このかばんは彼女のものだ。"}
+{"w": "herself", "m": "彼女自身", "pos": "代", "g": 2, "c": "kaiwa", "e": "She made the cake herself.", "j": "彼女は自分でケーキを作った。"}
+{"w": "hey", "m": "ねえ・やあ", "pos": "間", "g": 1, "c": "kaiwa", "e": "Hey, look at that bird!", "j": "ねえ、あの鳥を見て！"}
+{"w": "hi", "m": "やあ", "pos": "間", "g": 0, "c": "kaiwa", "e": "Hi, how are you?", "j": "やあ、元気？"}
+{"w": "high", "m": "高い・高く", "pos": "形", "g": 1, "c": "yousu", "e": "That mountain is very high.", "j": "あの山はとても高い。"}
+{"w": "hiking", "m": "ハイキング", "pos": "名", "g": 1, "c": "asobi", "e": "We went hiking in the mountains.", "j": "山へハイキングに行った。"}
+{"w": "hill", "m": "丘", "pos": "名", "g": 2, "c": "shizen", "e": "Our school is on a hill.", "j": "私たちの学校は丘の上にある。"}
+{"w": "him", "m": "彼を・彼に", "pos": "代", "g": 1, "c": "kaiwa", "e": "I called him last night.", "j": "昨夜彼に電話した。"}
+{"w": "himself", "m": "彼自身", "pos": "代", "g": 2, "c": "kaiwa", "e": "He cut his hair himself.", "j": "彼は自分で髪を切った。"}
+{"w": "his", "m": "彼の・彼のもの", "pos": "代", "g": 1, "c": "kaiwa", "e": "His sister plays tennis.", "j": "彼の妹はテニスをする。"}
+{"w": "hit", "m": "打つ・ぶつける", "pos": "動", "g": 2, "c": "supotsu", "e": "He hit a home run.", "j": "彼はホームランを打った。"}
+{"w": "hobby", "m": "趣味", "pos": "名", "g": 1, "c": "asobi", "e": "My hobby is taking pictures.", "j": "私の趣味は写真を撮ることだ。"}
+{"w": "hold", "m": "持つ・開催する", "pos": "動", "g": 2, "c": "ugoki", "e": "Please hold my bag.", "j": "かばんを持っていてください。"}
+{"w": "home", "m": "家・家に", "pos": "名", "g": 0, "c": "kurashi", "e": "I usually get home at five.", "j": "ふだん5時に家に帰る。"}
+{"w": "homestay", "m": "ホームステイ", "pos": "名", "g": 2, "c": "kuukou", "e": "I did a homestay in California.", "j": "カリフォルニアでホームステイをした。"}
+{"w": "hometown", "m": "故郷", "pos": "名", "g": 2, "c": "machi", "e": "My hometown is small and quiet.", "j": "私の故郷は小さくて静かだ。"}
+{"w": "host", "m": "主人役・ホスト", "pos": "名", "g": 2, "c": "kuukou", "e": "My host family was very kind.", "j": "ホストファミリーはとても親切だった。"}
+{"w": "hour", "m": "1時間", "pos": "名", "g": 1, "c": "kurashi", "e": "The flight takes two hours.", "j": "そのフライトは2時間かかる。"}
+{"w": "house", "m": "家", "pos": "名", "g": 0, "c": "kurashi", "e": "Their house has a big yard.", "j": "彼らの家には広い庭がある。"}
+{"w": "how", "m": "どのように・どれくらい", "pos": "疑", "g": 1, "c": "kaiwa", "e": "How do you go to school?", "j": "どうやって学校へ行きますか。"}
+{"w": "however", "m": "しかしながら", "pos": "副", "g": 3, "c": "kaiwa", "e": "It was cold. However, we went swimming.", "j": "寒かった。しかし、私たちは泳ぎに行った。"}
+{"w": "huge", "m": "巨大な", "pos": "形", "g": 3, "c": "yousu", "e": "The stadium is huge.", "j": "そのスタジアムは巨大だ。"}
+{"w": "human", "m": "人間・人間の", "pos": "名", "g": 3, "c": "kaiwa", "e": "Humans need water to live.", "j": "人間は生きるのに水が必要だ。"}
+{"w": "hundred", "m": "100・100の", "pos": "数", "g": 1, "c": "kaiwa", "e": "This shirt is one hundred dollars.", "j": "このシャツは100ドルだ。"}
+{"w": "hurry", "m": "急ぐ", "pos": "動", "g": 2, "c": "ugoki", "e": "Hurry up, or you'll miss the bus.", "j": "急がないとバスに乗り遅れるよ。"}
+{"w": "hurt", "m": "傷つける・痛む", "pos": "動", "g": 2, "c": "karada", "e": "My leg hurts.", "j": "足が痛い。"}
+{"w": "husband", "m": "夫", "pos": "名", "g": 2, "c": "kurashi", "e": "Her husband is a doctor.", "j": "彼女の夫は医者だ。"}
