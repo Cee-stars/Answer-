@@ -454,6 +454,26 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .btn.small{min-height:44px}
 .tab{min-height:44px}
 .nav-btn{min-height:52px;font-size:12px}
+.dr-card{display:flex;flex-direction:column;gap:12px}
+.dr-prompt{font-size:22px;font-weight:800;line-height:1.45}
+.dr-prompt .dr-text{font-family:var(--f-en);font-size:20px;font-weight:700}
+.dr-prompt .dr-q{font-size:22px}
+.dr-blank{display:inline-block;min-width:72px;border-bottom:3px solid var(--brand);margin:0 4px}
+.dr-letter{font-family:var(--f-en);font-size:30px;font-weight:900;letter-spacing:.12em;color:var(--brand);margin-top:8px}
+.dr-sub{font-size:13px;color:var(--muted)}
+.dr-sub:empty{display:none}
+.dr-timer i{background:var(--sky);transition:none}
+.dr-opts{display:grid;gap:8px}
+.dr-opts:empty{display:none}
+.dr-opt{justify-content:flex-start;text-align:left;min-height:52px;background:var(--surface-2);border:2px solid transparent;font-size:15px}
+.dr-fb{display:flex;flex-direction:column;gap:6px}
+.dr-fb-t{font-weight:800;font-size:17px}
+.dr-fb .hl{color:var(--brand)}
+.dr-sum{display:flex;flex-direction:column;gap:12px}
+.dr-word{font-family:var(--f-en);font-size:40px;font-weight:900;text-align:center;padding:12px 0}
+.dr-word b{color:var(--brand)}
+.dr-opt.yes{background:rgba(31,191,115,.12)}
+.tip-card{background:linear-gradient(135deg,rgba(255,90,60,.10),rgba(255,138,61,.10))}
 </style>
 
 <div class="app" id="app">
@@ -492,6 +512,11 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
       <div class="next-foe" id="nextFoe"></div>
       <button class="btn primary big-btn" id="goBtn" type="button">はじめる</button>
     </div>
+    <button class="win row-card tip-card" id="homeTip" type="button" hidden>
+      <span class="ico" id="homeTipIco"></span>
+      <span class="grow"><span class="sname" id="homeTipT"></span><span class="smeta" id="homeTipD"></span></span>
+      <span class="chev">›</span>
+    </button>
     <div class="sec-head"><h2>あそぶ</h2><button class="link-btn" id="playAll" type="button">すべて見る ›</button></div>
     <div class="hscroll" id="homeModes"></div>
     <button class="win row-card" id="homeMy" type="button">
@@ -686,6 +711,26 @@ canvas.sprite.photo{border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
     <p class="note">レベルと★の記録はこの端末のブラウザに保存されます。</p>
     <p class="note">タイトル画面と会話モードの動画：Pexels（無料ライセンス）</p>
     <button class="btn" id="settingBack">もどる</button>
+  </section>
+
+  <!-- DRILL MODES (paraphrase / example / speed / shiritori / level check) -->
+  <section class="screen" id="s-drill" hidden>
+    <div class="talk-top">
+      <button class="btn small ghost" id="drQuit" type="button">やめる</button>
+      <div class="grow"><div class="bar gold"><i id="drProg"></i></div></div>
+      <span class="num" id="drCount"></span>
+    </div>
+    <div class="win dr-card" id="drCard">
+      <div class="row spread"><span class="label" id="drLabel"></span><span class="chip" id="drChip"></span></div>
+      <div class="dr-prompt" id="drPrompt"></div>
+      <div class="dr-sub" id="drSub"></div>
+      <div class="bar dr-timer" id="drTimerBar" hidden><i id="drTimer"></i></div>
+      <button class="btn primary big-btn" id="drPre" type="button" hidden></button>
+      <div class="dr-opts" id="drOpts"></div>
+      <div class="dr-fb" id="drFb" hidden></div>
+      <button class="btn primary big-btn" id="drNext" type="button" hidden>次へ</button>
+    </div>
+    <div id="drSum" hidden></div>
   </section>
 
   <!-- TALK MODE -->
@@ -2534,7 +2579,7 @@ function spriteEl(id, cls){
   return cv;
 }
 
-const SCREENS = ['title','map','play','journey','special','battle','result','dex','setting','pass','my','talk'];
+const SCREENS = ['title','map','play','journey','special','battle','result','dex','setting','pass','my','talk','drill'];
 function show(name){
   const cur = SCREENS.find(s => !$('#s-'+s).hidden);
   const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2690,6 +2735,11 @@ function renderMap(){
   tx.innerHTML = `<div class="sname">${esc(m.name)}</div><div class="smeta">${esc(f.st.ja)} ${f.i + 1}/${f.st.mons.length}${m.cat !== 'all' ? ' ・ ' + esc(CATS[m.cat].name) : ''}</div>`;
   box.append(sp, tx);
   $('#mapMy').textContent = MY.length + '語 ・ 自分の単語を追加';
+  // one suggestion at most: the level check for newcomers, or a 2-minute add-on once today's goal is met
+  const tip = !S.place && Object.keys(S.words).length < 20 ? ['🎯', 'まずはレベル診断', '1〜2分。知っている単語を飛ばせます', 'place']
+    : S.daily.newCount >= DAILY_NEW ? ['⚡', '今日の目標達成！', 'おまけにスピード処理（2分）', 'speed'] : null;
+  $('#homeTip').hidden = !tip;
+  if(tip){ $('#homeTipIco').textContent = tip[0]; $('#homeTipT').textContent = tip[1]; $('#homeTipD').textContent = tip[2]; $('#homeTip').dataset.go = tip[3]; }
   renderHomeModes();
   if(!selState) selState = currentState().code;
 }
@@ -2706,10 +2756,10 @@ function renderRecord(){
 /* ----- play modes: one list feeds the home row and the play grid ----- */
 const MODES = [
   {id:'talk', icon:'💬', name:'会話モード', sub:'質問を声に出す', go:() => startTalk()},
-  {id:'para', icon:'🔁', name:'言い換えバトル', sub:'big → large → huge', go:() => window.startPara && startPara()},
-  {id:'cloze', icon:'📝', name:'例文で覚える', sub:'使い方まで', go:() => window.startCloze && startCloze()},
-  {id:'speed', icon:'⚡', name:'スピード処理', sub:'要するに何？', go:() => window.startSpeed && startSpeed()},
-  {id:'shiri', icon:'🔔', name:'しりとり・早押し', sub:'速さで勝負', go:() => window.startShiri && startShiri()},
+  {id:'speed', icon:'⚡', name:'スピード処理', sub:'おすすめ・2分', go:() => startSpeed()},
+  {id:'shiri', icon:'🔔', name:'しりとり早押し', sub:'見た瞬間に意味', go:() => startShiri()},
+  {id:'para', icon:'🔁', name:'言い換えバトル', sub:'big → huge', go:() => startPara()},
+  {id:'cloze', icon:'📝', name:'例文で覚える', sub:'使い方まで', go:() => startCloze()},
   {id:'special', icon:'👾', name:'スペシャルバトル', sub:'口語フレーズ特訓', go:() => { renderSpecials(); show('special'); }}
 ];
 function modeCard(md){
@@ -2852,10 +2902,11 @@ $('#navHome').addEventListener('click', () => { renderMap(); show('map'); });
 $('#navPlay').addEventListener('click', () => { play('select'); renderPlay(); show('play'); });
 $('#gearBtn').addEventListener('click', () => { play('select'); renderSetting(); show('setting'); });
 $('#goBtn').addEventListener('click', () => { play('select'); startBattle(nextFoe().id); });
+$('#homeTip').addEventListener('click', () => { play('select'); if($('#homeTip').dataset.go === 'place') startPlace(); else startSpeed(); });
 $('#playAll').addEventListener('click', () => { play('select'); renderPlay(); show('play'); });
 $('#homeMy').addEventListener('click', () => { play('select'); renderMy(); show('my'); });
 $('#journeyCard').addEventListener('click', () => { play('select'); renderJourney(); show('journey'); });
-$('#placeCard').addEventListener('click', () => { play('select'); if(window.startPlace) startPlace(); });
+$('#placeCard').addEventListener('click', () => { play('select'); startPlace(); });
 $('#journeyBack').addEventListener('click', () => { renderPlay(); show('play'); });
 $('#specialBack').addEventListener('click', () => { renderPlay(); show('play'); });
 document.querySelectorAll('.seg-b').forEach(b => b.addEventListener('click', () => {
@@ -5046,6 +5097,419 @@ document.addEventListener('keydown', e => {
 });
 
 
+
+// Add-on mode data (made by the translator and linguist agents; see research/modes)
+const PARA_Q = [{"target": "huge", "anchor": "big", "relation": "stronger", "q_ja": "huge は big と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "huge は「ものすごく大きい」。very huge とは言わない", "example_en": "The elephant is huge!", "example_ja": "そのゾウはものすごく大きい！"}, {"target": "starving", "anchor": "hungry", "relation": "stronger", "q_ja": "starving は hungry と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "starving は「腹ぺこ」の誇張。very starving とは言わない", "example_en": "I'm starving! Let's eat.", "example_ja": "腹ぺこ！食べよう。"}, {"target": "exhausted", "anchor": "tired", "relation": "stronger", "q_ja": "exhausted は tired と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "exhausted は「へとへと」。very exhausted とは普通言わない", "example_en": "After the long flight, I was exhausted.", "example_ja": "長いフライトのあと、へとへとだった。"}, {"target": "delicious", "anchor": "good", "relation": "stronger", "q_ja": "delicious は good と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "delicious は強いほめ言葉。疑問文・否定文では good（Is it good?）", "example_en": "This pie is delicious!", "example_ja": "このパイ、すごくおいしい！"}, {"target": "shocked", "anchor": "surprised", "relation": "stronger", "q_ja": "shocked は surprised と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "shocked は悪いことに強く驚く。うれしい驚きは surprised", "example_en": "I was shocked by the news.", "example_ja": "その知らせにショックを受けた。"}, {"target": "awesome", "anchor": "good", "relation": "stronger", "q_ja": "awesome は good と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "awesome は米口語の「最高」。改まった場では great", "example_en": "The view from the top is awesome!", "example_ja": "頂上からの景色は最高！"}, {"target": "freezing", "anchor": "cold", "relation": "stronger", "q_ja": "freezing は cold と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "freezing は「凍えるほど寒い」", "example_en": "It's freezing outside!", "example_ja": "外は凍えるほど寒い！"}, {"target": "furious", "anchor": "angry", "relation": "stronger", "q_ja": "furious は angry と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "furious は「激怒」", "example_en": "Dad was furious about the broken window.", "example_ja": "父は割れた窓のことで激怒していた。"}, {"target": "tiny", "anchor": "small", "relation": "stronger", "q_ja": "tiny は small と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "tiny は small より小さい「ちっちゃい」", "example_en": "My hotel room was tiny.", "example_ja": "ホテルの部屋はとても狭かった。"}, {"target": "packed", "anchor": "crowded", "relation": "stronger", "q_ja": "packed は crowded と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "packed は「ぎゅうぎゅう詰め」の口語", "example_en": "The subway was packed this morning.", "example_ja": "今朝の地下鉄はぎゅうぎゅうだった。"}, {"target": "terrified", "anchor": "afraid", "relation": "stronger", "q_ja": "terrified は afraid と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "terrified は「怖くてたまらない」", "example_en": "She's terrified of snakes.", "example_ja": "彼女はヘビが怖くてたまらない。"}, {"target": "thrilled", "anchor": "happy", "relation": "stronger", "q_ja": "thrilled は happy と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "thrilled は「大喜び・わくわく」", "example_en": "I'm thrilled to be in New York!", "example_ja": "ニューヨークに来られて大喜びだ！"}, {"target": "soaked", "anchor": "wet", "relation": "stronger", "q_ja": "soaked は wet と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "soaked は「びしょぬれ」", "example_en": "I got soaked in the rain.", "example_ja": "雨でびしょぬれになった。"}, {"target": "hot", "anchor": "warm", "relation": "stronger", "q_ja": "hot は warm と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "warm は心地よい暖かさ、hot は暑すぎる", "example_en": "It's not warm today. It's hot!", "example_ja": "今日は暖かいどころか暑い！"}, {"target": "cold", "anchor": "cool", "relation": "stronger", "q_ja": "cold は cool と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "cool は心地よい涼しさ、cold は寒い", "example_en": "It's cold today. Wear a coat.", "example_ja": "今日は寒い。コートを着て。"}, {"target": "blizzard", "anchor": "snow", "relation": "stronger", "q_ja": "blizzard は snow と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "blizzard は強風をともなう猛吹雪", "example_en": "A blizzard closed the roads.", "example_ja": "猛吹雪で道路が閉鎖された。"}, {"target": "hurricane", "anchor": "storm", "relation": "stronger", "q_ja": "hurricane は storm と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "hurricane は大西洋側の強い熱帯低気圧（台風に近い）", "example_en": "The hurricane closed all the schools.", "example_ja": "ハリケーンで学校が全部休みになった。"}, {"target": "love", "anchor": "like", "relation": "stronger", "q_ja": "love は like と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "love は「大好き」。物にも気軽に使う", "example_en": "I love this song!", "example_ja": "この歌、大好き！"}, {"target": "pouring", "anchor": "rainy", "relation": "stronger", "q_ja": "pouring は rainy と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "It's pouring. は「どしゃ降り」", "example_en": "Take an umbrella. It's pouring!", "example_ja": "傘を持って。どしゃ降りだよ！"}, {"target": "huge", "anchor": "large", "relation": "stronger", "q_ja": "huge は large と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 0, "nuance": "huge は驚きを含む。large は客観的な大きさ・数量", "example_en": "There was a huge line for the ride.", "example_ja": "その乗り物にはものすごい行列ができていた。"}, {"target": "large", "anchor": "big", "relation": "same", "q_ja": "large は big と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "large は大きさ・数量の客観表現（a large amount）。my big brother は large にできない", "example_en": "Can I get a large coffee?", "example_ja": "Lサイズのコーヒーをください。"}, {"target": "begin", "anchor": "start", "relation": "same", "q_ja": "begin は start と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "ほぼ同じ。start が口語的。車や機械を動かすのは start だけ", "example_en": "The show begins at eight.", "example_ja": "ショーは8時に始まる。"}, {"target": "pick", "anchor": "choose", "relation": "same", "q_ja": "pick は choose と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "pick は口語。意味はほぼ同じ", "example_en": "Pick a card.", "example_ja": "カードを1枚選んで。"}, {"target": "I got it.", "anchor": "I understand.", "relation": "same", "q_ja": "I got it. は I understand. と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "I got it. は会話の「わかった」。改まった場では I understand.", "example_en": "I got it. Turn right at the corner.", "example_ja": "わかった。角を右だね。"}, {"target": "glad", "anchor": "happy", "relation": "same", "q_ja": "glad は happy と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "glad は名詞の前に置けない（×a glad boy）。知らせへの反応に使う", "example_en": "I'm glad you came.", "example_ja": "来てくれてうれしい。"}, {"target": "mad", "anchor": "angry", "relation": "same", "q_ja": "mad は angry と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "米口語で mad = angry。英国では「狂った」寄り", "example_en": "Are you mad at me?", "example_ja": "私に怒ってる？"}, {"target": "scared", "anchor": "afraid", "relation": "same", "q_ja": "scared は afraid と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "scared は口語。afraid は名詞の前に置けない", "example_en": "I'm scared of the dark.", "example_ja": "暗いのが怖い。"}, {"target": "well-known", "anchor": "famous", "relation": "same", "q_ja": "well-known は famous と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "ほぼ置換可。famous のほうが有名度が強い", "example_en": "This is a well-known restaurant.", "example_ja": "ここはよく知られたレストランだ。"}, {"target": "hard", "anchor": "difficult", "relation": "same", "q_ja": "hard は difficult と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "ほぼ置換可。hard は口語的で「固い」の意味もある", "example_en": "The test was hard.", "example_ja": "テストは難しかった。"}, {"target": "weird", "anchor": "strange", "relation": "same", "q_ja": "weird は strange と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "weird は口語で「変な」がやや強い", "example_en": "I heard a weird sound.", "example_ja": "変な音が聞こえた。"}, {"target": "helpful", "anchor": "useful", "relation": "same", "q_ja": "helpful は useful と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "helpful は人・助言に、useful は道具・情報に", "example_en": "The hotel staff were very helpful.", "example_ja": "ホテルのスタッフはとても親切だった。"}, {"target": "fortunate", "anchor": "lucky", "relation": "same", "q_ja": "fortunate は lucky と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "fortunate はかため。会話では lucky", "example_en": "We were fortunate to get tickets.", "example_ja": "幸運にもチケットが取れた。"}, {"target": "quick", "anchor": "fast", "relation": "same", "q_ja": "quick は fast と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "fast は速度、quick は時間が短い（a quick lunch）", "example_en": "Let's have a quick lunch.", "example_ja": "さっとお昼を食べよう。"}, {"target": "ill", "anchor": "sick", "relation": "same", "q_ja": "ill は sick と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "米会話は sick。ill はかため。feel sick は「吐き気」", "example_en": "She was ill for a week.", "example_ja": "彼女は1週間病気だった。"}, {"target": "close to", "anchor": "near", "relation": "same", "q_ja": "close to は near と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "close は to が必要。×close the station は「駅を閉める」", "example_en": "The hotel is close to the station.", "example_ja": "ホテルは駅の近くだ。"}, {"target": "get to", "anchor": "arrive", "relation": "same", "q_ja": "get to は arrive と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "arrive は at/in が必要。get to は会話で普通", "example_en": "How do I get to the airport?", "example_ja": "空港へはどう行けばいい？"}, {"target": "depart", "anchor": "leave", "relation": "same", "q_ja": "depart は leave と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "depart は掲示・アナウンス用のかたい語", "example_en": "The flight departs at 3:15.", "example_ja": "その便は3時15分に出発します。"}, {"target": "baggage", "anchor": "luggage", "relation": "same", "q_ja": "baggage は luggage と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "どちらも数えられない（×luggages）", "example_en": "Where do I pick up my baggage?", "example_ja": "荷物はどこで受け取りますか？"}, {"target": "gift", "anchor": "present", "relation": "same", "q_ja": "gift は present と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "ほぼ同じ。gift はやや改まる（gift shop）", "example_en": "This is a gift for you.", "example_ja": "これ、あなたへのプレゼント。"}, {"target": "sea", "anchor": "ocean", "relation": "same", "q_ja": "sea は ocean と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "米国は海全般を ocean と言いがち", "example_en": "The sea is calm today.", "example_ja": "今日は海が穏やかだ。"}, {"target": "reply", "anchor": "answer", "relation": "same", "q_ja": "reply は answer と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "reply は to が必要（reply to a message）。answer は直接（answer the phone）", "example_en": "Please reply to my email.", "example_ja": "メールに返信してください。"}, {"target": "Sure.", "anchor": "Of course.", "relation": "same", "q_ja": "Sure. は Of course. と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "Of course. は「当然」の響き。頼みへの返事は Sure. が無難", "example_en": "Can you help me? — Sure.", "example_ja": "手伝ってくれる？—いいよ。"}, {"target": "You bet.", "anchor": "Of course.", "relation": "same", "q_ja": "You bet. は Of course. と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "You bet. は親しい間のくだけた「もちろん」", "example_en": "Are you coming? — You bet.", "example_ja": "来る？—もちろん。"}, {"target": "No problem.", "anchor": "You're welcome.", "relation": "same", "q_ja": "No problem. は You're welcome. と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "No problem. はくだけたお礼への返事", "example_en": "Thanks! — No problem.", "example_ja": "ありがとう！—どういたしまして。"}, {"target": "Hang on.", "anchor": "Hold on.", "relation": "same", "q_ja": "Hang on. は Hold on. と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "どちらも「ちょっと待って」。電話でも使う", "example_en": "Hang on. I'll get my bag.", "example_ja": "ちょっと待って。かばん取ってくる。"}, {"target": "Catch you later.", "anchor": "See you later.", "relation": "same", "q_ja": "Catch you later. は See you later. と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "Catch you later. はよりくだけた言い方", "example_en": "I gotta go. Catch you later!", "example_ja": "もう行かなきゃ。またね！"}, {"target": "Same here.", "anchor": "Me too.", "relation": "same", "q_ja": "Same here. は Me too. と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "否定文への同意は Me neither.", "example_en": "I'm so tired. — Same here.", "example_ja": "すごく疲れた。—私も。"}, {"target": "Piece of cake.", "anchor": "easy", "relation": "same", "q_ja": "Piece of cake. は easy と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "Piece of cake. は口語の「朝飯前」", "example_en": "The test was a piece of cake.", "example_ja": "テストは楽勝だった。"}, {"target": "It's been a while.", "anchor": "Long time no see.", "relation": "same", "q_ja": "It's been a while. は Long time no see. と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "It's been a while. のほうが誰にでも使える", "example_en": "Hi, Tom! It's been a while.", "example_ja": "やあトム！久しぶり。"}, {"target": "I'm not sure.", "anchor": "I don't know.", "relation": "same", "q_ja": "I'm not sure. は I don't know. と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "I'm not sure. のほうがやわらかい", "example_en": "Is the store open? — I'm not sure.", "example_ja": "お店は開いてる？—どうだろう。"}, {"target": "Heads up!", "anchor": "Watch out!", "relation": "same", "q_ja": "Heads up! は Watch out! と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "Heads up! は「先に知らせておくね」の意味もある", "example_en": "Heads up! The floor is wet.", "example_ja": "気をつけて！床がぬれてるよ。"}, {"target": "late", "anchor": "delayed", "relation": "same", "q_ja": "late は delayed と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "delayed は「遅延した」。The flight is late. は会話的", "example_en": "Our flight is late again.", "example_ja": "また便が遅れている。"}, {"target": "busy", "anchor": "crowded", "relation": "same", "q_ja": "busy は crowded と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 1, "nuance": "busy は場所の「にぎわう」。人に使うと「忙しい」になる", "example_en": "The beach is busy on weekends.", "example_ja": "週末のビーチは混んでいる。"}, {"target": "tiny", "anchor": "huge", "relation": "opposite", "q_ja": "tiny は huge と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "", "example_en": "The puppy is tiny, but its mom is huge.", "example_ja": "子犬はちっちゃいけど、母犬はものすごく大きい。"}, {"target": "sell", "anchor": "buy", "relation": "opposite", "q_ja": "sell は buy と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "店員は sell、客は buy", "example_en": "They sell souvenirs here.", "example_ja": "ここではお土産を売っている。"}, {"target": "lend", "anchor": "borrow", "relation": "opposite", "q_ja": "lend は borrow と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "borrow A from B / lend B A", "example_en": "Can you lend me five dollars?", "example_ja": "5ドル貸してくれる？"}, {"target": "leave", "anchor": "arrive", "relation": "opposite", "q_ja": "leave は arrive と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "leave は直接目的語（leave Tokyo）、arrive は at/in", "example_en": "We leave Boston at noon.", "example_ja": "正午にボストンを出発する。"}, {"target": "forget", "anchor": "remember", "relation": "opposite", "q_ja": "forget は remember と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "Don't forget ~ = Remember ~", "example_en": "Don't forget your ticket.", "example_ja": "チケットを忘れないで。"}, {"target": "begin", "anchor": "finish", "relation": "opposite", "q_ja": "begin は finish と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "", "example_en": "Class begins at nine and finishes at three.", "example_ja": "授業は9時に始まって3時に終わる。"}, {"target": "free", "anchor": "busy", "relation": "opposite", "q_ja": "free は busy と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "free は「無料」の意味もあるので文脈で", "example_en": "Are you free tonight?", "example_ja": "今夜ひま？"}, {"target": "loud", "anchor": "quiet", "relation": "opposite", "q_ja": "loud は quiet と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "loud は音、noisy は場所・人の騒がしさ", "example_en": "The music is too loud.", "example_ja": "音楽がうるさすぎる。"}, {"target": "safe", "anchor": "dangerous", "relation": "opposite", "q_ja": "safe は dangerous と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "", "example_en": "Is it safe to walk here at night?", "example_ja": "夜ここを歩いても安全？"}, {"target": "cheap", "anchor": "expensive", "relation": "opposite", "q_ja": "cheap は expensive と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "cheap は「安っぽい」の意味も。中立なら inexpensive", "example_en": "Tacos are cheap here.", "example_ja": "ここはタコスが安い。"}, {"target": "same", "anchor": "different", "relation": "opposite", "q_ja": "same は different と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "the same が必要。the same as ~ / different from ~", "example_en": "We have the same bag!", "example_ja": "同じかばんだ！"}, {"target": "light", "anchor": "heavy", "relation": "opposite", "q_ja": "light は heavy と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "light は「明るい」もある", "example_en": "This suitcase is light.", "example_ja": "このスーツケースは軽い。"}, {"target": "full", "anchor": "empty", "relation": "opposite", "q_ja": "full は empty と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "I'm full. は「満腹」。×I'm empty.", "example_en": "I'm full. I can't eat any more.", "example_ja": "お腹いっぱい。もう食べられない。"}, {"target": "disagree", "anchor": "agree", "relation": "opposite", "q_ja": "disagree は agree と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "どちらも with 人", "example_en": "I disagree with you.", "example_ja": "あなたに反対だ。"}, {"target": "save", "anchor": "spend", "relation": "opposite", "q_ja": "save は spend と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "", "example_en": "I want to save money for the trip.", "example_ja": "旅行のためにお金をためたい。"}, {"target": "throw", "anchor": "catch", "relation": "opposite", "q_ja": "throw は catch と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "", "example_en": "Throw the ball to me!", "example_ja": "ボールをこっちに投げて！"}, {"target": "lose", "anchor": "win", "relation": "opposite", "q_ja": "lose は win と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "相手に勝つは beat", "example_en": "We lost the game 2 to 3.", "example_ja": "2対3で試合に負けた。"}, {"target": "mild", "anchor": "spicy", "relation": "opposite", "q_ja": "mild は spicy と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "メキシコ料理店で mild or hot? と聞かれる", "example_en": "Can I get the mild salsa?", "example_ja": "辛くないサルサをもらえますか？"}, {"target": "cool", "anchor": "warm", "relation": "opposite", "q_ja": "cool は warm と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "どちらも快適寄り。不快なら hot/cold", "example_en": "It's cool in the evening.", "example_ja": "夕方は涼しい。"}, {"target": "dry", "anchor": "wet", "relation": "opposite", "q_ja": "dry は wet と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "天気にも使う（a dry day）", "example_en": "Arizona is very dry.", "example_ja": "アリゾナはとても乾燥している。"}, {"target": "far", "anchor": "near", "relation": "opposite", "q_ja": "far は near と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "肯定文は far away が自然", "example_en": "Is the hotel far from here?", "example_ja": "ホテルはここから遠い？"}, {"target": "closed", "anchor": "open", "relation": "opposite", "q_ja": "closed は open と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "状態は closed。close は「閉める／近い」", "example_en": "The museum is closed on Mondays.", "example_ja": "博物館は月曜休み。"}, {"target": "weak", "anchor": "strong", "relation": "opposite", "q_ja": "weak は strong と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "濃い/薄いコーヒーも strong/weak", "example_en": "This coffee is too weak.", "example_ja": "このコーヒーは薄すぎる。"}, {"target": "sick", "anchor": "healthy", "relation": "opposite", "q_ja": "sick は healthy と比べて？", "options": ["もっと強い", "ほぼ同じ", "反対"], "answer": 2, "nuance": "healthy は食べ物にも（healthy food）", "example_en": "I'm sick today.", "example_ja": "今日は具合が悪い。"}, {"target": "sleepy", "anchor": "tired", "relation": "diff", "q_ja": "「眠い」と言いたい。どっち？", "options": ["I'm sleepy.", "I'm tired."], "answer": 0, "nuance": "tired=疲れた、sleepy=眠い", "example_en": "I'm sleepy.", "example_ja": "眠い。"}, {"target": "tired", "anchor": "sleepy", "relation": "diff", "q_ja": "走ったあとで「疲れた」と言いたい。どっち？", "options": ["I'm tired.", "I'm sleepy."], "answer": 0, "nuance": "tired=疲れた、sleepy=眠い", "example_en": "I'm tired.", "example_ja": "疲れた。"}, {"target": "excited", "anchor": "exciting", "relation": "diff", "q_ja": "「（私は）わくわくしている」と言いたい。どっち？", "options": ["I'm excited.", "I'm exciting."], "answer": 0, "nuance": "-ed は人の気持ち、-ing は物事の性質", "example_en": "I'm excited.", "example_ja": "わくわくしてる。"}, {"target": "bored", "anchor": "boring", "relation": "diff", "q_ja": "「（私は）退屈だ」と言いたい。どっち？", "options": ["I'm boring.", "I'm bored."], "answer": 1, "nuance": "I'm boring. は「私はつまらない人間」", "example_en": "I'm bored.", "example_ja": "退屈だ。"}, {"target": "popular", "anchor": "famous", "relation": "diff", "q_ja": "「子どもに人気がある」と言いたい。どっち？", "options": ["It's famous with kids.", "It's popular with kids."], "answer": 1, "nuance": "famous=知られている、popular=好かれている", "example_en": "It's popular with kids.", "example_ja": "子どもに人気がある。"}, {"target": "high", "anchor": "expensive", "relation": "diff", "q_ja": "「値段が高い」と言いたい。どっち？", "options": ["The price is high.", "The price is expensive."], "answer": 0, "nuance": "物が expensive、値段は high", "example_en": "The price is high.", "example_ja": "値段が高い。"}, {"target": "early", "anchor": "fast", "relation": "diff", "q_ja": "「早起きした」と言いたい。どっち？", "options": ["I got up fast.", "I got up early."], "answer": 1, "nuance": "fast=速度、early=時刻", "example_en": "I got up early.", "example_ja": "早起きした。"}, {"target": "hope", "anchor": "wish", "relation": "diff", "q_ja": "「明日晴れるといいな」と言いたい。どっち？", "options": ["I wish it's sunny tomorrow.", "I hope it's sunny tomorrow."], "answer": 1, "nuance": "hope=実現しうる未来、wish=実現しない願い", "example_en": "I hope it's sunny tomorrow.", "example_ja": "明日晴れるといいな。"}, {"target": "study", "anchor": "learn", "relation": "diff", "q_ja": "「一生懸命勉強した」と言いたい。どっち？", "options": ["I studied hard.", "I learned hard."], "answer": 0, "nuance": "study=努力、learn=身につく（結果）", "example_en": "I studied hard.", "example_ja": "一生懸命勉強した。"}, {"target": "hear", "anchor": "listen", "relation": "diff", "q_ja": "「変な音が聞こえた」と言いたい。どっち？", "options": ["I heard a strange sound.", "I listened a strange sound."], "answer": 0, "nuance": "hear=自然に聞こえる、listen to=意識して聴く", "example_en": "I heard a strange sound.", "example_ja": "変な音が聞こえた。"}, {"target": "explain", "anchor": "tell", "relation": "diff", "q_ja": "「それを説明して」と言いたい。どっち？", "options": ["Explain me.", "Explain it to me."], "answer": 1, "nuance": "explain は人を直接目的語にとれない", "example_en": "Explain it to me.", "example_ja": "それを説明して。"}, {"target": "choose", "anchor": "decide", "relation": "diff", "q_ja": "「赤いのを選んだ」と言いたい。どっち？", "options": ["I decided the red one.", "I chose the red one."], "answer": 1, "nuance": "decide は decide to ~ / decide on ~", "example_en": "I chose the red one.", "example_ja": "赤いのを選んだ。"}, {"target": "spicy", "anchor": "hot", "relation": "diff", "q_ja": "「熱い」ではなく「辛い」と誤解なく言いたい。どっち？", "options": ["It's hot.", "It's spicy."], "answer": 1, "nuance": "hot は「熱い」とも取れる", "example_en": "It's spicy.", "example_ja": "辛い。"}, {"target": "restroom", "anchor": "toilet", "relation": "diff", "q_ja": "アメリカのお店で「トイレはどこ？」。より自然なのは？", "options": ["Where's the restroom?", "Where's the toilet?"], "answer": 0, "nuance": "米国で toilet は便器そのもの", "example_en": "Where's the restroom?", "example_ja": "トイレはどこですか？"}, {"target": "fries", "anchor": "chips", "relation": "diff", "q_ja": "アメリカで「フライドポテト」と言いたい。どっち？", "options": ["fries", "chips"], "answer": 0, "nuance": "米で chips はポテトチップス", "example_en": "fries", "example_ja": "フライドポテト"}, {"target": "first floor", "anchor": "ground floor", "relation": "diff", "q_ja": "アメリカで「1階」と言いたい。どれ？", "options": ["the second floor", "the first floor", "the ground floor"], "answer": 1, "nuance": "米 first floor=1階、英 ground floor=1階", "example_en": "the first floor", "example_ja": "1階"}, {"target": "check", "anchor": "receipt", "relation": "diff", "q_ja": "食事のあと「お会計（伝票）をください」。どっち？", "options": ["Receipt, please.", "Check, please."], "answer": 1, "nuance": "check=払う前の伝票、receipt=払った後", "example_en": "Check, please.", "example_ja": "お会計をお願いします。"}, {"target": "sunburn", "anchor": "suntan", "relation": "diff", "q_ja": "「日焼けでひりひり痛い」と言いたい。どっち？", "options": ["I have a suntan.", "I have a sunburn."], "answer": 1, "nuance": "sunburn=痛い日焼け、suntan=小麦色", "example_en": "I have a sunburn.", "example_ja": "日焼けでひりひりする。"}, {"target": "Cheer up!", "anchor": "Keep it up!", "relation": "diff", "q_ja": "落ち込んでいる友だちに「元気出して」。どっち？", "options": ["Keep it up!", "Cheer up!"], "answer": 1, "nuance": "Keep it up! はうまくいっている人に「その調子」", "example_en": "Cheer up!", "example_ja": "元気出して！"}, {"target": "Just kidding.", "anchor": "No kidding!", "relation": "diff", "q_ja": "「冗談だよ」と言いたい。どっち？", "options": ["No kidding!", "Just kidding."], "answer": 1, "nuance": "No kidding! は「まさか／ほんとそれ」", "example_en": "Just kidding.", "example_ja": "冗談だよ。"}, {"target": "Help yourself.", "anchor": "Suit yourself.", "relation": "diff", "q_ja": "お菓子を出して「ご自由にどうぞ」。どっち？", "options": ["Suit yourself.", "Help yourself."], "answer": 1, "nuance": "Suit yourself. は「勝手にすれば」で冷たい", "example_en": "Help yourself.", "example_ja": "ご自由にどうぞ。"}, {"target": "It's up to you.", "anchor": "Whatever.", "relation": "diff", "q_ja": "ていねいに「あなたが決めていいよ」。どっち？", "options": ["Whatever.", "It's up to you."], "answer": 1, "nuance": "Whatever. は「どうでもいい」で投げやり", "example_en": "It's up to you.", "example_ja": "あなたが決めていいよ。"}, {"target": "Excuse me.", "anchor": "I'm sorry.", "relation": "diff", "q_ja": "人の前を通るときの「すみません」。どっち？", "options": ["I'm sorry.", "Excuse me."], "answer": 1, "nuance": "Excuse me. は前置き、I'm sorry. は謝罪", "example_en": "Excuse me.", "example_ja": "すみません（通ります）。"}, {"target": "Me neither.", "anchor": "Me too.", "relation": "diff", "q_ja": "I'm not hungry. に「私も（空いてない）」。どっち？", "options": ["Me neither.", "Me too."], "answer": 0, "nuance": "否定文への同意は Me neither.", "example_en": "Me neither.", "example_ja": "私も（空いてない）。"}, {"target": "use", "anchor": "borrow", "relation": "diff", "q_ja": "「トイレを借りてもいい？」。どっち？", "options": ["Can I use the bathroom?", "Can I borrow the bathroom?"], "answer": 0, "nuance": "持って帰らない物は use", "example_en": "Can I use the bathroom?", "example_ja": "トイレを借りてもいい？"}, {"target": "beat", "anchor": "win", "relation": "diff", "q_ja": "「タイガースに勝った」と言いたい。どっち？", "options": ["We beat the Tigers.", "We won the Tigers."], "answer": 0, "nuance": "win は試合・賞、相手に勝つは beat", "example_en": "We beat the Tigers.", "example_ja": "タイガースに勝った。"}, {"target": "closed", "anchor": "close", "relation": "diff", "q_ja": "「お店は閉まっている」と言いたい。どっち？", "options": ["The store is close.", "The store is closed."], "answer": 1, "nuance": "close は「閉める」か「近い」", "example_en": "The store is closed.", "example_ja": "お店は閉まっている。"}, {"target": "near", "anchor": "close to", "relation": "diff", "q_ja": "「駅の近くに住んでいる」と言いたい。どっち？", "options": ["I live close the station.", "I live near the station."], "answer": 1, "nuance": "close は to が必要", "example_en": "I live near the station.", "example_ja": "駅の近くに住んでいる。"}, {"target": "nice", "anchor": "kind", "relation": "diff", "q_ja": "「今日はいい天気」と言いたい。どっち？", "options": ["The weather is nice today.", "The weather is kind today."], "answer": 0, "nuance": "kind は人の思いやりだけ", "example_en": "The weather is nice today.", "example_ja": "今日はいい天気だ。"}, {"target": "hungry", "anchor": "empty", "relation": "diff", "q_ja": "「お腹が空いた」と言いたい。どっち？", "options": ["I'm hungry.", "I'm empty."], "answer": 0, "nuance": "×I'm empty.（お腹が空っぽ、とは言わない）", "example_en": "I'm hungry.", "example_ja": "お腹が空いた。"}, {"target": "surprised", "anchor": "shocked", "relation": "diff", "q_ja": "すてきなプレゼントに「驚いた」。より自然なのは？", "options": ["I was shocked.", "I was surprised."], "answer": 1, "nuance": "shocked は悪いことへの強い驚き", "example_en": "I was surprised.", "example_ja": "驚いた。"}, {"target": "visit", "anchor": "go to", "relation": "diff", "q_ja": "「京都を訪れた」と言いたい。どっち？", "options": ["I visited to Kyoto.", "I visited Kyoto."], "answer": 1, "nuance": "動詞 visit に to は付けない", "example_en": "I visited Kyoto.", "example_ja": "京都を訪れた。"}, {"target": "reply", "anchor": "answer", "relation": "diff", "q_ja": "「メッセージに返信して」と言いたい。どっち？", "options": ["Reply to my message.", "Reply my message."], "answer": 0, "nuance": "reply は to が必要", "example_en": "Reply to my message.", "example_ja": "メッセージに返信して。"}];
+const CLOZE = [{"w": "borrow", "app_word": "borrow", "sentence_with_blank": "Can I ___ your pen? I'll give it back in a minute.", "ja": "ペンを借りてもいい？すぐ返すね。", "options": ["borrowed", "borrow", "sell", "lend"], "distractors": [{"word": "lend", "why": "Can I lend your pen? は方向が逆で語法も不可"}, {"word": "sell", "why": "「返す」と矛盾"}, {"word": "borrowed", "why": "can の後は原形"}], "why": "give it back（返す）で「借りる」に決まる"}, {"w": "lend", "app_word": "lend", "sentence_with_blank": "Could you ___ me your umbrella? I'll return it tomorrow.", "ja": "傘を貸してくれる？明日返すから。", "options": ["lend", "borrow", "choose", "carry"], "distractors": [{"word": "borrow", "why": "borrow me ~ とは言えない（借りる側が主語）"}, {"word": "carry", "why": "carry me your umbrella の文型はない"}, {"word": "choose", "why": "「選んで」では return と合わない"}], "why": "me＋物（二重目的語）と return で lend に決まる"}, {"w": "arrive", "app_word": "arrive", "sentence_with_blank": "Our bus will ___ in Chicago at 6:30 tomorrow morning.", "ja": "バスは明日の朝6時半にシカゴに着きます。", "options": ["leave", "visit", "reach", "arrive"], "distractors": [{"word": "leave", "why": "leave は他動詞（leave Chicago）。in Chicago は付かない"}, {"word": "reach", "why": "reach も他動詞（reach Chicago）"}, {"word": "visit", "why": "visit in ~ とは言わない"}], "why": "in＋都市名をとれる「着く」は arrive だけ"}, {"w": "forget", "app_word": "forget", "sentence_with_blank": "Don't ___ your passport. You can't fly without it!", "ja": "パスポートを忘れないで。ないと飛行機に乗れないよ！", "options": ["bring", "forget", "remember", "arrive"], "distractors": [{"word": "remember", "why": "Don't remember は「覚えておくな」で逆"}, {"word": "bring", "why": "Don't bring は「持ってくるな」で後半と矛盾"}, {"word": "arrive", "why": "arrive は目的語をとれない"}], "why": "後半の「ないと乗れない」で「忘れるな」に決まる"}, {"w": "remember", "app_word": "remember", "sentence_with_blank": "I can't ___ his name. What was it again?", "ja": "彼の名前が思い出せない。何だっけ？", "options": ["remember", "explain", "believe", "forget"], "distractors": [{"word": "forget", "why": "忘れられないなら聞き返さない"}, {"word": "believe", "why": "「名前を信じられない」は文脈に合わない"}, {"word": "explain", "why": "「名前を説明できない」は文脈に合わない"}], "why": "What was it again? で「思い出せない」に決まる"}, {"w": "wait", "app_word": "wait", "sentence_with_blank": "Please ___ here. The doctor will see you soon.", "ja": "ここでお待ちください。すぐに先生が診ます。", "options": ["finish", "wait", "leave", "waiting"], "distractors": [{"word": "leave", "why": "すぐ診るのに「出て行って」は矛盾"}, {"word": "finish", "why": "何を終えるのか不明"}, {"word": "waiting", "why": "Please の後は原形"}], "why": "will see you soon で「待つ」に決まる"}, {"w": "finish", "app_word": "finish", "sentence_with_blank": "I'll ___ my homework by nine, and then we can play.", "ja": "9時までに宿題を終わらせるから、そのあと遊ぼう。", "options": ["finished", "finish", "borrow", "forget"], "distractors": [{"word": "forget", "why": "宿題を忘れて遊ぶ、は by nine と合わない"}, {"word": "borrow", "why": "宿題を借りる、は不自然"}, {"word": "finished", "why": "will の後は原形"}], "why": "by nine と and then で「終える」に決まる"}, {"w": "believe", "app_word": "believe", "sentence_with_blank": "I can't ___ it! We won the game!", "ja": "信じられない！試合に勝ったよ！", "options": ["borrow", "believe", "lend", "arrive"], "distractors": [{"word": "borrow", "why": "「それを借りられない」は文脈に合わない"}, {"word": "lend", "why": "同上"}, {"word": "arrive", "why": "arrive は目的語 it をとれない"}], "why": "I can't believe it! は驚きの決まり文句"}, {"w": "explain", "app_word": "explain", "sentence_with_blank": "Can you ___ this word to me? I don't understand it.", "ja": "この単語を説明してくれる？わからないんだ。", "options": ["tell", "understand", "borrow", "explain"], "distractors": [{"word": "tell", "why": "tell は tell me about this word の形。tell this word to me は不自然"}, {"word": "understand", "why": "わからないのは自分の方"}, {"word": "borrow", "why": "単語を借りる、は不自然"}], "why": "〜 to me と I don't understand で explain に決まる"}, {"w": "invite", "app_word": "invite", "sentence_with_blank": "I want to ___ you to my birthday party on Saturday.", "ja": "土曜日の誕生日パーティーにあなたを招待したい。", "options": ["borrow", "visit", "invite", "answer"], "distractors": [{"word": "visit", "why": "visit you to ~ の形はない"}, {"word": "answer", "why": "パーティーに答える、は不自然"}, {"word": "borrow", "why": "あなたを借りる、は不自然"}], "why": "人 to パーティー の形をとるのは invite"}, {"w": "spend", "app_word": "spend", "sentence_with_blank": "How much money did you ___ on your trip?", "ja": "旅行にいくら使ったの？", "options": ["spend", "lend", "borrow", "explain"], "distractors": [{"word": "lend", "why": "旅行でお金を貸した、は How much ~ on your trip と合わない"}, {"word": "borrow", "why": "on your trip と合わない"}, {"word": "explain", "why": "お金を説明する、は不自然"}], "why": "spend money on ~ のコロケーション"}, {"w": "save", "app_word": "save", "sentence_with_blank": "I don't buy coffee every day because I want to ___ money.", "ja": "お金をためたいから毎日コーヒーは買わない。", "options": ["save", "borrow", "spend", "saving"], "distractors": [{"word": "spend", "why": "買わない理由が「使いたい」では矛盾"}, {"word": "borrow", "why": "借りたいから買わない、は理由にならない"}, {"word": "saving", "why": "want to の後は原形"}], "why": "because 節の因果で「ためる」に決まる。※for a new bike だけだと spend も入る"}, {"w": "agree", "app_word": "agree", "sentence_with_blank": "I ___ with you. That's a great idea.", "ja": "賛成。それはいい考えだね。", "options": ["understand", "agree", "promise", "believe"], "distractors": [{"word": "believe", "why": "believe with you とは言わない"}, {"word": "understand", "why": "understand with you とは言わない"}, {"word": "promise", "why": "promise with you とは言わない"}], "why": "〜 with you をとって賛成を表すのは agree"}, {"w": "catch", "app_word": "catch", "sentence_with_blank": "Throw me the ball! I'll ___ it.", "ja": "ボールを投げて！捕るから。", "options": ["build", "throw", "worry", "catch"], "distractors": [{"word": "throw", "why": "投げてと頼んだ側が投げるのは矛盾"}, {"word": "build", "why": "ボールを作る、は不自然"}, {"word": "worry", "why": "worry it とは言わない"}], "why": "Throw me と対になる動作"}, {"w": "hungry", "app_word": "hungry", "sentence_with_blank": "I didn't eat breakfast, so I'm really ___.", "ja": "朝ごはんを食べなかったから、すごくお腹が空いた。", "options": ["hungry", "careful", "hunger", "full"], "distractors": [{"word": "full", "why": "食べていないのに満腹は矛盾"}, {"word": "careful", "why": "食べなかったことの結果にならない"}, {"word": "hunger", "why": "名詞は I'm really の後に入らない"}], "why": "didn't eat → so の因果"}, {"w": "afraid", "app_word": "afraid", "sentence_with_blank": "My little brother is ___ of dogs.", "ja": "弟は犬が怖い。", "options": ["afraid", "fear", "excited", "famous"], "distractors": [{"word": "excited", "why": "excited は about。of はとらない"}, {"word": "famous", "why": "犬で有名、なら for"}, {"word": "fear", "why": "名詞は is の後に of と続けられない"}], "why": "be afraid of の前置詞で決まる"}, {"w": "bored", "app_word": "bored", "sentence_with_blank": "Nothing happens in this movie. I'm so ___.", "ja": "この映画、何も起きない。退屈だ。", "options": ["bored", "boring", "famous", "excited"], "distractors": [{"word": "boring", "why": "I'm boring は「私はつまらない人」"}, {"word": "excited", "why": "何も起きないのにわくわくは矛盾"}, {"word": "famous", "why": "文脈に合わない"}], "why": "人の気持ち＝ -ed 形"}, {"w": "excited", "app_word": "excited", "sentence_with_blank": "We're going to Disneyland tomorrow! I'm so ___!", "ja": "明日ディズニーランドに行くんだ！すごく楽しみ！", "options": ["bored", "excited", "tired", "exciting"], "distractors": [{"word": "exciting", "why": "I'm exciting は「私は人をわくわくさせる」"}, {"word": "bored", "why": "楽しみの文脈と矛盾"}, {"word": "tired", "why": "まだ行っていない"}], "why": "人の気持ち＝ -ed 形"}, {"w": "busy", "app_word": "busy", "sentence_with_blank": "Sorry, I can't talk now. I'm ___.", "ja": "ごめん、今話せない。忙しいんだ。", "options": ["free", "busy", "business", "kind"], "distractors": [{"word": "free", "why": "暇なら話せる"}, {"word": "kind", "why": "理由にならない"}, {"word": "business", "why": "I'm business とは言わない"}], "why": "can't talk の理由"}, {"w": "dangerous", "app_word": "dangerous", "sentence_with_blank": "Don't swim here today. The waves are too big. It's ___.", "ja": "今日はここで泳がないで。波が高すぎて危ない。", "options": ["safe", "dangerous", "danger", "useful"], "distractors": [{"word": "safe", "why": "泳ぐなと言う理由と逆"}, {"word": "useful", "why": "文脈に合わない"}, {"word": "danger", "why": "It's danger とは言わない"}], "why": "Don't swim と too big の理由"}, {"w": "expensive", "app_word": "expensive", "sentence_with_blank": "This bag is 900 dollars! It's too ___.", "ja": "このかばん900ドル！高すぎる。", "options": ["expensive", "price", "heavy", "cheap"], "distractors": [{"word": "cheap", "why": "900ドルで too cheap は矛盾"}, {"word": "heavy", "why": "値段の話に合わない"}, {"word": "price", "why": "名詞は too の後に入らない"}], "why": "金額＋too で決まる"}, {"w": "cheap", "app_word": "cheap", "sentence_with_blank": "This T-shirt was only three dollars. It was really ___.", "ja": "このTシャツはたった3ドルだった。本当に安かった。", "options": ["expensive", "cheaply", "cheap", "delicious"], "distractors": [{"word": "expensive", "why": "only と矛盾"}, {"word": "delicious", "why": "Tシャツに合わない"}, {"word": "cheaply", "why": "副詞は was の後に入らない"}], "why": "only＋金額で決まる"}, {"w": "famous", "app_word": "famous", "sentence_with_blank": "Hollywood is ___ for its movies.", "ja": "ハリウッドは映画で有名だ。", "options": ["famous", "popular", "useful", "fame"], "distractors": [{"word": "popular", "why": "popular は with 人。popular for はまれ"}, {"word": "useful", "why": "「映画のために役立つ」では意味が通らない"}, {"word": "fame", "why": "名詞は is の後に for と続けられない"}], "why": "be famous for のコロケーション"}, {"w": "popular", "app_word": "popular", "sentence_with_blank": "Pizza is very ___ with kids.", "ja": "ピザは子どもにとても人気がある。", "options": ["delicious", "popularity", "famous", "popular"], "distractors": [{"word": "famous", "why": "famous with とは言わない（famous for / among）"}, {"word": "delicious", "why": "delicious with kids とは言わない"}, {"word": "popularity", "why": "名詞は very の後に入らない"}], "why": "be popular with 人 のコロケーション"}, {"w": "different", "app_word": "different", "sentence_with_blank": "My sister and I look very ___. She's tall and I'm short.", "ja": "姉と私は見た目がまったく違う。姉は背が高く、私は低い。", "options": ["same", "strange", "different", "difference"], "distractors": [{"word": "same", "why": "very same とは言わず the same"}, {"word": "strange", "why": "背の高低は「変」の理由にならない"}, {"word": "difference", "why": "名詞は look very の後に入らない"}], "why": "tall と short の対比"}, {"w": "delicious", "app_word": "delicious", "sentence_with_blank": "This pizza is ___! Can I have another slice?", "ja": "このピザおいしい！もう一切れもらえる？", "options": ["delicious", "taste", "empty", "bored"], "distractors": [{"word": "empty", "why": "中身がないのにもう一切れは矛盾"}, {"word": "bored", "why": "物が bored は不可"}, {"word": "taste", "why": "名詞・動詞は is の後に入らない"}], "why": "もう一切れ欲しい理由"}, {"w": "heavy", "app_word": "heavy", "sentence_with_blank": "My suitcase is too ___. I can't carry it.", "ja": "スーツケースが重すぎて運べない。", "options": ["light", "empty", "cheap", "heavy"], "distractors": [{"word": "light", "why": "軽すぎて運べないは矛盾"}, {"word": "empty", "why": "空なら運べる"}, {"word": "cheap", "why": "値段は運べない理由にならない"}], "why": "can't carry の理由"}, {"w": "empty", "app_word": "empty", "sentence_with_blank": "The bottle is ___. There's no water in it.", "ja": "ボトルは空っぽ。水が入っていない。", "options": ["empty", "full", "heavy", "wet"], "distractors": [{"word": "full", "why": "no water と矛盾"}, {"word": "heavy", "why": "水がなければ重くない"}, {"word": "wet", "why": "水がないことの言い換えにならない"}], "why": "後の文がそのまま定義"}, {"w": "careful", "app_word": "careful", "sentence_with_blank": "Be ___! The floor is wet.", "ja": "気をつけて！床がぬれてるよ。", "options": ["lucky", "careful", "care", "famous"], "distractors": [{"word": "lucky", "why": "Be lucky は警告にならない"}, {"word": "famous", "why": "文脈に合わない"}, {"word": "care", "why": "Be care とは言わない"}], "why": "wet floor への警告"}, {"w": "lucky", "app_word": "lucky", "sentence_with_blank": "I found twenty dollars on the street. I'm so ___!", "ja": "道で20ドル拾った。超ラッキー！", "options": ["angry", "luck", "careful", "lucky"], "distractors": [{"word": "careful", "why": "拾ったことと関係しない"}, {"word": "angry", "why": "喜ぶ場面と逆"}, {"word": "luck", "why": "I'm so luck とは言わない"}], "why": "偶然の得"}, {"w": "umbrella", "app_word": "umbrella", "sentence_with_blank": "It's raining hard. Don't forget your ___.", "ja": "雨が強いよ。傘を忘れないで。", "options": ["sunscreen", "homework", "weather", "umbrella"], "distractors": [{"word": "sunscreen", "why": "雨と合わない"}, {"word": "homework", "why": "雨と無関係"}, {"word": "weather", "why": "天気を忘れる、は不自然"}], "why": "raining が雨具に限定する"}, {"w": "breakfast", "app_word": "breakfast", "sentence_with_blank": "I eat ___ at seven every morning before school.", "ja": "毎朝、学校の前の7時に朝食を食べる。", "options": ["breakfast", "lunch", "kitchen", "dinner"], "distractors": [{"word": "dinner", "why": "morning と矛盾"}, {"word": "lunch", "why": "before school と矛盾"}, {"word": "kitchen", "why": "台所を食べる、は不可"}], "why": "every morning before school"}, {"w": "yesterday", "app_word": "yesterday", "sentence_with_blank": "I went to the beach ___, and now I have a sunburn.", "ja": "昨日ビーチに行って、今は日焼けで痛い。", "options": ["tomorrow", "weekend", "yesterday", "future"], "distractors": [{"word": "tomorrow", "why": "went（過去）と合わない"}, {"word": "future", "why": "名詞単独では副詞にならない"}, {"word": "weekend", "why": "冠詞なしの weekend は副詞にならない（last weekend なら可）"}], "why": "過去形＋now の結果"}, {"w": "neighbor", "app_word": "neighbor", "sentence_with_blank": "Our ___ lives next door. She has a big dog.", "ja": "隣の人は隣の家に住んでいて、大きな犬を飼っている。", "options": ["neighbor", "homework", "village", "kitchen"], "distractors": [{"word": "village", "why": "村は next door に住まない"}, {"word": "kitchen", "why": "台所は住まない"}, {"word": "homework", "why": "宿題は住まない"}], "why": "lives next door の定義"}, {"w": "library", "app_word": "library", "sentence_with_blank": "You can borrow books for free at the ___.", "ja": "図書館では本を無料で借りられる。", "options": ["library", "hospital", "store", "station"], "distractors": [{"word": "station", "why": "駅で本は借りない"}, {"word": "hospital", "why": "病院で本は借りない"}, {"word": "store", "why": "店は無料で貸さない"}], "why": "borrow books for free の定義"}, {"w": "luggage", "app_word": "luggage", "sentence_with_blank": "We have too much ___. We need a bigger car.", "ja": "荷物が多すぎる。もっと大きい車が必要だ。", "options": ["luggage", "luggages", "passport", "seat"], "distractors": [{"word": "luggages", "why": "luggage は数えられない"}, {"word": "passport", "why": "much と合わず車の大きさとも無関係"}, {"word": "seat", "why": "much seat とは言わない"}], "why": "much＋不可算＋車の大きさ"}, {"w": "refill", "app_word": "refill", "sentence_with_blank": "Can I get a free ___ on my coffee?", "ja": "コーヒーのおかわりを無料でもらえますか？", "options": ["discount", "napkin", "receipt", "refill"], "distractors": [{"word": "napkin", "why": "コーヒーにナプキンの「おかわり」はない"}, {"word": "receipt", "why": "on my coffee と合わない"}, {"word": "discount", "why": "a free discount は意味が重複して不自然"}], "why": "free ~ on my coffee は米国の決まり文句"}, {"w": "delay", "app_word": "delay", "sentence_with_blank": "There's a two-hour ___, so our flight will leave at five instead of three.", "ja": "2時間の遅れがあるので、便は3時でなく5時に出発する。", "options": ["gate", "delay", "flight", "late"], "distractors": [{"word": "gate", "why": "搭乗口では時刻がずれない"}, {"word": "flight", "why": "two-hour flight だと時刻変更と合わない"}, {"word": "late", "why": "a two-hour late とは言わない"}], "why": "instead of の時刻差"}, {"w": "crowded", "app_word": "crowded", "sentence_with_blank": "The train was so ___ that I couldn't sit down.", "ja": "電車がとても混んでいて座れなかった。", "options": ["crowded", "crowd", "empty", "quiet"], "distractors": [{"word": "empty", "why": "空いていれば座れる"}, {"word": "quiet", "why": "座れない理由にならない"}, {"word": "crowd", "why": "名詞は so ~ that に入らない"}], "why": "couldn't sit down の理由"}, {"w": "sunscreen", "app_word": "sunscreen", "sentence_with_blank": "It's very sunny today. Put on some ___.", "ja": "今日は日差しが強い。日焼け止めを塗って。", "options": ["sunscreen", "sunburn", "water", "umbrella"], "distractors": [{"word": "sunburn", "why": "日焼けを塗る、は不可"}, {"word": "umbrella", "why": "put on some umbrella とは言わない"}, {"word": "water", "why": "日差し対策にならない"}], "why": "sunny と put on some"}];
+const GIST = [{"text": "The museum is free on Sundays. But you need a ticket, so get one online first.", "options": ["日曜は混むので平日に行くべき", "日曜は無料だが、事前予約が必要だ", "博物館は日曜日も開いている"], "answer": 1, "trap": 2, "words": 16}, {"text": "Sorry, our kitchen is closed. We only have drinks now.", "options": ["飲み物はもう売り切れている", "料理は終わり、飲み物だけ頼める", "店はもう閉まっていて何も頼めない"], "answer": 1, "trap": 2, "words": 10}, {"text": "In the U.S., tap water is usually safe to drink. Most restaurants give you water for free.", "options": ["米国にはレストランがとても多い", "水はお店で買わないといけない", "水道水は飲めて、店でも無料"], "answer": 2, "trap": 0, "words": 17}, {"text": "Your flight is delayed. The new departure time is 4:30, and the gate is the same.", "options": ["便が欠航して明日の便になった", "便は遅れて4時半発、搭乗口は同じ", "搭乗口はさっきと変わっていない"], "answer": 1, "trap": 2, "words": 16}, {"text": "Tipping is not included in the price. People usually add 15 to 20 percent at restaurants.", "options": ["アメリカの店は料理の値段が高い", "チップは別に15〜20%足す", "チップは値段に入っている"], "answer": 1, "trap": 0, "words": 16}, {"text": "The bus doesn't take cash. You need a card or the app to ride.", "options": ["このバスにはだれでも乗ることができる", "このバスは無料なのでお金はいらない", "バスは現金不可でカードかアプリ"], "answer": 2, "trap": 0, "words": 14}, {"text": "It's going to rain this afternoon, but it'll be sunny tomorrow. Let's go to the beach tomorrow.", "options": ["午後は雨なのでビーチは明日にしよう", "今日の午前中にビーチへ行こう", "今日の午後は雨が降る予報がある"], "answer": 0, "trap": 2, "words": 17}, {"text": "I'd like to return this shirt. It's too small, and I have the receipt.", "options": ["このシャツのレシートを持っている", "シャツを大きく直してほしい", "小さいシャツを返品したいです"], "answer": 2, "trap": 0, "words": 14}, {"text": "This store opens at 10 on weekdays, but on Sundays it opens at noon.", "options": ["日曜日はお店がお休みで開かない", "この店は平日は朝10時に開く", "日曜は開店が遅く正午から"], "answer": 2, "trap": 1, "words": 14}, {"text": "Can I get a box? I can't finish this, and I want to eat the rest at home.", "options": ["量が多すぎて食べきれない", "同じ料理をおかわりしたい", "残りを家で食べたいので持ち帰る"], "answer": 2, "trap": 0, "words": 18}, {"text": "The hotel pool is closed today for cleaning. You can use it again tomorrow.", "options": ["ホテルにはプールがある", "プールは工事中でずっと休み", "プールは今日だけ使えない"], "answer": 2, "trap": 0, "words": 14}, {"text": "Excuse me, this seat is taken. My friend is coming back soon.", "options": ["友だちの席なので座れない", "友だちがもうすぐ戻ってくる", "この空いている席に座っていい"], "answer": 0, "trap": 1, "words": 12}, {"text": "The pharmacy is on the corner. It's open 24 hours, so you can go anytime.", "options": ["薬局はこの通りの角にある", "薬局は夜は閉まっている", "角の薬局はいつでも開いている"], "answer": 2, "trap": 0, "words": 15}, {"text": "Turn left at the second light. The hotel is next to a big bank.", "options": ["近くに大きな銀行がある", "最初の信号で右に曲がって進む", "2つ目の信号を左、銀行の隣"], "answer": 2, "trap": 0, "words": 14}, {"text": "We don't have this in a medium. We only have small and large.", "options": ["欲しいMサイズはない", "Mサイズしかなくて他はない", "Sサイズの在庫ならある"], "answer": 0, "trap": 2, "words": 13}, {"text": "My phone is almost dead. Is there an outlet I can use?", "options": ["話し手はスマホを持っている", "スマホが壊れて買い替えたい", "電池が切れそうなので充電したい"], "answer": 2, "trap": 0, "words": 12}, {"text": "The line for this ride is two hours long. Let's come back after the parade.", "options": ["パレードの後に出直そう", "このあとはパレードがある", "2時間がまんして並ぶ"], "answer": 0, "trap": 1, "words": 15}, {"text": "Sales tax is not on the price tag. So you pay a little more at the register.", "options": ["商品にはどれも値札がついている", "税が別でレジで少し高くなる", "アメリカの買い物は税金がない"], "answer": 1, "trap": 0, "words": 17}, {"text": "I have a fever and a headache. I don't think I can go to school today.", "options": ["熱があって頭がとても痛い", "明日は学校に行けそうにない", "体調が悪くて今日は学校を休む"], "answer": 2, "trap": 0, "words": 16}, {"text": "You can't park here from 8 to 6. After six, it's free.", "options": ["ここは一日中いつでも駐車禁止", "夕方6時までは駐車できない", "6時以降は駐車料金が無料"], "answer": 1, "trap": 2, "words": 12}, {"text": "The concert starts at eight, but the doors open at seven. Let's get there early for good seats.", "options": ["会場のドアは7時に開く予定だ", "早めに着いていい席をとろう", "コンサートは7時に始まる予定だ"], "answer": 1, "trap": 0, "words": 18}, {"text": "Hi, this is Emma. I'm running late. Please start the meeting without me.", "options": ["これはエマからの電話だ", "遅れるので先に始めてほしい", "今日の会議は中止になった"], "answer": 1, "trap": 0, "words": 13}, {"text": "It's really hot and dry here in Arizona. Drink lots of water, and wear a hat.", "options": ["アリゾナはとても暑く乾燥している", "暑くて乾燥、水と帽子で対策を", "アリゾナは雨が多く湿っぽい"], "answer": 1, "trap": 0, "words": 16}, {"text": "Paper or plastic? Oh, you have your own bag. Great, then you don't need one.", "options": ["袋は自分のがあるので不要", "紙袋のほうを一枚だけください", "紙袋とビニール袋の2種類がある"], "answer": 0, "trap": 2, "words": 15}, {"text": "The subway is faster than the bus at this time of day. The roads are very crowded.", "options": ["道が混む今は地下鉄のほうが速い", "今は地下鉄よりバスが速い", "この時間は道路が混んでいる"], "answer": 0, "trap": 2, "words": 17}, {"text": "We're out of chocolate ice cream. But we have vanilla and strawberry.", "options": ["チョコはないが他の味ならある", "このお店にはバニラアイスがある", "アイスはもう全部売り切れた"], "answer": 0, "trap": 1, "words": 12}, {"text": "Hey, a heads-up: the elevator is broken. You'll have to take the stairs.", "options": ["故障中なので階段を使って", "エレベーターはちゃんと使える", "この建物にはエレベーターがある"], "answer": 0, "trap": 2, "words": 13}, {"text": "My host family eats dinner at six. They want me to be home by then.", "options": ["ホストファミリーがいる", "夕食は自分で作って食べる", "6時の夕食までに帰ってきて"], "answer": 2, "trap": 0, "words": 15}, {"text": "The farmers market is only on Saturday mornings. The fruit there is fresh and cheap.", "options": ["その市場では果物を売っている", "土曜の朝だけの市場で果物がいい", "市場は毎日朝から夜まで開いている"], "answer": 1, "trap": 0, "words": 15}, {"text": "Sorry, I can't make it tonight. Can I take a rain check?", "options": ["雨なので今夜は行かない", "話し手には今夜予定がある", "今夜は無理、また今度"], "answer": 2, "trap": 1, "words": 12}];
+const BANDS = {"breakfast": 1, "lunch": 1, "dinner": 1, "vegetable": 2, "fruit": 1, "library": 2, "station": 2, "hospital": 2, "weather": 2, "umbrella": 2, "money": 1, "price": 2, "holiday": 1, "weekend": 2, "tomorrow": 1, "yesterday": 1, "neighbor": 2, "kitchen": 1, "clothes": 2, "homework": 1, "present": 2, "season": 2, "island": 2, "village": 2, "country": 2, "future": 2, "dream": 1, "problem": 2, "idea": 2, "memory": 2, "remember": 2, "forget": 2, "borrow": 2, "lend": 2, "choose": 2, "decide": 2, "arrive": 2, "leave": 2, "wait": 1, "believe": 2, "understand": 2, "explain": 2, "practice": 1, "finish": 1, "begin": 1, "carry": 2, "catch": 1, "throw": 1, "build": 2, "grow": 2, "climb": 2, "worry": 2, "hope": 1, "agree": 2, "invite": 2, "visit": 1, "answer": 1, "spend": 2, "save": 2, "change": 2, "happy": 1, "angry": 1, "tired": 1, "hungry": 1, "sleepy": 1, "afraid": 2, "surprised": 2, "excited": 2, "nervous": 2, "bored": 2, "kind": 1, "busy": 1, "quiet": 2, "dangerous": 2, "important": 2, "famous": 2, "expensive": 2, "cheap": 1, "difficult": 2, "easy": 1, "popular": 2, "different": 2, "strange": 2, "useful": 2, "delicious": 1, "heavy": 2, "empty": 2, "careful": 2, "lucky": 2, "favorite": 1, "rabbit": 1, "turtle": 2, "elephant": 1, "giraffe": 2, "monkey": 1, "horse": 1, "sheep": 2, "pig": 1, "cow": 1, "chicken": 1, "duck": 1, "frog": 1, "snake": 1, "bear": 1, "wolf": 2, "fox": 2, "deer": 2, "lion": 1, "whale": 2, "dolphin": 2, "shark": 2, "octopus": 2, "penguin": 1, "owl": 1, "eagle": 2, "butterfly": 2, "bee": 1, "ant": 1, "mouse": 1, "squirrel": 2, "beach": 1, "wave": 2, "sand": 2, "ocean": 2, "shell": 2, "sunset": 2, "swim": 1, "fish": 1, "boat": 1, "surf": 3, "coast": 3, "deep": 2, "volcano": 3, "flower": 1, "sunscreen": 3, "airport": 2, "passport": 2, "flight": 2, "luggage": 3, "gate": 3, "seat": 2, "sightseeing": 3, "delay": 3, "depart": 3, "movie": 1, "actor": 2, "story": 1, "camera": 1, "screen": 2, "computer": 1, "internet": 2, "phone": 1, "download": 3, "show": 1, "audience": 3, "scene": 3, "invent": 3, "information": 2, "cash": 2, "card": 1, "receipt": 3, "size": 1, "sale": 2, "store": 1, "buy": 1, "sell": 2, "souvenir": 3, "bag": 1, "discount": 3, "desert": 3, "rock": 2, "canyon": 4, "sky": 1, "star": 1, "moon": 1, "forest": 2, "tree": 1, "lake": 1, "river": 1, "mountain": 1, "earth": 2, "nature": 2, "air": 2, "view": 2, "team": 1, "player": 1, "win": 1, "lose": 2, "game": 1, "ski": 1, "snow": 1, "cold": 1, "score": 2, "run": 1, "jump": 1, "fast": 1, "strong": 1, "coach": 2, "goal": 2, "menu": 1, "order": 2, "meat": 1, "sweet": 1, "spicy": 2, "salty": 2, "bitter": 3, "taste": 2, "drink": 1, "water": 1, "restaurant": 1, "tip": 3, "music": 1, "song": 1, "sing": 1, "dance": 1, "guitar": 1, "drum": 2, "band": 1, "concert": 1, "listen": 1, "loud": 2, "voice": 2, "stage": 2, "festival": 2, "clap": 3, "rhythm": 3, "ride": 1, "line": 2, "ticket": 1, "fun": 1, "scary": 3, "fireworks": 3, "parade": 3, "map": 1, "open": 1, "closed": 2, "enjoy": 1, "play": 1, "entrance": 2, "exit": 2, "sunny": 1, "cloudy": 1, "rainy": 1, "windy": 1, "snowy": 1, "storm": 2, "hot": 1, "warm": 1, "cool": 1, "wet": 2, "dry": 2, "temperature": 2, "forecast": 3, "thunder": 3, "head": 1, "stomach": 2, "tooth": 1, "back": 2, "leg": 1, "arm": 1, "sick": 1, "medicine": 2, "pharmacy": 3, "doctor": 1, "pain": 2, "healthy": 2, "history": 2, "subject": 2, "math": 1, "science": 1, "test": 1, "freedom": 3, "president": 3, "war": 2, "peace": 2, "flag": 2, "bell": 2, "question": 1, "classroom": 1, "student": 1, "learn": 2, "subway": 2, "taxi": 1, "building": 2, "street": 1, "corner": 2, "hotel": 1, "room": 1, "floor": 2, "elevator": 2, "crowded": 2, "near": 1, "far": 2, "poke": 5, "lei": 5, "Aloha": 5, "Mahalo": 5, "burrito": 4, "freeway": 4, "awesome": 3, "dude": 5, "jackpot": 4, "buffet": 3, "outlet": 3, "mall": 3, "cactus": 4, "sunburn": 3, "mild": 3, "tailgate": 5, "touchdown": 4, "s'mores": 5, "brisket": 5, "Howdy": 5, "y'all": 5, "Tex-Mex": 5, "refill": 3, "ketchup": 2, "downtown": 3, "blizzard": 4, "crawfish": 5, "jazz": 3, "beignet": 5, "gumbo": 5, "hurricane": 3, "alligator": 4, "biscuit": 3, "cheesesteak": 5, "hoagie": 5, "pretzel": 4, "bodega": 5, "bagel": 3, "block": 3, "Broadway": 5, "sidewalk": 3, "mansion": 3, "chips": 2, "fries": 2, "soda": 2, "complaint": 3};
+const PSEUDO = ["plint", "mollen", "stribe", "fendle", "crandle", "brosh", "nallow", "quimble", "dorrick", "splorn", "tording", "glimmet", "wendom", "prockle", "flumber", "sabbet", "trinnet", "coddage", "blustain", "lorrent"];
+/* ===================== DRILL MODES ===================== */
+// Short add-on modes for after the daily battle (checked in simulation by the three agents):
+// they build quick recognition and reading speed, so they never replace the journey battles
+// and mostly leave the ★ alone.
+const WORD_BY = {};
+WORDS.forEach(w => { if(!WORD_BY[w.w.toLowerCase()]) WORD_BY[w.w.toLowerCase()] = w; });
+const today = () => new Date().toDateString();
+let DR = null;
+
+function drStart(mode){
+  const items = mode.build();
+  if(!items.length){ alert(mode.empty || 'まだ問題がありません。旅のバトルで単語に出会ってから来てね。'); return; }
+  DR = {mode, items, i:0, ok:0, times:[], log:[]};
+  $('#drSum').hidden = true; $('#drCard').hidden = false;
+  show('drill');
+  drNext();
+}
+function drPanels(){
+  $('#drPre').hidden = true; $('#drFb').hidden = true; $('#drNext').hidden = true;
+  $('#drOpts').innerHTML = ''; $('#drTimerBar').hidden = true;
+  clearTimeout(DR.timer); cancelAnimationFrame(DR.raf);
+}
+function drNext(){
+  if(DR.i >= DR.items.length){ drEnd(); return; }
+  drPanels();
+  const it = DR.items[DR.i];
+  $('#drProg').style.width = (DR.i / DR.items.length * 100) + '%';
+  $('#drCount').textContent = `${DR.i + 1} / ${DR.items.length}`;
+  $('#drLabel').textContent = DR.mode.label(it);
+  $('#drChip').textContent = DR.mode.chip ? DR.mode.chip(it) : '';
+  $('#drChip').hidden = !$('#drChip').textContent;
+  DR.t0 = performance.now();
+  DR.mode.show(it);
+  retrigger($('#drCard'), 'slide-in');
+}
+function drOptions(opts, answer, onPick){
+  const box = $('#drOpts'); box.innerHTML = '';
+  opts.forEach((o, k) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'btn dr-opt';
+    b.innerHTML = `<span class="key">${k + 1}</span><span>${esc(o)}</span>`;
+    b.addEventListener('click', () => {
+      if(DR.picked) return;
+      DR.picked = true;
+      [...box.children].forEach(x => x.disabled = true);
+      box.children[answer].classList.add('is-right');
+      if(k !== answer) b.classList.add('is-wrong');
+      onPick(k === answer, k);
+    });
+    box.appendChild(b);
+  });
+  DR.picked = false;
+  DR.optCount = opts.length;
+  DR.answer = answer;
+}
+function drTimerRun(ms, onEnd){
+  $('#drTimerBar').hidden = false;
+  const start = performance.now();
+  const tick = () => {
+    const left = Math.max(0, 1 - (performance.now() - start) / ms);
+    $('#drTimer').style.width = (left * 100) + '%';
+    if(left > 0) DR.raf = requestAnimationFrame(tick); else onEnd();
+  };
+  DR.raf = requestAnimationFrame(tick);
+}
+function drResult(ok, fbHtml, auto){
+  DR.ok += ok ? 1 : 0;
+  DR.log.push({it: DR.items[DR.i], ok});
+  play(ok ? 'hit' : 'miss');
+  if(fbHtml){ $('#drFb').innerHTML = fbHtml; $('#drFb').hidden = false; }
+  DR.i++;
+  if(auto){ DR.timer = setTimeout(drNext, ok ? 650 : 1400); return; }
+  $('#drNext').hidden = false;
+  $('#drNext').textContent = DR.i >= DR.items.length ? '結果を見る' : '次へ';
+  $('#drNext').focus({preventScroll:true});
+}
+function drEnd(){
+  drPanels();
+  $('#drProg').style.width = '100%';
+  const extra = DR.mode.finish ? DR.mode.finish() : '';
+  const gained = DR.mode.noScore ? 5 : 5 + DR.ok * 2;
+  const ups = giveExp(gained);
+  persist();
+  play('win');
+  $('#drCard').hidden = true;
+  $('#drSum').innerHTML = `<div class="win dr-sum">
+      <div class="result-title win-t">${esc(DR.mode.title)}</div>
+      ${DR.mode.noScore ? '' : `<div class="stats"><div><b class="num">${DR.ok}/${DR.items.length}</b><span>正解</span></div><div><b class="num">+${gained}</b><span>EXP</span></div></div>`}
+      ${extra}
+      ${ups ? `<b>レベルアップ！ Lv ${S.lv}</b>` : ''}
+    </div>
+    <div class="btn-row"><button class="btn primary" id="drAgain" type="button">もう1回</button><button class="btn" id="drHome" type="button">ホームへ</button></div>`;
+  $('#drSum').hidden = false;
+  $('#drAgain').addEventListener('click', () => { play('select'); drStart(DR.mode); });
+  $('#drHome').addEventListener('click', () => { DR = null; renderMap(); show('map'); });
+}
+$('#drNext').addEventListener('click', () => { if(DR) drNext(); });
+$('#drQuit').addEventListener('click', () => { if(DR){ drPanels(); DR = null; } renderMap(); show('map'); });
+$('#drPre').addEventListener('click', () => { if(DR && DR.onPre) DR.onPre(); });
+document.addEventListener('keydown', e => {
+  if($('#s-drill').hidden || !DR) return;
+  const k = e.key;
+  if(!$('#drPre').hidden && (k === ' ' || k === 'Enter')){ e.preventDefault(); DR.onPre(); return; }
+  if(/^[1-4]$/.test(k) && $('#drOpts').children[+k - 1] && !DR.picked){ e.preventDefault(); $('#drOpts').children[+k - 1].click(); return; }
+  if(!$('#drNext').hidden && (k === 'Enter' || k === ' ') && document.activeElement !== $('#drNext')){ e.preventDefault(); drNext(); }
+});
+// small SRS helpers for add-on modes: never raise ★, only bring a word back sooner
+function srsRecheck(w, minutes){
+  const p = S.words[w]; if(!p) return;
+  p.due = Math.min(p.due, Date.now() + minutes * 60e3);
+}
+const starOf = w => (S.words[w] ? S.words[w].s : -1);
+
+/* ----- 1. paraphrase battle ----- */
+const PARA_MODE = {
+  title:'言い換えバトル', label: it => it.relation === 'diff' ? '使い分け' : 'くらべてみよう',
+  build(){
+    S.paraSeen = S.paraSeen || {};
+    PARA_Q.forEach(q => { q.group = q.anchor; });
+    const recent = g => S.paraSeen[g] && Date.now() - S.paraSeen[g] < 3 * 864e5;
+    // anchor-based: the anchor should be a word you already know, the target is the one to learn
+    const score = q => (starOf(q.anchor) >= 3 ? 2 : starOf(q.anchor) >= 0 ? 1 : 0) + (starOf(q.target) < 3 ? 1 : 0);
+    const pool = shuffle(PARA_Q.filter(q => !recent(q.group || q.target))).sort((a, b) => score(b) - score(a));
+    const out = [], groups = new Set();
+    for(const q of pool){ const g = q.group || q.target; if(groups.has(g)) continue; groups.add(g); out.push(q); if(out.length >= 8) break; }
+    return out;
+  },
+  show(it){
+    $('#drPrompt').textContent = it.q_ja;
+    $('#drSub').textContent = '';
+    if(S.voice !== false && it.relation !== 'diff') say(it.target);
+    const order = shuffle(it.options.map((o, k) => k));
+    drOptions(order.map(k => it.options[k]), order.indexOf(it.answer), ok => {
+      S.paraSeen[it.group || it.target] = Date.now();
+      const w = WORD_BY[String(it.target).toLowerCase()];
+      if(w){ if(ok) srsRecheck(w.w, 7 * 24 * 60); else srsRecheck(w.w, 10); }
+      drResult(ok, `<div class="dr-fb-t">${ok ? '◎ 正解！' : '× こたえ：' + esc(it.options[it.answer])}</div>
+        ${it.nuance ? `<p class="trivia">💡 ${esc(it.nuance)}</p>` : ''}
+        ${it.example_en ? `<div class="ex">${esc(it.example_en)}</div><div class="exj">${esc(it.example_ja || '')}</div>` : ''}`);
+    });
+  }
+};
+/* ----- 2. learn from example sentences ----- */
+const CLOZE_MODE = {
+  title:'例文で覚える', label: () => '空いているところに入る単語は？',
+  build(){
+    // a separate track for words you already know (★3+), then words you've met
+    const st = c => starOf(c.app_word || c.w);
+    const known = CLOZE.filter(c => st(c) >= 3), met = CLOZE.filter(c => st(c) >= 0 && st(c) < 3), rest = CLOZE.filter(c => st(c) < 0);
+    return [...shuffle(known), ...shuffle(met), ...shuffle(rest)].slice(0, 8);
+  },
+  show(it){
+    $('#drPrompt').innerHTML = esc(it.sentence_with_blank).replace('___', '<span class="dr-blank">　　　</span>');
+    $('#drSub').textContent = 'まず頭に浮かべてから、選択肢を見よう';
+    $('#drPre').textContent = '選択肢を見る'; $('#drPre').hidden = false;
+    DR.onPre = () => {
+      $('#drPre').hidden = true; $('#drSub').textContent = '';
+      const opts = shuffle(it.options);
+      drOptions(opts, opts.indexOf(it.w), (ok, k) => {
+        if(!ok) srsRecheck(it.app_word || it.w, 10);
+        const why = !ok && it.distractors ? (it.distractors.find(d => d.word === opts[k]) || {}).why : '';
+        const full = esc(it.sentence_with_blank).replace('___', `<b class="hl">${esc(it.w)}</b>`);
+        drResult(ok, `<div class="dr-fb-t">${ok ? '◎ 正解！' : '× こたえ：' + esc(it.w)}</div>
+          <div class="ex">${full}</div><div class="exj">${esc(it.ja)}</div>
+          <p class="trivia">💡 ${esc(it.why)}${why ? '<br>✗ ' + esc(why) : ''}</p>`);
+        if(S.voice !== false) say(it.sentence_with_blank.replace('___', it.w));
+      });
+    };
+  }
+};
+/* ----- 3. speed reading: the same 10 short texts, 3 laps, less time each lap ----- */
+const SPEED_LAPS = [1, 0.75, 0.5];
+const SPEED_MODE = {
+  title:'スピード処理',
+  label: it => `${it.lap + 1}周目 ・ 読んだら「要するに何？」`,
+  chip: it => SPEED_LAPS[it.lap] === 1 ? 'ふつう' : SPEED_LAPS[it.lap] === 0.75 ? 'はやい' : 'もっとはやい',
+  build(){
+    S.speed = S.speed || {slow:1, best:0};
+    const set = shuffle(GIST).slice(0, 10);
+    const out = [];
+    SPEED_LAPS.forEach((f, lap) => shuffle(set).forEach(g => out.push({g, lap})));
+    DR_SPEED = {read:0, ms:0, lapOk:[0,0,0]};
+    return out;
+  },
+  show(it){
+    const g = it.g;
+    $('#drPrompt').innerHTML = `<span class="dr-text">${esc(g.text)}</span>`;
+    $('#drSub').textContent = '';
+    const ms = ((g.words || g.text.split(/\s+/).length) * 0.4 + 3) * 1000 * SPEED_LAPS[it.lap] * S.speed.slow;
+    const t0 = performance.now();
+    const ask = () => {
+      if(DR.asked) return; DR.asked = true;
+      cancelAnimationFrame(DR.raf); $('#drTimerBar').hidden = true; $('#drPre').hidden = true;
+      DR_SPEED.read++; DR_SPEED.ms += Math.max(800, performance.now() - t0);
+      $('#drPrompt').innerHTML = `<span class="dr-q">${esc(g.q_ja || '要するに何？')}</span>`;
+      drOptions(g.options, g.answer, (ok, k) => {
+        if(ok) DR_SPEED.lapOk[it.lap]++;
+        drResult(ok, ok ? '' : `<div class="dr-fb-t">× こたえ：${esc(g.options[g.answer])}</div>${k === g.trap ? '<p class="trivia">それは本文にあるけど、一番言いたいことではありません</p>' : ''}<div class="ex">${esc(g.text)}</div>`, true);
+      });
+    };
+    DR.asked = false;
+    $('#drPre').textContent = '読めた！'; $('#drPre').hidden = false;
+    DR.onPre = ask;
+    drTimerRun(ms, ask);
+  },
+  finish(){
+    const acc = DR.ok / DR.items.length;
+    const spm = DR_SPEED.read / (DR_SPEED.ms / 60000);
+    // keep accuracy around 80%: slow down next time if it dropped
+    S.speed.slow = acc < 0.8 ? Math.min(1.5, S.speed.slow * 1.15) : Math.max(0.7, S.speed.slow * 0.95);
+    const score = Math.round(spm * acc * 10) / 10;
+    const best = score > (S.speed.best || 0); if(best) S.speed.best = score;
+    return `<p>1分あたり <b>${spm.toFixed(1)}文</b> ・ 正答率 <b>${Math.round(acc * 100)}%</b><br>周ごとの正解：${DR_SPEED.lapOk.join(' → ')} / 10</p>
+      <p class="note">スコア ${score}${best ? '（自己ベスト！）' : '（ベスト ' + S.speed.best + '）'}${acc < 0.8 ? '。次回は少しゆっくりにします' : ''}</p>`;
+  }
+};
+let DR_SPEED = null;
+/* ----- 4. shiritori quick-press: see the English word, press "got it", then confirm the meaning ----- */
+// English → meaning is the direction this app trains; a miss only brings the word back sooner.
+const SHIRI_MODE = {
+  title:'しりとり早押し',
+  label: () => '意味が分かったら「分かった！」',
+  chip: () => { const g = shiriGhost(); return g ? `ゴースト ${(g / 1000).toFixed(1)}秒` : ''; },
+  build(){
+    const single = WORDS.filter(w => /^[a-z]+$/.test(w.w) && S.words[w.w]);
+    const pool = single.length >= 12 ? single : WORDS.filter(w => /^[a-z]+$/.test(w.w));
+    const now = Date.now();
+    const rank = w => { const p = S.words[w.w]; return !p ? 3 : (p.due <= now && p.s < 5) ? 0 : p.s >= 1 ? 1 : 2; };
+    const used = new Set(), out = [];
+    let prev = shuffle(pool).sort((a, b) => rank(a) - rank(b))[0];
+    for(let n = 0; n < 10 && prev; n++){
+      out.push(prev); used.add(prev.w);
+      const last = prev.w.slice(-1);
+      const cands = pool.filter(w => w.w[0] === last && !used.has(w.w));
+      prev = shuffle(cands).sort((a, b) => rank(a) - rank(b))[0] || shuffle(pool.filter(w => !used.has(w.w))).sort((a, b) => rank(a) - rank(b))[0];
+    }
+    return out;
+  },
+  show(w){
+    const k = DR.i;
+    const prev = k > 0 ? DR.items[k - 1].w : '';
+    $('#drPrompt').innerHTML = `<div class="dr-word"><b>${esc(w.w[0])}</b>${esc(w.w.slice(1))}</div>`;
+    $('#drSub').textContent = prev && prev.slice(-1) === w.w[0] ? `しりとり：${prev} → ${w.w}` : (prev ? `つぎの単語` : 'スタート！');
+    if(S.voice !== false) say(w.w);
+    $('#drPre').textContent = '分かった！'; $('#drPre').hidden = false;
+    DR.onPre = () => {
+      $('#drPre').hidden = true;
+      const ms = performance.now() - DR.t0;
+      const others = shuffle(WORDS.filter(x => x.w !== w.w && x.m !== w.m && x.c === w.c)).slice(0, 3).map(x => x.m);
+      while(others.length < 3){ const x = WORDS[Math.floor(Math.random() * WORDS.length)]; if(x.m !== w.m && !others.includes(x.m)) others.push(x.m); }
+      const opts = shuffle([w.m, ...others]);
+      drOptions(opts, opts.indexOf(w.m), ok => {
+        if(ok) DR.times.push(ms); else srsRecheck(w.w, 10);
+        const ghost = shiriGhost();
+        drResult(ok, `<div class="dr-fb-t">${ok ? `◎ ${(ms / 1000).toFixed(1)}秒${ghost && ms < ghost ? ' ゴーストに勝った！' : ''}` : '× ' + esc(w.w) + ' ＝ ' + esc(w.m)}</div>`, true);
+      });
+    };
+  },
+  finish(){
+    S.shiri = S.shiri || {times:[]};
+    const ghost = shiriGhost();
+    const med = DR.times.length ? [...DR.times].sort((a, b) => a - b)[Math.floor(DR.times.length / 2)] : 0;
+    S.shiri.times = [...S.shiri.times, ...DR.times].slice(-60);
+    return med ? `<p>反応の中央値 <b>${(med / 1000).toFixed(1)}秒</b>${ghost ? `（ゴースト ${(ghost / 1000).toFixed(1)}秒${med < ghost ? '・勝ち！' : ''}）` : ''}</p>` : '';
+  }
+};
+function shiriGhost(){
+  const t = (S.shiri && S.shiri.times) || [];
+  if(t.length < 5) return 0;
+  const s = [...t].sort((a, b) => a - b);
+  return s[Math.floor(s.length / 2)] * 0.9;  // your own median, 10% faster
+}
+window.startPara = () => drStart(PARA_MODE);
+window.startCloze = () => drStart(CLOZE_MODE);
+window.startSpeed = () => drStart(SPEED_MODE);
+window.startShiri = () => drStart(SHIRI_MODE);
+
+/* ----- 5. level check: adaptive yes/no with made-up words (linguist's procedure) ----- */
+// Words judged known get ★3 and come back once within 1–14 days, so battles skip what you already know.
+const PLACE_MODE = {
+  title:'レベル診断', noScore:true, label: () => PL && PL.confirm ? '確認：意味はどれ？' : 'この単語の意味、言える？',
+  chip: () => '',
+  build(){
+    PL = {b:2, ask:{}, yes:{}, real:0, pseudo:0, pyes:0, used:new Set(), yesWords:[], noWords:[], block:0, done:false};
+    return Array.from({length:40}, (_, k) => ({k}));  // placeholder slots; the real item is chosen as we go
+  },
+  show(slot){
+    const it = PL.confirm ? null : plPick();
+    if(!it){ plConfirm(); return; }
+    slot.it = it;
+    $('#drPrompt').innerHTML = `<div class="dr-word">${esc(it.w)}</div>`;
+    $('#drSub').textContent = '迷ったら「わからない」でOK。実在しない単語もまざっています';
+    $('#drCount').textContent = `${PL.real + PL.pseudo + 1}問目`;
+    const box = $('#drOpts'); box.innerHTML = '';
+    [['意味を言える', true], ['わからない', false]].forEach(([t, yes]) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'btn dr-opt ' + (yes ? 'yes' : '');
+      b.innerHTML = `<span class="key">${yes ? 1 : 2}</span><span>${t}</span>`;
+      b.addEventListener('click', () => { if(DR.picked) return; DR.picked = true; plAnswer(it, yes); });
+      box.appendChild(b);
+    });
+    DR.picked = false;
+  },
+  finish(){ return plFinish(); }
+};
+let PL = null;
+const BAND_WORDS = {};
+Object.entries(BANDS).forEach(([w, b]) => { if(WORD_BY[w.toLowerCase()]) (BAND_WORDS[b] = BAND_WORDS[b] || []).push(WORD_BY[w.toLowerCase()].w); });
+function plFalse(){ return (PL.pyes + 0.5) / (PL.pseudo + 1); }
+function plKnown(b){
+  const n = PL.ask[b] || 0; if(!n) return null;
+  const f = plFalse();
+  return Math.max(0, ((PL.yes[b] || 0) / n - f) / (1 - f));
+}
+function plPick(){
+  if(PL.real >= 30 || PL.done) return null;
+  if(PL.pseudo < 6 && (Math.random() < 0.2 || (PL.real >= 20 && PL.pseudo < 4))){
+    const w = shuffle(PSEUDO).find(x => !PL.used.has(x));
+    if(w){ PL.used.add(w); return {w, pseudo:true}; }
+  }
+  let b = PL.b;
+  const list = (BAND_WORDS[b] || []).filter(w => !PL.used.has(w));
+  if(!list.length) return null;
+  const w = shuffle(list)[0]; PL.used.add(w);
+  return {w, b};
+}
+function plAnswer(it, yes){
+  if(it.pseudo){ PL.pseudo++; if(yes) PL.pyes++; }
+  else {
+    PL.real++; PL.ask[it.b] = (PL.ask[it.b] || 0) + 1;
+    if(yes){ PL.yes[it.b] = (PL.yes[it.b] || 0) + 1; PL.yesWords.push(it.w); } else PL.noWords.push(it.w);
+    PL.block++;
+    if(PL.block >= 4){
+      PL.block = 0;
+      const k = plKnown(PL.b);
+      if(k >= 0.8 && PL.b < 5) PL.b++;
+      else if(k <= 0.4 && PL.b > 1) PL.b--;
+      else if((PL.ask[PL.b] || 0) >= 8) PL.b = k >= 0.6 && PL.b < 5 ? PL.b + 1 : Math.max(1, PL.b - 1);
+      // stop once the edge is found: a band known well next to a band known poorly
+      for(let b = 1; b < 5; b++){ const a = plKnown(b), c = plKnown(b + 1); if(a !== null && c !== null && a >= 0.8 && c <= 0.4 && PL.real >= 24) PL.done = true; }
+    }
+  }
+  DR.log.push({it, ok:yes});
+  DR.i++;
+  DR.timer = setTimeout(drNext, 120);
+}
+// check 3 of the "yes" words with a 4-choice question; 2+ misses means the yeses were optimistic
+function plConfirm(){
+  if(!PL.confirm){ PL.confirm = shuffle(PL.yesWords).slice(0, 3); PL.cWrong = 0; }
+  const w = PL.confirm.shift();
+  if(!w){ DR.items.length = DR.i; drEnd(); return; }
+  const word = WORD_BY[w.toLowerCase()];
+  $('#drLabel').textContent = '確認：意味はどれ？';
+  $('#drCount').textContent = '確認';
+  $('#drPrompt').innerHTML = `<div class="dr-word">${esc(word.w)}</div>`;
+  $('#drSub').textContent = '';
+  const others = shuffle(WORDS.filter(x => x.m !== word.m && x.c === word.c)).slice(0, 3).map(x => x.m);
+  while(others.length < 3){ const x = WORDS[Math.floor(Math.random() * WORDS.length)]; if(x.m !== word.m && !others.includes(x.m)) others.push(x.m); }
+  const opts = shuffle([word.m, ...others]);
+  drOptions(opts, opts.indexOf(word.m), ok => {
+    if(!ok) PL.cWrong++;
+    DR.i++;
+    DR.timer = setTimeout(drNext, ok ? 500 : 1200);
+  });
+}
+// one-parameter fit over all answers, so bands that were never asked still get an estimate
+function plTheta(){
+  const f = plFalse();
+  let best = 2, bestL = -1e9;
+  for(let th = 0; th <= 6.01; th += 0.1){
+    let L = 0;
+    for(let b = 1; b <= 5; b++){
+      const n = PL.ask[b] || 0; if(!n) continue;
+      const pk = 1 / (1 + Math.exp(-1.5 * (th - b)));
+      const py = Math.min(0.999, Math.max(0.001, pk + (1 - pk) * f));
+      const y = PL.yes[b] || 0;
+      L += y * Math.log(py) + (n - y) * Math.log(1 - py);
+    }
+    if(L > bestL){ bestL = L; best = th; }
+  }
+  return best;
+}
+function plFinish(){
+  const f = plFalse(), th = plTheta();
+  const label = th < 1.5 ? 'はじめから（中1レベル）' : th < 2.5 ? '中学レベル' : th < 3.5 ? '高校の入り口' : th < 4.5 ? '高校レベル' : 'アメリカ文化まで';
+  S.place = {label, date: Date.now(), theta: Math.round(th * 10) / 10};
+  if(f >= 0.4){
+    return `<p>スタート：<b>${label}</b></p><p class="note">実在しない単語にも「言える」が多かったので、今回は★を付けずにゆっくり始めます。</p>`;
+  }
+  let n = 0;
+  const now = Date.now();
+  const mark = w => {
+    if(S.words[w]) return;
+    S.words[w] = {s:3, due: now + (1 + Math.floor(Math.random() * 14)) * 864e5, n:0, ok:0, best:null};
+    n++;
+  };
+  const trust = PL.cWrong >= 2 ? 0.7 : 1;
+  for(let b = 1; b <= 5; b++){
+    const k = trust * (plKnown(b) !== null ? plKnown(b) * 0.5 + (1 / (1 + Math.exp(-1.5 * (th - b)))) * 0.5 : 1 / (1 + Math.exp(-1.5 * (th - b))));
+    if(k >= 0.85) (BAND_WORDS[b] || []).forEach(mark);
+  }
+  if(trust === 1) PL.yesWords.forEach(mark);
+  persist();
+  return `<p>スタート：<b>${label}</b></p><p class="note">知っていそうな ${n} 語は★3にして、1〜14日のうちに1回だけ確認で出します。そのぶん新しい単語に時間を使えます。</p>`;
+}
+window.startPlace = () => drStart(PLACE_MODE);
 
 /* ===================== BOOT ===================== */
 if(!S.v2){
