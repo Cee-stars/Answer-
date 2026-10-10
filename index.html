@@ -5456,6 +5456,8 @@ const PLACE_MODE = {
 let PL = null;
 const BAND_WORDS = {};
 Object.entries(BANDS).forEach(([w, b]) => { if(WORD_BY[w.toLowerCase()]) (BAND_WORDS[b] = BAND_WORDS[b] || []).push(WORD_BY[w.toLowerCase()].w); });
+// junior-high words carry their school grade: elementary/1st year → band 1, 2nd/3rd year → band 2
+WORDS.forEach(w => { if(w.g != null && !BANDS[w.w]) (BAND_WORDS[w.g <= 1 ? 1 : 2] = BAND_WORDS[w.g <= 1 ? 1 : 2] || []).push(w.w); });
 function plFalse(){ return (PL.pyes + 0.5) / (PL.pseudo + 1); }
 function plKnown(b){
   const n = PL.ask[b] || 0; if(!n) return null;
